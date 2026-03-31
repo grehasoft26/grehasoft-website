@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Clients from '@/components/Clients';
-import Services from '@/components/Services';
+import StickyScrollServices from '@/components/StickyScrollServices';
 import Awards from '@/components/Awards';
 import About from '@/components/About';
 import Portfolio from '@/components/Portfolio';
@@ -16,8 +16,9 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
+      
+      <StickyScrollServices />
       <Clients />
-      <Services />
       <Awards />
       <About />
       <Portfolio />
