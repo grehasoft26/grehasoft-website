@@ -28,6 +28,7 @@ const itemVariants = {
 export default function Services() {
   const [services, setServices] = useState<any[]>([]);
 
+  
   useEffect(() => {
     fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/our-services?_embed", {
       cache: "no-store",

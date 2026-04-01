@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import '../styles/globals.css';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -9,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Grehasoft | Modern IT Solutions',
+  title: 'Grehasoft | Modern IT Solutions & Digital Agency',
   description: 'Grehasoft is a leading IT company providing premium software solutions, digital marketing, and PMS products.',
   keywords: ['IT Company', 'Software Development', 'PMS', 'Digital Agency', 'Grehasoft'],
 };
@@ -20,9 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
-      <body className="antialiased font-sans overflow-x-hidden relative" suppressHydrationWarning>
+    <html lang="en" className={`${poppins.variable} scroll-smooth`}>
+      <body className="antialiased font-sans overflow-x-hidden">
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
