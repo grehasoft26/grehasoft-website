@@ -1,14 +1,14 @@
-import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
-import Footer from '@/components/Footer';
 import AboutSection from '@/components/About';
 import Awards from '@/components/Awards';
+import BrandStory from '@/components/BrandStory';
 import CTA from '@/components/CTA';
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
-      <Navbar />
       <PageHeader
         title="About Grehasoft"
         description="We are a team of passionate innovators dedicated to building digital experiences that drive growth and success for businesses worldwide."
@@ -40,8 +40,19 @@ export default function AboutPage() {
       </section>
       
       <Awards />
+      
+      <div className="container-custom pb-20">
+        <div className="flex justify-center">
+          <Link href="/about/awards" className="btn-primary inline-flex items-center gap-2 group">
+            View All Awards & Recognitions
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+      </div>
+
+      <BrandStory />
+      
       <CTA />
-      <Footer />
     </main>
   );
 }

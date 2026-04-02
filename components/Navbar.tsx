@@ -18,10 +18,17 @@ import {
   CreditCard,
   Search,
   Target,
-  Share2
+  Share2,
+  Trophy,
+  BookOpen
 } from 'lucide-react';
 
 const iconMap: any = {
+  // About
+  "book-open": BookOpen,     // Our Story
+  "trophy": Trophy,          // Awards
+
+  // Services
   monitor: Monitor,
   code: Code,
   globe: Globe,
@@ -59,13 +66,22 @@ export default function Navbar() {
     }));
   };
 
-  // Fix URL issue
+  // Fix URL issue and map WP routes to local routes
   const getPath = (url: string) => {
     if (!url) return "#";
+    
+    let path = url;
     if (url.startsWith("http")) {
-      return new URL(url).pathname;
+      path = new URL(url).pathname;
     }
-    return url;
+    
+    // Map WordPress menu URLs to our local Next.js structure
+    // remove trailing slash for comparison
+    const cleanPath = path.replace(/\/$/, "");
+    if (cleanPath === '/about/our-story') return '/about/brand-story';
+    if (cleanPath === '/about/award-recognitions' || cleanPath === '/about/awards-recognitions') return '/about/awards';
+    
+    return path;
   };
 
   useEffect(() => {
@@ -114,7 +130,12 @@ export default function Navbar() {
 
               {/* Dropdown */}
               {getSubMenu(item.id).length > 0 && (
-                <div className="absolute top-full left-0 pt-4 hidden group-hover:block w-80">
+                <div
+  className={cn(
+    "absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block",
+    item.title === "Services" ? "w-80" : "w-56"
+  )}
+>
                   <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 py-3 flex flex-col">
 
                     {getSubMenu(item.id).map((sub) => {
@@ -125,7 +146,7 @@ export default function Navbar() {
                         <div key={sub.id} className="relative group/sub">
                           <Link
                             href={getPath(sub.url)}
-                            className="px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-all flex items-center justify-between rounded-lg"
+                            className="px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary transition-all flex items-center justify-between rounded-lg"
                           >
                             <div className="flex items-center gap-3">
                               {Icon && <Icon className="w-5 h-5 text-primary" />}
