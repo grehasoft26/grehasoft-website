@@ -9,7 +9,8 @@ type Slide = {
   title: string;
   video: string;
   thumbnail: string;
-   label: string;  
+  label: string;  
+  description: string; // ADD THIS
 };
 
 export default function Hero() {
@@ -31,7 +32,8 @@ useEffect(() => {
         title: post.acf?.slide_title || "",
         video: post.acf?.slide_video || "",
         thumbnail: post.acf?.slide_thumbnail || "",
-        label: post.acf?.slide_label || ""
+        label: post.acf?.slide_label || "",
+        description: post.acf?.slide_description || ""
       }));
 
       setSlides(slidesData);
@@ -138,13 +140,20 @@ if (!slides.length) {
             {slides[currentIndex]?.title}
           </h1>
 
-          <p className="text-white/70 mb-10 max-w-lg uppercase">
-            Grehasoft delivers premium software solutions and digital transformation strategies tailored to your vision.
-          </p>
+         <p className="text-white/70 mb-10 max-w-lg uppercase">
+  {slides[currentIndex]?.description}
+</p>
 
-          <Link href="/services" className="flex items-center gap-3 uppercase tracking-widest text-sm">
-            Explore Services <ArrowRight className="w-4 h-4" />
-          </Link>
+         <Link href="/services" className="group inline-flex items-center gap-3 uppercase tracking-[0.3em] text-sm text-white transition duration-300">
+  
+  <span className="relative pb-1 transition duration-300 group-hover:text-green-400">
+    Explore Services
+    <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white/40 transition duration-300 group-hover:bg-green-400"></span>
+  </span>
+
+  <ArrowRight className="w-4 h-4 transition duration-300 group-hover:text-green-400 group-hover:translate-x-1" />
+
+</Link>
         </motion.div>
       </div>
 
