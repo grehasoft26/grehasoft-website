@@ -9,6 +9,7 @@ type Slide = {
   title: string;
   video: string;
   thumbnail: string;
+   label: string;  
 };
 
 export default function Hero() {
@@ -21,19 +22,25 @@ export default function Hero() {
   // Fetch slides + media URLs
  // Fetch slides + media URLs
 useEffect(() => {
-  fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/hero-slide")
-    .then(res => res.json())
-    .then((data) => {
-      const slides = data.map((post: any) => ({
+  const fetchSlides = async () => {
+    try {
+      const res = await fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/hero-slide");
+      const data = await res.json();
+
+      const slidesData = data.map((post: any) => ({
         title: post.acf?.slide_title || "",
         video: post.acf?.slide_video || "",
-        thumbnail: post.acf?.slide_thumbnail || ""
+        thumbnail: post.acf?.slide_thumbnail || "",
+        label: post.acf?.slide_label || ""
       }));
 
-      console.log("Slides:", slides);
-      setSlides(slides);
-    })
-    .catch(err => console.log("Fetch error:", err));
+      setSlides(slidesData);
+    } catch (error) {
+      console.log("Error loading slides:", error);
+    }
+  };
+
+  fetchSlides();
 }, []);
 
   // Mobile check
@@ -61,7 +68,17 @@ useEffect(() => {
     return () => clearInterval(interval);
   }, [slides]);
 
-  if (!slides.length) return null;
+if (!slides.length) {
+  return (
+    <section className="relative min-h-screen w-full bg-dark flex items-center">
+      <div className="container-custom text-white px-4">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase">
+          Grehasoft
+        </h1>
+      </div>
+    </section>
+  );
+}
 
   return (
     <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-dark">
@@ -83,6 +100,7 @@ useEffect(() => {
                 muted={isMuted}
                 playsInline
                 loop
+                poster={slides[currentIndex]?.thumbnail}   // ADD THIS LINE
                 className="w-full h-full object-cover"
               >
                 <source src={slides[currentIndex].video} type="video/mp4" />
@@ -110,6 +128,12 @@ useEffect(() => {
           transition={{ duration: 0.8 }}
           className="max-w-2xl"
         >
+          <div className="inline-flex items-center gap-2 px-4 py-1 mb-6 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
+          <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+          <span className="text-xs tracking-widest uppercase text-white/80">
+          {slides[currentIndex]?.label}
+           </span>
+           </div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase text-white">
             {slides[currentIndex]?.title}
           </h1>
