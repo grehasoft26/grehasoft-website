@@ -2,295 +2,310 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Monitor, Code, Globe, ShoppingBag, Megaphone, Cpu, Palette, PenTool, CreditCard, Search, Target, Share2 } from 'lucide-react';
-const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-   { 
-    name: 'Services', 
-    href: '/services',
-    subItems: [
-      { name: 'Website Design', href: '/services/website-design', icon: <Monitor className="w-4 h-4" /> },
-      { name: 'Website Development', href: '/services/website-development', icon: <Code className="w-4 h-4" /> },
-      { name: 'WordPress Websites', href: '/services/wordpress-websites', icon: <Globe className="w-4 h-4" /> },
-      { name: 'E-Commerce Websites', href: '/services/ecommerce-websites', icon: <ShoppingBag className="w-4 h-4" /> },
-      { 
-        name: 'Digital Marketing', 
-        href: '/services/digital-marketing', 
-        icon: <Megaphone className="w-4 h-4" />,
-        subItems: [
-          { name: 'SEO', href: '/services/digital-marketing/seo', icon: <Search className="w-4 h-4" /> },
-          { name: 'SEM', href: '/services/digital-marketing/sem', icon: <Target className="w-4 h-4" /> },
-          { name: 'SMM', href: '/services/digital-marketing/smm', icon: <Share2 className="w-4 h-4" /> }
-        ]
-      },
-      { name: 'Software Programming', href: '/services/software-programming', icon: <Cpu className="w-4 h-4" /> },
-      { name: 'Graphic Design', href: '/services/graphic-design', icon: <Palette className="w-4 h-4" /> },
-      { name: 'Logo Design', href: '/services/logo-design', icon: <PenTool className="w-4 h-4" /> },
-      { name: 'Visiting Cards & Letter Heads', href: '/services/visiting-cards-letter-heads', icon: <CreditCard className="w-4 h-4" /> },
-    ]
-  },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Products', href: '/products' },
-  { name: 'Careers', href: '/careers' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
-];
 
-function NestedMobileMenuItem({ subItem, setIsMobileMenuOpen }: { subItem: any, setIsMobileMenuOpen: (val: boolean) => void }) {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div className="flex flex-col gap-1">
-      <div className="flex items-center justify-between">
-        <Link 
-          href={subItem.href} 
-          className="flex items-center gap-3 text-sm text-gray-600 hover:text-primary transition-colors py-1.5"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          {subItem.icon && <span className="text-primary">{subItem.icon}</span>}
-          {subItem.name}
-        </Link>
-        <button 
-          onClick={() => setIsOpen(!isOpen)} 
-          className="p-1 text-gray-500 hover:text-primary transition-colors"
-        >
-          <ChevronDown className={cn("w-4 h-4 transition-transform", isOpen && "rotate-180")} />
-        </button>
-      </div>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden flex flex-col gap-2 pl-8 border-l border-gray-100 ml-2 mt-1 mb-2"
-          >
-            {subItem.subItems.map((nested: any) => (
-              <Link
-                key={nested.name}
-                href={nested.href}
-                className="flex items-center gap-3 text-sm text-gray-500 hover:text-primary transition-colors py-1.5"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {nested.icon && <span className="text-primary">{nested.icon}</span>}
-                {nested.name}
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
+import {
+  Monitor,
+  Code,
+  Globe,
+  ShoppingBag,
+  Megaphone,
+  Cpu,
+  Palette,
+  PenTool,
+  CreditCard,
+  Search,
+  Target,
+  Share2
+} from 'lucide-react';
 
-function MobileMenuItem({ link, setIsMobileMenuOpen }: { link: any, setIsMobileMenuOpen: (val: boolean) => void }) {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <Link 
-          href={link.href} 
-          className="text-lg font-medium text-dark hover:text-primary transition-colors"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          {link.name}
-        </Link>
-        <button 
-          onClick={() => setIsOpen(!isOpen)} 
-          className="p-1 text-dark hover:text-primary transition-colors"
-        >
-          <ChevronDown className={cn("w-5 h-5 transition-transform", isOpen && "rotate-180")} />
-        </button>
-      </div>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden flex flex-col gap-3 pl-4 pt-2"
-          >
-            {link.subItems.map((subItem: any) => (
-              <div key={subItem.name}>
-                {subItem.subItems ? (
-                  <NestedMobileMenuItem subItem={subItem} setIsMobileMenuOpen={setIsMobileMenuOpen} />
-                ) : (
-                  <Link
-                    href={subItem.href}
-                    className="flex items-center gap-3 text-sm text-gray-600 hover:text-primary transition-colors py-1.5"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {subItem.icon && <span className="text-primary">{subItem.icon}</span>}
-                    {subItem.name}
-                  </Link>
-                )}
-              </div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
+const iconMap: any = {
+  monitor: Monitor,
+  code: Code,
+  globe: Globe,
+  "shopping-bag": ShoppingBag,
+  megaphone: Megaphone,
+  cpu: Cpu,
+  palette: Palette,
+  "pen-tool": PenTool,
+  "credit-card": CreditCard,
+  search: Search,
+  target: Target,
+  "share-2": Share2,
+};
 
 export default function Navbar() {
+  const [menu, setMenu] = useState<any[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Mobile dropdown states
+  const [openMenu, setOpenMenu] = useState<any>({});
+  const [openSubMenu, setOpenSubMenu] = useState<any>({});
+
+  const toggleMenu = (id: any) => {
+    setOpenMenu((prev: any) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  const toggleSubMenu = (id: any) => {
+    setOpenSubMenu((prev: any) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  // Fix URL issue
+  const getPath = (url: string) => {
+    if (!url) return "#";
+    if (url.startsWith("http")) {
+      return new URL(url).pathname;
+    }
+    return url;
+  };
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu")
+      .then(res => res.json())
+      .then(data => setMenu(data));
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const mainMenu = menu.filter(item => item.parent == 0);
+  const getSubMenu = (id: any) => menu.filter(item => item.parent == id);
+
   return (
-    <nav
-      className={cn(
-        'fixed top-0 left-0 w-full z-50 transition-all duration-300',
-        isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
-      )}
-    >
+    <nav className={cn(
+      'fixed top-0 left-0 w-full z-50 transition-all duration-300',
+      isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
+    )}>
       <div className="container-custom flex items-center justify-between">
+
         {/* Logo */}
-        {/* Logo */}
-<Link href="/" className="flex items-center gap-2 group">
-  <img
-    src="/images/logo.png"
-    alt="Grehasoft"
-    className="h-10 w-auto transition-all duration-300"
-  />
-</Link>
-       {/* <Link href="/" className="flex items-center gap-2 group">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform shadow-lg shadow-primary/20">
-              <span className="text-white font-bold text-xl">G</span>
-            </div>
-            <span className={cn(
-              'text-2xl font-bold tracking-tight transition-colors',
-              isScrolled ? 'text-dark' : 'text-white'
-            )}>
-              Greha<span className="text-accent">soft</span>
-            </span>
-          </div>
-        </Link>*/}
+        <Link href="/" className="flex items-center gap-2">
+          <img src="/images/logo.png" alt="Grehasoft" className="h-10" />
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <div key={link.name} className="relative group">
+          {mainMenu.map((item) => (
+            <div key={item.id} className="relative group">
               <Link
-                href={link.href}
+                href={getPath(item.url)}
                 className={cn(
                   'text-sm font-medium transition-colors hover:text-accent flex items-center gap-1',
                   isScrolled ? 'text-dark' : 'text-white'
                 )}
               >
-                {link.name}
-                {link.subItems && (
-                  <ChevronDown className="w-4 h-4 transition-transform group-hover:-rotate-180 duration-300" />
+                {item.title}
+                {getSubMenu(item.id).length > 0 && (
+                  <ChevronDown className="w-4 h-4 group-hover:-rotate-180 transition" />
                 )}
               </Link>
 
-              {link.subItems && (
-                <div className="absolute top-full left-0 pt-4 hidden group-hover:block w-72">
-                  <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-3 flex flex-col">
-                    {link.subItems.map((subItem) => (
-                      <div key={subItem.name} className="relative group/sub">
-                        <Link
-                          href={subItem.href}
-                          className="px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors flex items-center justify-between"
-                        >
-                          <div className="flex items-center gap-3">
-                            {subItem.icon && <span className="text-primary/70">{subItem.icon}</span>}
-                            {subItem.name}
-                          </div>
-                          {subItem.subItems && (
-                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover/sub:text-primary transition-colors" />
-                          )}
-                        </Link>
-                        
-                        {subItem.subItems && (
-                          <div className="absolute top-0 left-full pl-2 hidden group-hover/sub:block w-48">
-                            <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-2 flex flex-col">
-                              {subItem.subItems.map((nested: any) => (
-                                <Link
-                                  key={nested.name}
-                                  href={nested.href}
-                                  className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors flex items-center gap-3"
-                                >
-                                  {nested.icon && <span className="text-primary/70">{nested.icon}</span>}
-                                  {nested.name}
-                                </Link>
-                              ))}
+              {/* Dropdown */}
+              {getSubMenu(item.id).length > 0 && (
+                <div className="absolute top-full left-0 pt-4 hidden group-hover:block w-80">
+                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 py-3 flex flex-col">
+
+                    {getSubMenu(item.id).map((sub) => {
+                      const Icon = iconMap[sub.icon];
+                      const nested = getSubMenu(sub.id);
+
+                      return (
+                        <div key={sub.id} className="relative group/sub">
+                          <Link
+                            href={getPath(sub.url)}
+                            className="px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-all flex items-center justify-between rounded-lg"
+                          >
+                            <div className="flex items-center gap-3">
+                              {Icon && <Icon className="w-5 h-5 text-primary" />}
+                              {sub.title}
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
+
+                            {nested.length > 0 && (
+                              <ChevronRight className="w-4 h-4 text-gray-400 group-hover/sub:text-primary" />
+                            )}
+                          </Link>
+
+                          {/* Nested submenu */}
+                          {nested.length > 0 && (
+                            <div className="absolute top-0 left-full pl-3 hidden group-hover/sub:block w-56">
+                              <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 flex flex-col">
+                                {nested.map((child) => {
+                                  const ChildIcon = iconMap[child.icon];
+                                  return (
+                                    <Link
+                                      key={child.id}
+                                      href={getPath(child.url)}
+                                      className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors flex items-center gap-3 rounded-lg"
+                                    >
+                                      {ChildIcon && <ChildIcon className="w-4 h-4 text-primary" />}
+                                      {child.title}
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
+
+                        </div>
+                      );
+                    })}
+
                   </div>
                 </div>
               )}
             </div>
           ))}
+
           <Link href="/contact" className="btn-primary py-2 px-6 text-sm">
             Get Started
           </Link>
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="lg:hidden p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? (
-            <X className={isScrolled ? 'text-dark' : 'text-white'} />
-          ) : (
-            <Menu className={isScrolled ? 'text-dark' : 'text-white'} />
-          )}
+{!isMobileMenuOpen && (
+  <button
+    className="lg:hidden p-2 z-[100]"
+    onClick={() => setIsMobileMenuOpen(true)}
+  >
+    <Menu className={isScrolled ? "text-dark w-7 h-7" : "text-white w-7 h-7"} />
+  </button>
+)}
+      </div>
+
+     {/* Mobile Menu Fullscreen */}
+<AnimatePresence>
+  {isMobileMenuOpen && (
+    <motion.div
+      initial={{ opacity: 0, x: "100%" }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: "100%" }}
+      transition={{ duration: 0.3 }}
+      className="fixed top-0 right-0 w-full h-screen bg-white z-50 overflow-y-auto"
+    >
+      {/* Top Bar */}
+      <div className="flex items-center justify-between px-6 py-5 ">
+        <img src="/images/logo.png" className="h-10" />
+        <button onClick={() => setIsMobileMenuOpen(false)}>
+          <X className="w-7 h-7 text-dark" />
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white overflow-hidden shadow-xl"
-          >
-            <div className="container-custom py-8 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <div key={link.name}>
-                  {link.subItems ? (
-                    <MobileMenuItem link={link} setIsMobileMenuOpen={setIsMobileMenuOpen} />
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="text-lg font-medium text-dark hover:text-primary transition-colors block"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
+      {/* Menu Items */}
+      <div className="flex flex-col px-6 py-4">
+
+        {mainMenu.map((item) => {
+          const subMenu = getSubMenu(item.id);
+
+          return (
+            <div key={item.id} className=" py-3">
+              
+              {/* Main Menu */}
+              <div className="flex justify-between items-center">
+                <Link
+                  href={getPath(item.url)}
+                 className="text-lg font-semibold text-dark hover:text-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.title}
+                </Link>
+
+                {subMenu.length > 0 && (
+                  <button onClick={() => toggleMenu(item.id)}>
+                    <ChevronDown
+                      className={`w-5 h-5 transition ${
+                        openMenu[item.id] ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                )}
+              </div>
+
+              {/* Submenu */}
+              {openMenu[item.id] && (
+                <div className="pl-4 mt-3 flex flex-col gap-3">
+                  {subMenu.map((sub) => {
+                    const Icon = iconMap[sub.icon];
+                    const nested = getSubMenu(sub.id);
+
+                    return (
+                      <div key={sub.id}>
+                        <div className="flex justify-between items-center">
+                          <Link
+                            href={getPath(sub.url)}
+                            className="flex items-center gap-3 text-gray-600"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {Icon && (
+                              <Icon className="w-4 h-4 text-primary" />
+                            )}
+                            {sub.title}
+                          </Link>
+
+                          {nested.length > 0 && (
+                            <button onClick={() => toggleSubMenu(sub.id)}>
+                              <ChevronDown
+                                className={`w-4 h-4 transition ${
+                                  openSubMenu[sub.id] ? "rotate-180" : ""
+                                }`}
+                              />
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Nested submenu */}
+                        {openSubMenu[sub.id] && (
+                          <div className="pl-6 mt-2 flex flex-col gap-2">
+                            {nested.map((child) => {
+                              const ChildIcon = iconMap[child.icon];
+                              return (
+                                <Link
+                                  key={child.id}
+                                  href={getPath(child.url)}
+                                  className="flex items-center gap-2 text-gray-500"
+                                  onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                  {ChildIcon && (
+                                    <ChildIcon className="w-4 h-4 text-primary" />
+                                  )}
+                                  {child.title}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-              <Link
-                href="/contact"
-                className="btn-primary w-full mt-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Get Started
-              </Link>
+              )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          );
+        })}
+
+        {/* Button */}
+        <Link
+          href="/contact"
+          className="btn-primary w-full mt-6 text-center"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Get Started
+        </Link>
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </nav>
   );
 }
