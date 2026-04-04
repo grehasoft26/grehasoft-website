@@ -5,7 +5,7 @@ import BrandStory from '@/components/BrandStory';
 import CTA from '@/components/CTA';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
-
+import Footer from '@/components/Footer';
 export default function AboutPage() {
   return (
     <main className="min-h-screen">
@@ -53,6 +53,7 @@ export default function AboutPage() {
       <BrandStory />
       
       <CTA />
+      <Footer/>
     </main>
   );
 }

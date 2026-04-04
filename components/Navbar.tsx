@@ -20,7 +20,8 @@ import {
   Target,
   Share2,
   Trophy,
-  BookOpen
+  BookOpen,
+  RefreshCw
 } from 'lucide-react';
 
 const iconMap: any = {
@@ -30,6 +31,7 @@ const iconMap: any = {
 
   // Services
   monitor: Monitor,
+  RefreshCw: RefreshCw,
   code: Code,
   globe: Globe,
   "shopping-bag": ShoppingBag,

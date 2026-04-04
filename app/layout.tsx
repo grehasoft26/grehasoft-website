@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className="antialiased font-sans overflow-x-hidden" suppressHydrationWarning>
         <Navbar />
         {children}
-        <Footer />
+        
       </body>
     </html>
   );

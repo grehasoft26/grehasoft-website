@@ -1,27 +1,27 @@
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
-import { Settings, Layout, Zap, Lock } from 'lucide-react';
+import { Code2, Server, Workflow, Lock } from 'lucide-react';
 
-export default function WordPressWebsitesPage() {
+export default function CustomDevelopmentPage() {
   const features = [
     {
-      title: 'Custom Themes',
-      description: 'Unique designs that stand out from the crowd and reflect your brand identity.',
-      icon: <Layout className="w-8 h-8 text-primary" />,
+      title: 'Bespoke Architecture',
+      description: 'Built exclusively for your unique processes seamlessly integrating with existing tools.',
+      icon: <Workflow className="w-8 h-8 text-primary" />,
     },
     {
-      title: 'Plugin Integration',
-      description: 'Enhance your website with powerful features and functionalities.',
-      icon: <Settings className="w-8 h-8 text-primary" />,
+      title: 'Modern Tech Stack',
+      description: 'Utilizing Next.js, React, Node.js, and other modern frameworks for optimal performance.',
+      icon: <Code2 className="w-8 h-8 text-primary" />,
     },
     {
-      title: 'Fast Performance',
-      description: 'Optimized WordPress sites that load quickly and provide a great user experience.',
-      icon: <Zap className="w-8 h-8 text-primary" />,
+      title: 'Highly Scalable',
+      description: 'Designed to handle increased traffic and data effortlessly as you grow.',
+      icon: <Server className="w-8 h-8 text-primary" />,
     },
     {
-      title: 'Enhanced Security',
-      description: 'Robust security measures to protect your WordPress site from threats.',
+      title: 'Enterprise Security',
+      description: 'Strict security protocols and secure coding practices to protect sensitive data.',
       icon: <Lock className="w-8 h-8 text-primary" />,
     },
   ];
@@ -29,11 +29,12 @@ export default function WordPressWebsitesPage() {
   return (
     <main>
       <PageHeader
-        title="WordPress Websites"
-        description="We build flexible, easy-to-manage, and powerful WordPress websites for businesses of all sizes."
+        title="Custom Website Development"
+        description="Tailor-made web applications designed and engineered for complex business requirements."
         breadcrumb={[
           { name: 'Services', href: '/services' },
-          { name: 'WordPress Websites', href: '/services/wordpress-websites' },
+          { name: 'Website Development', href: '/website-development' },
+          { name: 'Custom Websites', href: '/custom-development' },
         ]}
       />
 
@@ -42,13 +43,13 @@ export default function WordPressWebsitesPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-dark mb-6">
-                Expert WordPress Development Services
+                Engineered for Your Unique Success
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                WordPress is the world's most popular content management system (CMS), and for good reason. It's flexible, easy to use, and highly customizable.
+                Off-the-shelf solutions don't always cut it. When your business has specific, complex workflows, custom web development is the right path. We build bespoke applications from the ground up, fitting perfectly into your operational needs.
               </p>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Our WordPress experts can help you build anything from a simple blog to a complex e-commerce store. We focus on creating clean, efficient, and user-friendly WordPress sites that are easy for you to manage.
+                Our full-stack development team handles everything from API integrations to sophisticated backend dashboards, ensuring your digital infrastructure is solid, scalable, and completely yours.
               </p>
               <div className="grid sm:grid-cols-2 gap-6">
                 {features.map((feature, index) => (
@@ -67,8 +68,8 @@ export default function WordPressWebsitesPage() {
             <div className="relative">
               <div className="aspect-square bg-gray-100 rounded-[3rem] overflow-hidden">
                 <img
-                  src="https://picsum.photos/seed/wordpress/800/800"
-                  alt="WordPress Websites"
+                  src="https://picsum.photos/seed/customdev/800/800"
+                  alt="Custom Website Development"
                   className="w-full h-full object-cover"
                 />
               </div>
