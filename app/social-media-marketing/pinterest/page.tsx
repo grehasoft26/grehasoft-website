@@ -1,6 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
-import { ShoppingCart, ImageIcon, PanelTop, MousePointerSquare } from 'lucide-react';
+import { ShoppingCart, ImageIcon, PanelTop, MousePointer } from 'lucide-react';
 
 export default function PinterestMarketingPage() {
   const features = [
@@ -22,7 +22,7 @@ export default function PinterestMarketingPage() {
     {
       title: 'Remarketing',
       description: 'Capture users who previously engaged with your Pins, turning heavy interest into sales.',
-      icon: <MousePointerSquare className="w-8 h-8 text-primary" />,
+      icon: <MousePointer className="w-8 h-8 text-primary" />,
     },
   ];
 
