@@ -1,35 +1,12 @@
 'use client';
-
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
 import {
-  Monitor,
-  Code,
-  Globe,
-  ShoppingBag,
-  Megaphone,
-  Cpu,
-  Palette,
-  PenTool,
-  CreditCard,
-  Search,
-  Target,
-  Share2,
-  Trophy,
-  BookOpen,
-  RefreshCw
+  Monitor, Code,  ShoppingBag, Megaphone, Cpu, Palette,
+  PenTool, CreditCard, Search, Target, Share2,  BookOpen, RefreshCw
 } from 'lucide-react';
 
 const iconMap: any = {
-  // About
-  "book-open": BookOpen,     // Our Story
-  "trophy": Trophy,          // Awards
-
-  // Services
+  "book-open": BookOpen,
+  "trophy": Trophy,
   monitor: Monitor,
   RefreshCw: RefreshCw,
   code: Code,
@@ -44,13 +21,20 @@ const iconMap: any = {
   target: Target,
   "share-2": Share2,
 };
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'motion/react';
+import { Menu, X, ChevronDown, Trophy, Globe, ArrowUpRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import ExplodingImage from './ExplodingImage';
 
+/* -------------------- NAVBAR -------------------- */
 export default function Navbar() {
   const [menu, setMenu] = useState<any[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Mobile dropdown states
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    // Mobile dropdown states
   const [openMenu, setOpenMenu] = useState<any>({});
   const [openSubMenu, setOpenSubMenu] = useState<any>({});
 
@@ -68,38 +52,30 @@ export default function Navbar() {
     }));
   };
 
-  // Fix URL issue and map WP routes to local routes
-  const getPath = (url: string) => {
-    if (!url) return "#";
-    
-    let path = url;
-    if (url.startsWith("http")) {
-      path = new URL(url).pathname;
-    }
-    
-    // Map WordPress menu URLs to our local Next.js structure
-    // remove trailing slash for comparison
-    const cleanPath = path.replace(/\/$/, "");
-    if (cleanPath === '/about/our-story') return '/about/brand-story';
-    if (cleanPath === '/about/award-recognitions' || cleanPath === '/about/awards-recognitions') return '/about/awards';
-    
-    return path;
-  };
-
+  // Fetch WordPress Menu
   useEffect(() => {
     fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu")
       .then(res => res.json())
       .then(data => setMenu(data));
   }, []);
 
+  // Scroll Effect
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Menu helpers
   const mainMenu = menu.filter(item => item.parent == 0);
   const getSubMenu = (id: any) => menu.filter(item => item.parent == id);
+
+  // Fix WP URL → Next.js URL
+  const getPath = (url: string) => {
+    if (!url) return "#";
+    if (url.startsWith("http")) return new URL(url).pathname;
+    return url;
+  };
 
   return (
     <nav className={cn(
@@ -110,93 +86,150 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <img src="/images/logo.png" alt="Grehasoft" className="h-10" />
+          <img src="/images/logo.png" className="h-10" />
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
-          {mainMenu.map((item) => (
-            <div key={item.id} className="relative group">
-              <Link
-                href={getPath(item.url)}
-                className={cn(
-                  'text-sm font-medium transition-colors hover:text-accent flex items-center gap-1',
-                  isScrolled ? 'text-dark' : 'text-white'
-                )}
+          {mainMenu.map((item) => {
+            const subMenu = getSubMenu(item.id);
+
+            return (
+              <div
+                key={item.id}
+                className="relative group"
+                onMouseEnter={() => (subMenu.length > 0 || item.title === "Services") && setActiveDropdown(item.title)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                {item.title}
-                {getSubMenu(item.id).length > 0 && (
-                  <ChevronDown className="w-4 h-4 group-hover:-rotate-180 transition" />
-                )}
-              </Link>
+                <Link
+                  href={getPath(item.url)}
+                  className={cn(
+                    'text-sm font-medium transition-colors hover:text-accent flex items-center gap-1 py-2',
+                    isScrolled ? 'text-dark' : 'text-white'
+                  )}
+                >
+                  {item.title}
+                  {(subMenu.length > 0 || item.title === "Services") && (
+                    <ChevronDown className="w-4 h-4" />
+                  )}
+                </Link>
 
-              {/* Dropdown */}
-              {getSubMenu(item.id).length > 0 && (
-                <div
-  className={cn(
-    "absolute top-full left-1/2 -translate-x-1/2 pt-4 hidden group-hover:block",
-    item.title === "Services" ? "w-80" : "w-56"
-  )}
->
-                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 py-3 flex flex-col">
+                {/* ABOUT DROPDOWN */}
+                <AnimatePresence>
+                  {activeDropdown === item.title && subMenu.length > 0 && item.title !== "Services" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg border-t-2 border-primary"
+                    >
+                      {subMenu.map((sub) => (
+                        <Link
+                          key={sub.id}
+                          href={getPath(sub.url)}
+                          className="px-6 py-3 text-sm text-dark hover:bg-gray-50 hover:text-primary block"
+                        >
+                          {sub.title}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                    {getSubMenu(item.id).map((sub) => {
-                      const Icon = iconMap[sub.icon];
-                      const nested = getSubMenu(sub.id);
+                {/* SERVICES MEGA MENU */}
+                <AnimatePresence>
+                  {activeDropdown === "Services" && item.title === "Services" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 w-[90vw] max-w-7xl bg-white shadow-2xl rounded-b-2xl overflow-hidden border-t-4 border-primary"
+                    >
+                      <div className="flex">
+                        {/* LEFT */}
+                       {/* LEFT CONTENT - Dynamic from WordPress */}
+<div className="flex-1 p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+  {getSubMenu(
+    mainMenu.find((m) => m.title === "Services")?.id
+  ).map((column) => {
+    const columnLinks = getSubMenu(column.id);
+    
 
-                      return (
-                        <div key={sub.id} className="relative group/sub">
-                          <Link
-                            href={getPath(sub.url)}
-                            className="px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-primary transition-all flex items-center justify-between rounded-lg"
-                          >
-                            <div className="flex items-center gap-3">
-                              {Icon && <Icon className="w-5 h-5 text-primary" />}
-                              {sub.title}
-                            </div>
+    return (
+      <div key={column.id} className="flex flex-col gap-4">
+        <h3 className="text-sm font-bold text-dark uppercase tracking-wider">
+          {column.title}
+        </h3>
 
-                            {nested.length > 0 && (
-                              <ChevronRight className="w-4 h-4 text-gray-400 group-hover/sub:text-primary" />
-                            )}
-                          </Link>
-
-                          {/* Nested submenu */}
-                          {nested.length > 0 && (
-                            <div className="absolute top-0 left-full pl-3 hidden group-hover/sub:block w-56">
-                              <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 flex flex-col">
-                                {nested.map((child) => {
-                                  const ChildIcon = iconMap[child.icon];
-                                  return (
-                                    <Link
-                                      key={child.id}
-                                      href={getPath(child.url)}
-                                      className="px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors flex items-center gap-3 rounded-lg"
-                                    >
-                                      {ChildIcon && <ChildIcon className="w-4 h-4 text-primary" />}
-                                      {child.title}
-                                    </Link>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-
-                        </div>
-                      );
-                    })}
-
-                  </div>
-                </div>
-              )}
-            </div>
+        <div className="flex flex-col gap-2">
+          {columnLinks.map((link) => (
+            <Link
+              key={link.id}
+              href={getPath(link.url)}
+              className="text-[13px] text-gray-500 hover:text-primary hover:translate-x-1 transition-all duration-200"
+            >
+              {link.title}
+            </Link>
           ))}
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+                        {/* RIGHT */}
+                       <div className="w-full lg:w-96 bg-gray-50 p-8 border-l border-gray-100 flex flex-col gap-6">
+                          <div className="space-y-4">
+                            <h3 className="text-xl font-bold text-dark leading-tight">
+                              Empowering Startups and Enterprises With Services That Drive Real Impact
+                            </h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                              We help businesses turn ideas into reliable digital products that work, mobile, and custom solutions that drive results. Need extra hands on your project? Hire skilled developers with ease.
+                            </p>
+                          </div>
+
+                          {/* IMAGE SECTION */}
+<div className="flex-1 flex items-center justify-center ">
+  <ExplodingImage />
+</div>
+
+{/* BUTTON */}
+<div className="mt-6">
+  <Link
+    href="/contact"
+    className="btn-primary w-full text-center block py-3 rounded-lg"
+  >
+    Get Started
+  </Link>
+</div>
+
+                          <div className="mt-auto pt-6 border-t border-gray-200">
+                            <Link 
+                              href="/services" 
+                              className="flex items-center gap-2 text-sm font-bold text-primary group/all"
+                            >
+                              Explore All Services
+                              <ArrowUpRight className="w-4 h-4 group-hover/all:translate-x-1 group-hover/all:-translate-y-1 transition-transform" />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  
+                  )
+          }
+                </AnimatePresence>
+
+              </div>
+            );
+          })}
 
           <Link href="/contact" className="btn-primary py-2 px-6 text-sm">
             Get Started
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
+          {/* Mobile Toggle */}
 {!isMobileMenuOpen && (
   <button
     className="lg:hidden p-2 z-[100]"
