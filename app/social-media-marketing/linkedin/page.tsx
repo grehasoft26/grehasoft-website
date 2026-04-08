@@ -1,84 +1,145 @@
+'use client';
+
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
-import { Briefcase, Building2, Mails, UserPlus } from 'lucide-react';
+import { Linkedin, Target, BarChart, Users, CheckCircle2, ArrowRight, MessageSquare, Share2, Megaphone, TrendingUp, Briefcase, Award } from 'lucide-react';
+import { motion } from 'motion/react';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
+const features = [
+  {
+    icon: Briefcase,
+    title: 'B2B Lead Generation',
+    desc: 'Connect with decision-makers and generate high-quality B2B leads for your business.',
+  },
+  {
+    icon: Award,
+    title: 'Thought Leadership',
+    desc: 'Establish your brand as an industry authority through strategic professional content.',
+  },
+  {
+    icon: Target,
+    title: 'Precision Targeting',
+    desc: 'Reach professionals based on job title, industry, seniority, and company size.',
+  },
+  {
+    icon: BarChart,
+    title: 'ROI Analytics',
+    desc: 'Track your professional reach and conversion metrics with detailed reporting.',
+  },
+];
 
 export default function LinkedInMarketingPage() {
-  const features = [
-    {
-      title: 'B2B Lead Generation',
-      description: 'Run targeted Lead Gen forms allowing instant, friction-free B2B data capture.',
-      icon: <UserPlus className="w-8 h-8 text-primary" />,
-    },
-    {
-      title: 'Account-Based Marketing',
-      description: 'Target specific executives, job titles, or companies you desperately want to close.',
-      icon: <Building2 className="w-8 h-8 text-primary" />,
-    },
-    {
-      title: 'InMail Campaigns',
-      description: 'Slide directly into the DM inboxes of industry decision-makers via Sponsored Messaging.',
-      icon: <Mails className="w-8 h-8 text-primary" />,
-    },
-    {
-      title: 'Corporate Branding',
-      description: 'Create phenomenal company pages cementing your status as a leader in your sector.',
-      icon: <Briefcase className="w-8 h-8 text-primary" />,
-    },
-  ];
-
   return (
-    <main>
+    <main className="min-h-screen">
       <PageHeader
-        title="LinkedIn Marketing & Ads"
-        description="The ultimate advertising arena for generating high-ticket B2B leads safely and effectively."
+        title="LinkedIn Marketing"
+        description="Reach and engage your target audience on the world's largest professional social network."
         breadcrumb={[
           { name: 'Services', href: '/services' },
+          { name: 'Digital Marketing', href: '/digital-marketing' },
           { name: 'SMM', href: '/social-media-marketing' },
-          { name: 'LinkedIn Marketing', href: '/social-media-marketing/linkedin' },
+          { name: 'LinkedIn', href: '/social-media-marketing/linkedin' },
         ]}
       />
 
-      <section className="section-padding bg-white">
+      {/* Features Section - Main Focus */}
+      <section className="section-padding bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group p-10 bg-white rounded-[3rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+              >
+                <div className="w-16 h-16 bg-primary/10 rounded-[1.5rem] flex items-center justify-center text-primary mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                  <feature.icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold text-dark mb-4 leading-tight group-hover:text-primary transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-text-gray text-base leading-relaxed">
+                  {feature.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Detailed Overview Section */}
+      <section className="section-padding bg-gray-50">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-dark mb-6">
-                Connect With Decision Makers
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
+              <img
+                src="https://picsum.photos/seed/linkedin-marketing/800/800"
+                alt="LinkedIn Marketing Strategy"
+                className="rounded-[3rem] shadow-2xl relative z-10"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute -bottom-6 -right-6 p-8 bg-white rounded-3xl shadow-xl z-20 hidden md:block">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-dark">+200%</div>
+                    <div className="text-sm text-text-gray font-medium">B2B Lead Growth</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-dark mb-8 leading-tight">
+                Professional <span className="text-primary">LinkedIn Marketing</span> Solutions
               </h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                If your business sells to other businesses, professionals, or enterprises—LinkedIn is where your ad spend belongs. LinkedIn boasts unparalleled targeting parameters encompassing job titles, industry, company sizes, and seniority grids.
+              <p className="text-text-gray text-lg mb-10 leading-relaxed">
+                Our LinkedIn marketing services are focused on creating engaging professional content that resonates with your audience and drives results. We help you build meaningful connections in the professional world.
               </p>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                We orchestrate high-performing LinkedIn Advertising campaigns designed specifically to generate qualified B2B sales pipelines. Stop guessing on mass appeals and start advertising directly to the exact CEO profiles who buy your specific offering.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      {feature.icon}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+                {[
+                  'B2B Lead Generation',
+                  'LinkedIn Ad Management',
+                  'Thought Leadership Content',
+                  'Company Page Optimization',
+                  'Precision Audience Targeting',
+                  'Professional Community Building'
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                      <CheckCircle2 className="w-4 h-4" />
                     </div>
-                    <div>
-                      <h3 className="font-bold text-dark mb-1">{feature.title}</h3>
-                      <p className="text-sm text-gray-500">{feature.description}</p>
-                    </div>
+                    <span className="font-semibold text-dark">{item}</span>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-square bg-gray-100 rounded-[3rem] overflow-hidden">
-                <img
-                  src="https://picsum.photos/seed/linkedinads/800/800"
-                  alt="LinkedIn Marketing and Ads"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+              <Link href="/contact" className="btn-primary inline-flex items-center gap-3 px-8 py-4 text-lg">
+                Start Your Campaign <ArrowRight className="w-6 h-6" />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
 
       <CTA />
+      <Footer/>
     </main>
   );
 }

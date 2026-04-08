@@ -1,84 +1,121 @@
+'use client';
+
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
-import { Video, BarChart4, Target, Search } from 'lucide-react';
+import { PlayCircle, Target, BarChart, Users, CheckCircle2, ArrowRight, MessageSquare, Share2, Megaphone, TrendingUp, Video, Sparkles } from 'lucide-react';
+import { motion } from 'motion/react';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
+const features = [
+  {
+    icon: Video,
+    title: 'Video Storytelling',
+    desc: 'Engage your audience with high-quality video content and compelling narratives on YouTube.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Influencer Marketing',
+    desc: 'Partner with top YouTube creators to expand your reach and build brand authority.',
+  },
+  {
+    icon: Target,
+    title: 'Advanced Targeting',
+    desc: 'Leverage YouTube\'s precise targeting tools to reach your ideal viewers at the right time.',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Engagement Growth',
+    desc: 'Boost your subscribers and viewer engagement through strategic content planning and optimization.',
+  },
+];
 
 export default function YouTubeMarketingPage() {
-  const features = [
-    {
-      title: 'TrueView In-Stream Ads',
-      description: 'Run targeted video ads that appear right before your ideal customers watch a video.',
-      icon: <Video className="w-8 h-8 text-primary" />,
-    },
-    {
-      title: 'YouTube SEO',
-      description: 'Optimize video titles, descriptions, and tags to rank high on the second largest search engine.',
-      icon: <Search className="w-8 h-8 text-primary" />,
-    },
-    {
-      title: 'Retargeting Videos',
-      description: 'Show customized video campaigns only to users who already visited your website.',
-      icon: <Target className="w-8 h-8 text-primary" />,
-    },
-    {
-      title: 'Channel Analytics',
-      description: 'Deep diving into viewer retention curves to ensure your video hooks and CTAs are perfect.',
-      icon: <BarChart4 className="w-8 h-8 text-primary" />,
-    },
-  ];
-
   return (
-    <main>
+    <main className="min-h-screen">
       <PageHeader
-        title="YouTube Marketing & Ads"
-        description="Captivate millions and drive high-intent leads with strategic YouTube advertising."
+        title="YouTube Marketing"
+        description="Reach and engage your audience on the world's largest video platform."
         breadcrumb={[
           { name: 'Services', href: '/services' },
+          { name: 'Digital Marketing', href: '/digital-marketing' },
           { name: 'SMM', href: '/social-media-marketing' },
-          { name: 'YouTube Marketing', href: '/social-media-marketing/youtube' },
+          { name: 'YouTube', href: '/social-media-marketing/youtube' },
         ]}
       />
 
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-dark mb-6">
-                Video Ads That Drive Action
-              </h2>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                As a Google entity, YouTube combines massive visual attention with the immense targeting power of search intent. It is uniquely powerful. Our YouTube marketing focuses intensely on executing profitable YouTube Ad campaigns.
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl font-bold text-dark mb-6">Expert <span className="text-primary">YouTube Marketing</span></h2>
+              <p className="text-text-gray text-lg mb-8 leading-relaxed">
+                Our YouTube marketing services are focused on creating engaging video content that resonates with your audience and drives results.
               </p>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                From unskippable bumper ads for mass awareness to highly targeted in-stream ads meant entirely to force a website conversion—we know how to build a video advertising pipeline that pays for itself.
-              </p>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      {feature.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-dark mb-1">{feature.title}</h3>
-                      <p className="text-sm text-gray-500">{feature.description}</p>
-                    </div>
+              <div className="space-y-4 mb-8">
+                {[
+                  'Strategic YouTube ad campaign management',
+                  'Engaging video content creation and optimization',
+                  'Advanced audience targeting and retargeting',
+                  'Detailed performance analysis and reporting',
+                  'Continuous optimization for better ROI'
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <span className="font-medium text-dark">{item}</span>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-square bg-gray-100 rounded-[3rem] overflow-hidden">
-                <img
-                  src="https://picsum.photos/seed/youtubeads/800/800"
-                  alt="YouTube Marketing and Ads"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+              <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
+                Start Your Campaign <ArrowRight className="w-5 h-5" />
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <img
+                src="https://picsum.photos/seed/youtube-marketing/800/600"
+                alt="YouTube Marketing"
+                className="rounded-3xl shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section - Matching Image Design */}
+      <section className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-10 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500"
+              >
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8">
+                  <feature.icon className="w-7 h-7" />
+                </div>
+                <h3 className="text-2xl font-bold text-dark mb-4 leading-tight">{feature.title}</h3>
+                <p className="text-text-gray text-base leading-relaxed">{feature.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       <CTA />
+      <Footer/>
     </main>
   );
 }
