@@ -96,14 +96,14 @@ if (!slides.length) {
             transition={{ duration: 1 }}
             className="absolute inset-0"
           >
-            {!isMobile && slides[currentIndex]?.video ? (
+          {slides[currentIndex]?.video ? (
               <video
                 autoPlay
-                muted={isMuted}
+                muted={true}
                 playsInline
                 loop
                 poster={slides[currentIndex]?.thumbnail}   // ADD THIS LINE
-                className="w-full h-full object-cover"
+               className={`w-full h-full object-center ${isMobile ? "object-contain" : "object-cover"}`}
               >
                 <source src={slides[currentIndex].video} type="video/mp4" />
               </video>
