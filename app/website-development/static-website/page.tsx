@@ -166,7 +166,7 @@ export default function StaticWebsite() {
               className="relative"
             >
               <img
-                src="https://picsum.photos/seed/staticweb/800/600"
+                src="/images/web design and coding collaboration.png"
                 alt="Static Website Development"
                 className="rounded-3xl shadow-2xl"
                 referrerPolicy="no-referrer"
@@ -237,12 +237,12 @@ export default function StaticWebsite() {
               className="grid grid-cols-2 gap-4"
             >
               <div className="space-y-4">
-                <img src="https://picsum.photos/seed/static1/400/500" alt="Use Case 1" className="rounded-2xl shadow-lg" />
-                <img src="https://picsum.photos/seed/static2/400/300" alt="Use Case 2" className="rounded-2xl shadow-lg" />
+                <img src="/images/Collaborative coding in a modern workspace.png" alt="Use Case 1" className="rounded-2xl shadow-lg" />
+                <img src="/images/Modern UI mockup with plant accent.png" alt="Use Case 2" className="rounded-2xl shadow-lg" />
               </div>
               <div className="space-y-4 pt-8">
-                <img src="https://picsum.photos/seed/static3/400/300" alt="Use Case 3" className="rounded-2xl shadow-lg" />
-                <img src="https://picsum.photos/seed/static4/400/500" alt="Use Case 4" className="rounded-2xl shadow-lg" />
+                <img src="/images/Rocket launch in a futuristic style.png" alt="Use Case 3" className="rounded-2xl shadow-lg" />
+                <img src="/images/Modern workspace with coding setup.png" alt="Use Case 4" className="rounded-2xl shadow-lg" />
               </div>
             </motion.div>
           </div>
@@ -250,6 +250,7 @@ export default function StaticWebsite() {
       </section>
 
       {/* Section 4: Technology Stack */}
+      
       <section className="section-padding bg-dark text-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">

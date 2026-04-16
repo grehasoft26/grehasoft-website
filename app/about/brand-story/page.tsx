@@ -2,6 +2,7 @@ import PageHeader from '@/components/PageHeader';
 import BrandStory from '@/components/BrandStory';
 import CTA from '@/components/CTA';
 import { Quote, Sparkles, Heart, Zap } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 export default function BrandStoryPage() {
   return (
@@ -82,6 +83,7 @@ export default function BrandStoryPage() {
       </section>
 
       <CTA />
+      <Footer/>
     </main>
   );
 }

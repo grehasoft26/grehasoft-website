@@ -2,6 +2,7 @@ import PageHeader from '@/components/PageHeader';
 import Awards from '@/components/Awards';
 import CTA from '@/components/CTA';
 import { Trophy, Award, Star, Target, Shield, Zap, Heart, Globe } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 const recognitions = [
   {
@@ -63,6 +64,7 @@ export default function AwardsPage() {
       </section>
 
       <CTA />
+      <Footer/>
     </main>
   );
 }

@@ -5,21 +5,23 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
 const clients = [
-  { name: 'IKEA', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c5/Ikea_logo.svg' },
-  { name: 'Star', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Star_Plus_logo.svg' },
-  { name: 'LuLu', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Lulu_Group_International_logo.svg' },
-  { name: 'Garmin', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Garmin_logo.svg' },
-  { name: 'Federal Bank', logo: 'https://upload.wikimedia.org/wikipedia/en/2/24/Federal_Bank_logo.svg' },
-  { name: 'Marriott', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Marriott_International_logo.svg' },
-  { name: 'Joyalukkas', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Joyalukkas_logo.svg' },
-  { name: 'Synthite', logo: 'https://upload.wikimedia.org/wikipedia/en/1/1b/Synthite_logo.png' },
-  { name: 'Alyasra', logo: 'https://upload.wikimedia.org/wikipedia/en/5/5a/Alyasra_Fashion_logo.png' },
-  { name: 'Geojit', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Geojit_Logo.svg' },
-  { name: 'Middlesex University', logo: 'https://upload.wikimedia.org/wikipedia/en/b/b3/Middlesex_University_logo.svg' },
-  { name: 'Al-Qatami', logo: 'https://upload.wikimedia.org/wikipedia/en/c/c2/Al_Qatami_Group_logo.png' },
-  { name: 'Etihad Rail', logo: 'https://upload.wikimedia.org/wikipedia/en/0/0d/Etihad_Rail_logo.svg' },
-  { name: 'Nestle', logo: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Nestl%C3%A9_logo.svg' },
-  { name: 'Landmark Group', logo: 'https://upload.wikimedia.org/wikipedia/en/5/53/Landmark_Group_logo.svg' },
+  { name: 'Calcium Clinic', logo: '/images/logo-calcium-clinic.jpg' },
+  { name: 'Neoflex', logo: '/images/neoflex-logo-ofc.png' },
+  { name: 'Friends Cargo', logo: '/images/logo1 (2).png' },
+  { name: 'Holy Family', logo: '/images/logo-main-200x48.png' },
+  { name: 'Sanco', logo: '/images/logo-sanco-uae-white.png' },
+
+  { name: 'Rafal', logo: '/images/rafal-logo.png' },
+  { name: 'Ecologic', logo: '/images/Ecologic-waterproofing-Logo.jpg' },
+  { name: 'Sydney Montessori', logo: '/images/logo-300x100.webp' },
+  { name: 'Lanway', logo: '/images/Lanway-logo-dark-768x161.webp' },
+  { name: 'Loon.qa', logo: '/images/logo-loon.png' },
+
+  { name: 'MultiFlow', logo: '/images/ofclogo-300x50.png' },
+  { name: 'Charankattu Coir', logo: '/images/logo-charngatu-coir.png' },
+  { name: 'Integrated Liver Care', logo: '/images/Asher-Integrated-Liver-Care-300x124.webp' },
+  { name: 'RPG Hotels', logo: '/images/rp-main-logo.jpg' },
+  { name: 'Future Opticals', logo: '/images/future-opticals-logo-300x61.webp' },
 ];
 
 export default function Clients() {
@@ -89,7 +91,7 @@ export default function Clients() {
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="max-h-full max-w-full object-contain brightness-0 invert opacity-30 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
+                  className="max-h-full max-w-full object-contain  group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';

@@ -34,11 +34,11 @@ export default function CTA() {
             </div>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto">
-              <Link href="/contact" className="btn-accent w-full sm:w-auto text-lg py-4 px-10">
+              <Link href="/contact" className="btn-accent w-full sm:w-auto text-lg py-4 px-10 whitespace-nowrap">
                 Get Started Now
                 <ArrowRight className="ml-2 w-6 h-6" />
               </Link>
-              <Link href="/portfolio" className="text-white font-bold hover:text-accent transition-colors flex items-center gap-2 text-lg">
+              <Link href="/portfolio" className="text-white font-bold hover:text-accent transition-colors flex items-center gap-2 text-lg whitespace-nowrap">
                 View Our Work
                 <ArrowRight className="w-5 h-5" />
               </Link>

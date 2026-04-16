@@ -98,15 +98,21 @@ if (!slides.length) {
           >
           {slides[currentIndex]?.video ? (
               <video
-                autoPlay
-                muted={true}
-                playsInline
-                loop
-                poster={slides[currentIndex]?.thumbnail}   // ADD THIS LINE
-               className={`w-full h-full object-center ${isMobile ? "object-contain" : "object-cover"}`}
-              >
-                <source src={slides[currentIndex].video} type="video/mp4" />
-              </video>
+  key={slides[currentIndex].video}
+  autoPlay
+  muted
+  playsInline
+  loop
+  preload="auto"
+  poster={slides[currentIndex]?.thumbnail}
+  className={`w-full h-full object-center ${isMobile ? "object-contain" : "object-cover"}`}
+>
+  <source
+    key={slides[currentIndex].video}   // ⭐ VERY IMPORTANT
+    src={slides[currentIndex].video}
+    type="video/mp4"
+  />
+</video>
             ) : (
               <div
                 className="w-full h-full bg-cover bg-center"
@@ -132,17 +138,19 @@ if (!slides.length) {
         >
           <div className="inline-flex items-center gap-2 px-4 py-1 mb-6 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
           <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-          <span className="text-xs tracking-widest uppercase text-white/80">
-          {slides[currentIndex]?.label}
-           </span>
+          {/* Label - Desktop only */}
+    <span className="hidden md:inline-block  text-sm ">
+      {slides[currentIndex]?.label}
+    </span>
            </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase text-white">
-            {slides[currentIndex]?.title}
-          </h1>
-
-         <p className="text-white/70 mb-10 max-w-lg uppercase">
-  {slides[currentIndex]?.description}
-</p>
+         {/* Title - All devices */}
+    <h1 className="text-2xl md:text-6xl font-bold mb-4 md:mb-6 uppercase text-white">
+      {slides[currentIndex]?.title}
+    </h1>
+ {/* Description - Desktop only */}
+    <p className="hidden md:block text-white/70 mb-10 max-w-lg">
+      {slides[currentIndex]?.description}
+    </p>
 
          <Link href="/services" className="group inline-flex items-center gap-3 uppercase tracking-[0.3em] text-sm text-white transition duration-300">
   
