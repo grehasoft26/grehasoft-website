@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: 'Grehasoft | Modern IT Solutions & Digital Agency',
   description: 'Grehasoft is a leading IT company providing premium software solutions, digital marketing, and PMS products.',
   keywords: ['IT Company', 'Software Development', 'PMS', 'Digital Agency', 'Grehasoft'],
+
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
