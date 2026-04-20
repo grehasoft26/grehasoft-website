@@ -54,7 +54,7 @@ export default function Navbar() {
 
   // Fetch WordPress Menu
   useEffect(() => {
-    fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu")
+    fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu/primary-menu")
       .then(res => res.json())
       .then(data => setMenu(data));
   }, []);
@@ -67,8 +67,12 @@ export default function Navbar() {
   }, []);
 
   // Menu helpers
-  const mainMenu = menu.filter(item => item.parent == 0);
-  const getSubMenu = (id: any) => menu.filter(item => item.parent == id);
+ const menuArray = Array.isArray(menu) ? menu : [];
+
+const mainMenu = menuArray.filter(item => item.parent == "0");
+
+const getSubMenu = (id: any) =>
+  menuArray.filter(item => item.parent == id);
 
   // Fix WP URL → Next.js URL
   const getPath = (url: string) => {

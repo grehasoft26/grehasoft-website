@@ -7,7 +7,28 @@ import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from "lucide-react";
 
 export default function Contact() {
   const [data, setData] = useState<any>(null);
+const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
 
+  const [errors, setErrors] = useState<any>({});
+  const [success, setSuccess] = useState(false);
+
+  // HANDLE CHANGE
+  const handleChange = (e: any) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  useEffect(() => {
+  if (success) {
+    setTimeout(() => {
+      setSuccess(false);
+    }, 3000);
+  }
+}, [success]);
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
@@ -48,6 +69,70 @@ export default function Contact() {
     },
   ];
 
+  // VALIDATION
+  const validate = () => {
+    let newErrors: any = {};
+
+    if (!form.name.trim()) {
+      newErrors.name = "Full Name is required";
+    }
+
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    if (!form.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^[0-9+\-\s()]{7,15}$/.test(form.phone)) {
+      newErrors.phone = "Invalid phone number";
+    }
+
+    if (!form.subject.trim()) {
+      newErrors.subject = "Subject is required";
+    }
+
+    if (!form.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (form.message.length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // SUBMIT
+  const handleSubmit = async (e: any) => {
+  e.preventDefault();
+
+  if (!validate()) return;
+
+  try {
+    const res = await axios.post(
+      "https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/contact",
+      form
+    );
+
+    if (res.data.success) {
+      setSuccess(true);
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+
+      setErrors({});
+    }
+  } catch (error) {
+    console.error("Error sending message:", error);
+    alert("Failed to send message");
+  }
+};
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -121,22 +206,124 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
             className="bg-white p-10 rounded-3xl shadow-2xl border border-gray-100"
           >
-            <h3 className="text-2xl font-bold text-[#0b0b45] mb-6">
-              {data.form_title}
-            </h3>
+             
+      <h3 className="text-2xl font-bold text-[#0b0b45] mb-6">
+        {data?.form_title || "Send Us a Message"}
+      </h3>
 
-            <form className="space-y-5">
-              <input className="input" placeholder="Full Name" />
-              <input className="input" placeholder="Email Address" />
-              <input className="input" placeholder="Phone Number" />
-              <input className="input" placeholder="Subject" />
-              <textarea className="input h-32" placeholder="Your Message" />
+      {/* SUCCESS MESSAGE */}
+      {success && (
+        <p className="mb-4 text-green-600 font-medium">
+          Message sent successfully!
+        </p>
+      )}
 
-              <button className="w-full py-4 rounded-full bg-blue-600 text-white font-semibold flex justify-center items-center gap-2 hover:bg-blue-700 transition">
-                {data.button_text}
-                <Send className="w-4 h-4" />
-              </button>
-            </form>
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-5">
+
+        {/* NAME */}
+        <div>
+          <label className="text-sm text-gray-600 mb-2 block">Full Name</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="John Doe"
+            className={`w-full px-4 py-3 rounded-xl border ${
+              errors.name ? "border-red-500" : "border-gray-200"
+            } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          )}
+        </div>
+
+        {/* EMAIL */}
+        <div>
+          <label className="text-sm text-gray-600 mb-2 block">Email</label>
+          <input
+            type="text"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="john@example.com"
+            className={`w-full px-4 py-3 rounded-xl border ${
+              errors.email ? "border-red-500" : "border-gray-200"
+            } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+          )}
+        </div>
+
+        {/* PHONE */}
+        <div>
+          <label className="text-sm text-gray-600 mb-2 block">Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="+91 9876543210"
+            className={`w-full px-4 py-3 rounded-xl border ${
+              errors.phone ? "border-red-500" : "border-gray-200"
+            } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          />
+          {errors.phone && (
+            <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+          )}
+        </div>
+
+        {/* SUBJECT */}
+        <div>
+          <label className="text-sm text-gray-600 mb-2 block">Subject</label>
+          <input
+            type="text"
+            name="subject"
+            value={form.subject}
+            onChange={handleChange}
+            placeholder="Project Inquiry"
+            className={`w-full px-4 py-3 rounded-xl border ${
+              errors.subject ? "border-red-500" : "border-gray-200"
+            } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          />
+          {errors.subject && (
+            <p className="text-red-500 text-sm mt-1">{errors.subject}</p>
+          )}
+        </div>
+
+        {/* MESSAGE */}
+        <div className="col-span-2">
+          <label className="text-sm text-gray-600 mb-2 block">
+            Your Message
+          </label>
+          <textarea
+            name="message"
+            value={form.message}
+            onChange={handleChange}
+            rows={4}
+            placeholder="Tell us about your project..."
+            className={`w-full px-4 py-3 rounded-xl border ${
+              errors.message ? "border-red-500" : "border-gray-200"
+            } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none`}
+          />
+          {errors.message && (
+            <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+          )}
+        </div>
+
+        {/* BUTTON */}
+        <div className="col-span-2">
+          <button
+            type="submit"
+            className="w-full py-4 rounded-full bg-blue-600 text-white font-semibold flex justify-center items-center gap-2 hover:bg-blue-700 transition"
+          >
+            {data?.button_text || "Send Message"}
+            <Send className="w-4 h-4" />
+          </button>
+        </div>
+      </form>
+   
           </motion.div>
 
         </div>
