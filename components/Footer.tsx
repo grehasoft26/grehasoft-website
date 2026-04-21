@@ -13,19 +13,28 @@ import {
   MapPin,
   ArrowRight,
   Heart,
+ 
 } from "lucide-react";
+import { FaPinterest, FaTumblr } from "react-icons/fa";
 
-const socialLinks = [
-  { icon: Facebook, href: "#" },
-  { icon: Twitter, href: "#" },
-  { icon: Instagram, href: "#" },
-  { icon: Linkedin, href: "#" },
-];
+const socialMap: any = {
+  facebook: Facebook,
+  twitter: Twitter,
+  instagram: Instagram,
+  linkedin: Linkedin,
+  pinterest: FaPinterest,
+  tumblr: FaTumblr,
+};
 
 export default function Footer() {
   const [footer, setFooter] = useState<any>(null);
   const [menu, setMenu] = useState<any[]>([]);
-
+const socialLinks = Object.keys(socialMap)
+  .map((key) => ({
+    icon: socialMap[key],
+    href: footer?.[key],
+  }))
+  .filter((item) => item.href);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -101,14 +110,16 @@ menuArray.forEach((item) => {
 
             <div className="flex items-center gap-4">
               {socialLinks.map((social, index) => (
-                <Link
-                  key={index}
-                  href={social.href}
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-all duration-300"
-                >
-                  <social.icon className="w-5 h-5" />
-                </Link>
-              ))}
+  <Link
+    key={index}
+    href={social.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-all duration-300"
+  >
+    <social.icon className="w-5 h-5" />
+  </Link>
+))}
             </div>
           </div>
 
