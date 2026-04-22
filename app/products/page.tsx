@@ -13,7 +13,7 @@ export default function ProductsPage() {
         description="Explore our innovative software products designed to help your business streamline operations and boost productivity."
         breadcrumb={[{ name: 'Products', href: '/products' }]}
       />
-      <ProductsSection />
+    
       
       {/* Other Products Section */}
       <section className="section-padding bg-gray-50">
@@ -37,7 +37,7 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
-      
+        <ProductsSection />
       <CTA />
       <Footer />
     </main>

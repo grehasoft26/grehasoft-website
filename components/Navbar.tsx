@@ -27,7 +27,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, ChevronDown, Trophy, Globe, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ExplodingImage from './ExplodingImage';
-
+import { usePathname } from 'next/navigation';
 /* -------------------- NAVBAR -------------------- */
 export default function Navbar() {
   const [menu, setMenu] = useState<any[]>([]);
@@ -37,7 +37,8 @@ export default function Navbar() {
     // Mobile dropdown states
   const [openMenu, setOpenMenu] = useState<any>({});
   const [openSubMenu, setOpenSubMenu] = useState<any>({});
-
+const pathname = usePathname();
+ 
   const toggleMenu = (id: any) => {
     setOpenMenu((prev: any) => ({
       ...prev,
@@ -80,17 +81,28 @@ const getSubMenu = (id: any) =>
     if (url.startsWith("http")) return new URL(url).pathname;
     return url;
   };
+ const isLightPage = pathname.includes('/blog/') && !pathname.includes('/blog/category/');
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
-    <nav className={cn(
-      'fixed top-0 left-0 w-full z-50 transition-all duration-300',
-      isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
-    )}>
+    <nav
+      className={cn(
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300',
+        (isScrolled || isLightPage) ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6 '
+      )}
+    >
       <div className="container-custom flex items-center justify-between">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <img src="/images/logo.png" className="h-10" />
+          
         </Link>
 
         {/* Desktop Menu */}
@@ -109,7 +121,7 @@ const getSubMenu = (id: any) =>
                   href={getPath(item.url)}
                   className={cn(
                     'text-sm font-medium transition-colors hover:text-accent flex items-center gap-1 py-2',
-                    isScrolled ? 'text-dark' : 'text-white'
+                   (isScrolled || isLightPage) ? 'text-dark' : 'text-white'
                   )}
                 >
                   {item.title}

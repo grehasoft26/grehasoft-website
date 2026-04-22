@@ -17,7 +17,7 @@ export default function ContactPage() {
       {/* Map Section */}
       <section className="h-[400px] w-full bg-gray-200">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.639290622367!2d-122.08374688469247!3d37.42199987982517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad8f%3A0x6c296c66619367e0!2sGoogleplex!5e0!3m2!1sen!2sus!4v1647450000000!5m2!1sen!2sus"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.0980985115384!2d76.3624484747584!3d10.008755372884577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d1640844371%3A0xea19af5b36a868cd!2sGrehasoft!5e0!3m2!1sen!2sin!4v1776750546532!5m2!1sen!2sin"
           width="100%"
           height="100%"
           style={{ border: 0 }}
