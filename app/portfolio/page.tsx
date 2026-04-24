@@ -14,7 +14,7 @@ export default function PortfolioPage() {
         description="Explore our successful projects and case studies of how we've helped businesses achieve their digital goals."
         breadcrumb={[{ name: 'Portfolio', href: '/portfolio' }]}
       />
-      <PortfolioSection />
+      <PortfolioSection isFullPage={true} />
       
       {/* Our Clients Section */}
      <Clients/>

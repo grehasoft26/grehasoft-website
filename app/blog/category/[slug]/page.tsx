@@ -1,174 +1,279 @@
-'use client';
+"use client";
 
-import { useState, use } from 'react';
-import { motion } from 'motion/react';
-import Link from 'next/link';
-import { Search, ChevronDown, Check, ArrowRight } from 'lucide-react';
-import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
-import Footer from '@/components/Footer';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Search, ChevronDown, Check } from "lucide-react";
+import PageHeader from "@/components/PageHeader";
+import CTA from "@/components/CTA";
+import Footer from "@/components/Footer";
+import { use } from "react";
 
-// Mock Data for Categories
-const allCategories = [
-  "Data Analytics", "Press Release", "Agentic AI", "People and Culture", "UI/UX",
-  "Software Quality Assurance", "DevSecOps", "Software Development", "Digital Marketing",
-  "Web Application"
-];
-
-const categoryPosts = [
-  {
-    title: "Data Analytics and AI Integration in the Insurance Industry",
-    description: "In today's competitive insurance market, every insurer has access to valuable data, but not everyone uses it to its full potential. The real advantage lies in how effectively data...",
-    category: ["Artificial Intelligence", "Data Analytics"],
-    date: "Oct 30, 2025",
-    readTime: "3 min read",
-    image: "https://picsum.photos/seed/insurance-data/800/600"
-  },
-  {
-    title: "Understanding Predictive Analytics for Modern Retail",
-    description: "Predictive analytics is transforming the retail landscape by allowing businesses to anticipate customer needs and optimize supply chain management with unprecedented precision...",
-    category: ["Data Analytics", "Retail"],
-    date: "Oct 15, 2025",
-    readTime: "5 min read",
-    image: "https://picsum.photos/seed/retail-data/800/600"
-  },
-  {
-    title: "The Future of Big Data in Custom Software Development",
-    description: "Big data isn't just for tech giants anymore. Custom software development is increasingly incorporating big data features to provide actionable insights for businesses of all sizes...",
-    category: ["Data Analytics", "Software Development"],
-    date: "Sep 28, 2025",
-    readTime: "4 min read",
-    image: "https://picsum.photos/seed/software-data/800/600"
-  }
-];
+const API = "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2";
 
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const [activeTags, setActiveTags] = useState<string[]>(["Data Analytics"]);
 
-  const toggleTag = (tag: string) => {
-    if (activeTags.includes(tag)) {
-      setActiveTags(activeTags.filter(t => t !== tag));
-    } else {
-      setActiveTags([...activeTags, tag]);
+  const { slug } = use(params);
+
+  const [posts, setPosts] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [search, setSearch] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  // ✅ pagination
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  /* ================= FETCH ================= */
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+
+        // categories
+        const catRes = await axios.get(`${API}/categories?per_page=100`);
+        const allCats = catRes.data;
+        setCategories(allCats);
+
+        const currentCategory = allCats.find((c: any) => c.slug === slug);
+        if (!currentCategory) return;
+
+        let categoryIds: number[] = [currentCategory.id];
+
+        if (activeTags.length > 0) {
+          const selected = allCats
+            .filter((c: any) => activeTags.includes(c.name))
+            .map((c: any) => c.id);
+
+          categoryIds = selected;
+        }
+
+        // ✅ API URL with pagination
+        let url = `${API}/posts?_embed&per_page=6&page=${page}`;
+
+        if (categoryIds.length > 0) {
+          url += `&categories=${categoryIds.join(",")}`;
+        }
+
+        if (search) {
+          url += `&search=${search}`;
+        }
+
+        const postRes = await axios.get(url);
+
+        setPosts(postRes.data);
+
+        // ✅ total pages from WP header
+        setTotalPages(parseInt(postRes.headers["x-wp-totalpages"]) || 1);
+
+      } catch (err) {
+        console.error("FETCH ERROR:", err);
+      } finally {
+        setLoading(false);
+      }
     }
+
+    fetchData();
+  }, [slug, activeTags, search, page]);
+
+  /* ================= TAG TOGGLE ================= */
+  const toggleTag = (tag: string) => {
+    setPage(1); // reset pagination
+    setActiveTags((prev) =>
+      prev.includes(tag)
+        ? prev.filter((t) => t !== tag)
+        : [...prev, tag]
+    );
   };
+
+  const pageTitle =
+    categories.find((c: any) => c.slug === slug)?.name || "Category";
 
   return (
     <main className="min-h-screen bg-white">
+
       <PageHeader
-        title="Data Analytics"
-        description="Explore the latest insights and trends in data-driven decision making and advanced analytics."
+        title={pageTitle}
+        description={`Explore the latest insights in ${pageTitle}`}
         breadcrumb={[
-          { name: 'Blogs', href: '/blog' },
-          { name: 'Data Analytics', href: '#' }
+          { name: "Blogs", href: "/blog" },
+          { name: pageTitle, href: "#" }
         ]}
       />
 
       <section className="section-padding bg-white">
         <div className="container-custom">
-          {/* Search and Sort Bar */}
+
+          {/* ================= SEARCH ================= */}
           <div className="flex flex-col md:flex-row gap-6 mb-12">
             <div className="flex-1 relative">
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-text-gray" />
-              <input 
-                type="text" 
-                placeholder="Search blog posts..." 
-                className="w-full pl-14 pr-6 py-4 rounded-xl bg-gray-50 border border-gray-100 focus:border-primary outline-none transition-all"
+              <input
+                type="text"
+                placeholder="Search blog posts..."
+                value={search}
+                onChange={(e) => {
+                  setPage(1);
+                  setSearch(e.target.value);
+                }}
+                className="w-full pl-14 pr-6 py-4 rounded-xl bg-gray-50 border border-gray-100 focus:border-primary outline-none"
               />
             </div>
-            <div className="relative min-w-[200px]">
-              <div className="w-full px-6 py-4 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-between cursor-pointer">
-                <span className="font-medium text-dark">Newest</span>
-                <ChevronDown className="w-5 h-5 text-text-gray" />
+
+            <div className="min-w-[200px]">
+              <div className="px-6 py-4 rounded-xl bg-gray-50 border border-gray-100 flex justify-between">
+                Newest <ChevronDown />
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Sidebar Filters */}
+
+            {/* ================= SIDEBAR ================= */}
             <aside className="lg:col-span-3 space-y-12">
-              <div>
-                <h3 className="text-xl font-bold text-dark mb-6">Filters</h3>
-                <label className="flex items-center gap-3 cursor-pointer group">
-                  <div className="w-5 h-5 rounded border border-gray-300 flex items-center justify-center transition-all group-hover:border-primary">
-                    {/* Empty for "View All" */}
-                  </div>
-                  <span className="text-text-gray font-medium group-hover:text-primary transition-all">View All</span>
-                </label>
-              </div>
 
               <div>
-                <h3 className="text-xl font-bold text-dark mb-6">Tags</h3>
+                <h3 className="text-xl font-bold mb-6">Tags</h3>
+
                 <div className="flex flex-col gap-4">
-                  {allCategories.map((cat, i) => (
-                    <label key={i} className="flex items-center gap-3 cursor-pointer group" onClick={() => toggleTag(cat)}>
-                      <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${
-                        activeTags.includes(cat) ? "bg-primary border-primary" : "border-gray-300 group-hover:border-primary"
+                  {categories.map((cat: any) => (
+                    <label
+                      key={cat.id}
+                      onClick={() => toggleTag(cat.name)}
+                      className="flex items-center gap-3 cursor-pointer"
+                    >
+                      <div className={`w-5 h-5 rounded border flex items-center justify-center ${
+                        activeTags.includes(cat.name)
+                          ? "bg-primary border-primary"
+                          : "border-gray-300"
                       }`}>
-                        {activeTags.includes(cat) && <Check className="w-3.5 h-3.5 text-white" />}
+                        {activeTags.includes(cat.name) && (
+                          <Check className="w-3 text-white" />
+                        )}
                       </div>
-                      <span className={`font-medium transition-all ${
-                        activeTags.includes(cat) ? "text-primary" : "text-text-gray group-hover:text-primary"
+
+                      <span className={`font-medium ${
+                        activeTags.includes(cat.name)
+                          ? "text-primary"
+                          : "text-text-gray"
                       }`}>
-                        {cat}
+                        {cat.name}
                       </span>
                     </label>
                   ))}
                 </div>
-                <button className="mt-6 text-primary font-bold text-sm border-b border-primary/30 hover:border-primary transition-all">
-                  Show More...
-                </button>
+
               </div>
+
             </aside>
 
-            {/* Main Content: Post List */}
+            {/* ================= POSTS ================= */}
             <div className="lg:col-span-9 flex flex-col gap-10">
-              {categoryPosts.map((post, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="grid grid-cols-1 md:grid-cols-12 gap-8 group cursor-pointer"
-                >
-                  <div className="md:col-span-4 aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-sm group-hover:shadow-lg transition-all duration-500">
-                    <img 
-                      src={post.image} 
-                      alt={post.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="md:col-span-8 py-2">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {post.category.map((cat, j) => (
-                        <span key={j} className="text-xs font-bold text-text-gray bg-gray-100 px-3 py-1 rounded-full">{cat}</span>
-                      ))}
-                      <span className="text-xs font-medium text-text-gray px-3 py-1 ml-auto">{post.date}</span>
+
+              {/* ✅ LOADING */}
+              {loading && <p className="text-gray-500">Loading...</p>}
+
+              {/* ❌ EMPTY */}
+              {!loading && posts.length === 0 && (
+                <p className="text-gray-500">No posts found.</p>
+              )}
+
+              {posts.map((post: any, i: number) => {
+
+                const image =
+                  post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+                  "/fallback.jpg";
+
+                const postCats =
+                  post._embedded?.["wp:term"]?.[0]
+                    ?.filter((t: any) => t.taxonomy === "category")
+                    ?.map((t: any) => t.name) || [];
+
+                return (
+                  <motion.div
+                    key={post.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="grid md:grid-cols-12 gap-8 group cursor-pointer"
+                  >
+
+                    <div className="md:col-span-4 rounded-2xl overflow-hidden">
+                      <img
+                        src={image}
+                        className="w-full h-full object-cover group-hover:scale-105 transition"
+                      />
                     </div>
-                    <h2 className="text-2xl font-bold text-dark mb-4 group-hover:text-primary transition-colors leading-tight">
-                      {post.title}
-                    </h2>
-                    <p className="text-text-gray text-sm mb-6 leading-relaxed line-clamp-3">
-                      {post.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-dark">{post.readTime}</span>
-                      <Link href={`/blog/${post.title.toLowerCase().replace(/ /g, '-')}`} className="inline-flex items-center gap-2 text-primary font-bold text-sm hover:gap-3 transition-all">
-                        Read More <ArrowRight className="w-4 h-4" />
+
+                    <div className="md:col-span-8">
+
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {postCats.map((cat: string, j: number) => (
+                          <span key={j} className="text-xs bg-gray-100 px-3 py-1 rounded-full">
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+
+                      <h2
+                        className="text-2xl font-bold mb-4 group-hover:text-primary"
+                        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                      />
+
+                      <p
+                        className="text-text-gray mb-6 line-clamp-3"
+                        dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+                      />
+
+                      <Link href={`/blog/${post.slug}`} className="text-primary font-bold">
+                        Read More →
                       </Link>
+
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+
+                  </motion.div>
+                );
+              })}
+
+              {/* ================= PAGINATION ================= */}
+              {totalPages > 1 && (
+                <div className="flex justify-center gap-3 mt-10">
+
+                  <button
+                    disabled={page === 1}
+                    onClick={() => setPage(page - 1)}
+                    className="px-4 py-2 border rounded disabled:opacity-50"
+                  >
+                    Prev
+                  </button>
+
+                  <span className="px-4 py-2">
+                    {page} / {totalPages}
+                  </span>
+
+                  <button
+                    disabled={page === totalPages}
+                    onClick={() => setPage(page + 1)}
+                    className="px-4 py-2 border rounded disabled:opacity-50"
+                  >
+                    Next
+                  </button>
+
+                </div>
+              )}
+
             </div>
+
           </div>
+
         </div>
       </section>
 
       <CTA />
-      <Footer/>
+      <Footer />
     </main>
   );
 }

@@ -1,9 +1,15 @@
 'use client';
-
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, ExternalLink, Plus } from 'lucide-react';
 import Link from 'next/link';
-
+const categories = [
+  "All",
+  "Web Development",
+  "Mobile App",
+  "Software Solution",
+  "UI/UX Design"
+];
 const projects = [
   {
     title: 'E-Commerce Platform',
@@ -42,8 +48,17 @@ const projects = [
     slug: 'education-app',
   },
 ];
+interface PortfolioProps {
+  isFullPage?: boolean;
+}
+export default function Portfolio({ isFullPage = false }: PortfolioProps) {
+  const [activeCategory, setActiveCategory] = useState("All");
 
-export default function Portfolio() {
+  const filteredProjects = projects.filter(project => 
+    activeCategory === "All" || project.category === activeCategory
+  );
+
+  const displayProjects = isFullPage ? filteredProjects : filteredProjects.slice(0, 6);
   return (
     <section id="portfolio" className="section-padding bg-gray-50">
       <div className="container-custom">
@@ -66,28 +81,47 @@ export default function Portfolio() {
               Case Studies of Our <span className="text-primary">Successful Projects</span>
             </motion.h2>
           </div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <Link href="/portfolio" className="btn-primary">
-              View All Projects
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-          </motion.div>
-        </div>
+          {!isFullPage && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+            >
+              <Link href="/portfolio" className="btn-primary">
+                View All Projects
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </motion.div>
+          )}</div>
+            {isFullPage && (
+          <div className="flex flex-wrap justify-center gap-4 mb-16">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${
+                  activeCategory === category
+                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                    : 'bg-white text-dark hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative rounded-3xl overflow-hidden shadow-lg h-[450px]"
-            >
+           {displayProjects.map((project, index) => (
+              <motion.div
+                key={project.slug}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4 }}
+                className="group relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[550px] cursor-pointer"
+              >
               {/* Background Image */}
               <img
                 src={project.image}
