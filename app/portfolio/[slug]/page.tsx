@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { ArrowRight, ExternalLink, ChevronLeft, ChevronRight, CheckCircle2, Layout, Code2, Smartphone, Globe } from 'lucide-react';
 import CTA from '@/components/CTA';
 import PageHeader from '@/components/PageHeader';
+import ConsultationPopup from '@/components/ConsultationPopup';
 // Mock Data for Case Studies
 const caseStudiesData: Record<string, any> = {
   'e-commerce-platform': {
@@ -252,6 +253,7 @@ export default function CaseStudyDetail({ params }: { params: Promise<{ slug: st
       </section>
 
       <CTA />
+      <ConsultationPopup />
     </main>
   );
 }

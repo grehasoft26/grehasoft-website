@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 import '../styles/globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CustomCursor from '@/components/CustomCursor';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="antialiased font-sans overflow-x-hidden" suppressHydrationWarning>
+        <CustomCursor />
         <Navbar />
         {children}
         
