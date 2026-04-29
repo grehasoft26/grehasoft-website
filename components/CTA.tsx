@@ -3,8 +3,27 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
 export default function CTA() {
+  const [cta, setCta] = useState<any>(null);
+
+  useEffect(() => {
+    fetch(`${API}/pages?slug=home&_fields=acf`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.length > 0) {
+          setCta(data[0].acf);
+        }
+      })
+      .catch((err) => console.error('CTA fetch error:', err));
+  }, []);
+
+  // fallback (important)
+  if (!cta) return null;
+
   return (
     <section className="py-20 bg-white overflow-hidden">
       <div className="container-custom">
@@ -18,30 +37,48 @@ export default function CTA() {
           {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-          
+
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="max-w-2xl text-center lg:text-left">
+              
+              {/* BADGE */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-bold text-accent uppercase tracking-widest bg-white/10 rounded-full">
                 <Zap className="w-4 h-4 fill-current" />
-                Ready to Transform?
+                {cta.cta_badge}
               </div>
+
+              {/* TITLE */}
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                Let's Build Your <span className="text-accent">Digital Future</span> Together
-              </h2>
+  {cta.cta_title_part1}{' '}
+  <span className="text-accent">{cta.cta_title_highlight}</span>{' '}
+  {cta.cta_title_part2}
+</h2>
+
+              {/* DESCRIPTION */}
               <p className="text-lg text-white/80 mb-0 leading-relaxed">
-                Whether you have a specific project in mind or just want to explore the possibilities, our team is ready to help you innovate and grow.
+                {cta.cta_description}
               </p>
             </div>
-            
+
+            {/* BUTTONS */}
             <div className="flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto">
-              <Link href="/contact" className="btn-accent w-full sm:w-auto text-lg py-4 px-10 whitespace-nowrap">
-                Get Started Now
+              
+              <Link
+                href={cta.cta_btn_link || '#'}
+                className="btn-accent w-full sm:w-auto text-lg py-4 px-10 whitespace-nowrap"
+              >
+                {cta.cta_btn_text}
                 <ArrowRight className="ml-2 w-6 h-6" />
               </Link>
-              <Link href="/portfolio" className="text-white font-bold hover:text-accent transition-colors flex items-center gap-2 text-lg whitespace-nowrap">
-                View Our Work
+
+              <Link
+                href={cta.cta_btn2_link || '#'}
+                className="text-white font-bold hover:text-accent transition-colors flex items-center gap-2 text-lg whitespace-nowrap"
+              >
+                {cta.cta_btn2_text}
                 <ArrowRight className="w-5 h-5" />
               </Link>
+
             </div>
           </div>
         </motion.div>
