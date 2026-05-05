@@ -1,170 +1,158 @@
-'use client';
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { ArrowRight, ExternalLink, Plus } from 'lucide-react';
-import Link from 'next/link';
-const categories = [
-  "All",
-  "Web Development",
-  "Mobile App",
-  "Software Solution",
-  "UI/UX Design"
-];
-const projects = [
-  {
-    title: 'E-Commerce Platform',
-    category: 'Web Development',
-    image: 'https://picsum.photos/seed/portfolio1/800/600',
-    slug: 'e-commerce-platform',
-  },
-  {
-    title: 'Healthcare Mobile App',
-    category: 'Mobile App',
-    image: 'https://picsum.photos/seed/portfolio2/800/600',
-    slug: 'healthcare-mobile-app',
-  },
-  {
-    title: 'Financial Dashboard',
-    category: 'Software Solution',
-    image: 'https://picsum.photos/seed/portfolio3/800/600',
-    slug: 'financial-dashboard',
-  },
-  {
-    title: 'Real Estate Portal',
-    category: 'Web Development',
-    image: 'https://picsum.photos/seed/portfolio4/800/600',
-    slug: 'real-estate-portal',
-  },
-  {
-    title: 'Logistics Management',
-    category: 'Software Solution',
-    image: 'https://picsum.photos/seed/portfolio5/800/600',
-    slug: 'logistics-management',
-  },
-  {
-    title: 'Education App',
-    category: 'Mobile App',
-    image: 'https://picsum.photos/seed/portfolio6/800/600',
-    slug: 'education-app',
-  },
-];
-interface PortfolioProps {
-  isFullPage?: boolean;
-}
-export default function Portfolio({ isFullPage = false }: PortfolioProps) {
-  const [activeCategory, setActiveCategory] = useState("All");
+"use client";
 
-  const filteredProjects = projects.filter(project => 
-    activeCategory === "All" || project.category === activeCategory
-  );
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Plus } from "lucide-react";
+import Link from "next/link";
 
-  const displayProjects = isFullPage ? filteredProjects : filteredProjects.slice(0, 6);
+const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+
+export default function Portfolio({ isFullPage = false }) {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // 🔹 Fetch Portfolio CPT
+  useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const res = await fetch(`${API}/portfolio?_embed`);
+        const data = await res.json();
+
+        console.log("✅ Portfolio:", data);
+        setProjects(data);
+      } catch (error) {
+        console.error("❌ Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolio();
+  }, []);
+
+  // ⏳ Loading
+  if (loading) {
+    return (
+      <section className="section-padding text-center">
+        <p>Loading portfolio...</p>
+      </section>
+    );
+  }
+
+  // ❌ No Data
+  if (!projects || projects.length === 0) {
+    return (
+      <section className="section-padding text-center">
+        <p>No portfolio items found</p>
+      </section>
+    );
+  }
+const getTitle = (item: any) => {
+  // 1. WordPress title
+  if (item?.title?.rendered && item.title.rendered !== "") {
+    return item.title.rendered.replace(/<[^>]+>/g, "");
+  }
+
+  // 2. ACF title (your current case)
+  if (item?.acf?.title && item.acf.title !== "") {
+    return item.acf.title;
+  }
+
+  // 3. Fallback
+  return "No Title";
+};
   return (
-    <section id="portfolio" className="section-padding bg-gray-50">
+    <section className="section-padding bg-gray-50">
       <div className="container-custom">
+
+        {/* HEADER */}
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block"
-            >
-              Our Portfolio
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold text-dark"
-            >
-              Case Studies of Our <span className="text-primary">Successful Projects</span>
-            </motion.h2>
-          </div>
-          {!isFullPage && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-            >
-              <Link href="/portfolio" className="btn-primary">
-                View All Projects
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </motion.div>
-          )}</div>
-            {isFullPage && (
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${
-                  activeCategory === category
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30'
-                    : 'bg-white text-dark hover:bg-gray-100 border border-gray-200'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        )}
+            <span className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block">
+              OUR PORTFOLIO
+            </span>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-           {displayProjects.map((project, index) => (
-              <motion.div
-                key={project.slug}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
-                className="group relative rounded-[2.5rem] overflow-hidden shadow-2xl h-[550px] cursor-pointer"
-              >
-              {/* Background Image */}
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                referrerPolicy="no-referrer"
-              />
-              
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10 flex flex-col items-center justify-center p-8 text-center">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileHover={{ scale: 1, opacity: 1 }}
-                  className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-primary mb-6 shadow-xl"
-                >
-                  <Plus className="w-8 h-8" />
-                </motion.div>
-                <span className="text-white/80 font-medium uppercase tracking-widest text-xs mb-2 block">
-                  {project.category}
-                </span>
-                <h3 className="text-2xl font-bold text-white mb-6">
-                  {project.title}
-                </h3>
-                <Link
-                  href={`/portfolio/${project.slug}`}
-                  className="px-6 py-2 bg-white text-primary rounded-full font-semibold text-sm hover:bg-accent hover:text-white transition-all"
-                >
-                  View Case Study
-                </Link>
-              </div>
-              
-              {/* Default Content Overlay (Bottom) */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 z-20 bg-gradient-to-t from-dark/80 to-transparent group-hover:opacity-0 transition-opacity duration-300">
-                <span className="text-accent font-bold uppercase tracking-widest text-xs mb-1 block">
-                  {project.category}
-                </span>
-                <h3 className="text-xl font-bold text-white">
-                  {project.title}
-                </h3>
-              </div>
-            </motion.div>
-          ))}
+            <h2 className="text-4xl md:text-5xl font-bold text-dark">
+              Case Studies of Our{" "}
+              <span className="text-primary">Successful Projects</span>
+            </h2>
+          </div>
+
+          {!isFullPage && (
+            <Link
+              href="/portfolio"
+              className="btn-primary flex items-center"
+            >
+              View All Projects
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
+          )}
         </div>
+
+        {/* CARDS */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((item, index) => {
+            const image =
+              item._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+              "/images/fallback.jpg";
+
+            const acf = item.acf || {};
+
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+                className="group relative rounded-[2.5rem] overflow-hidden shadow-xl h-[450px]"
+              >
+                {/* IMAGE */}
+                <img
+                  src={image}
+                  alt={item.title.rendered}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+
+                {/* HOVER */}
+                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col items-center justify-center text-center p-6">
+
+                  <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-4">
+                    <Plus className="text-primary w-6 h-6" />
+                  </div>
+
+                  <span className="text-white/80 text-xs uppercase tracking-widest">
+                    {acf.subtitle || "Web Development"}
+                  </span>
+
+                <h3 className="text-xl font-bold text-white mt-2 mb-4">
+  {getTitle(item)}
+</h3>
+             
+
+                  <Link
+                    href={`/portfolio/${item.slug}`}
+                    className="bg-white text-primary px-5 py-2 rounded-full text-sm font-semibold"
+                  >
+                    View Case Study
+                  </Link>
+                </div>
+
+                {/* BOTTOM */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
+                  <span className="text-white/70 text-xs uppercase">
+                    {acf.subtitle || "Web Development"}
+                  </span>
+
+                  <h3 className="text-lg font-bold text-white">
+                    {getTitle(item)}
+                  </h3>
+                </div>
+
+              </motion.div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );
