@@ -62,7 +62,21 @@ export default function StickyScrollServices() {
               SERVICE {acf?.service_tag}
             </span>
 
-            <h2 className="text-6xl font-bold text-[#0b0b45] mb-4 leading-tight">
+        <h2
+  className="
+    text-[42px]
+    sm:text-[52px]
+    md:text-5xl
+
+    font-bold
+    text-[#0b0b45]
+
+    mb-4
+    leading-[1.05]
+
+    break-words
+  "
+>
               {acf?.hero_title}
             </h2>
 
@@ -95,7 +109,7 @@ export default function StickyScrollServices() {
               <motion.img
   key={image}
   src={image}
-  className="w-[420px]"
+  className="w-[240px] sm:w-[320px] md:w-[420px]"
 
   initial={{ opacity: 0, y: 40 }}
   animate={{
@@ -124,14 +138,15 @@ export default function StickyScrollServices() {
 
         {/* BACKGROUND TEXT */}
  {/* BACKGROUND TEXT */}
+{/* BACKGROUND TEXT */}
 <motion.h1
   style={{ opacity: bgOpacity }}
   className="
     absolute top-1/2 left-1/2
     -translate-x-1/2 -translate-y-1/2
 
-    text-[40px]
-    sm:text-[60px]
+    text-[42px]
+    sm:text-[55px]
     md:text-[90px]
     lg:text-[120px]
     xl:text-[140px]
@@ -139,21 +154,28 @@ export default function StickyScrollServices() {
     font-bold
     text-[#0b0b45]
 
-    tracking-[4px]
+    tracking-[2px]
+    sm:tracking-[4px]
     md:tracking-[10px]
 
     blur-[1px]
 
-    whitespace-nowrap
+    whitespace-pre-line
+    md:whitespace-nowrap
+
     pointer-events-none
     select-none
 
     z-0
     px-4
     text-center
+    leading-none
+    max-w-full
   "
 >
-  {acf?.background_text}
+  {typeof window !== "undefined" && window.innerWidth < 768
+    ? acf?.background_text?.replace(" ", "\n")
+    : acf?.background_text}
 </motion.h1>
       </div>
     </div>
