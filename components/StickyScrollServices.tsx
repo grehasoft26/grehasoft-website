@@ -39,8 +39,10 @@ export default function StickyScrollServices() {
   const service = services[activeIndex] || {};
   const acf = service?.acf || {};
 
-  const image =
-    service?._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "";
+ const image =
+  service?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+  service?.yoast_head_json?.og_image?.[0]?.url ||
+  "";
     const bgOpacity = useTransform(
   scrollYProgress,
   [0, 0.5, 1],
@@ -121,23 +123,34 @@ export default function StickyScrollServices() {
         </div>
 
         {/* BACKGROUND TEXT */}
-       <motion.h1
+ {/* BACKGROUND TEXT */}
+<motion.h1
   style={{ opacity: bgOpacity }}
   className="
-    absolute top-1/2 left-1/2 
-    -translate-x-1/2 -translate-y-1/2 
+    absolute top-1/2 left-1/2
+    -translate-x-1/2 -translate-y-1/2
 
-    text-[60px] md:text-[130px]   /* perfect size */
-    font-bold 
+    text-[40px]
+    sm:text-[60px]
+    md:text-[90px]
+    lg:text-[120px]
+    xl:text-[140px]
+
+    font-bold
     text-[#0b0b45]
 
-    tracking-widest               /* spaced letters */
-    blur-[1px]                    /* soft watermark */
+    tracking-[4px]
+    md:tracking-[10px]
+
+    blur-[1px]
 
     whitespace-nowrap
     pointer-events-none
     select-none
+
     z-0
+    px-4
+    text-center
   "
 >
   {acf?.background_text}
