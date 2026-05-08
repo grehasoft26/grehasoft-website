@@ -30,7 +30,7 @@ export default function Services() {
 
   
   useEffect(() => {
-    fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/our-services?_embed", {
+    fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/services?_embed", {
       cache: "no-store",
     })
       .then((res) => res.json())

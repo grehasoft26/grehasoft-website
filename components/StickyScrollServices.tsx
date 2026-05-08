@@ -18,7 +18,7 @@ export default function StickyScrollServices() {
   useEffect(() => {
     const fetchServices = async () => {
       const res = await axios.get(
-        "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/services?_embed"
+        "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/ourservices?_embed"
       );
       setServices(res.data);
     };

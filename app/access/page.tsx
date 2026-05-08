@@ -9,8 +9,10 @@ export default function AccessPage() {
 
   const handleLogin = () => {
   if (password === "greha123") {
-    document.cookie = "site_access=granted; path=/; SameSite=Lax";
-    window.location.replace("/");
+    document.cookie =
+      "site_access=granted; path=/; max-age=86400; SameSite=Lax";
+
+    window.location.href = "/";
   } else {
     alert("Wrong password");
   }
