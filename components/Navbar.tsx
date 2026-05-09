@@ -28,6 +28,7 @@ import { Menu, X, ChevronDown, Trophy, Globe, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils';
 import ExplodingImage from './ExplodingImage';
 import { usePathname } from 'next/navigation';
+
 /* -------------------- NAVBAR -------------------- */
 export default function Navbar() {
   const [menu, setMenu] = useState<any[]>([]);
