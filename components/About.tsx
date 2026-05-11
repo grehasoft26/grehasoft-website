@@ -22,6 +22,8 @@ useEffect(() => {
       );
 
       const data = res.data[0]?.acf;
+      console.log("ACF DATA:", data);
+console.log("IMAGE FIELD:", data.image);
 
       if (!data) return;
 
@@ -29,22 +31,18 @@ useEffect(() => {
 
       // ✅ IMAGE ID → URL
       if (data.image) {
-        try {
-          const imgRes = await axios.get(
-            `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/media/${data.image}`
-          );
+  try {
+    const mediaRes = await axios.get(
+      `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/media?include=${data.image}`
+    );
 
-          console.log("IMAGE RESPONSE:", imgRes.data);
+    const media = mediaRes.data?.[0];
 
-          setImage(
-            imgRes.data.source_url ||
-            imgRes.data.guid?.rendered ||
-            ""
-          );
-        } catch (error) {
-          console.log("Image fetch failed:", error);
-        }
-      }
+    setImage(media?.source_url || "");
+  } catch (error) {
+    console.log("Image fetch failed:", error);
+  }
+}
 
       // ✅ VIDEO ID → URL
       if (data.video) {
