@@ -2,11 +2,12 @@ import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 
-import HeroSection from '@/components/service/HeroSection';
-import ServicesSection from '@/components/service/ServicesSection';
-import WhyChooseSection from '@/components/service/WhyChooseSection';
-import FeaturesSection from '@/components/service/FeaturesSection';
-import FAQSection from '@/components/service/FAQSection';
+import HeroSection from '@/components/service/website_design&development/HeroSection';
+import ServicesSection from '@/components/service/website_design&development/ServicesSection';
+import WhyChooseSection from '@/components/service/website_design&development/WhyChooseSection';
+import FeaturesSection from '@/components/service/website_design&development/FeaturesSection';
+import FAQSection from '@/components/service/website_design&development/FAQSection';
+import IndustriesSection from '@/components/service/website_design&development/IndustriesSection';
 
 import {
   Layout,
@@ -26,70 +27,26 @@ import {
   Palette,
   ShoppingCart,
   Navigation as NavigationIcon,
-  Store,
 } from 'lucide-react';
-import IndustriesSection from '@/components/service/IndustriesSection';
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+interface Props {
+  service: any;
+  heroImageUrl?: string;
+}
 
-export default async function ServicePage({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}) {
+export default function WebDesignTemplate({
+  service,
+  heroImageUrl,
+}: Props) {
 
-  const { slug } = await params;
-
-  const serviceSlug = slug[slug.length - 1];
-
-  // FETCH SERVICE
-  const res = await fetch(
-    `${API}/services?slug=${slug}&_embed`,
-    {
-      cache: 'no-store',
-    }
-  );
-
-  const data = await res.json();
-
-  const service = data[0];
-
-  // NO SERVICE
-  if (!service) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        No Service Found
-      </div>
-    );
-  }
-
-  const acf = service.acf || {};
+  const acf = service?.acf || {};
 
   // FEATURED IMAGE
   const featuredImage =
-    service._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+    service?._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
     '/images/fallback.jpg';
 
-  // HERO IMAGE FROM ID
-  const heroImageId = acf.hero_image;
-
-  let heroImageUrl = '';
-
-  if (heroImageId) {
-
-    const mediaRes = await fetch(
-      `${API}/media/${heroImageId}`,
-      {
-        cache: 'no-store',
-      }
-    );
-
-    const mediaData = await mediaRes.json();
-
-    heroImageUrl = mediaData.source_url;
-  }
-
-  // WHY CHOOSE US
+  // WHY CHOOSE
   const whyChooseUs = [
     {
       title: acf.advantage1_title,
@@ -117,7 +74,9 @@ export default async function ServicePage({
       icon: <Wallet className="w-6 h-6" />,
     },
   ].filter((item) => item.title);
-const industries = [
+
+  // INDUSTRIES
+  const industries = [
     acf.industry1,
     acf.industry2,
     acf.industry3,
@@ -127,6 +86,7 @@ const industries = [
     acf.industry7,
     acf.industry8,
   ].filter(Boolean);
+
   // FEATURES
   const websiteFeatures = [
     {
@@ -262,29 +222,29 @@ const industries = [
   return (
     <main className="bg-white">
 
-      {/* PAGE HEADER */}
       <PageHeader
-        title={acf.page_title || service.title.rendered}
+        title={acf.page_title || service.title?.rendered}
         description={acf.page_desc}
         breadcrumb={[
           { name: 'Home', href: '/' },
           {
-            name: service.title.rendered,
+            name: service.title?.rendered,
             href: `/${service.slug}`,
           },
         ]}
       />
 
-      {/* HERO */}
       <HeroSection
         acf={acf}
-        heroImageUrl={heroImageUrl}
+         heroImageUrl={heroImageUrl || ""}
         featuredImage={featuredImage}
-        serviceTitle={service.title.rendered}
+        serviceTitle={service.title?.rendered}
       />
+
       {/* STRATEGIC SECTION */}
       {acf.planning_title && (
         <section className="section-padding bg-gray-50">
+
           <div className="container-custom">
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -301,32 +261,17 @@ const industries = [
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-                  {acf.point1 && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full" />
-                      <span>{acf.point1}</span>
-                    </div>
-                  )}
-
-                  {acf.point2 && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full" />
-                      <span>{acf.point2}</span>
-                    </div>
-                  )}
-
-                  {acf.point3 && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full" />
-                      <span>{acf.point3}</span>
-                    </div>
-                  )}
-                   {acf.point4 && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-primary rounded-full" />
-                      <span>{acf.point4}</span>
-                    </div>
-                  )}
+                  {[acf.point1, acf.point2, acf.point3, acf.point4]
+                    .filter(Boolean)
+                    .map((point: string, i: number) => (
+                      <div
+                        key={i}
+                        className="flex items-center gap-3"
+                      >
+                        <div className="w-2 h-2 bg-primary rounded-full" />
+                        <span>{point}</span>
+                      </div>
+                    ))}
 
                 </div>
 
@@ -341,45 +286,43 @@ const industries = [
                 <h3 className="text-3xl font-black text-dark mb-6">
                   {acf.success_title}
                 </h3>
-<div
-  className="text-gray-600 mb-8 leading-relaxed space-y-4"
-  dangerouslySetInnerHTML={{
-    __html: acf.success_description,
-  }}
-/>
+
+                <div
+                  className="text-gray-600 mb-8 leading-relaxed space-y-4"
+                  dangerouslySetInnerHTML={{
+                    __html: acf.success_description,
+                  }}
+                />
 
               </div>
 
             </div>
 
           </div>
+
         </section>
       )}
 
-
-      {/* SERVICES */}
       <ServicesSection
         acf={acf}
         designServices={designServices}
       />
 
-      {/* WHY CHOOSE */}
       <WhyChooseSection
         acf={acf}
         whyChooseUs={whyChooseUs}
       />
 
-      {/* FEATURES */}
       <FeaturesSection
         acf={acf}
         websiteFeatures={websiteFeatures}
       />
-{/* FEATURES */}
+
       <IndustriesSection
         acf={acf}
         industries={industries}
       />
-      {/* FAQ */}
+
       <FAQSection
         acf={acf}
         faqs={faqs}
