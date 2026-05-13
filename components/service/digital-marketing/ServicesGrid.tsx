@@ -11,6 +11,11 @@ import {
   Link as LinkIcon,
   ShoppingBag,
   Navigation,
+  ChartColumn,
+  SearchCheck,
+  Target,
+  PlayCircle,
+  Monitor,
 } from 'lucide-react';
 
 interface Props {
@@ -26,6 +31,13 @@ const iconMap: any = {
   Link: LinkIcon,
   ShoppingCart: ShoppingBag,
   Globe: Navigation,
+  ChartColumn: ChartColumn,
+  SearchCheck: SearchCheck,
+  Layout: Layout,
+  Target: Target,
+  PlayCircle: PlayCircle,
+  Monitor: Monitor,
+
 };
 
 export default function ServicesGrid({ acf }: Props) {
@@ -74,7 +86,7 @@ export default function ServicesGrid({ acf }: Props) {
       icon: data.services_card8_icon,
     },
   ];
-
+if (!data?.services_section_title) return null;
   return (
 
     <section className="section-padding bg-white">

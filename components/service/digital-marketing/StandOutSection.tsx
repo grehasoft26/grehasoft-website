@@ -10,6 +10,7 @@ interface Props {
 export default function StandOutSection({ acf }: Props) {
 console.log(acf);
 const data = acf?.digital_marketing?.expertise_section || {};
+if (!data?.expert_left_title) return null;
   return (
 
     <section className="section-padding overflow-hidden">

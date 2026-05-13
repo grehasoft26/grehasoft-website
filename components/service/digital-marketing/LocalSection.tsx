@@ -16,6 +16,8 @@ export default function LocalSection({ acf }: Props) {
     localData?.local_feature_two,
     localData?.local_feature_three,
     localData?.local_feature_four,
+    localData?.local_feature_five,
+    localData?.local_feature_six,
   ];
 
   const strategies = [
@@ -26,7 +28,7 @@ export default function LocalSection({ acf }: Props) {
     localData?.local_point_five,
     localData?.local_point_six,
   ];
-
+if (!localData?.local_title) return null;
   return (
 
     <section className="section-padding bg-gray-50 relative overflow-hidden">

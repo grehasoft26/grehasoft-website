@@ -49,7 +49,7 @@ export default function WhySEOSection({ acf }: Props) {
       icon: whySeo?.why_seo_card5_icon,
     },
   ];
-
+if (!whySeo?.why_seo_title_1) return null;
   return (
     <section className="section-padding bg-dark text-white overflow-hidden relative">
 

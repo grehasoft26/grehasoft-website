@@ -226,7 +226,7 @@ export default function WebDesignTemplate({
         title={acf.page_title || service.title?.rendered}
         description={acf.page_desc}
         breadcrumb={[
-          { name: 'Home', href: '/' },
+     
           {
             name: service.title?.rendered,
             href: `/${service.slug}`,
