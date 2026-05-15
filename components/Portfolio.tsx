@@ -68,7 +68,7 @@ const getTitle = (item: any) => {
         {/* HEADER */}
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
-            <span className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block">
+            <span className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block">
               OUR PORTFOLIO
             </span>
 
@@ -104,14 +104,46 @@ const getTitle = (item: any) => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
-                className="group relative rounded-[2.5rem] overflow-hidden shadow-xl h-[450px]"
+               className="
+group
+relative
+rounded-[2rem]
+overflow-hidden
+shadow-xl
+
+h-[260px]
+sm:h-[300px]
+lg:h-[340px]
+
+bg-white
+border border-gray-100
+
+hover:-translate-y-2
+transition-all
+duration-500
+"
               >
                 {/* IMAGE */}
+               
                 <img
-                  src={image}
-                  alt={item.title.rendered}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+  src={image}
+  alt={item.title.rendered}
+  className="
+    absolute
+    inset-0
+
+    w-full
+    h-full
+  
+    object-cover
+    object-center
+
+    transition-transform
+    duration-700
+
+    group-hover:scale-105
+  "
+/>
 
                 {/* HOVER */}
                 <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col items-center justify-center text-center p-6">
@@ -139,13 +171,15 @@ const getTitle = (item: any) => {
 
                 {/* BOTTOM */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
-                  <span className="text-white/70 text-xs uppercase">
-                    {acf.subtitle || "Web Development"}
-                  </span>
+                  <span className="text-green-400 text-[11px] uppercase tracking-[2px] font-semibold">
+    {acf.subtitle || "Web Development"}
+  </span>
 
-                  <h3 className="text-lg font-bold text-white">
-                    {getTitle(item)}
-                  </h3>
+  <h3 className="text-xl font-bold text-white leading-tight mt-1 drop-shadow-lg">
+    {getTitle(item)}
+  </h3>
+
+                 
                 </div>
 
               </motion.div>

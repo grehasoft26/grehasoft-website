@@ -174,9 +174,12 @@ const getSubMenu = (id: any) =>
 
     return (
       <div key={column.id} className="flex flex-col gap-4">
-        <h3 className="text-sm font-bold text-dark uppercase tracking-wider">
-          {column.title}
-        </h3>
+       <Link
+  href={getPath(column.url)}
+  className="text-sm font-bold text-dark uppercase tracking-wider hover:text-primary transition-colors inline-block"
+>
+  {column.title}
+</Link>
 
         <div className="flex flex-col gap-2">
           {columnLinks.map((link) => (

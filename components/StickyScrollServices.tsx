@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { motion, useScroll , useTransform} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function StickyScrollServices() {
   const [services, setServices] = useState<any[]>([]);
@@ -39,144 +39,177 @@ export default function StickyScrollServices() {
   const service = services[activeIndex] || {};
   const acf = service?.acf || {};
 
- const image =
-  service?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-  service?.yoast_head_json?.og_image?.[0]?.url ||
-  "";
-    const bgOpacity = useTransform(
-  scrollYProgress,
-  [0, 0.5, 1],
-  [0.06, 0.1, 0] // 👈 smooth fade in & out
-);
+  const image =
+    service?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    service?.yoast_head_json?.og_image?.[0]?.url ||
+    "";
+
+  const bgOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [0.06, 0.1, 0]
+  );
 
   return (
     <div ref={containerRef} className="h-[300vh]">
-      
-      <div className="sticky top-0 h-screen flex items-center bg-white">
+      <div className="sticky top-0 h-screen flex items-center bg-white overflow-hidden">
+        
+        {/* MAIN CONTAINER */}
+        <div className="container-custom relative z-10 w-full">
+          
+          <div className="grid lg:grid-cols-2 gap-10 xl:gap-16 items-center">
+            
+            {/* LEFT */}
+            <div className="relative z-10">
+              <span className="inline-block px-4 py-2 rounded-full bg-blue-100 text-accent text-xs sm:text-sm mb-4">
+                SERVICE {acf?.service_tag}
+              </span>
 
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center w-full">
+              <h2
+                className="
+                  text-[34px]
+                  sm:text-[44px]
+                  md:text-[54px]
+                  lg:text-[64px]
 
-          {/* LEFT */}
-          <div>
-            <span className="inline-block px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm mb-4">
-              SERVICE {acf?.service_tag}
-            </span>
+                  font-bold
+                  text-[#0b0b45]
 
-        <h2
-  className="
-    text-[42px]
-    sm:text-[52px]
-    md:text-5xl
+                  mb-5
+                  leading-[1.05]
 
-    font-bold
-    text-[#0b0b45]
+                  break-words
+                "
+              >
+                {acf?.hero_title}
+              </h2>
 
-    mb-4
-    leading-[1.05]
+              <p
+                className="
+                  text-gray-600
+                  text-base
+                  sm:text-lg
 
-    break-words
-  "
->
-              {acf?.hero_title}
-            </h2>
+                  leading-relaxed
 
-            <p className="text-gray-600 text-lg mb-8">
-              {acf?.description}
-            </p>
+                  mb-8
+                  max-w-2xl
+                "
+              >
+                {acf?.description}
+              </p>
 
-            <a
-              href={acf?.button_link || "#"}
-              className="
-                inline-flex items-center gap-2
-                px-8 py-4 rounded-full
-                text-white font-medium
-                
-                bg-black
-                transition-all duration-300
-                
-                hover:bg-blue-600
-                hover:scale-105
-                hover:shadow-lg hover:shadow-blue-200
-              "
-            >
-              {acf?.button_text || "Get Started"} →
-            </a>
-          </div>
+              <a
+                href={acf?.button_link || "#"}
+                className="
+                  inline-flex items-center gap-2
 
-          {/* RIGHT IMAGE */}
-          <div className="flex justify-center">
-            {image && (
-              <motion.img
-  key={image}
-  src={image}
-  className="w-[240px] sm:w-[320px] md:w-[420px]"
+                  px-6 sm:px-8
+                  py-3 sm:py-4
 
-  initial={{ opacity: 0, y: 40 }}
-  animate={{
-    opacity: 1,
-    y: [0, -15, 0],        // 👈 floating up & down
-    rotate: [0, 1.5, -1.5, 0], // 👈 subtle tilt
-  }}
+                  rounded-full
+                  text-white
+                  text-sm sm:text-base
+                  font-medium
 
-  transition={{
-    opacity: { duration: 0.5 },
-    y: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-    rotate: {
-      duration: 6,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  }}
-/>
-            )}
+                  bg-black
+
+                  transition-all duration-300
+
+                  hover:bg-blue-600
+                  hover:scale-105
+                  hover:shadow-lg hover:shadow-blue-200
+                "
+              >
+                {acf?.button_text || "Get Started"} →
+              </a>
+            </div>
+
+            {/* RIGHT IMAGE */}
+            <div className="flex justify-center lg:justify-end relative z-10">
+              {image && (
+                <motion.img
+                  key={image}
+                  src={image}
+                  className="
+                    w-[240px]
+                    sm:w-[320px]
+                    md:w-[420px]
+                    lg:w-[500px]
+
+                    max-w-full
+                    h-auto
+                  "
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{
+                    opacity: 1,
+                    y: [0, -15, 0],
+                    rotate: [0, 1.5, -1.5, 0],
+                  }}
+                  transition={{
+                    opacity: { duration: 0.5 },
+                    y: {
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                    rotate: {
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    },
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
 
         {/* BACKGROUND TEXT */}
- {/* BACKGROUND TEXT */}
-{/* BACKGROUND TEXT */}
-<motion.h1
-  style={{ opacity: bgOpacity }}
-  className="
-    absolute top-1/2 left-1/2
-    -translate-x-1/2 -translate-y-1/2
+        <motion.h1
+          style={{ opacity: bgOpacity }}
+          className="
+            absolute
+            top-1/2
+            left-1/2
+            -translate-x-1/2
+            -translate-y-1/2
 
-    text-[42px]
-    sm:text-[55px]
-    md:text-[90px]
-    lg:text-[120px]
-    xl:text-[140px]
+            text-[20px]
+            sm:text-[50px]
+            md:text-[80px]
+            lg:text-[100px]
+            xl:text-[130px]
 
-    font-bold
-    text-[#0b0b45]
+            font-bold
+            text-[#0b0b45]
 
-    tracking-[2px]
-    sm:tracking-[4px]
-    md:tracking-[10px]
+            tracking-[2px]
+            sm:tracking-[6px]
+            md:tracking-[12px]
 
-    blur-[1px]
+            blur-[1px]
 
-    whitespace-pre-line
-    md:whitespace-nowrap
+            whitespace-pre-line
+            lg:whitespace-nowrap
 
-    pointer-events-none
-    select-none
+            pointer-events-none
+            select-none
 
-    z-0
-    px-4
-    text-center
-    leading-none
-    max-w-full
-  "
->
-  {typeof window !== "undefined" && window.innerWidth < 768
-    ? acf?.background_text?.replace(" ", "\n")
-    : acf?.background_text}
-</motion.h1>
+            z-0
+
+            px-4
+            text-center
+            leading-none
+
+            max-w-full
+            overflow-hidden
+          "
+        >
+          {typeof window !== "undefined" && window.innerWidth < 768
+            ? acf?.background_text?.replace(" ", "\n")
+            : acf?.background_text}
+        </motion.h1>
       </div>
     </div>
   );

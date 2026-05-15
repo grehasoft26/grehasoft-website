@@ -86,7 +86,7 @@ if (!acf) return null;
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block">
+            <span className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block">
               About Grehasoft
             </span>
 

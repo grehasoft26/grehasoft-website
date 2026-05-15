@@ -124,7 +124,7 @@ export default function Awards() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block"
+              className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block"
             >
               {data.section_tag}
             </motion.span>

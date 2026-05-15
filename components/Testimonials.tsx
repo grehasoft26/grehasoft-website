@@ -48,7 +48,7 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block"
+            className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block"
           >
             Testimonials
           </motion.span>

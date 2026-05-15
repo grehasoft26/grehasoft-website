@@ -73,9 +73,9 @@ export default function FAQ() {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4"
+            className="inline-flex items-center gap-2 bg-primary/10 text-accent px-4 py-2 rounded-full text-sm font-semibold mb-4"
           >
-            <BookOpen className="w-4 h-4" />
+           
             Knowledge Base
           </motion.div>
 
@@ -99,10 +99,12 @@ export default function FAQ() {
           <button
             onClick={() => paginate(-1)}
             disabled={currentPage === 0}
-            className={cn(
-              "absolute left-0 z-30 w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center transition-all border border-gray-100",
-              currentPage === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-primary hover:text-white -translate-x-1/2"
-            )}
+           className={cn(
+  "absolute left-4 md:left-1 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-xl flex items-center justify-center transition-all border border-gray-100",
+  currentPage === 0
+    ? "opacity-30 cursor-not-allowed"
+    : "hover:bg-primary hover:text-white"
+)}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -110,10 +112,12 @@ export default function FAQ() {
           <button
             onClick={() => paginate(1)}
             disabled={currentPage === totalPages - 1}
-            className={cn(
-              "absolute right-0 z-30 w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center transition-all border border-gray-100",
-              currentPage === totalPages - 1 ? "opacity-30 cursor-not-allowed" : "hover:bg-primary hover:text-white translate-x-1/2"
-            )}
+           className={cn(
+  "absolute right-4 md:right-1 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white shadow-xl flex items-center justify-center transition-all border border-gray-100",
+  currentPage === totalPages - 1
+    ? "opacity-30 cursor-not-allowed"
+    : "hover:bg-primary hover:text-white"
+)}
           >
             <ChevronRight className="w-6 h-6" />
           </button>
