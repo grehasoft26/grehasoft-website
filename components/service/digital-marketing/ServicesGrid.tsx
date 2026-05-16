@@ -16,6 +16,14 @@ import {
   Target,
   PlayCircle,
   Monitor,
+ Zap,
+ Palette,
+ Facebook,
+ Instagram,
+ Linkedin,
+ Megaphone,
+  Video,
+
 } from 'lucide-react';
 
 interface Props {
@@ -37,6 +45,15 @@ const iconMap: any = {
   Target: Target,
   PlayCircle: PlayCircle,
   Monitor: Monitor,
+   instagram: Instagram,
+  facebook: Facebook,
+  linkedin: Linkedin,
+  megaphone: Megaphone,
+  palette: Palette,
+  video: Video,
+  target: Target,
+  zap: Zap,
+
 
 };
 

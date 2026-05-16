@@ -11,6 +11,11 @@ import {
   BarChart3,
   FileText,
   Layout,
+  PanelTop,
+  Palette,
+  Megaphone,
+  ChartColumn,
+  ChartNoAxesCombined,
 } from 'lucide-react';
 
 import { motion } from 'motion/react';
@@ -34,6 +39,12 @@ export default function ProcessSection({ acf }: Props) {
     BarChart3: BarChart3,
     FileText: FileText,
     Layout: Layout,
+    PanelTop: PanelTop,
+    Palette: Palette,
+    Megaphone: Megaphone,
+    ChartColumn: ChartColumn,
+    ChartNoAxesCombined: ChartNoAxesCombined,
+
     
   };
 

@@ -12,6 +12,7 @@ import {
   Utensils,
   ShoppingBag,
   Briefcase,
+  Store,
 } from 'lucide-react';
 
 interface Props {
@@ -33,6 +34,7 @@ export default function IndustriesSection({ acf }: Props) {
     Utensils,
     ShoppingBag,
     Briefcase,
+    Store,
   };
 
   const industries = [

@@ -193,7 +193,7 @@ export default function Clients() {
 
       brightness-0
       invert
-      opacity-50
+      opacity-80
 
       group-hover:brightness-100
       group-hover:invert-0

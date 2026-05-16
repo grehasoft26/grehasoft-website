@@ -8,6 +8,8 @@ import {
   Shield,
   TrendingUp,
   Zap,
+   MessageSquare,
+   Target,
 } from 'lucide-react';
 
 interface Props {
@@ -25,6 +27,8 @@ export default function WhySEOSection({ acf }: Props) {
     TrendingUp: TrendingUp,
     Shield: Shield,
     Rocket: Rocket,
+    MessageSquare: MessageSquare,
+    Target: Target,
   };
 
   const cards = [

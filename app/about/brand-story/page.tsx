@@ -7,6 +7,7 @@ import { Quote, Sparkles, Heart, Zap } from 'lucide-react';
 import Footer from '@/components/Footer';
 import CEOFeature from '@/components/CEOFeature';
 import { useEffect, useState } from "react";
+import LogoEvolution from '@/components/LogoEvolution';
 
 const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
@@ -42,7 +43,7 @@ export default function BrandStoryPage() {
       />
 
       <BrandStory />
-
+       <LogoEvolution />
       <CEOFeature />
 
       {/* Detailed Story Section */}
