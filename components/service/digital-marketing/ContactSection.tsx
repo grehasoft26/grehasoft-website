@@ -9,6 +9,8 @@ import {
   TrendingUp,
   Zap,
   Shield,
+  CheckCircle,
+  Camera,
 } from 'lucide-react';
 
 interface Props {
@@ -27,6 +29,8 @@ export default function ContactSection({ acf }: Props) {
     Rocket,
     Zap,
     Shield,
+    CheckCircle,
+    Camera,
   };
 
   // TOP CARD ICON

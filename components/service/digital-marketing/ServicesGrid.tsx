@@ -23,6 +23,10 @@ import {
  Linkedin,
  Megaphone,
   Video,
+  Layers3,
+  TrendingUp,
+  Users,
+  Rocket,
 
 } from 'lucide-react';
 
@@ -53,7 +57,10 @@ const iconMap: any = {
   video: Video,
   target: Target,
   zap: Zap,
-
+  layers3: Layers3,
+  trendingUp: TrendingUp,
+  users: Users,
+  Rocket: Rocket,
 
 };
 

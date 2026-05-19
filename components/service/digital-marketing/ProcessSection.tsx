@@ -16,6 +16,10 @@ import {
   Megaphone,
   ChartColumn,
   ChartNoAxesCombined,
+  LayoutDashboard,
+  Rocket,
+  BarChart3Icon,
+  ChartNoAxesColumn,
 } from 'lucide-react';
 
 import { motion } from 'motion/react';
@@ -44,6 +48,11 @@ export default function ProcessSection({ acf }: Props) {
     Megaphone: Megaphone,
     ChartColumn: ChartColumn,
     ChartNoAxesCombined: ChartNoAxesCombined,
+    LayoutDashboard: LayoutDashboard,
+    Rocket: Rocket,
+    BarChart3Icon: BarChart3Icon,
+    ChartNoAxesColumn: ChartNoAxesColumn,
+    
 
     
   };

@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import { TrendingUp } from 'lucide-react';
-
+import Image from "next/image";
 interface Props {
   acf: any;
   heroImageUrl?: string;
@@ -126,13 +126,14 @@ export default function IntroSection({
             className="relative"
           >
 
-            <div className="aspect-[4/5] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl">
+           <div className="relative aspect-[4/5] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl">
 
-              <img
-                src={heroImageUrl || featuredImage}
-                alt={acf?.hero_title1}
-                className="w-full h-full object-cover"
-              />
+            <Image
+  src={heroImageUrl || featuredImage}
+  alt={acf?.hero_title1 || "Service Image"}
+  fill
+  className="object-cover"
+/>
 
             </div>
 

@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'i.pravatar.cc',
       },
+      {
+  protocol: 'https',
+  hostname: 'antiquewhite-swan-450844.hostingersite.com',
+},
     ],
   },
 };

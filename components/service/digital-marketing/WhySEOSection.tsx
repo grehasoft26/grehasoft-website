@@ -10,6 +10,9 @@ import {
   Zap,
    MessageSquare,
    Target,
+   Camera,
+   Palette,
+   Users,
 } from 'lucide-react';
 
 interface Props {
@@ -29,6 +32,9 @@ export default function WhySEOSection({ acf }: Props) {
     Rocket: Rocket,
     MessageSquare: MessageSquare,
     Target: Target,
+    Camera: Camera,
+    Palette: Palette,
+    Users: Users,
   };
 
   const cards = [
