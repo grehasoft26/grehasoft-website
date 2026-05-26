@@ -1,7 +1,8 @@
 'use client';
 import {
   Monitor, Code,  ShoppingBag, Megaphone, Cpu, Palette,
-  PenTool, CreditCard, Search, Target, Share2,  BookOpen, RefreshCw
+  PenTool, CreditCard, Search, Target, Share2,  BookOpen, RefreshCw,
+  MessageCircle
 } from 'lucide-react';
 
 const iconMap: any = {
@@ -28,6 +29,8 @@ import { Menu, X, ChevronDown, Trophy, Globe, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils';
 import ExplodingImage from './ExplodingImage';
 import { usePathname } from 'next/navigation';
+import { FaWhatsapp } from 'react-icons/fa';
+import WhatsAppButton from './WhatsAppButton';
 
 /* -------------------- NAVBAR -------------------- */
 export default function Navbar() {
@@ -247,6 +250,7 @@ const getSubMenu = (id: any) =>
           <Link href="/contact" className="btn-primary py-2 px-6 text-sm">
             Get Started
           </Link>
+          
         </div>
 
           {/* Mobile Toggle */}

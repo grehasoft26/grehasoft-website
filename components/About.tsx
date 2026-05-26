@@ -87,7 +87,7 @@ if (!acf) return null;
             transition={{ duration: 0.8 }}
           >
             <span className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block">
-              About Grehasoft
+            Company Overview Section
             </span>
 
             {/* TITLE */}

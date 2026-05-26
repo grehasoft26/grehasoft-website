@@ -11,6 +11,8 @@ import CTA from '@/components/CTA';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import FAQ from '@/components/FAQ';
+import TrustedITSection from '@/components/TrustedITSection';
+import WhyChooseUs from '@/components/WhyChooseUs';
 
 export default function Home() {
   return (
@@ -19,7 +21,9 @@ export default function Home() {
       <Hero />
       
       <StickyScrollServices />
+      <TrustedITSection />
       <Clients />
+      <WhyChooseUs />
       <Awards />
       <About />
       <Portfolio />
