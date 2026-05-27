@@ -268,12 +268,22 @@ export default function Portfolio({ isFullPage = false, showFilters = true }) {
 
                   </h3>
 
-                  <Link
-                    href={`/portfolio/${item.slug}`}
-                    className="bg-white text-primary px-5 py-2 rounded-full text-sm font-semibold"
-                  >
-                    View Case Study
-                  </Link>
+                  <div
+  className="
+    opacity-100 translate-y-0
+    md:opacity-0 md:translate-y-4
+    md:group-hover:opacity-100
+    md:group-hover:translate-y-0
+    transition-all duration-300
+  "
+>
+  <Link
+    href={`/portfolio/${item.slug}`}
+    className="bg-white text-primary px-5 py-2 rounded-full text-sm font-semibold inline-block"
+  >
+    View Case Study
+  </Link>
+</div>
 
                 </div>
 
