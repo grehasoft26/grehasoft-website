@@ -248,44 +248,52 @@ export default function Portfolio({ isFullPage = false, showFilters = true }) {
                 />
 
                 {/* HOVER */}
-                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col items-center justify-center text-center p-6">
-
-                  <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-4">
-
-                    <Plus className="text-primary w-6 h-6" />
-
-                  </div>
-
-                  <span className="text-white/80 text-xs uppercase tracking-widest">
-
-                    {acf.subtitle || "Web Development"}
-
-                  </span>
-
-                  <h3 className="text-xl font-bold text-white mt-2 mb-4">
-
-                    {getTitle(item)}
-
-                  </h3>
-
-                  <div
+          <div
   className="
-    opacity-100 translate-y-0
-    md:opacity-0 md:translate-y-4
+    absolute inset-0
+    bg-primary/80
+
+    opacity-100
+    md:opacity-0
     md:group-hover:opacity-100
-    md:group-hover:translate-y-0
-    transition-all duration-300
+
+    transition duration-500
+    flex flex-col items-center justify-center
+    text-center p-6
+
+   
   "
 >
-  <Link
-    href={`/portfolio/${item.slug}`}
-    className="bg-white text-primary px-5 py-2 rounded-full text-sm font-semibold inline-block"
-  >
-    View Case Study
-  </Link>
-</div>
+  <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center mb-4">
+    <Plus className="text-primary w-6 h-6" />
+  </div>
 
-                </div>
+  {/* <span className="text-white/80 text-xs uppercase tracking-widest">
+    {acf.subtitle || "Web Development"}
+  </span>
+
+  <h3 className="text-xl font-bold text-white mt-2 mb-4">
+    {getTitle(item)}
+  </h3> */}
+
+  <Link
+  href={`/portfolio/${item.slug}`}
+  className="
+    inline-block
+    bg-white
+    text-primary
+    px-5
+    py-2
+    rounded-full
+    text-sm
+    font-semibold
+    relative
+    z-30
+  "
+>
+  View Case Study
+</Link>
+</div>
 
                 {/* BOTTOM */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent">

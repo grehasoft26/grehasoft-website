@@ -7,6 +7,7 @@ import { ArrowRight, ChevronLeft, CheckCircle2 } from "lucide-react";
 import CTA from "@/components/CTA";
 import PageHeader from "@/components/PageHeader";
 import ConsultationPopup from "@/components/ConsultationPopup";
+import Footer from "@/components/Footer";
 
 const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
@@ -123,13 +124,13 @@ export default function CaseStudyDetail({
               animate={{ opacity: 1, y: 0 }}
             >
 
-              <span className="px-4 py-1 mb-6 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+              <span className="px-4 py-1  rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
 
                 {acf.subtitle || "Web Development"}
 
               </span>
 
-              <h1 className="text-4xl md:text-6xl font-bold text-dark mb-6 leading-tight">
+              <h1 className="text-4xl mt-4 md:text-6xl font-bold text-dark mb-6 leading-tight">
 
                 {data.title?.rendered || "No Title"}
 
@@ -442,7 +443,7 @@ export default function CaseStudyDetail({
 
       <CTA />
       <ConsultationPopup />
-
+      <Footer />
     </main>
 
   );
