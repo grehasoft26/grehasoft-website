@@ -104,7 +104,7 @@ export default function CaseStudyDetail({
       />
 
       {/* HERO */}
-      <section className="pt-32 pb-16 bg-gray-50">
+      <section className="pt-18 pb-16 bg-gray-50">
 
         <div className="container-custom">
 
@@ -123,7 +123,7 @@ export default function CaseStudyDetail({
               animate={{ opacity: 1, y: 0 }}
             >
 
-              <span className="px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+              <span className="px-4 py-1 mb-6 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
 
                 {acf.subtitle || "Web Development"}
 
