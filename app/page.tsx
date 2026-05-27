@@ -26,7 +26,7 @@ export default function Home() {
       <WhyChooseUs />
       <Awards />
       <About />
-      <Portfolio />
+    <Portfolio showFilters={false} />
       <Products />
        <FAQ />
       <Testimonials />
