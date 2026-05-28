@@ -70,3 +70,6 @@ body {
   .animate-spin-slow {
     animation: spin-slow 12s linear infinite;
   }
+.portfolio-swiper .swiper-wrapper {
+  padding-bottom: 10px;
+}

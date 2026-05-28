@@ -211,7 +211,7 @@ export default function Clients() {
         </div>
 
         {/* BUTTON */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -232,7 +232,7 @@ export default function Clients() {
               <ArrowRight className="w-5 h-5 text-green-400 group-hover:translate-x-2 transition-transform duration-500" />
             </div>
           </Link>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
