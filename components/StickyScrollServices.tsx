@@ -81,7 +81,7 @@ export default function StickyScrollServices() {
                   break-words
                 "
               >
-                {acf?.hero_title}
+               <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent"> {acf?.hero_title}</span>
               </h2>
 
               <p

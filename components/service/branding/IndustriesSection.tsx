@@ -4,28 +4,17 @@ import { motion } from 'motion/react';
 
 import {
   Globe,
-  Monitor,
-  Stethoscope,
   Building2,
-  GraduationCap,
-  Users,
-  Utensils,
   ShoppingBag,
+  GraduationCap,
   Briefcase,
+  Users,
   Store,
   Rocket,
-  BriefcaseBusiness,
-   Cpu,
-  Heart,
-  
-  UtensilsCrossed,
-  
-  Shirt,
-  
-  Compass,
- 
-  Shield,
-
+  Palette,
+  Monitor,
+  Utensils,
+  Stethoscope,
 } from 'lucide-react';
 
 interface Props {
@@ -34,28 +23,21 @@ interface Props {
 
 export default function IndustriesSection({ acf }: Props) {
 
-  // GET INDUSTRY SECTION
-  const industry = acf?.digital_marketing?.industry_section || {};
+  const industry = acf?.branding?.industry_section || {};
 
   const iconMap: any = {
     Globe,
-    Stethoscope,
     Building2,
-    GraduationCap,
-    Users,
-     Monitor,
-    Utensils,
     ShoppingBag,
+    GraduationCap,
     Briefcase,
+    Users,
     Store,
     Rocket,
-    BriefcaseBusiness,
-      Cpu,
-    Heart,
-    UtensilsCrossed,
-    Shirt,
-    Compass,
-    Shield,
+    Palette,
+    Monitor,
+    Utensils,
+    Stethoscope,
   };
 
   const industries = [
@@ -95,15 +77,13 @@ export default function IndustriesSection({ acf }: Props) {
       name: industry?.industry_9_title,
       icon: industry?.industry_9_icon,
     },
-    {
-      name: industry?.industry_10_title,
-      icon: industry?.industry_10_icon,
-    },
   ].filter((item) => item.name);
-if (!industry?.industry_title) return null;
+
+  if (!industry?.industry_title) return null;
+
   return (
 
-    <section className="section-padding bg-gray-50">
+    <section className="section-padding bg-gray-50 overflow-hidden">
 
       <div className="container-custom">
 
@@ -111,64 +91,83 @@ if (!industry?.industry_title) return null;
         <div className="text-center max-w-4xl mx-auto mb-20">
 
           {industry?.industry_tag && (
+
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
               {industry.industry_tag}
             </span>
+
           )}
 
-          {industry?.industry_title && (
-            <h2 className="text-4xl font-black text-dark mb-6">
-              {industry.industry_title}
-            </h2>
-          )}
+          <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
+            {industry.industry_title}
+          </h2>
 
           {industry?.industry_description && (
+
             <p className="text-gray-600 text-lg leading-relaxed">
               {industry.industry_description}
             </p>
+
           )}
 
         </div>
 
-        {/* INDUSTRY GRID */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+        {/* INDUSTRIES GRID */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mb-16">
 
-          {industries.map((ind, i) => {
+          {industries.map((item, index) => {
 
-            const IconComponent = iconMap[ind.icon] || Globe;
+            const IconComponent =
+              iconMap[item.icon] || Globe;
 
             return (
 
               <motion.div
-                key={i}
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: index * 0.05,
+                  duration: 0.5,
+                }}
                 whileHover={{ y: -5 }}
-                className="flex items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-primary/30 transition-all group"
+                className="group bg-white rounded-[2rem] border border-gray-100 p-6 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-500"
               >
 
-                <div className="text-primary group-hover:scale-110 transition-transform flex-shrink-0">
-                  <IconComponent className="w-5 h-5" />
-                </div>
+                <div className="flex flex-col items-center text-center gap-4">
 
-                <span className="font-bold text-dark text-[10px] sm:text-xs leading-tight">
-                  {ind.name}
-                </span>
+                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+
+                    <IconComponent className="w-6 h-6" />
+
+                  </div>
+
+                  <span className="font-bold text-dark text-sm leading-tight">
+                    {item.name}
+                  </span>
+
+                </div>
 
               </motion.div>
 
             );
+
           })}
 
         </div>
 
         {/* BOTTOM TEXT */}
         {industry?.industry_bottom_text && (
-          <div className="max-w-3xl mx-auto text-center">
 
-            <p className="text-gray-500 leading-relaxed font-medium italic border-t border-gray-200 pt-10">
+          <div className="max-w-4xl mx-auto text-center">
+
+            <p className="text-gray-500 leading-relaxed italic border-t border-gray-200 pt-10">
               {industry.industry_bottom_text}
             </p>
 
           </div>
+
         )}
 
       </div>

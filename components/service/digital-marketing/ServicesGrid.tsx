@@ -27,6 +27,14 @@ import {
   TrendingUp,
   Users,
   Rocket,
+  PenTool,
+  
+  
+  Heart,
+  BriefcaseBusiness,
+
+  
+ 
 
 } from 'lucide-react';
 
@@ -61,6 +69,11 @@ const iconMap: any = {
   trendingUp: TrendingUp,
   users: Users,
   Rocket: Rocket,
+  PenTool: PenTool,
+  Heart: Heart,
+  BriefcaseBusiness: BriefcaseBusiness,
+  
+
 
 };
 

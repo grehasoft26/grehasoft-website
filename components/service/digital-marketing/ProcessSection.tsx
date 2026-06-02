@@ -20,6 +20,19 @@ import {
   Rocket,
   BarChart3Icon,
   ChartNoAxesColumn,
+  Eye,
+  
+  SlidersHorizontal,
+  Users,
+  ShieldCheck,
+  Download,
+ 
+  LayoutGrid,
+  
+  MessageSquare,
+  CheckCircle,
+  Layers3,
+  Sparkles,
 } from 'lucide-react';
 
 import { motion } from 'motion/react';
@@ -52,9 +65,17 @@ export default function ProcessSection({ acf }: Props) {
     Rocket: Rocket,
     BarChart3Icon: BarChart3Icon,
     ChartNoAxesColumn: ChartNoAxesColumn,
-    
+    Eye: Eye,
+    SlidersHorizontal: SlidersHorizontal,
+    Users: Users,
+    ShieldCheck: ShieldCheck,
+    Download: Download,
+    LayoutGrid: LayoutGrid,
+    MessageSquare: MessageSquare,
+    CheckCircle: CheckCircle,
+    Layers3: Layers3,
+    Sparkles: Sparkles,
 
-    
   };
 
   const seoProcess = [

@@ -105,7 +105,8 @@ if (!localData?.local_title) return null;
             className="bg-white rounded-[3rem] p-10 md:p-16 border border-gray-100 shadow-xl"
           >
 
-            {localData?.local_right_title && (
+            {localData?.local_right_title
+ && (
               <h2 className="text-4xl font-black text-dark mb-6 leading-tight">
                 {localData.local_right_title}
               </h2>
