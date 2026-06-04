@@ -5,24 +5,51 @@ import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from '@/lib/axios';
 
-export default function CTA() {
-  const [cta, setCta] = useState<any>(null);
+import { CTAData } from '@/types/wordpress';
+
+interface CTAProps {
+  data?: CTAData | null;
+}
+
+const DEFAULT_CTA: CTAData = {
+  cta_badge: "Ready to grow?",
+  cta_title_part1: "Let's build something",
+  cta_title_highlight: "extraordinary",
+  cta_title_part2: "together",
+  cta_description: "Connect with our certified technical engineers today for a complimentary codebase health check or dynamic scope session.",
+  cta_btn_link: "/contact",
+  cta_btn_text: "Get Started",
+  cta_btn2_link: "/services",
+  cta_btn2_text: "Explore Services"
+};
+
+export default function CTA({ data }: CTAProps) {
+  const [ctaState, setCtaState] = useState<CTAData | null>(data || null);
 
   useEffect(() => {
-    fetch(`${API}/pages?slug=home&_fields=acf`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.length > 0) {
-          setCta(data[0].acf);
-        }
-      })
-      .catch((err) => console.error('CTA fetch error:', err));
-  }, []);
+    if (data) {
+      setCtaState(data);
+      return;
+    }
 
-  // fallback (important)
-  if (!cta) return null;
+    const fetchCTA = async () => {
+      try {
+        const res = await axiosInstance.get('/wp-json/wp/v2/pages?slug=home&_fields=acf');
+        const acf = res.data?.[0]?.acf || null;
+        if (acf) {
+          setCtaState(acf);
+        }
+      } catch (err: any) {
+        console.warn("CTA fetch error:", err.message);
+      }
+    };
+
+    fetchCTA();
+  }, [data]);
+
+  const cta = ctaState || DEFAULT_CTA;
 
   return (
     <section className="py-20 bg-white overflow-hidden">

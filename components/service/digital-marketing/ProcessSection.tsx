@@ -33,6 +33,15 @@ import {
   CheckCircle,
   Layers3,
   Sparkles,
+  
+  Tags,
+  SlidersVertical,
+  UsersRound,
+  Award,
+ 
+  Printer,
+  
+ 
 } from 'lucide-react';
 
 import { motion } from 'motion/react';
@@ -75,6 +84,11 @@ export default function ProcessSection({ acf }: Props) {
     CheckCircle: CheckCircle,
     Layers3: Layers3,
     Sparkles: Sparkles,
+    Tags: Tags,
+    SlidersVertical: SlidersVertical,
+    UsersRound: UsersRound,
+    Award: Award,
+    Printer: Printer,
 
   };
 

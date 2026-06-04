@@ -33,6 +33,17 @@ import { FaWhatsapp } from 'react-icons/fa';
 import WhatsAppButton from './WhatsAppButton';
 
 /* -------------------- NAVBAR -------------------- */
+const DEFAULT_MENU = [
+  { id: "1", title: "Home", url: "/", parent: "0" },
+  { id: "2", title: "About Us", url: "/about-us", parent: "0" },
+  { id: "3", title: "Services", url: "/services", parent: "0" },
+  { id: "4", title: "Portfolio", url: "/portfolio", parent: "0" },
+  { id: "5", title: "Products", url: "/products", parent: "0" },
+  { id: "6", title: "Careers", url: "/careers", parent: "0" },
+  { id: "7", title: "Blog", url: "/blog", parent: "0" },
+  { id: "8", title: "Contact", url: "/contact", parent: "0" }
+];
+
 export default function Navbar() {
   const [menu, setMenu] = useState<any[]>([]);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,6 +52,12 @@ export default function Navbar() {
     // Mobile dropdown states
   const [openMenu, setOpenMenu] = useState<any>({});
   const [openSubMenu, setOpenSubMenu] = useState<any>({});
+  const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || "";
+
+const API_BASE = API.replace(
+  "/wp-json/wp/v2",
+  ""
+);
 const pathname = usePathname();
  
   const toggleMenu = (id: any) => {
@@ -59,10 +76,39 @@ const pathname = usePathname();
 
   // Fetch WordPress Menu
   useEffect(() => {
-    fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu/primary-menu")
-      .then(res => res.json())
-      .then(data => setMenu(data));
-  }, []);
+    if (!API_BASE) return;
+
+    const fetchMenu = async () => {
+      try {
+        const res = await fetch(
+          `${API_BASE}/wp-json/custom/v1/menu/primary-menu`,
+          {
+            cache: "no-store",
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error(
+            `Menu API failed: ${res.status}`
+          );
+        }
+
+        const data = await res.json();
+
+        console.log("MENU DATA:", data);
+
+        setMenu(Array.isArray(data) ? data : []);
+      } catch (error: any) {
+        console.warn(
+          "Navbar menu error:",
+          error?.message || error
+        );
+        setMenu([]);
+      }
+    };
+
+    fetchMenu();
+  }, [API_BASE]);
 
   // Scroll Effect
   useEffect(() => {
@@ -72,7 +118,7 @@ const pathname = usePathname();
   }, []);
 
   // Menu helpers
- const menuArray = Array.isArray(menu) ? menu : [];
+  const menuArray = Array.isArray(menu) && menu.length > 0 ? menu : DEFAULT_MENU;
 
 const mainMenu = menuArray.filter(item => item.parent == "0");
 
@@ -87,13 +133,7 @@ const getSubMenu = (id: any) =>
   };
  const isLightPage = pathname.includes('/blog/') && !pathname.includes('/blog/category/');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+ 
   return (
     <nav
       className={cn(

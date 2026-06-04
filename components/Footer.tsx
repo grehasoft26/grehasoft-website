@@ -26,41 +26,69 @@ const socialMap: any = {
   tumblr: FaTumblr,
 };
 
-export default function Footer() {
-  const [footer, setFooter] = useState<any>(null);
-  const [menu, setMenu] = useState<any[]>([]);
-const socialLinks = Object.keys(socialMap)
-  .map((key) => ({
-    icon: socialMap[key],
-    href: footer?.[key],
-  }))
-  .filter((item) => item.href);
+const DEFAULT_FOOTER = {
+  description: "Grehasoft is a leading IT solutions provider specializing in cutting-edge software development, cloud services, and digital transformation.",
+  phone: "+91 9876543210",
+  email: "info@grehasoft.com",
+  address: "Grehasoft Technologies, Bangalore, India",
+  facebook: "https://facebook.com/grehasoft",
+  twitter: "https://twitter.com/grehasoft",
+  instagram: "https://instagram.com/grehasoft",
+  linkedin: "https://linkedin.com/company/grehasoft",
+};
+
+export default function Footer({
+  initialData,
+  initialMenu,
+}: {
+  initialData?: any;
+  initialMenu?: any[];
+}) {
+  const [footerState, setFooterState] = useState<any>(initialData || null);
+  const [menu, setMenu] = useState<any[]>(initialMenu || []);
+  const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+
+  const footer = footerState || DEFAULT_FOOTER;
+
+  const socialLinks = Object.keys(socialMap)
+    .map((key) => ({
+      icon: socialMap[key],
+      href: footer?.[key],
+    }))
+    .filter((item) => item.href);
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        // ACF Footer data (for description, phone, etc.)
-        const footerRes = await axios.get(
-          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/pages?slug=footer"
-        );
+      if (!initialData) {
+        try {
+          const footerRes = await axios.get(
+            `${API}/pages?slug=footer&_fields=acf`
+          );
+          setFooterState(footerRes.data?.[0]?.acf || null);
+        } catch (err: any) {
+          console.warn("Footer ACF Error:", err?.message || err);
+        }
+      } else {
+        setFooterState(initialData);
+      }
 
-        // WordPress Menu API
-        const menuRes = await axios.get(
-          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu/footer-menu"
-        );
-
-        setFooter(footerRes.data[0]?.acf);
-        setMenu(menuRes.data);
-
-        console.log("MENU:", menuRes.data);
-      } catch (err) {
-        console.error(err);
+      if (!initialMenu || initialMenu.length === 0) {
+        try {
+          const menuRes = await axios.get(
+            "https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu/footer-menu"
+          );
+          setMenu(menuRes.data || []);
+        } catch (err: any) {
+          console.warn("Footer Menu Error:", err?.message || err);
+          setMenu([]);
+        }
+      } else {
+        setMenu(initialMenu);
       }
     };
 
     fetchData();
-  }, []);
-
-  if (!footer) return null;
+  }, [initialData, initialMenu, API]);
 
   // ✅ Group menu into sections (Company / Services / Products)
  const groupedMenu: any = {};

@@ -7,112 +7,52 @@ import { Play, X, Award, Trophy, Star, Target } from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
-export default function Awards() {
+import { AwardsData } from '@/types/wordpress';
+
+interface AwardsProps {
+  data?: AwardsData | null;
+}
+
+export default function Awards({ data }: AwardsProps) {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
-  const [images, setImages] = useState<string[]>([]);
-  const [videos, setVideos] = useState<string[]>([]); // ✅ ADDED
-
-  // ✅ FETCH ACF DATA
-  useEffect(() => {
-    axios
-      .get(`${API}/pages?slug=home&_fields=acf`)
-      .then((res) => {
-        setData(res.data[0]?.acf);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  // ✅ FETCH IMAGE URLs
-  useEffect(() => {
-    if (!data) return;
-
-    const fetchImages = async () => {
-      const ids = [
-        data.card1_image,
-        data.card2_image,
-        data.card3_image,
-        data.card4_image,
-      ];
-
-      const urls = await Promise.all(
-        ids.map(async (id: number) => {
-          if (!id) return null;
-          const res = await axios.get(`${API}/media/${id}`);
-          return res.data.source_url;
-        })
-      );
-
-      setImages(urls as string[]);
-    };
-
-    fetchImages();
-  }, [data]);
-
-  // ✅ FETCH VIDEO URLs (MAIN FIX)
-  useEffect(() => {
-    if (!data) return;
-
-    const fetchVideos = async () => {
-      const ids = [
-        data.card1_video,
-        data.card2_video,
-        data.card3_video,
-        data.card4_video,
-      ];
-
-      const urls = await Promise.all(
-        ids.map(async (id: number) => {
-          if (!id) return null;
-          const res = await axios.get(`${API}/media/${id}`);
-          return res.data.source_url;
-        })
-      );
-
-      setVideos(urls as string[]);
-    };
-
-    fetchVideos();
-  }, [data]);
 
   if (!data) return null;
 
   // ✅ SAME STRUCTURE (NO DESIGN CHANGE)
-  const awards = [
-    {
-      title: data.card1_title,
-      year: data.card1_year,
-      videoUrl: videos[0], // ✅ FIXED
-      icon: Trophy,
-      color: 'bg-yellow-500',
-      image: images[0],
-    },
-    {
-      title: data.card2_title,
-      year: data.card2_year,
-      videoUrl: videos[1],
-      icon: Award,
-      color: 'bg-blue-500',
-      image: images[1],
-    },
-    {
-      title: data.card3_title,
-      year: data.card3_year,
-      videoUrl: videos[2],
-      icon: Star,
-      color: 'bg-purple-500',
-      image: images[2],
-    },
-    {
-      title: data.card4_title,
-      year: data.card4_year,
-      videoUrl: videos[3],
-      icon: Target,
-      color: 'bg-green-500',
-      image: images[3],
-    },
-  ];
-
+ const awards = [
+  {
+    title: data.card1_title,
+    year: data.card1_year,
+    videoUrl: data.awards_media?.card1_video_url,
+    icon: Trophy,
+    color: 'bg-yellow-500',
+    image: data.awards_media?.card1_image_url,
+  },
+  {
+    title: data.card2_title,
+    year: data.card2_year,
+    videoUrl: data.awards_media?.card2_video_url,
+    icon: Award,
+    color: 'bg-blue-500',
+    image: data.awards_media?.card2_image_url,
+  },
+  {
+    title: data.card3_title,
+    year: data.card3_year,
+    videoUrl: data.awards_media?.card3_video_url,
+    icon: Star,
+    color: 'bg-purple-500',
+    image: data.awards_media?.card3_image_url,
+  },
+  {
+    title: data.card4_title,
+    year: data.card4_year,
+    videoUrl: data.awards_media?.card4_video_url,
+    icon: Target,
+    color: 'bg-green-500',
+    image: data.awards_media?.card4_image_url,
+  },
+];
   return (
     <section className="section-padding bg-gray-50">
       <div className="container-custom">
@@ -164,7 +104,7 @@ export default function Awards() {
             <motion.div
               key={index}
               className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer shadow-lg"
-              onClick={() => setSelectedVideo(award.videoUrl)}
+              onClick={() => setSelectedVideo(award.videoUrl || null)}
             >
               <div className="absolute inset-0 bg-dark/40 group-hover:bg-dark/20 transition-all duration-500 z-10" />
 

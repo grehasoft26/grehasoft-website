@@ -25,6 +25,7 @@ import {
   Compass,
  
   Shield,
+  
 
 } from 'lucide-react';
 

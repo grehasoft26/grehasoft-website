@@ -15,45 +15,15 @@ const iconMap: any = {
   performance: Zap,
 };
 
-export default function Products() {
-  const [pms, setPms] = useState<any>(null);
-const getImageUrl = async (id: number) => {
-  const res = await fetch(`${API}/media/${id}`);
-  const data = await res.json();
-  return data.source_url;
-};
-  useEffect(() => {
-  fetch(`${API}/pages?slug=home&_fields=acf`)
-    .then((res) => res.json())
-    .then(async (data) => {
-      if (data.length > 0) {
-        const acf = data[0].acf;
+import { ProductsData } from '@/types/wordpress';
 
-        let imageUrl = "";
+interface ProductsProps {
+  data?: ProductsData | null;
+}
 
-        // ✅ Safe image fetch
-        if (acf?.pms_image) {
-          try {
-            imageUrl = await getImageUrl(acf.pms_image);
-          } catch (err) {
-            console.error("Image fetch error:", err);
-          }
-        }
+export default function Products({ data }: ProductsProps) {
+  const pms = data;
 
-        // ✅ Always set full data
-        setPms({
-          ...acf,
-          pms_image_url: imageUrl,
-        });
-
-        console.log("FINAL PMS:", {
-          ...acf,
-          pms_image_url: imageUrl,
-        });
-      }
-    })
-    .catch((err) => console.error("Fetch error:", err));
-}, []);
   if (!pms) return null;
 
   const features = [

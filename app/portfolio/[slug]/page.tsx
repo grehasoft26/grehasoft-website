@@ -8,6 +8,7 @@ import CTA from "@/components/CTA";
 import PageHeader from "@/components/PageHeader";
 import ConsultationPopup from "@/components/ConsultationPopup";
 import Footer from "@/components/Footer";
+import axiosInstance from "@/lib/axios";
 
 const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
@@ -25,52 +26,34 @@ export default function CaseStudyDetail({
 
   // 🔥 FETCH SINGLE PROJECT
   useEffect(() => {
-
     const fetchData = async () => {
-
       try {
-
-        const res = await fetch(
-          `${API}/portfolio?slug=${slug}&_embed`
-        );
-
-        const json = await res.json();
+        const res = await axiosInstance.get(`/wp-json/wp/v2/portfolio?slug=${slug}&_embed`);
+        const json = res.data;
 
         console.log("✅ Project:", json);
 
         // ✅ FIX 404
         if (!json || json.length === 0) {
-
           setData(null);
           return;
-
         }
 
         setData(json[0]);
 
         // 🔥 RELATED PROJECTS
-        const res2 = await fetch(
-          `${API}/portfolio?_embed`
-        );
-
-        const json2 = await res2.json();
+        const res2 = await axiosInstance.get(`/wp-json/wp/v2/portfolio?_embed`);
+        const json2 = res2.data;
 
         setRelated(json2);
-
       } catch (err) {
-
-        console.error(err);
-
+        console.error("Error loading project detail:", err);
       }
-
     };
 
     if (slug) {
-
       fetchData();
-
     }
-
   }, [slug]);
 
   // ✅ LOADING

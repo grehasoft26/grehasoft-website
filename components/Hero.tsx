@@ -5,45 +5,17 @@ import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-type Slide = {
-  title: string;
-  video: string;
-  thumbnail: string;
-  label: string;  
-  description: string; // ADD THIS
-};
+import { Slide } from '@/types/wordpress';
 
-export default function Hero() {
-  const [slides, setSlides] = useState<Slide[]>([]);
+interface HeroProps {
+  slides?: Slide[];
+}
+
+export default function Hero({ slides = [] }: HeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-
-  // Fetch slides + media URLs
- // Fetch slides + media URLs
-useEffect(() => {
-  const fetchSlides = async () => {
-    try {
-      const res = await fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/hero-slide");
-      const data = await res.json();
-
-      const slidesData = data.map((post: any) => ({
-        title: post.acf?.slide_title || "",
-        video: post.acf?.slide_video || "",
-        thumbnail: post.acf?.slide_thumbnail || "",
-        label: post.acf?.slide_label || "",
-        description: post.acf?.slide_description || ""
-      }));
-
-      setSlides(slidesData);
-    } catch (error) {
-      console.log("Error loading slides:", error);
-    }
-  };
-
-  fetchSlides();
-}, []);
 
   // Mobile check
   useEffect(() => {

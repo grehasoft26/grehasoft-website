@@ -10,6 +10,101 @@ import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 
+const DEFAULT_POSTS = [
+  {
+    id: 1,
+    slug: "efficiency-enhancements",
+    title: { rendered: "How to Boost Enterprise Operational Efficiency" },
+    excerpt: { rendered: "Discover key strategies and tools to streamline workflows, eliminate bottlenecks, and improve collaboration across teams." },
+    date: "2026-06-01",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Strategy" }]]
+    }
+  },
+  {
+    id: 2,
+    slug: "inventory-management",
+    title: { rendered: "Hardened Inventory and Warehousing Systems" },
+    excerpt: { rendered: "Learn how modern inventory tracking databases optimize stock levels, prevent loss, and streamline logistics operations." },
+    date: "2026-05-28",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Logistics" }]]
+    }
+  },
+  {
+    id: 3,
+    slug: "cloud-performance",
+    title: { rendered: "Cloud Scaling & Performance Tuning" },
+    excerpt: { rendered: "A deep dive into high-availability cloud setups, load balancing, and secure infrastructure deployment patterns." },
+    date: "2026-05-20",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Cloud" }]]
+    }
+  },
+  {
+    id: 4,
+    slug: "rpa-automation",
+    title: { rendered: "Robotic Process Automation for Small Businesses" },
+    excerpt: { rendered: "How small businesses can leverage RPA to automate repetitive tasks, reduce manual errors, and save administrative hours." },
+    date: "2026-05-15",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Automation" }]]
+    }
+  },
+  {
+    id: 5,
+    slug: "custom-api-sync",
+    title: { rendered: "Best Practices for Custom API Integrations" },
+    excerpt: { rendered: "A comprehensive guide to constructing safe, high-speed API synchronizations between distributed database environments." },
+    date: "2026-05-10",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "API Integration" }]]
+    }
+  },
+  {
+    id: 6,
+    slug: "enterprise-security",
+    title: { rendered: "Enterprise Cybersecurity Shield Patterns" },
+    excerpt: { rendered: "Essential security guidelines to protect corporate databases, user credentials, and communication channels." },
+    date: "2026-05-05",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Security" }]]
+    }
+  },
+  {
+    id: 7,
+    slug: "saas-architecture",
+    title: { rendered: "Constructing Multi-Tenant SaaS Platforms" },
+    excerpt: { rendered: "Architectural insights on designing database schemas, permission controls, and billing integrations for SaaS products." },
+    date: "2026-05-01",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "SaaS" }]]
+    }
+  }
+];
+
+const DEFAULT_CATEGORIES = [
+  { id: 1, name: "Strategy", slug: "strategy" },
+  { id: 2, name: "Logistics", slug: "logistics" },
+  { id: 3, name: "Cloud", slug: "cloud" },
+  { id: 4, name: "Automation", slug: "automation" },
+  { id: 5, name: "Security", slug: "security" }
+];
+
 export default function BlogPage() {
   const [posts, setPosts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
@@ -20,13 +115,21 @@ export default function BlogPage() {
   useEffect(() => {
     axios
       .get("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/posts?_embed")
-      .then((res) => setPosts(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setPosts(res.data);
+        }
+      })
+      .catch((err) => console.warn("Failed to fetch posts:", err?.message || err));
 
     axios
       .get("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/categories")
-      .then((res) => setCategories(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setCategories(res.data);
+        }
+      })
+      .catch((err) => console.warn("Failed to fetch categories:", err?.message || err));
   }, []);
 
   /* 🔥 AUTO SCROLL */
@@ -45,25 +148,28 @@ export default function BlogPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const featuredPost = posts[0];
+  const displayPosts = posts.length > 0 ? posts : DEFAULT_POSTS;
+  const displayCategories = categories.length > 0 ? categories : DEFAULT_CATEGORIES;
 
-  const industryUpdates = posts.slice(1, 4).map((post: any) => ({
-    title: post.title.rendered,
-    description: post.excerpt.rendered.replace(/<[^>]+>/g, ''),
+  const featuredPost = displayPosts[0];
+
+  const industryUpdates = displayPosts.slice(1, 4).map((post: any) => ({
+    title: post.title?.rendered || "Untitled Article",
+    description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
     author: post._embedded?.author?.[0]?.name || "Admin",
-    date: new Date(post.date).toLocaleDateString("en-GB", {
+    date: post.date ? new Date(post.date).toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
       year: "numeric",
-    }),
-    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/fallback.jpg",
+    }) : "June 2026",
+    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png",
     slug: post.slug
   }));
 
-  const catchUpPosts = posts.slice(4, 7).map((post: any) => ({
-    title: post.title.rendered,
-    description: post.excerpt.rendered.replace(/<[^>]+>/g, ''),
-    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/fallback.jpg",
+  const catchUpPosts = displayPosts.slice(4, 7).map((post: any) => ({
+    title: post.title?.rendered || "Untitled Article",
+    description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
+    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png",
     slug: post.slug,
     category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog"
   }));
@@ -90,16 +196,16 @@ export default function BlogPage() {
           <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12">
 
             <img
-              src={featuredPost._embedded?.["wp:featuredmedia"]?.[0]?.source_url}
+              src={featuredPost._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png"}
               className="rounded-2xl"
             />
 
             <div>
               <h2
                 className="text-4xl font-bold mb-6"
-                dangerouslySetInnerHTML={{ __html: featuredPost.title.rendered }}
+                dangerouslySetInnerHTML={{ __html: featuredPost.title?.rendered || "" }}
               />
-              <p dangerouslySetInnerHTML={{ __html: featuredPost.excerpt.rendered }} />
+              <p dangerouslySetInnerHTML={{ __html: featuredPost.excerpt?.rendered || "" }} />
 
               <Link href={`/blog/${featuredPost.slug}`} className="text-primary font-bold">
                 Read More →
@@ -130,7 +236,7 @@ export default function BlogPage() {
       {/* CATEGORY */}
       <section className="section-padding">
         <div className="container-custom flex flex-wrap gap-3 justify-center">
-          {categories.map((cat: any) => (
+          {displayCategories.map((cat: any) => (
             <Link
               key={cat.id}
               href={`/blog/category/${cat.slug}`}

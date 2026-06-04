@@ -12,6 +12,53 @@ import { use } from "react";
 
 const API = "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2";
 
+const DEFAULT_POSTS = [
+  {
+    id: 1,
+    slug: "efficiency-enhancements",
+    title: { rendered: "How to Boost Enterprise Operational Efficiency" },
+    excerpt: { rendered: "Discover key strategies and tools to streamline workflows, eliminate bottlenecks, and improve collaboration across teams." },
+    date: "2026-06-01",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Strategy" }]]
+    }
+  },
+  {
+    id: 2,
+    slug: "inventory-management",
+    title: { rendered: "Hardened Inventory and Warehousing Systems" },
+    excerpt: { rendered: "Learn how modern inventory tracking databases optimize stock levels, prevent loss, and streamline logistics operations." },
+    date: "2026-05-28",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Logistics" }]]
+    }
+  },
+  {
+    id: 3,
+    slug: "cloud-performance",
+    title: { rendered: "Cloud Scaling & Performance Tuning" },
+    excerpt: { rendered: "A deep dive into high-availability cloud setups, load balancing, and secure infrastructure deployment patterns." },
+    date: "2026-05-20",
+    _embedded: {
+      author: [{ name: "Admin" }],
+      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
+      "wp:term": [[{ name: "Cloud" }]]
+    }
+  }
+];
+
+const DEFAULT_CATEGORIES = [
+  { id: 1, name: "Strategy", slug: "strategy" },
+  { id: 2, name: "Logistics", slug: "logistics" },
+  { id: 3, name: "Cloud", slug: "cloud" },
+  { id: 4, name: "Automation", slug: "automation" },
+  { id: 5, name: "Security", slug: "security" }
+];
+
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
 
   const { slug } = use(params);
@@ -34,12 +81,22 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         setLoading(true);
 
         // categories
-        const catRes = await axios.get(`${API}/categories?per_page=100`);
-        const allCats = catRes.data;
-        setCategories(allCats);
+        let allCats = [];
+        try {
+          const catRes = await axios.get(`${API}/categories?per_page=100`);
+          allCats = catRes.data;
+          setCategories(allCats);
+        } catch (catErr: any) {
+          console.warn("Failed to fetch categories client-side:", catErr.message);
+          allCats = DEFAULT_CATEGORIES;
+          setCategories(DEFAULT_CATEGORIES);
+        }
 
         const currentCategory = allCats.find((c: any) => c.slug === slug);
-        if (!currentCategory) return;
+        if (!currentCategory) {
+          setLoading(false);
+          return;
+        }
 
         let categoryIds: number[] = [currentCategory.id];
 
@@ -62,15 +119,18 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           url += `&search=${search}`;
         }
 
-        const postRes = await axios.get(url);
+        try {
+          const postRes = await axios.get(url);
+          setPosts(postRes.data);
+          setTotalPages(parseInt(postRes.headers["x-wp-totalpages"]) || 1);
+        } catch (postErr: any) {
+          console.warn("Failed to fetch posts client-side:", postErr.message);
+          setPosts(DEFAULT_POSTS);
+          setTotalPages(1);
+        }
 
-        setPosts(postRes.data);
-
-        // ✅ total pages from WP header
-        setTotalPages(parseInt(postRes.headers["x-wp-totalpages"]) || 1);
-
-      } catch (err) {
-        console.error("FETCH ERROR:", err);
+      } catch (err: any) {
+        console.warn("FETCH ERROR:", err.message);
       } finally {
         setLoading(false);
       }

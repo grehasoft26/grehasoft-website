@@ -12,8 +12,24 @@ import {
   Clock,
 } from "lucide-react";
 
-export default function Contact() {
-  const [data, setData] = useState<any>(null);
+const DEFAULT_CONTACT = {
+  subtitle: "GET IN TOUCH",
+  title: "Let's Start a",
+  highlight: "Project Together",
+  description: "We are ready to build your next big product. Get in touch with our experts to discuss your requirements.",
+  email: "info@grehasoft.com",
+  phone: "+91 9876543210",
+  address: "Grehasoft Technologies, Bangalore, India",
+  working_hours: "Mon - Fri: 9:00 AM - 6:00 PM",
+  support_title: "Quick Support?",
+  support_description: "Chat with our customer service team now for immediate assistance.",
+  form_title: "Send Us a Message",
+  button_text: "Send Message",
+};
+
+export default function Contact({ initialData }: { initialData?: any }) {
+  const [fetchedData, setFetchedData] = useState<any>(initialData || null);
+  const [error, setError] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -42,18 +58,32 @@ export default function Contact() {
 
   // FETCH DATA
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get(
-        "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/contact"
-      );
+    if (initialData) {
+      setFetchedData(initialData);
+      setError(false);
+      return;
+    }
 
-      setData(res.data[0]?.acf);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/contact"
+        );
+        setFetchedData(res.data?.[0]?.acf || null);
+        setError(false);
+      } catch (err) {
+        console.error("Error loading contact data:", err);
+        setFetchedData(null);
+        setError(true);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [initialData]);
 
-  if (!data) return null;
+  if (!fetchedData && !error) return null;
+
+  const data = fetchedData || DEFAULT_CONTACT;
 
   const contactInfo = [
     {

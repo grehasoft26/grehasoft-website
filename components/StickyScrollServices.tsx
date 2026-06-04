@@ -4,9 +4,11 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-export default function StickyScrollServices() {
-  const [services, setServices] = useState<any[]>([]);
+export default function StickyScrollServices({ initialServices = [] }: { initialServices?: any[] }) {
+  const [services, setServices] = useState<any[]>(initialServices);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(initialServices.length === 0);
 
   const containerRef = useRef(null);
 
@@ -15,26 +17,63 @@ export default function StickyScrollServices() {
     offset: ["start start", "end end"],
   });
 
+  const bgOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [0.06, 0.1, 0]
+  );
+
   useEffect(() => {
+    if (initialServices && initialServices.length > 0) {
+      setServices(initialServices);
+      setLoading(false);
+      setError(false);
+      return;
+    }
+
     const fetchServices = async () => {
-      const res = await axios.get(
-        "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/ourservices?_embed"
-      );
-      setServices(res.data);
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/ourservices?_embed"
+        );
+        setServices(Array.isArray(res.data) ? res.data : []);
+        setError(false);
+      } catch (err) {
+        console.error("Error loading services in StickyScrollServices:", err);
+        setServices([]);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchServices();
-  }, []);
+  }, [initialServices]);
+
+  // Sync scroll restoration index on load
+  useEffect(() => {
+    if (!services || services.length === 0) return;
+    const currentScroll = scrollYProgress.get();
+    const initialIndex = Math.max(0, Math.min(
+      services.length - 1,
+      Math.floor(currentScroll * services.length)
+    ));
+    setActiveIndex(initialIndex);
+  }, [services, scrollYProgress]);
 
   useEffect(() => {
+    if (!services || services.length === 0) return;
     return scrollYProgress.on("change", (latest) => {
-      const index = Math.min(
+      const index = Math.max(0, Math.min(
         services.length - 1,
         Math.floor(latest * services.length)
-      );
+      ));
       setActiveIndex(index);
     });
   }, [scrollYProgress, services]);
+
+
 
   const service = services[activeIndex] || {};
   const acf = service?.acf || {};
@@ -44,18 +83,24 @@ export default function StickyScrollServices() {
     service?.yoast_head_json?.og_image?.[0]?.url ||
     "";
 
-  const bgOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.06, 0.1, 0]
-  );
-
   return (
     <div ref={containerRef} className="h-[300vh]">
       <div className="sticky top-0 h-screen flex items-center bg-white overflow-hidden">
-        
-        {/* MAIN CONTAINER */}
-        <div className="container-custom relative z-10 w-full">
+        {loading ? (
+          <div className="container-custom relative z-10 w-full flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4" />
+              <p className="text-gray-500 font-semibold">Loading Services...</p>
+            </div>
+          </div>
+        ) : error || services.length === 0 ? (
+          <div className="container-custom relative z-10 w-full flex items-center justify-center">
+            <p className="text-text-gray font-semibold">Services currently unavailable</p>
+          </div>
+        ) : (
+          <>
+            {/* MAIN CONTAINER */}
+            <div className="container-custom relative z-10 w-full">
           
           <div className="grid lg:grid-cols-2 gap-10 xl:gap-16 items-center">
             
@@ -210,6 +255,8 @@ export default function StickyScrollServices() {
             ? acf?.background_text?.replace(" ", "\n")
             : acf?.background_text}
         </motion.h1>
+          </>
+        )}
       </div>
     </div>
   );

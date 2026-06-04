@@ -6,16 +6,45 @@ import axios from 'axios';
 
 const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
+const DEFAULT_CAREERS = {
+  career_title: "Careers",
+  career_desc: "Join our team of passionate professionals and build the future of software.",
+  breadcrumb: "Careers",
+  why_tag: "WHY JOIN US",
+  why_title: "We offer a work environment that inspires",
+  why_highlight: "growth and innovation",
+  feature1_title: "Flexible Hours",
+  feature1_desc: "Work at your own pace and schedule to maintain work-life balance.",
+  feature2_title: "Professional Growth",
+  feature2_desc: "Get access to mentoring, training, and resources to build your career.",
+  feature3_title: "Great Culture",
+  feature3_desc: "Collaborate with talented, friendly people who support each other.",
+  jobs_tag: "OPEN POSITIONS",
+  jobs_title: "Explore our latest",
+  jobs_highlight: "job opportunities",
+  job1_title: "Frontend Developer",
+  job1_type: "Full-time",
+  job1_location: "Remote / Bangalore",
+  job1_link: "mailto:careers@grehasoft.com",
+  job2_title: "Fullstack Developer",
+  job2_type: "Full-time",
+  job2_location: "Remote / Bangalore",
+  job2_link: "mailto:careers@grehasoft.com",
+};
+
 // ✅ SERVER SIDE FETCH
 async function getData() {
-  const res = await axios.get(`${API}/pages?slug=careers&_fields=acf`);
-  return res.data[0]?.acf;
+  try {
+    const res = await axios.get(`${API}/pages?slug=careers&_fields=acf`, { timeout: 10000 });
+    return res.data?.[0]?.acf || DEFAULT_CAREERS;
+  } catch (err) {
+    console.error("Error fetching careers data:", err);
+    return DEFAULT_CAREERS;
+  }
 }
 
 export default async function CareersPage() {
-  const data = await getData();
-
-  if (!data) return null;
+  const data = (await getData()) || DEFAULT_CAREERS;
 
   return (
     <main className="min-h-screen">

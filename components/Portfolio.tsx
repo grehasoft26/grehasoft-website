@@ -17,49 +17,65 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from "@/lib/axios";
 
 export default function Portfolio({
   isFullPage = false,
   showFilters = true,
+  initialProjects = [],
+  initialCategories = [],
+}: {
+  isFullPage?: boolean;
+  showFilters?: boolean;
+  initialProjects?: any[];
+  initialCategories?: any[];
 }) {
-  const [projects, setProjects] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>(initialProjects);
+  const [categories, setCategories] = useState<any[]>(initialCategories);
   const [activeCategory, setActiveCategory] =
     useState("All");
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(initialProjects.length === 0);
+  const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null);
+  const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null);
 
   // FETCH DATA
   useEffect(() => {
+    if (initialProjects && initialProjects.length > 0) {
+      setProjects(initialProjects);
+      setCategories(initialCategories);
+      setLoading(false);
+      return;
+    }
+
     const fetchData = async () => {
       try {
-        // PORTFOLIO
-        const portfolioRes = await fetch(
-          `${API}/portfolio?_embed`
-        );
+        setLoading(true);
 
-        const portfolioData =
-          await portfolioRes.json();
+        const [portfolioRes, categoryRes] = await Promise.allSettled([
+          axiosInstance.get('/wp-json/wp/v2/portfolio?_embed'),
+          axiosInstance.get('/wp-json/wp/v2/portfolio_category')
+        ]);
 
-        // CATEGORIES
-        const categoryRes = await fetch(
-          `${API}/portfolio_category`
-        );
+        const portfolioData = portfolioRes.status === 'fulfilled' ? portfolioRes.value.data : [];
+        const categoryData = categoryRes.status === 'fulfilled' ? categoryRes.value.data : [];
 
-        const categoryData =
-          await categoryRes.json();
+        console.log("Portfolio Data:", portfolioData);
+        console.log("Category Data:", categoryData);
 
-        setProjects(portfolioData);
-        setCategories(categoryData);
+        setProjects(Array.isArray(portfolioData) ? portfolioData : []);
+        setCategories(Array.isArray(categoryData) ? categoryData : []);
       } catch (error) {
-        console.error("❌ Error:", error);
+        console.error("❌ Portfolio Error:", error);
+        setProjects([]);
+        setCategories([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [initialProjects, initialCategories]);
 
   // LOADING
   if (loading) {
@@ -143,6 +159,7 @@ export default function Portfolio({
             {/* ARROWS */}
       <div className="flex items-center gap-2 md:gap-3">
   <button
+    ref={setPrevEl}
     className="
       portfolio-prev
       w-10 h-10
@@ -160,6 +177,7 @@ export default function Portfolio({
   </button>
 
   <button
+    ref={setNextEl}
     className="
       portfolio-next
       w-10 h-10
@@ -223,8 +241,14 @@ export default function Portfolio({
         <Swiper
           modules={[Navigation]}
           navigation={{
-            prevEl: ".portfolio-prev",
-            nextEl: ".portfolio-next",
+            prevEl,
+            nextEl,
+          }}
+          onInit={(swiper: any) => {
+            swiper.params.navigation.prevEl = prevEl;
+            swiper.params.navigation.nextEl = nextEl;
+            swiper.navigation.init();
+            swiper.navigation.update();
           }}
           spaceBetween={30}
           breakpoints={{

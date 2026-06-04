@@ -14,25 +14,35 @@ import FAQ from '@/components/FAQ';
 import TrustedITSection from '@/components/TrustedITSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
 
-export default function Home() {
+import { getHomeData } from '@/lib/api';
+
+export const revalidate = 60;
+
+export default async function Home() {
+  const homeData = await getHomeData();
+
   return (
     <main className="min-h-screen">
       <Navbar />
-      <Hero />
+      <Hero slides={homeData.hero} />
       
-      <StickyScrollServices />
+      <StickyScrollServices initialServices={homeData.services || []} />
       <TrustedITSection />
-      <Clients />
+      <Clients initialClients={homeData.clients || []} />
       <WhyChooseUs />
-      <Awards />
-      <About />
-    <Portfolio showFilters={false} />
-      <Products />
-       <FAQ />
+      <Awards data={homeData.awards} />
+      <About data={homeData.about} />
+      <Portfolio 
+        showFilters={false} 
+        initialProjects={homeData.portfolioProjects || []} 
+        initialCategories={homeData.portfolioCategories || []} 
+      />
+      <Products data={homeData.products} />
+      <FAQ />
       <Testimonials />
-      <CTA />
-      <Contact />
-      <Footer/>
+      <CTA data={homeData.cta} />
+      <Contact initialData={homeData.contact} />
+      <Footer initialData={homeData.footerData} initialMenu={homeData.footerMenu || []} />
     </main>
   );
 }

@@ -7,69 +7,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import VideoModal from "./videoModal";
 
-export default function About() {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
+import { AboutData } from "@/types/wordpress";
 
-  const [acf, setAcf] = useState<any>(null);
-
-  const [image, setImage] = useState("");
-  const [video, setVideo] = useState("");
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const res = await axios.get(
-        "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/pages?slug=home&_fields=acf"
-      );
-
-      const data = res.data[0]?.acf;
-      console.log("ACF DATA:", data);
-console.log("IMAGE FIELD:", data.image);
-
-      if (!data) return;
-
-      setAcf(data);
-
-      // ✅ IMAGE ID → URL
-      if (data.image) {
-  try {
-    const mediaRes = await axios.get(
-      `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/media?include=${data.image}`
-    );
-
-    const media = mediaRes.data?.[0];
-
-    setImage(media?.source_url || "");
-  } catch (error) {
-    console.log("Image fetch failed:", error);
-  }
+interface AboutProps {
+  data?: AboutData | null;
 }
 
-      // ✅ VIDEO ID → URL
-      if (data.video) {
-        try {
-          const vidRes = await axios.get(
-            `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/media/${data.video}`
-          );
+export default function About({ data }: AboutProps) {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  
+  const acf = data;
 
-          setVideo(
-            vidRes.data.source_url ||
-            vidRes.data.guid?.rendered ||
-            ""
-          );
-        } catch (error) {
-          console.log("Video fetch failed:", error);
-        }
-      }
-
-    } catch (error) {
-      console.log("About fetch failed:", error);
-    }
-  };
-
-  fetchData();
-}, []);
-
-if (!acf) return null;
+  if (!acf) return null;
 
   return (
     <section
@@ -201,9 +150,9 @@ if (!acf) return null;
             >
 
               {/* IMAGE */}
-              {image && (
-                <img
-                  src={image}
+             {acf.image_url?.url && (
+  <img
+    src={acf.image_url.url}
                   alt="Grehasoft Team"
                   className="
                     w-full h-full object-cover
@@ -324,7 +273,7 @@ if (!acf) return null;
       <VideoModal
         isOpen={isVideoOpen}
         onClose={() => setIsVideoOpen(false)}
-        videoUrl={video}
+       videoUrl={acf.video_url}
       />
     </section>
   );

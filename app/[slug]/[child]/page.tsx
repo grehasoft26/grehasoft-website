@@ -19,37 +19,45 @@ export default async function Page({
 }: PageProps) {
 
   const { slug, child } = await params;
-const res = await fetch(
-  `${API}/services?_embed`,
-  {
-    cache: 'no-store',
+  let service: any = null;
+  try {
+    const res = await fetch(
+      `${API}/services?_embed`,
+      {
+        cache: 'no-store',
+      }
+    );
+    if (res.ok) {
+      const allServices = await res.json();
+      if (Array.isArray(allServices)) {
+        service = allServices.find(
+          (item: any) =>
+            item?.acf?.custom_slug === child &&
+            item?.acf?.parent_slug === slug
+        );
+      }
+    }
+  } catch (error) {
+    console.error("Error loading services for child slug:", child, error);
   }
-);
 
-const allServices = await res.json();
-
-const service = allServices.find(
-  (item: any) =>
-    item?.acf?.custom_slug === child &&
-    item?.acf?.parent_slug === slug
-);
-if (!service) {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      Service Not Found
-    </div>
-  );
-}
+  if (!service) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Service Not Found
+      </div>
+    );
+  }
   const acf = service.acf || {};
 
   // Optional safety check
- if (acf.parent_slug !== slug) {
-  return (
-    <div className="min-h-screen flex items-center justify-center text-2xl font-bold">
-      Invalid URL
-    </div>
-  );
-}
+  if (acf.parent_slug !== slug) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-2xl font-bold">
+        Invalid URL
+      </div>
+    );
+  }
 
   // HERO IMAGE
   const heroImageId = acf.hero_image;
@@ -57,17 +65,20 @@ if (!service) {
   let heroImageUrl = '';
 
   if (heroImageId) {
-
-    const mediaRes = await fetch(
-      `${API}/media/${heroImageId}`,
-      {
-        cache: 'no-store',
+    try {
+      const mediaRes = await fetch(
+        `${API}/media/${heroImageId}`,
+        {
+          cache: 'no-store',
+        }
+      );
+      if (mediaRes.ok) {
+        const mediaData = await mediaRes.json();
+        heroImageUrl = mediaData.source_url || '';
       }
-    );
-
-    const mediaData = await mediaRes.json();
-
-    heroImageUrl = mediaData.source_url;
+    } catch (err) {
+      console.error("Error loading child hero media:", heroImageId, err);
+    }
   }
 
   switch (acf.layout_type) {

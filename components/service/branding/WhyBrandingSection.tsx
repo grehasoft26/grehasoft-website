@@ -11,6 +11,12 @@ import {
   BadgeHelp,
   Rocket,
   MoveUpRight,
+  Layers,
+  FileText,
+  BadgeCheck,
+  Eye,
+  ArrowRight,
+Monitor,
 } from 'lucide-react';
 
 interface Props {
@@ -26,6 +32,12 @@ const iconMap: any = {
   BadgeHelp,
   Rocket,
   MoveUpRight,
+  Layers,
+  FileText,
+  BadgeCheck,
+  Eye,
+  ArrowRight,
+Monitor,
 };
 
 export default function WhyBrandingSection({ acf }: Props) {
@@ -156,7 +168,7 @@ export default function WhyBrandingSection({ acf }: Props) {
                     className="bg-white/5 border border-white/10 p-6 rounded-[2rem] flex flex-col gap-5 hover:bg-white/10 hover:border-primary/30 transition-all group animate-[fadeIn_0.5s_ease-out]"
                   >
 
-                    <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-white group-hover:text-white transition-all shadow-inner">
+                  <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary transition-all duration-300">
 
                       <IconComponent className="w-5 h-5" />
 

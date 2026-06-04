@@ -13,6 +13,18 @@ import {
    Camera,
    Palette,
    Users,
+    BadgeHelp,
+  BadgeCheck,
+  FileText,
+  Heart,
+  Megaphone,
+  Sparkles,
+  Eye,
+  
+  
+  Layers,
+ 
+  
 } from 'lucide-react';
 
 interface Props {
@@ -35,6 +47,16 @@ export default function WhySEOSection({ acf }: Props) {
     Camera: Camera,
     Palette: Palette,
     Users: Users,
+    BadgeHelp: BadgeHelp,
+    BadgeCheck: BadgeCheck,
+    FileText: FileText,
+    Heart: Heart,
+    Megaphone: Megaphone,
+    Sparkles: Sparkles,
+    Eye: Eye,
+    Layers: Layers,
+    
+
   };
 
   const cards = [

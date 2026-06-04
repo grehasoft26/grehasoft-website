@@ -33,6 +33,20 @@ import {
   Heart,
   BriefcaseBusiness,
 
+
+ 
+  Shield,
+ 
+  RefreshCw,
+  Box,
+ 
+  
+  Smartphone,
+
+  Workflow,
+  LayoutPanelTop,
+ 
+  SlidersVertical,
   
  
 
@@ -72,6 +86,14 @@ const iconMap: any = {
   PenTool: PenTool,
   Heart: Heart,
   BriefcaseBusiness: BriefcaseBusiness,
+  Shield: Shield,
+  RefreshCw: RefreshCw,
+  Box: Box,
+  Smartphone: Smartphone,
+  Workflow: Workflow,
+  LayoutPanelTop: LayoutPanelTop,
+  SlidersVertical: SlidersVertical,
+  
   
 
 

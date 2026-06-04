@@ -6,43 +6,40 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
-export default function Clients() {
+export default function Clients({ initialClients = [] }: { initialClients?: any[] }) {
   const [clients, setClients] = useState<any[]>([]);
 
   useEffect(() => {
+    if (initialClients && initialClients.length > 0) {
+      const clientsWithImages = initialClients.map((client: any) => ({
+        ...client,
+        image: client.featured_image_url || "/images/placeholder.jpg",
+      }));
+      setClients(clientsWithImages);
+      return;
+    }
+
     const fetchClients = async () => {
       try {
         const res = await axios.get(
-          'https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/clients?per_page=100'
+          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/clients?per_page=100"
         );
 
-        const clientsWithImages = await Promise.all(
-          res.data.map(async (client: any) => {
-            let logo = null;
-
-            if (client.featured_media) {
-              const imgRes = await axios.get(
-                `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/media/${client.featured_media}`
-              );
-
-              logo = imgRes.data.source_url;
-            }
-
-            return {
-              ...client,
-              logo,
-            };
-          })
-        );
+        const clientsWithImages = res.data.map((client: any) => ({
+          ...client,
+          image:
+            client.featured_image_url ||
+            "/images/placeholder.jpg",
+        }));
 
         setClients(clientsWithImages);
-      } catch (error) {
-        console.error('Error fetching clients:', error);
+      } catch (error: any) {
+        console.warn("Error fetching clients:", error?.message || error);
       }
     };
 
     fetchClients();
-  }, []);
+  }, [initialClients]);
 
   return (
     <section className="py-24 md:py-32 bg-[#02025c] relative overflow-hidden">
@@ -113,7 +110,7 @@ export default function Clients() {
             }}
           >
             {[...clients, ...clients].map((client, index) => {
-              const logo = client.logo;
+              const logo = client.image;
               const name = client.title.rendered;
               const url = client.acf?.website_url;
 
@@ -182,8 +179,8 @@ export default function Clients() {
   />
 
   <img
-    src={logo}
-    alt={name}
+     src={client.image}
+  alt={name}
     className="
       relative
       h-10

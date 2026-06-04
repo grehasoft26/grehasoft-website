@@ -10,6 +10,14 @@ import {
   Monitor,
   Rocket,
   Megaphone,
+  
+  Smartphone,
+  Search,
+  Workflow,
+  LayoutPanelTop,
+  RefreshCw,
+  SlidersVertical,
+  
 } from 'lucide-react';
 
 interface Props {
@@ -25,6 +33,13 @@ const iconMap: any = {
   Monitor,
   Rocket,
   Megaphone,
+    Smartphone,
+  Search,
+  Workflow,
+  LayoutPanelTop,
+  RefreshCw,
+  SlidersVertical,
+  
 };
 
 export default function ServicesGrid({ acf }: Props) {

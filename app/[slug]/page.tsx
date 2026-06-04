@@ -19,16 +19,21 @@ export default async function Page({
 
   const { slug } = await params;
 
-  const res = await fetch(
-    `${API}/services?slug=${slug}&_embed`,
-    {
-      cache: 'no-store',
+  let service: any = null;
+  try {
+    const res = await fetch(
+      `${API}/services?slug=${slug}&_embed`,
+      {
+        cache: 'no-store',
+      }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      service = data?.[0];
     }
-  );
-
-  const data = await res.json();
-
-  const service = data?.[0];
+  } catch (error) {
+    console.error("Error loading service data for slug:", slug, error);
+  }
 
   if (!service) {
     return (
@@ -40,25 +45,26 @@ export default async function Page({
 
   const acf = service.acf || {};
 
-  
-
   // HERO IMAGE
   const heroImageId = acf.hero_image;
 
   let heroImageUrl = '';
 
   if (heroImageId) {
-
-    const mediaRes = await fetch(
-      `${API}/media/${heroImageId}`,
-      {
-        cache: 'no-store',
+    try {
+      const mediaRes = await fetch(
+        `${API}/media/${heroImageId}`,
+        {
+          cache: 'no-store',
+        }
+      );
+      if (mediaRes.ok) {
+        const mediaData = await mediaRes.json();
+        heroImageUrl = mediaData.source_url || '';
       }
-    );
-
-    const mediaData = await mediaRes.json();
-
-    heroImageUrl = mediaData.source_url;
+    } catch (err) {
+      console.error("Error loading hero media:", heroImageId, err);
+    }
   }
 
   switch (acf.layout_type) {
