@@ -19,7 +19,7 @@
 
 //   // ✅ FETCH DATA
 //   useEffect(() => {
-//     fetch(`https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/testimonials`)
+//     fetch(`/wp-json/custom/v1/testimonials`)
 //       .then((res) => res.json())
 //       .then((data) => {
 //         console.log('API DATA:', data);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "@/lib/axios";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Search, ChevronDown, Check } from "lucide-react";
@@ -9,8 +9,6 @@ import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import { use } from "react";
-
-const API = "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2";
 
 const DEFAULT_POSTS = [
   {
@@ -83,7 +81,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         // categories
         let allCats = [];
         try {
-          const catRes = await axios.get(`${API}/categories?per_page=100`);
+          const catRes = await axios.get("/wp-json/wp/v2/categories?per_page=100");
           allCats = catRes.data;
           setCategories(allCats);
         } catch (catErr: any) {
@@ -109,7 +107,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         }
 
         // ✅ API URL with pagination
-        let url = `${API}/posts?_embed&per_page=6&page=${page}`;
+        let url = `/wp-json/wp/v2/posts?_embed&per_page=6&page=${page}`;
 
         if (categoryIds.length > 0) {
           url += `&categories=${categoryIds.join(",")}`;

@@ -10,8 +10,6 @@ import ConsultationPopup from "@/components/ConsultationPopup";
 import Footer from "@/components/Footer";
 import axiosInstance from "@/lib/axios";
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
-
 export default function CaseStudyDetail({
   params,
 }: {

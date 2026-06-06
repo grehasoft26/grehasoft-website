@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import axios from "@/lib/axios";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function StickyScrollServices({ initialServices = [] }: { initialServices?: any[] }) {
@@ -35,7 +35,7 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
       try {
         setLoading(true);
         const res = await axios.get(
-          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/ourservices?_embed"
+          "/wp-json/wp/v2/ourservices?_embed"
         );
         setServices(Array.isArray(res.data) ? res.data : []);
         setError(false);

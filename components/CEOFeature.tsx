@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import PDFModal from "./PDFModal";
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from "@/lib/axios";
 
 export default function CEOFeature() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,8 +17,8 @@ export default function CEOFeature() {
   // 🔥 Convert ID → URL
   const getMediaUrl = async (id: number) => {
     try {
-      const res = await fetch(`${API}/media/${id}`);
-      const json = await res.json();
+      const res = await axiosInstance.get(`/wp-json/wp/v2/media/${id}`);
+      const json = res.data;
       return json.source_url;
     } catch (error) {
       console.error("Media fetch error:", error);
@@ -29,8 +29,8 @@ export default function CEOFeature() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${API}/pages?slug=brand-story`);
-        const json = await res.json();
+        const res = await axiosInstance.get("/wp-json/wp/v2/pages?slug=brand-story");
+        const json = res.data;
 
         const acfData = json[0]?.acf || {};
         setAcf(acfData);

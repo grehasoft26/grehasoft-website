@@ -4,8 +4,7 @@ import { motion } from "motion/react";
 import { History, Target, Users, Rocket, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from "@/lib/axios";
 
 export default function BrandStory() {
   const [acf, setAcf] = useState<any>({});
@@ -13,8 +12,8 @@ export default function BrandStory() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${API}/pages?slug=brand-story`);
-        const json = await res.json();
+        const res = await axiosInstance.get("/wp-json/wp/v2/pages?slug=brand-story");
+        const json = res.data;
 
         console.log("✅ Brand Story:", json);
 

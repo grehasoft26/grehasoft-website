@@ -2,14 +2,17 @@ import PageHeader from '@/components/PageHeader';
 import Awards from '@/components/Awards';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
-import axios from 'axios';
-
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axios from '@/lib/axios';
 
 // ✅ SERVER SIDE FETCH
 async function getData() {
-  const res = await axios.get(`${API}/pages?slug=awards&_fields=acf`);
-  return res.data[0]?.acf;
+  try {
+    const res = await axios.get('/wp-json/wp/v2/pages?slug=awards&_fields=acf');
+    return res.data?.[0]?.acf || null;
+  } catch (err) {
+    console.error("Error fetching awards data:", err);
+    return null;
+  }
 }
 
 export default async function AwardsPage() {

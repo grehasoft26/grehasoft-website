@@ -4,8 +4,7 @@ import BrandingTemplate from '@/components/templates/BrandingTemplate';
 import MobileAppTemplate from '@/components/templates/MobileAppTemplate';
 import SoftwareTemplate from '@/components/templates/SoftwareTemplate';
 import TechnologyTemplate from '@/components/templates/TechnologyTemplate';
-
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from '@/lib/axios';
 
 interface PageProps {
   params: Promise<{
@@ -21,16 +20,10 @@ export default async function Page({
 
   let service: any = null;
   try {
-    const res = await fetch(
-      `${API}/services?slug=${slug}&_embed`,
-      {
-        cache: 'no-store',
-      }
+    const res = await axiosInstance.get(
+      `/wp-json/wp/v2/services?slug=${slug}&_embed`
     );
-    if (res.ok) {
-      const data = await res.json();
-      service = data?.[0];
-    }
+    service = res.data?.[0] || null;
   } catch (error) {
     console.error("Error loading service data for slug:", slug, error);
   }
@@ -52,16 +45,10 @@ export default async function Page({
 
   if (heroImageId) {
     try {
-      const mediaRes = await fetch(
-        `${API}/media/${heroImageId}`,
-        {
-          cache: 'no-store',
-        }
+      const mediaRes = await axiosInstance.get(
+        `/wp-json/wp/v2/media/${heroImageId}`
       );
-      if (mediaRes.ok) {
-        const mediaData = await mediaRes.json();
-        heroImageUrl = mediaData.source_url || '';
-      }
+      heroImageUrl = mediaRes.data.source_url || '';
     } catch (err) {
       console.error("Error loading hero media:", heroImageId, err);
     }

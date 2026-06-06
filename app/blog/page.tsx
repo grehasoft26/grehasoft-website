@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import axios from '@/lib/axios';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, Settings, Box, Zap, Cloud } from 'lucide-react';
@@ -114,7 +114,7 @@ export default function BlogPage() {
 
   useEffect(() => {
     axios
-      .get("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/posts?_embed")
+      .get("/wp-json/wp/v2/posts?_embed")
       .then((res) => {
         if (Array.isArray(res.data)) {
           setPosts(res.data);
@@ -123,7 +123,7 @@ export default function BlogPage() {
       .catch((err) => console.warn("Failed to fetch posts:", err?.message || err));
 
     axios
-      .get("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/categories")
+      .get("/wp-json/wp/v2/categories")
       .then((res) => {
         if (Array.isArray(res.data)) {
           setCategories(res.data);

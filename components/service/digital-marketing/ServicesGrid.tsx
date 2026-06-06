@@ -39,16 +39,16 @@ import {
  
   RefreshCw,
   Box,
- 
-  
-  Smartphone,
-
+   Smartphone,
   Workflow,
   LayoutPanelTop,
- 
   SlidersVertical,
-  
- 
+  Terminal,
+  Code2,
+  Database,
+  Cpu,
+  Cloud,
+  Building2
 
 } from 'lucide-react';
 
@@ -93,6 +93,13 @@ const iconMap: any = {
   Workflow: Workflow,
   LayoutPanelTop: LayoutPanelTop,
   SlidersVertical: SlidersVertical,
+  Terminal: Terminal,
+  Code2: Code2,
+  Database: Database,
+  Cpu: Cpu,
+  Cloud: Cloud,
+  Building2: Building2
+
   
   
 

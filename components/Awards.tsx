@@ -1,11 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, X, Award, Trophy, Star, Target } from 'lucide-react';
-
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
 import { AwardsData } from '@/types/wordpress';
 

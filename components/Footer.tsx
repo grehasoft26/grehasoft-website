@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "@/lib/axios";
 import Link from "next/link";
 import {
   Facebook,
@@ -46,7 +46,6 @@ export default function Footer({
 }) {
   const [footerState, setFooterState] = useState<any>(initialData || null);
   const [menu, setMenu] = useState<any[]>(initialMenu || []);
-  const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
   const footer = footerState || DEFAULT_FOOTER;
 
@@ -62,7 +61,7 @@ export default function Footer({
       if (!initialData) {
         try {
           const footerRes = await axios.get(
-            `${API}/pages?slug=footer&_fields=acf`
+            "/wp-json/wp/v2/pages?slug=footer&_fields=acf"
           );
           setFooterState(footerRes.data?.[0]?.acf || null);
         } catch (err: any) {
@@ -75,7 +74,7 @@ export default function Footer({
       if (!initialMenu || initialMenu.length === 0) {
         try {
           const menuRes = await axios.get(
-            "https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/menu/footer-menu"
+            "/wp-json/custom/v1/menu/footer-menu"
           );
           setMenu(menuRes.data || []);
         } catch (err: any) {
@@ -88,7 +87,7 @@ export default function Footer({
     };
 
     fetchData();
-  }, [initialData, initialMenu, API]);
+  }, [initialData, initialMenu]);
 
   // ✅ Group menu into sections (Company / Services / Products)
  const groupedMenu: any = {};

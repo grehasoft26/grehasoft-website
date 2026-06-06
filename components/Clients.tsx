@@ -22,7 +22,7 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
     const fetchClients = async () => {
       try {
         const res = await axios.get(
-          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/clients?per_page=100"
+          "/wp-json/wp/v2/clients?per_page=100"
         );
 
         const clientsWithImages = res.data.map((client: any) => ({

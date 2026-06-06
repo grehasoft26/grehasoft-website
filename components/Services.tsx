@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import * as Icons from "lucide-react";
 import Link from 'next/link';
+import axios from '@/lib/axios';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -30,13 +31,10 @@ export default function Services() {
 
   
   useEffect(() => {
-    fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/services?_embed", {
-      cache: "no-store",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("SERVICES DATA:", data);
-        setServices(data);
+    axios.get("/wp-json/wp/v2/services?_embed")
+      .then((res) => {
+        console.log("SERVICES DATA:", res.data);
+        setServices(res.data);
       })
       .catch((err) => console.error(err));
   }, []);

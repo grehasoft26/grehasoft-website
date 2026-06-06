@@ -12,23 +12,29 @@ import {
   ShoppingCart, Truck, Factory
 } from 'lucide-react';
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from '@/lib/axios';
 
 // ✅ SERVER FETCH
 async function getData() {
-  const res = await fetch(`${API}/pages?slug=products&_fields=acf`, {
-    cache: "no-store",
-  });
-  const json = await res.json();
-  return json[0]?.acf;
+  try {
+    const res = await axiosInstance.get('/wp-json/wp/v2/pages?slug=products&_fields=acf');
+    return res.data?.[0]?.acf || null;
+  } catch (err) {
+    console.error("Error fetching products data:", err);
+    return null;
+  }
 }
 
 // ✅ IMAGE FETCH (ID → URL)
 async function getImageUrl(id: number) {
   if (!id) return null;
-  const res = await fetch(`${API}/media/${id}`);
-  const json = await res.json();
-  return json?.source_url;
+  try {
+    const res = await axiosInstance.get(`/wp-json/wp/v2/media/${id}`);
+    return res.data?.source_url || null;
+  } catch (err) {
+    console.error("Error fetching products media:", id, err);
+    return null;
+  }
 }
 
 export default async function ProductsPage() {

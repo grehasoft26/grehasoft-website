@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "@/lib/axios";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -67,7 +67,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/contact"
+          "/wp-json/wp/v2/contact"
         );
         setFetchedData(res.data?.[0]?.acf || null);
         setError(false);
@@ -155,7 +155,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
 
     try {
       const res = await axios.post(
-        "https://antiquewhite-swan-450844.hostingersite.com/wp-json/custom/v1/contact",
+        "/wp-json/custom/v1/contact",
         form
       );
 

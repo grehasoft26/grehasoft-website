@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '@/lib/axios';
 import Link from 'next/link';
 import { Clock, Eye } from 'lucide-react';
 import PageHeader from '@/components/PageHeader';
@@ -52,7 +52,7 @@ export default function BlogDetails() {
     // ✅ FETCH CURRENT POST
     axios
       .get(
-        `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/posts?slug=${slug}&_embed`
+        `/wp-json/wp/v2/posts?slug=${slug}&_embed`
       )
       .then((res) => {
         const post = res.data?.[0];
@@ -88,7 +88,7 @@ export default function BlogDetails() {
     // ✅ FETCH ALL POSTS (for Prev / Next)
     axios
       .get(
-        `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/posts?per_page=50&_embed`
+        `/wp-json/wp/v2/posts?per_page=50&_embed`
       )
       .then((res) => {
         if (Array.isArray(res.data)) {
@@ -106,7 +106,7 @@ export default function BlogDetails() {
     // ✅ RELATED POSTS
     axios
       .get(
-        `https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/posts?per_page=3&_embed`
+        `/wp-json/wp/v2/posts?per_page=3&_embed`
       )
       .then((res) => {
         if (Array.isArray(res.data)) {

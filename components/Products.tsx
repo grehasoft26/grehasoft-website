@@ -5,8 +5,6 @@ import { ArrowRight, Layers, Zap, Shield, BarChart } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
-
 // ICON MAP (important)
 const iconMap: any = {
   analytics: BarChart,

@@ -31,6 +31,7 @@ import ExplodingImage from './ExplodingImage';
 import { usePathname } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa';
 import WhatsAppButton from './WhatsAppButton';
+import axiosInstance from '@/lib/axios';
 
 /* -------------------- NAVBAR -------------------- */
 const DEFAULT_MENU = [
@@ -52,13 +53,7 @@ export default function Navbar() {
     // Mobile dropdown states
   const [openMenu, setOpenMenu] = useState<any>({});
   const [openSubMenu, setOpenSubMenu] = useState<any>({});
-  const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || "";
-
-const API_BASE = API.replace(
-  "/wp-json/wp/v2",
-  ""
-);
-const pathname = usePathname();
+  const pathname = usePathname();
  
   const toggleMenu = (id: any) => {
     setOpenMenu((prev: any) => ({
@@ -76,28 +71,13 @@ const pathname = usePathname();
 
   // Fetch WordPress Menu
   useEffect(() => {
-    if (!API_BASE) return;
-
     const fetchMenu = async () => {
       try {
-        const res = await fetch(
-          `${API_BASE}/wp-json/custom/v1/menu/primary-menu`,
-          {
-            cache: "no-store",
-          }
+        const res = await axiosInstance.get(
+          '/wp-json/custom/v1/menu/primary-menu'
         );
-
-        if (!res.ok) {
-          throw new Error(
-            `Menu API failed: ${res.status}`
-          );
-        }
-
-        const data = await res.json();
-
-        console.log("MENU DATA:", data);
-
-        setMenu(Array.isArray(data) ? data : []);
+        console.log("MENU DATA:", res.data);
+        setMenu(Array.isArray(res.data) ? res.data : []);
       } catch (error: any) {
         console.warn(
           "Navbar menu error:",
@@ -108,7 +88,7 @@ const pathname = usePathname();
     };
 
     fetchMenu();
-  }, [API_BASE]);
+  }, []);
 
   // Scroll Effect
   useEffect(() => {

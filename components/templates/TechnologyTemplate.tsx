@@ -1,35 +1,71 @@
+import PageHeader from '@/components/PageHeader';
+import CTA from '@/components/CTA';
+import Footer from '@/components/Footer';
+
+import IntroSection from '@/components/service/digital-marketing/IntroSection';
+import ServicesGrid from '@/components/service/digital-marketing/ServicesGrid';
+import WhySEOSection from '@/components/service/digital-marketing/WhySEOSection';
+import ProcessSection from '@/components/service/digital-marketing/ProcessSection';
+import IndustriesSection from '@/components/service/digital-marketing/IndustriesSection';
+import StandOutSection from '@/components/service/digital-marketing/StandOutSection';
+import ContactSection from '@/components/service/digital-marketing/ContactSection';
+import FAQSection from '@/components/service/digital-marketing/FAQSection';
+import LocalSection from '@/components/service/digital-marketing/LocalSection';
+import TechnologySection from '@/components/service/technology/TechnologySection';
 interface Props {
   service: any;
+  heroImageUrl?: string;
 }
 
-export default function TechnologyTemplate({
+export default function DigitalMarketingTemplate({
   service,
+  heroImageUrl,
 }: Props) {
 
   const acf = service?.acf || {};
+// FEATURED IMAGE
+  const featuredImage =
+    service?._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+    '/images/fallback.jpg';
+
 
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="bg-white">
 
-      <section className="py-32">
+     <PageHeader
+  title={acf.page_title || service.title?.rendered}
+  description={acf.page_desc}
+  breadcrumb={[
+  
+    {
+      name: service.title?.rendered,
+      href: `/${acf.parent_slug}/${acf.custom_slug}`,
+    },
+  ]}
+/>
 
-        <div className="container-custom">
+      <IntroSection
+        acf={acf}
+        heroImageUrl={heroImageUrl}
+         featuredImage={featuredImage}
+      />
+     <StandOutSection acf={acf} />
 
-          <span className="text-cyan-400 uppercase tracking-[0.2em] font-bold text-sm mb-6 block">
-            {acf.hero_tag}
-          </span>
+      <ServicesGrid acf={acf} />
 
-          <h1 className="text-5xl font-black mb-6">
-            {acf.page_title}
-          </h1>
+      <WhySEOSection acf={acf} />
+      <LocalSection acf={acf} />
+     
+   <ProcessSection acf={acf} /> 
+<TechnologySection acf={acf} />
+      <IndustriesSection acf={acf} /> 
 
-          <p className="text-lg text-white/70 max-w-3xl">
-            {acf.page_desc}
-          </p>
+       <ContactSection acf={acf} /> 
 
-        </div>
+       <FAQSection acf={acf} /> 
 
-      </section>
+    <CTA />
+      <Footer />
 
     </main>
   );

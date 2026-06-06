@@ -4,8 +4,7 @@ import BrandingTemplate from '@/components/templates/BrandingTemplate';
 import MobileAppTemplate from '@/components/templates/MobileAppTemplate';
 import SoftwareTemplate from '@/components/templates/SoftwareTemplate';
 import TechnologyTemplate from '@/components/templates/TechnologyTemplate';
-
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from '@/lib/axios';
 
 interface PageProps {
   params: Promise<{
@@ -21,21 +20,16 @@ export default async function Page({
   const { slug, child } = await params;
   let service: any = null;
   try {
-    const res = await fetch(
-      `${API}/services?_embed`,
-      {
-        cache: 'no-store',
-      }
+    const res = await axiosInstance.get(
+      '/wp-json/wp/v2/services?_embed'
     );
-    if (res.ok) {
-      const allServices = await res.json();
-      if (Array.isArray(allServices)) {
-        service = allServices.find(
-          (item: any) =>
-            item?.acf?.custom_slug === child &&
-            item?.acf?.parent_slug === slug
-        );
-      }
+    const allServices = res.data;
+    if (Array.isArray(allServices)) {
+      service = allServices.find(
+        (item: any) =>
+          item?.acf?.custom_slug === child &&
+          item?.acf?.parent_slug === slug
+      );
     }
   } catch (error) {
     console.error("Error loading services for child slug:", child, error);
@@ -66,16 +60,10 @@ export default async function Page({
 
   if (heroImageId) {
     try {
-      const mediaRes = await fetch(
-        `${API}/media/${heroImageId}`,
-        {
-          cache: 'no-store',
-        }
+      const mediaRes = await axiosInstance.get(
+        `/wp-json/wp/v2/media/${heroImageId}`
       );
-      if (mediaRes.ok) {
-        const mediaData = await mediaRes.json();
-        heroImageUrl = mediaData.source_url || '';
-      }
+      heroImageUrl = mediaRes.data.source_url || '';
     } catch (err) {
       console.error("Error loading child hero media:", heroImageId, err);
     }

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from "@/lib/axios";
+
 export default
 function RelatedProjects({ currentId }: any) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch(`${API}/portfolio?_embed`)
-      .then((res) => res.json())
-      .then((data) => setItems(data));
+    axiosInstance.get("/wp-json/wp/v2/portfolio?_embed")
+      .then((res) => setItems(res.data))
+      .catch((err) => console.error("Error loading related projects:", err));
   }, []);
 
   return (

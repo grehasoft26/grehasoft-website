@@ -12,7 +12,7 @@
 
 //   // ✅ FETCH WORDPRESS DATA
 //   useEffect(() => {
-//     fetch("https://antiquewhite-swan-450844.hostingersite.com/wp-json/wp/v2/faq")
+//     fetch("/wp-json/wp/v2/faq")
 //       .then(res => res.json())
 //       .then(data => {
 //         console.log("FAQ API:", data);

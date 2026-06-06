@@ -9,7 +9,7 @@ import CEOFeature from '@/components/CEOFeature';
 import { useEffect, useState } from "react";
 import LogoEvolution from '@/components/LogoEvolution';
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axiosInstance from '@/lib/axios';
 
 export default function BrandStoryPage() {
   const [acf, setAcf] = useState<any>({});
@@ -17,8 +17,8 @@ export default function BrandStoryPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${API}/pages?slug=brand-story`);
-        const json = await res.json();
+        const res = await axiosInstance.get('/wp-json/wp/v2/pages?slug=brand-story');
+        const json = res.data;
 
         console.log("✅ Brand Story:", json);
 

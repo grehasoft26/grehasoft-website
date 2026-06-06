@@ -2,9 +2,7 @@ import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
 import CTA from '@/components/CTA';
-import axios from 'axios';
-
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
+import axios from '@/lib/axios';
 
 const DEFAULT_CAREERS = {
   career_title: "Careers",
@@ -35,7 +33,7 @@ const DEFAULT_CAREERS = {
 // ✅ SERVER SIDE FETCH
 async function getData() {
   try {
-    const res = await axios.get(`${API}/pages?slug=careers&_fields=acf`, { timeout: 10000 });
+    const res = await axios.get('/wp-json/wp/v2/pages?slug=careers&_fields=acf', { timeout: 10000 });
     return res.data?.[0]?.acf || DEFAULT_CAREERS;
   } catch (err) {
     console.error("Error fetching careers data:", err);
