@@ -42,6 +42,21 @@ import {
   Printer,
   
  
+  Code,
+  Database,
+  Shield,
+  Zap,
+   
+ 
+  Code2,
+  Cloud,
+  RefreshCw
+  
+  
+ 
+  
+ 
+ 
 } from 'lucide-react';
 
 import { motion } from 'motion/react';
@@ -89,6 +104,13 @@ export default function ProcessSection({ acf }: Props) {
     UsersRound: UsersRound,
     Award: Award,
     Printer: Printer,
+    Code: Code,
+    Database: Database,
+    Shield: Shield,
+    Zap: Zap,
+      Code2: Code2,
+   Cloud: Cloud,
+   RefreshCw: RefreshCw,
 
   };
 

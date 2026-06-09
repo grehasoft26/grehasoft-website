@@ -10,7 +10,7 @@ interface Props {
 export default function TechnologySection({ acf }: Props) {
   const data = acf?.technology?.technologies_section || {};
 
-  if (!data?.technology_title) return null;
+  if (!data?.section_title) return null;
 
   const technologies = [
   {

@@ -48,7 +48,24 @@ import {
   Database,
   Cpu,
   Cloud,
-  Building2
+  Building2,
+ 
+ 
+  Eye,
+  
+  BadgeCheck,
+ 
+  Layers,
+ 
+  Briefcase,
+  MessageSquare,
+  Server,
+  HardDrive,
+
+ 
+  
+ 
+
 
 } from 'lucide-react';
 
@@ -98,7 +115,20 @@ const iconMap: any = {
   Database: Database,
   Cpu: Cpu,
   Cloud: Cloud,
-  Building2: Building2
+  Building2: Building2,
+  Eye: Eye,
+  Layers3: Layers3,
+  Zap: Zap,
+  TrendingUp: TrendingUp,
+  Users: Users,
+   BadgeCheck: BadgeCheck,
+  Layers: Layers,
+  Briefcase: Briefcase,
+  MessageSquare: MessageSquare,
+  Server: Server,
+  HardDrive: HardDrive,
+Palette: Palette,
+
 
   
   

@@ -25,7 +25,18 @@ import {
   Compass,
  
   Shield,
+   
   
+  
+  Layers3,
+ 
+ 
+ 
+ 
+  Server,
+  Factory,
+  HardDrive
+ 
 
 } from 'lucide-react';
 
@@ -57,6 +68,10 @@ export default function IndustriesSection({ acf }: Props) {
     Shirt,
     Compass,
     Shield,
+    Layers3,
+    Server,
+    Factory,
+    HardDrive
   };
 
   const industries = [

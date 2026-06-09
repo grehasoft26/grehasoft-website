@@ -23,7 +23,15 @@ import {
   
   
   Layers,
+   TimerReset,
+   Clock3,
+  ShieldCheck,
+  Activity,
  
+  ChartColumn,
+
+ Cpu,
+ Layers3,
   
 } from 'lucide-react';
 
@@ -55,6 +63,14 @@ export default function WhySEOSection({ acf }: Props) {
     Sparkles: Sparkles,
     Eye: Eye,
     Layers: Layers,
+    TimerReset: TimerReset,
+    Clock3: Clock3,
+    ShieldCheck: ShieldCheck,
+    Activity: Activity,
+    
+    ChartColumn: ChartColumn,
+      Cpu: Cpu,
+      Layers3: Layers3,
     
 
   };
@@ -171,9 +187,10 @@ if (!whySeo?.why_seo_title_1) return null;
 
                       </div>
 
-                      <p className="font-bold text-white/90 leading-snug text-sm">
-                        {item.title}
-                      </p>
+                      <div
+                        className=" text-white/90 leading-snug text-sm"
+                        dangerouslySetInnerHTML={{ __html: item.title }}
+                      />
 
                     </motion.div>
                   )
