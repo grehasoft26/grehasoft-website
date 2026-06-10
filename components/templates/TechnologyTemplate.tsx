@@ -13,7 +13,7 @@ import FAQSection from '@/components/service/digital-marketing/FAQSection';
 import LocalSection from '@/components/service/digital-marketing/LocalSection';
 import TechnologySection from '@/components/service/technology/TechnologySection';
 import GlobalExperienceSection from '@/components/service/technology/GlobalExperienceSection';
-
+import CriticalCheckSection from '@/components/service/technology/CriticalCheckSection';
 
 
 interface Props {
@@ -59,6 +59,7 @@ export default function DigitalMarketingTemplate({
       <ServicesGrid acf={acf} />
 
       <WhySEOSection acf={acf} />
+      <CriticalCheckSection acf={acf} />
       <LocalSection acf={acf} />
      
    <ProcessSection acf={acf} /> 

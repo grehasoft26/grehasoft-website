@@ -61,6 +61,7 @@ import {
   MessageSquare,
   Server,
   HardDrive,
+  Globe,
 
  
   
@@ -215,7 +216,7 @@ if (!data?.services_section_title) return null;
 
           {seoServices.map((service, i) => {
 
-            const IconComponent = iconMap[service.icon];
+            const IconComponent = iconMap[service.icon] || Globe;
 
             return (
 

@@ -64,7 +64,15 @@ export default function TechnologySection({ acf }: Props) {
 )}
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+       <div
+  className={`grid gap-6 max-w-7xl mx-auto ${
+    technologies.length === 5
+      ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-5'
+      : technologies.length === 4
+      ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+      : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+  }`}
+>
           {technologies.map((tech, idx) => (
             <motion.div
               key={idx}

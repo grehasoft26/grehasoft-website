@@ -82,9 +82,11 @@ if (!contact.contact_title) return null;
               <div className="space-y-6 text-white/70 text-lg mb-10 leading-relaxed max-w-xl">
 
                 {contact?.contact_description_one && (
-                  <p>
-                    {contact.contact_description_one}
-                  </p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: contact.contact_description_one,
+                    }}
+                  />
                 )}
 
                 {contact?.contact_description_two && (
