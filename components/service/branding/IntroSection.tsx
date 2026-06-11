@@ -131,7 +131,7 @@ export default function IntroSection({
             <div className="aspect-[4/5] bg-gray-100 rounded-[3rem] overflow-hidden -rotate-2 shadow-2xl relative">
 
               <Image
-                src={heroImageUrl || featuredImage}
+                 src={featuredImage || "/images/fallback.png"}
                 alt={intro?.hero_title || 'Branding Service'}
                 fill
                 className="object-cover"

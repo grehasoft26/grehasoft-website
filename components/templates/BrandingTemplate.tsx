@@ -13,6 +13,7 @@ import IndustriesSection from '@/components/service/digital-marketing/Industries
 import ContactSection from '@/components/service/branding/ContactSection';
 import FAQSection from '@/components/service/digital-marketing/FAQSection';
 import GlobalExperienceSection from '@/components/service/branding/GlobalExperienceSection';
+import TechnologySection from '@/components/service/technology/TechnologySection';
 interface Props {
   service: any;
   heroImageUrl?: string;
@@ -56,6 +57,7 @@ export default function BrandingTemplate({
       <WhyBrandingSection acf={acf} />
 
       <LocalSection acf={acf} />
+      <TechnologySection acf={acf} />
 
       <ProcessSection acf={acf} />
 
