@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
 import { 
-  Smartphone, 
-  Tablet, 
+  Cpu, 
   Zap, 
   Shield, 
   Layout, 
@@ -15,7 +14,6 @@ import {
   MessageSquare, 
   Code2, 
   Globe, 
-  Cpu, 
   ChevronDown, 
   Award, 
   Lightbulb, 
@@ -26,203 +24,222 @@ import {
   Users, 
   Target, 
   Rocket,
-  Briefcase,
-  Wrench
+  Database,
+  Lock,
+  Cloud,
+  Network,
+  Workflow,
+  Server,
+  Layers,
+  Terminal
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
-const mobileServices = [
+const softwareServices = [
   {
-    icon: Smartphone,
-    title: 'Android App Development',
-    desc: 'Custom Android applications built with Kotlin and Java, optimized for maximum performance, battery efficiency, and scalability on all device profiles.',
-    href: '/mobile-apps/android',
+    icon: Code2,
+    title: 'Custom Web Applications',
+    desc: 'High-performing, fully tailored web applications built with modern frameworks to streamline specialized business workflows.',
+    href: '/software/custom-web',
   },
   {
-    icon: Tablet,
-    title: 'iOS App Development',
-    desc: 'High-end iOS applications for iPhone and iPad using Swift, conforming to Apple\'s strict Human Interface Guidelines and premium quality checks.',
-    href: '/mobile-apps/ios',
+    icon: Layers,
+    title: 'ERP Solutions',
+    desc: 'Comprehensive enterprise resource planning software to consolidate and manage your backend business processes flawlessly.',
+    href: '/software/erp',
   },
   {
-    icon: Zap,
-    title: 'Hybrid App Development',
-    desc: 'Highly budget-friendly cross-platform apps using Flutter and React Native that operate flawlessly across both Android and iOS devices.',
-    href: '/mobile-apps/hybrid',
+    icon: Users,
+    title: 'CRM Systems',
+    desc: 'Custom-built relationship platforms to automate lead nurturing, track pipelines, and elevate customer retention rates.',
+    href: '/software/crm',
   },
   {
-    icon: Globe,
-    title: 'Progressive Web Apps (PWA)',
-    desc: 'Cutting-edge web-based applications that offer an immersive app-like feel, native-level caching, offline capabilities, and instant loading speeds.',
-    href: '/mobile-apps/pwa',
+    icon: Award,
+    title: 'LMS Platforms',
+    desc: 'Highly interactive, stable, and secure learning management hubs configured for schools, colleges, and training enterprises.',
+    href: '/software/lms',
   },
   {
-    icon: Briefcase,
-    title: 'Enterprise & Business Apps',
-    desc: 'Tailored corporate applications designed to streamline operations, facilitate internal communications, and automate field-force activities.',
-    href: '/mobile-apps/business-apps',
+    icon: RefreshCw,
+    title: 'Booking & Dispatch Systems',
+    desc: 'Intuitive calendars, reservations matrices, automated schedulers, and payment sync for perfect operation mechanics.',
+    href: '/software/booking',
   },
   {
-    icon: Wrench,
-    title: 'Custom Utility Applications',
-    desc: 'Niche mobile and tablet tools built to perform specific tasks, offline calculations, biometric syncing, and hardware integrations perfectly.',
-    href: '/mobile-apps/utility-apps',
+    icon: Database,
+    title: 'Inventory Management',
+    desc: 'Real-time multi-location warehouse trackers, stock automated alerts, purchase management workflows, and instant status updates.',
+    href: '/software/inventory',
+  },
+  {
+    icon: Settings,
+    title: 'Business Automation Tools',
+    desc: 'Empower your workers by replacing boring manual routines with high-speed automated software systems and triggers.',
+    href: '/software/business-tools',
+  },
+  {
+    icon: Network,
+    title: 'API & Gateway Integrations',
+    desc: 'Link all your legacy platforms, cloud storage, payment handlers, and third-party databases through clean microservice APIs.',
+    href: '/software/api-integrations',
   },
 ];
 
 const valueProps = [
   {
-    title: 'Strategic Architecture',
-    desc: 'We map out detailed wireframes, user touchpoints, and systemic flowcharts before writing a single line of database or frontend code.',
-    icon: Target,
+    title: 'Scalable Microservices',
+    desc: 'We partition logic into modular containers that scale independently to ensure high availability on sudden user spikes.',
+    icon: Layers,
   },
   {
-    title: 'App Store Expertise',
-    desc: 'Our expert team guides your app through the comprehensive compliance checklists required for swift approval on Google Play and Apple App Stores.',
-    icon: Award,
+    title: 'State-of-the-Art Security',
+    desc: 'We configure AES encryption, multi-factor logins, data sanitization, and automated backups to shield enterprise databases.',
+    icon: Lock,
   },
   {
-    title: 'Cutting-Edge Tech Stack',
-    desc: 'By utilizing modern performance standards like Kotlin, Swift, Flutter, and React Native, your applications remain robust, scalable, and stable.',
-    icon: Lightbulb,
+    title: 'Cloud-Native Prowess',
+    desc: 'Leverage AWS, Google Cloud, or Azure optimizations to maintain extremely high server speeds and lower hosting overheads.',
+    icon: Cloud,
   },
   {
-    title: 'Custom Adaptations',
-    desc: 'Every layout is tailored to match your precise user personas, custom security parameters, and distinct corporate branding rules.',
-    icon: Settings,
+    title: 'Agile Implementation',
+    desc: 'Gain total transparency through weekly sprints, functional staging previews, and rapid adaptation loops.',
+    icon: Workflow,
   },
   {
-    title: 'Data & Behavior Analytics',
-    desc: 'Integrate robust in-app click tracking, user journeys mapping, and system event logging to optimize user conversion loops over time.',
-    icon: BarChart,
+    title: 'Robust Core Integrity',
+    desc: 'We enforce strict unit diagnostics and end-to-end integration automated checks to assure robust offline behavior.',
+    icon: Shield,
   },
   {
-    title: 'Transparent Collaboration',
-    desc: 'Receive active build updates, direct feedback opportunities, and sandbox testing credentials at every milestone of development.',
-    icon: MessageSquare,
+    title: 'Elegant Component Architecture',
+    desc: 'By separating state management from design layers, layouts remain fast, elegant, and simple to expand.',
+    icon: Layout,
   },
   {
-    title: 'Hardware Optimization',
-    desc: 'We configure deep hardware utilities like biometric authentication, cameras, bluetooth handshakes, and offline storage queues securely.',
-    icon: Cpu,
+    title: 'Database Load Tuning',
+    desc: 'We optimize PostgreSQL and NoSQL indexing structures to deliver lightning-fast read/write queries at scale.',
+    icon: Server,
   },
   {
-    title: 'Sustained Maintenance',
-    desc: 'Keep your application aligned with sudden OS changes, deprecation warnings, security patches, and modern smartphone designs.',
+    title: 'SLA Maintenance Plans',
+    desc: 'Keep applications constantly up-to-date with library security upgrades, database health sweeps, and performance monitoring.',
     icon: RefreshCw,
   },
   {
-    title: 'User-First Philosophy',
-    desc: 'We prioritize touch target guidelines, minimal loading visual gaps, and fluid interface layouts to delight users first.',
-    icon: Heart,
+    title: 'Direct Product Mentoring',
+    desc: 'Our senior product team helps wireframe and logic-test workflows to maximize real user utility before dev cycles begin.',
+    icon: Target,
   },
   {
-    title: 'Scalable Cloud Backends',
-    desc: 'Ensure flawless, rapid data synchronization with secure, fast database backends capable of serving thousands of concurrent users.',
-    icon: TrendingUp,
+    title: 'Performance Optimization',
+    desc: 'We analyze query runtime latency & file bundles size to provide an app with instant startup speeds and smooth scrolling.',
+    icon: Zap,
   },
 ];
 
-const mobileProcess = [
+const developmentProcess = [
   {
     step: '01',
-    title: 'Product Strategy & Logic',
-    desc: 'Establishing functional goals, backend pathways, competitor reviews, and targeted client personas.',
+    title: 'System Analysis & Blueprinting',
+    desc: 'Mapping out clear relational data schemas, secure security limits, and interactive page layouts.',
   },
   {
     step: '02',
-    title: 'High-Fidelity UI/UX',
-    desc: 'Drafting responsive screen blueprints, custom interactive components, and comprehensive design systems.',
+    title: 'High-Fidelity Modern UI/UX',
+    desc: 'Translating concepts into gorgeous responsive designs that drive high user adoption.',
   },
   {
     step: '03',
-    title: 'Development & APIs',
-    desc: 'Engineering optimize frontend code coupled with secure cloud APIs and highly safe payload exchanges.',
+    title: 'High-Speed Engineering',
+    desc: 'Writing optimized modular components, fast APIs, and secure database pathways.',
   },
   {
     step: '04',
-    title: 'Testing & Store Launch',
-    desc: 'Running intensive device diagnostics, unit diagnostics, and managing the complete official app store release.',
+    title: 'Testing Sweeps & Launch',
+    desc: 'Conducting deep load stress audits, multi-browser diagnostics, and launching live systems.',
   },
 ];
 
 const faqs = [
   {
-    question: 'How much does it cost to develop a custom mobile application?',
-    answer: 'The operational cost fluctuates depending on the structural complexity, overall feature count, visual design density, and choice of targets (Native Android/iOS or Cross-Platform Hybrid). We offer tailored development quotes based on your exact business roadmap.',
+    question: 'Why choose custom software over ready-made off-the-shelf products?',
+    answer: 'Ready-made systems impose major custom license constraints and force you to mold your business operations around rigid features. Custom development gives you absolute ownership of secure, unique features structured precisely to serve your actual workflow and save overhead pricing.',
   },
   {
-    question: 'How long does the mobile app development lifecycle take?',
-    answer: 'A highly streamlined, clean MVP application typically spans 8 to 12 weeks. Large-scale enterprise platforms with microservice backends, extensive database integrations, or complicated hardware controls can require 16 to 24 weeks or more.',
+    question: 'Which software development tech stacks do you specialize in?',
+    answer: 'At Grehasoft, we deploy highly secure and performant technology. We focus on modern frameworks including Next.js, React, Node.js, and Express, utilizing stable SQL databases like PostgreSQL, enterprise Firestore, and AWS Lambda microservices.',
   },
   {
-    question: 'Will you manage Google Play and Apple App Store submissions?',
-    answer: 'Absolutely. We coordinate and execute the entire marketplace compilation, legal privacy checks, application descriptions, and store screenshots, guaranteeing a complete submission that meets Apple and Google developer guidelines.',
+    question: 'How do you preserve security and keep data pathways safe?',
+    answer: 'We build strict secure practices into our codebases from line one. We run complete authorization checks, integrate secure JSON Web Token parameters, map multi-layered security rules, perform sanitization checks to prevent SQL injection, and schedule automated cloud data backups.',
   },
   {
-    question: 'Do you offer ongoing post-launch maintenance packages?',
-    answer: 'Yes. We provide recurring support and performance optimization plans to protect your software codebase against major operating system upgrades (iOS changes, Android versions), deprecation issues, and system expansions.',
+    question: 'Will we have complete intellectual property ownership over the source code?',
+    answer: 'Yes, 100%. Upon completing and settling the project phases, full legal intellectual property rights, database codebases, and custom server credentials transfer to your systems directly.',
   },
 ];
 
-export default function MobileAppDevelopment() {
+export default function SoftwareServicesPage() {
   const advantagesList = [
     {
-      title: 'Direct Consumer Engagement',
-      subtitle: 'Unrivaled Real Estate',
-      desc: 'Earn a permanent spot on your clients\' home screens. Having a dedicated application increases top-of-mind brand visibility and builds direct interactive connections.',
-      badge: 'Brand Real-Estate',
-      icon: Smartphone,
+      title: 'Automate Operational Friction',
+      subtitle: 'Seamless Efficiency',
+      desc: 'Ditch lagging spreadsheets and manually repeated admin steps. Tailored workflows let your team automate reporting, client communications, and complex data tracking in real time.',
+      badge: 'Zero Manual Workload',
+      icon: RefreshCw,
       color: 'text-indigo-650 bg-indigo-50 border-indigo-100',
-      tagline: 'Stay active inside high-intent channels where modern users spend over 90% of their mobile time.'
+      tagline: 'Refunnel resource hours toward direct growth targets instead of managing repetitive backend routines.'
     },
     {
-      title: 'Flawless Push Alerts',
-      subtitle: 'Immediate Communication',
-      desc: 'Send fast, highly engaging alerts directly to your customer base. Bypass cluttered email folders with instant updates, tailored deals, or critical application notifications.',
-      badge: 'Immediate CTR Boost',
-      icon: Zap,
-      color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
-      tagline: 'Deliver time-sensitive announcements with instant, action-driven click-through paths.'
-    },
-    {
-      title: 'Deep Hardware Utilities',
-      subtitle: 'Advanced Capabilities',
-      desc: 'Leverage built-in device features seamlessly. Connect your system to core biometric parameters, device cameras, high-definition GPS routes, and native calendar schedules.',
-      badge: 'Hardware Syncing',
-      icon: Cpu,
-      color: 'text-amber-650 bg-amber-50 border-amber-100',
-      tagline: 'Enable intuitive customer interactions like fingerprint authorization and automated site routing.'
-    },
-    {
-      title: 'Offline Operational Flow',
-      subtitle: 'Continuous Accessibility',
-      desc: 'Give users essential access to features even during network outages. Native databases permit data lookups, draft writing, and transaction tracking offline.',
-      badge: 'Fail-Safe Availability',
+      title: 'Total System Control & IP',
+      subtitle: 'Complete Ownership',
+      desc: 'Free your business from endless user licensing fees, rigid third-party upgrades, and platform closures. A custom system guarantees you own the entire intellectual asset from day one.',
+      badge: 'Unrestricted Expansion',
       icon: Shield,
-      color: 'text-purple-650 bg-purple-50 border-purple-100',
-      tagline: 'Keep business transactions queued securely for synchronization the exact second connection resumes.'
+      color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
+      tagline: 'Configure and expand your core features freely without paying heavy per-user licensing taxes.'
     },
     {
-      title: 'Elevated Brand Trust',
-      subtitle: 'Marketplace Authority',
-      desc: 'Earn strong credibility by maintaining a verified app store presence. Safe app store distribution proves your enterprise meets strict security, privacy, and development policies.',
-      badge: 'Store Verification',
-      icon: Code2,
+      title: 'Flawless App Connectivity',
+      subtitle: 'Integrated Data Hub',
+      desc: 'Break down administrative information silos. Sync your custom system securely with payment gateways, biometric controllers, legacy CRM dashboards, or any external public web API.',
+      badge: 'High-Integrity Syncing',
+      icon: Network,
+      color: 'text-amber-650 bg-amber-50 border-amber-100',
+      tagline: 'Consolidate multiple operations into a single cohesive system of truth with immediate updates.'
+    },
+    {
+      title: 'Scalable Modular Design',
+      subtitle: 'Engineered for Growth',
+      desc: 'Your application evolves strictly alongside practical operational requirements. Seamless, scalable codebases permit you to append new databases, dashboard features, and user groups.',
+      badge: 'Painless Adaptations',
+      icon: Cpu,
+      color: 'text-purple-650 bg-purple-50 border-purple-100',
+      tagline: 'Deploy new modules and API tunnels without interrupting current workflows.'
+    },
+    {
+      title: 'Premium Security Protocols',
+      subtitle: 'Enterprise Shield',
+      desc: 'Guard your proprietary data files from threat leaks. Build hardened, customized access configurations, secure identity systems, data encryption, and automatic off-site server backups.',
+      badge: 'Hardened Security',
+      icon: Lock,
       color: 'text-primary bg-primary/5 border-primary/10',
-      tagline: 'Build immediate corporate authority under official Apple and Google licensing protocols.'
+      tagline: 'Deliver safe, robust security to audit trails and verify strict privacy standards.'
     }
   ];
 
   return (
     <main className="min-h-screen">
       <PageHeader
-        title="Mobile App Development Kochi"
-        description="Top-rated mobile app development company in Kerala. We build custom Android, iOS, and Hybrid apps that drive business growth."
+        title="Software & Web App Development Kochi"
+        description="Top software development company in Kerala. We engineer secure custom software, cloud-native ERPs, CRM platforms, and scalable web apps."
         breadcrumb={[
           { name: 'Services', href: '/services' },
-          { name: 'Mobile App Development', href: '/mobile-apps' },
+          { name: 'Software', href: '/software' },
         ]}
       />
 
@@ -235,24 +252,24 @@ export default function MobileAppDevelopment() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Mobile Innovation</span>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Software Innovation</span>
               <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6 leading-tight">
-                Building Next-Gen <span className="text-primary">Mobile Experiences</span>
+                Engineered for <span className="text-primary">Operational Scale</span>
               </h2>
               <p className="text-text-gray text-lg mb-6 leading-relaxed">
-                Grehasoft is a leading **mobile app development company in Kochi**, specialized in engineering fast, highly refined, and secure mobile applications. We help brands convert vision into flawless software products.
+                Grehasoft is a leading **software development company in Kochi**, helping forward-thinking enterprises design and build secure, feature-rich custom web applications and business automation tools.
               </p>
               <p className="text-text-gray text-lg mb-8 leading-relaxed">
-                From **Android app development in Kerala** to high-performing native **iOS apps in Kochi**, our multi-disciplinary engineers deploy clean code, beautiful aesthetics, and solid database pathways that scale organically.
+                From high-performing native **Next.js web apps in Kerala** to resilient database-driven enterprise planning platforms, our engineers write clean, robust code that solves hard administrative challenges.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
                 {[
-                  'Robust Native Kotlin & Swift',
-                  'Optimized Flutter & React Native',
-                  'Intuitive Touch Interface Design',
-                  'Secure Microservice API Sync',
-                  'Full App Store Submissions',
-                  'Reliable SLA Code Maintenanceing'
+                  'Scalable Next.js & React Apps',
+                  'Secure Microservices & REST APIs',
+                  'Enterprise CRM & ERP Systems',
+                  'PostgreSQL & Cloud Load Tuning',
+                  'Automated Biometric System Sync',
+                  '100% Code Ownership Transfer'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
@@ -261,7 +278,7 @@ export default function MobileAppDevelopment() {
                 ))}
               </div>
               <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                Discuss Your Mobile Project <ArrowRight className="w-5 h-5" />
+                Consult With A Software Engineer <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
             <motion.div 
@@ -270,10 +287,10 @@ export default function MobileAppDevelopment() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50">
+              <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50 text-accent">
                 <img
-                  src="https://picsum.photos/seed/mobile-kochi/1200/900"
-                  alt="Mobile App Development Kochi"
+                  src="https://picsum.photos/seed/software-kochi/1200/900"
+                  alt="Software & Web Apps Koch"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -282,11 +299,11 @@ export default function MobileAppDevelopment() {
               <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 hidden xl:block z-20">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <TrendingUp className="w-6 h-6" />
+                    <Terminal className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">99.9%</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">App Crash-Free Rate</p>
+                    <p className="text-2xl font-bold text-dark">100%</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Code Transparency</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -294,8 +311,8 @@ export default function MobileAppDevelopment() {
                     <Rocket className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">50+</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Store Launches Done</p>
+                    <p className="text-2xl font-bold text-dark">45+</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Cloud Platfoms Deployed</p>
                   </div>
                 </div>
               </div>
@@ -304,16 +321,16 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* Advantages of going mobile - Custom interactive grid */}
-      <section className="section-padding bg-white overflow-hidden relative" id="advantages_mobile_apps_section">
+      {/* Advantages Section - Custom Interactive Grid */}
+      <section className="section-padding bg-white overflow-hidden relative" id="advantages_software_web_section">
         <div className="container-custom relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-6 block">Strategic Value</span>
             <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Unrivaled <span className="text-primary">Advantages</span> of Custom Apps
+              Unrivaled <span className="text-primary">Advantages</span> of Custom Software
             </h2>
             <p className="text-text-gray text-lg leading-relaxed font-sans">
-              Engage clients directly with secure native databases, immediate notification structures, offline operational speed, and reliable device hardware access.
+              Accelerate team output, secure critical intellectual data assets, sync legacy APIs, and scale enterprise databases safely.
             </p>
           </div>
 
@@ -381,38 +398,40 @@ export default function MobileAppDevelopment() {
             className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-[3rem] border border-dashed border-primary/30"
           >
             <p className="text-gray-750 font-medium leading-relaxed italic text-lg">
-              "A custom mobile app acts as the center-point of modern corporate interaction, letting you securely scale brand authority, engage audiences without friction, and gain deeper consumer data insights."
+              "Custom software is not just an administrative tool; it is a long-term compound asset that eliminates monthly software tax rates, scales internal workflows, and protects operational workflows."
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Services/Expertise Grid Section */}
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Marketing Expertise</span>
-            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Mobile App Expertise</span></h2>
-            <p className="text-text-gray text-lg">We offer a full spectrum of mobile development services to meet your business needs.</p>
+            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Software Expertise</span>
+            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Software & Web Services</span></h2>
+            <p className="text-text-gray text-lg">We deliver custom-architected web engines, database systems, and integration interfaces tailored for high productivity.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {mobileServices.map((service, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {softwareServices.map((service, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-10 bg-white rounded-3xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group"
+                transition={{ delay: index * 0.05 }}
+                className="p-8 bg-white rounded-3xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between"
               >
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                  <service.icon className="w-8 h-8" />
+                <div>
+                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                    <service.icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-xl font-bold text-dark mb-3">{service.title}</h3>
+                  <p className="text-text-gray leading-relaxed mb-6 text-xs">{service.desc}</p>
                 </div>
-                <h3 className="text-2xl font-bold text-dark mb-4">{service.title}</h3>
-                <p className="text-text-gray leading-relaxed mb-6 text-sm">{service.desc}</p>
-                <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
-                  Learn More <ArrowRight className="w-4 h-4" />
+                <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all text-xs">
+                  Explore Solution <ArrowRight className="w-4 h-4" />
                 </Link>
               </motion.div>
             ))}
@@ -420,7 +439,7 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* Platform & Product Blueprint */}
+      {/* Platform & Product Blueprint Section */}
       <section className="section-padding bg-gray-50 border-t border-gray-100">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -432,26 +451,26 @@ export default function MobileAppDevelopment() {
             >
               <span className="text-accent font-bold uppercase tracking-widest text-sm block">Growth & Visibility Blueprint</span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-tight">
-                Mobile Strategy <span className="text-primary">Blueprints</span> Built To Scale
+                Software Systems <span className="text-primary">Engineered</span> To Scale Dynamically
               </h2>
               <div className="text-text-gray text-base leading-relaxed space-y-6 font-sans">
                 <p>
-                  At Grehasoft, mobile apps, database sync, and rapid API response layers are the primary pillars driving our functional software engineering. We architect and implement scalable code bases customized to expand your enterprise services. We resolve hard structural constraints across iOS, Android, and PWAs, allowing you to delight clients seamlessly.
+                  At Grehasoft, high availability, load-balanced backend routes, and database optimization are the central principles driving our specialized web developments. We build clean software logic tailored strictly to accelerate internal business velocities. We resolve hard structural constraints inside your business systems, letting you organize operational records cleanly.
                 </p>
                 <p>
-                  By creating responsive screens, fast cached data loops, and localized offline stores, we ensure maximum client retention. As your software partner, we build robust backend architectures, integrate secure payment platforms, and configure advanced telemetry tools that help you monitor performance metrics globally.
+                  By creating responsive components, low-latency queues, and robust authorization models, we ensure full data alignment. As your long-term engineering partner, we deliver secure, fast APIs, configure continuous integration, and coordinate clear telemetry boards to track application performance indices worldwide.
                 </p>
                 <p>
-                  Our scalable solutions benefit organizations of any scale by establishing direct interaction lanes with your buyers. We help you skip third-party listing marketplaces, reduce intermediary dependencies, and establish secure personal channels to build long-term loyalty and scalable transaction volumes.
+                  Our scalable custom microservices benefit corporations by establishing fully independent lanes. We help you stop relying on rigid SaaS structures with increasing user taxes, reduce third-party limitations, and build a highly customized system to ensure corporate authority.
                 </p>
               </div>
               <div className="p-8 bg-white border border-gray-100 shadow-sm rounded-3xl">
-                <p className="text-primary font-semibold text-lg mb-2">High-Performance Hybrid Platforms</p>
+                <p className="text-primary font-semibold text-lg mb-2">Cloud-Native Software Infrastructure</p>
                 <p className="text-text-gray text-sm leading-relaxed mb-4">
-                  We write extremely high-efficiency cross-platform applications that leverage unified code bases across iOS and Android, drastically lowering deployment costs while keeping core animations highly fluid.
+                  We write extremely performant database structures and integrate clean REST APIs that scale dynamically with your operations, significantly reducing query response time while keeping code elegant.
                 </p>
                 <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Launch Your Mobile App <ArrowRight className="w-5 h-5" />
+                  Launch Your Software Project <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </motion.div>
@@ -464,8 +483,8 @@ export default function MobileAppDevelopment() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/3]">
                 <img
-                  src="https://picsum.photos/seed/mobile-strategies-grehasoft/1200/900"
-                  alt="Mobile Strategies"
+                  src="https://picsum.photos/seed/software-strategies-grehasoft/1200/900"
+                  alt="Software Strategies"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -475,12 +494,12 @@ export default function MobileAppDevelopment() {
                 <div className="text-dark font-bold text-lg mb-2">Our Dual Engine Approach</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="border-l-4 border-primary pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Direct Brand Real Estate</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Secure premium placement directly on user home screens, gaining 24/7 visual presence and automated notification channels.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Tailored CRM & Automations</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Consolidate multiple internal data paths and customer interactions into a single highly responsive operations panel.</p>
                   </div>
                   <div className="border-l-4 border-accent pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Extreme Performance</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Optimize background threading, memory allocations, and network responses for rapid and friction-free user journeys.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Architectural Load Tuning</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Optimize background queries, index structures, and memory pipelines to support high numbers of concurrent users.</p>
                   </div>
                 </div>
               </div>
@@ -489,18 +508,18 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* What Makes Us the Best */}
+      {/* What Makes Us the Best Section */}
       <section className="section-padding bg-white border-b border-gray-100">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Excellence Standard</span>
             <h2 className="text-4xl font-extrabold text-dark mb-6">What Makes Us <span className="text-primary">the Best?</span></h2>
             <p className="text-text-gray text-lg">
-              At Grehasoft, we pride ourselves on being the epitome of excellence in mobile app development. Here are the core values and capabilities that set us apart:
+              At Grehasoft, we strive to represent the standard of excellence in custom software engineering. Here are the core metrics and workflows that set us apart:
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {valueProps.map((prop, idx) => (
               <motion.div
                 key={idx}
@@ -514,7 +533,7 @@ export default function MobileAppDevelopment() {
                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     <prop.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-dark mb-3 leading-snug">{prop.title}</h3>
+                  <h3 className="text-base font-bold text-dark mb-3 leading-snug">{prop.title}</h3>
                   <p className="text-text-gray text-xs leading-relaxed font-sans">{prop.desc}</p>
                 </div>
               </motion.div>
@@ -524,7 +543,7 @@ export default function MobileAppDevelopment() {
           <div className="mt-16 text-center">
             <div className="inline-block p-1 bg-gray-50 border border-gray-100 rounded-full">
               <div className="flex flex-wrap items-center justify-center gap-4 px-6 py-3 text-sm">
-                <span className="font-semibold text-dark">Ready to build your next custom mobile solution?</span>
+                <span className="font-semibold text-dark">Ready to build your next next-generation custom software solution?</span>
                 <Link href="/contact" className="text-primary font-extrabold flex items-center gap-2 hover:gap-3 transition-all cursor-pointer">
                   Team up with Grehasoft <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -534,20 +553,20 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* Development Process */}
+      {/* Software Development Process Section */}
       <section className="section-padding bg-dark text-white overflow-hidden">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Growth Methodology</span>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Development Workflow</span></h2>
-            <p className="text-gray-400 text-lg">A structured and transparent approach to engineering highly reliable custom mobile apps.</p>
+            <p className="text-gray-400 text-lg">A structured and highly secure workflow to build stable, scalable software solutions.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting Line */}
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2" />
             
-            {mobileProcess.map((step, index) => (
+            {developmentProcess.map((step, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -567,7 +586,7 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Accordion Section */}
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
           <div className="grid lg:grid-cols-3 gap-16">
@@ -575,11 +594,11 @@ export default function MobileAppDevelopment() {
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Support & Insights</span>
               <h2 className="text-4xl font-black text-dark mb-6 leading-tight">Frequent <br />Questions</h2>
               <p className="text-gray-500 mb-8">
-                Explore answers regarding timeline allocations, marketplace standards, and technical optimization loops.
+                Learn more about our custom programming processes, hosting configurations, security rules, and code ownership.
               </p>
               <div className="p-8 bg-primary rounded-3xl text-white">
                 <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Development Tip</p>
-                <p className="text-lg italic font-medium">"Native-like responsive interactions deliver massive friction reduction. Always prioritize fast, secure cached storage loops."</p>
+                <p className="text-lg italic font-medium">"Custom programming guarantees direct brand asset ownership. Avoid rigid per-user license models to scale freely."</p>
               </div>
             </div>
             <div className="lg:col-span-2 space-y-4">
@@ -600,6 +619,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       <CTA />
+      <Footer />
     </main>
   );
 }

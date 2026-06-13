@@ -1,0 +1,73 @@
+import PageHeader from '@/components/PageHeader';
+import CTA from '@/components/CTA';
+import Footer from '@/components/Footer';
+
+import IntroSection from '@/components/service/main/IntroSection';
+import ServicesGrid from '@/components/service/digital-marketing/ServicesGrid';
+import WhySEOSection from '@/components/service/digital-marketing/WhySEOSection';
+import ProcessSection from '@/components/service/digital-marketing/ProcessSection';
+import IndustriesSection from '@/components/service/digital-marketing/IndustriesSection';
+import StandOutSection from '@/components/service/digital-marketing/StandOutSection';
+import ContactSection from '@/components/service/digital-marketing/ContactSection';
+import FAQSection from '@/components/service/digital-marketing/FAQSection';
+import LocalSection from '@/components/service/digital-marketing/LocalSection';
+import AdvantagesSection from '@/components/service/main/AdvantagesSection';
+import ServicesSection from '@/components/service/main/ServicesSection';
+interface Props {
+  service: any;
+  heroImageUrl?: string;
+}
+
+export default function MainTemplate({
+  service,
+  heroImageUrl,
+}: Props) {
+
+  const acf = service?.acf || {};
+// FEATURED IMAGE
+  const featuredImage =
+    service?._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+    '/images/fallback.jpg';
+
+
+  return (
+    <main className="bg-white">
+
+     <PageHeader
+  title={acf.page_title || service.title?.rendered}
+  description={acf.page_desc}
+  breadcrumb={[
+  
+    {
+      name: service.title?.rendered,
+      href: `/${acf.parent_slug}/${acf.custom_slug}`,
+    },
+  ]}
+/>
+
+      <IntroSection
+        acf={acf}
+        heroImageUrl={heroImageUrl}
+         featuredImage={featuredImage}
+      />
+     <AdvantagesSection acf={acf} />
+
+      <ServicesSection acf={acf} />
+
+      <WhySEOSection acf={acf} />
+      <LocalSection acf={acf} />
+     
+   <ProcessSection acf={acf} /> 
+
+      <IndustriesSection acf={acf} /> 
+
+       <ContactSection acf={acf} /> 
+
+       <FAQSection acf={acf} /> 
+
+    <CTA />
+      <Footer />
+
+    </main>
+  );
+}

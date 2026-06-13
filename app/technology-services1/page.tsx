@@ -4,16 +4,14 @@ import { useState, useEffect } from 'react';
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
 import { 
+  Code, 
+  Database, 
+  Server, 
   Cpu, 
   Zap, 
   Shield, 
-  Layout, 
-  BarChart, 
-  CheckCircle2, 
   ArrowRight, 
-  MessageSquare, 
-  Code2, 
-  Globe, 
+  CheckCircle2, 
   ChevronDown, 
   Award, 
   Lightbulb, 
@@ -24,221 +22,204 @@ import {
   Users, 
   Target, 
   Rocket,
-  Database,
   Lock,
   Cloud,
   Network,
   Workflow,
-  Server,
   Layers,
-  Terminal
+  Terminal,
+  Eye,
+  Briefcase
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
-const softwareServices = [
+const techServices = [
   {
-    icon: Code2,
-    title: 'Custom Web Applications',
-    desc: 'High-performing, fully tailored web applications built with modern frameworks to streamline specialized business workflows.',
-    href: '/software/custom-web',
+    icon: Server,
+    title: 'Backend Development',
+    desc: 'Robust, lightning-fast server architectures and optimized logical structures engineered with Next.js, Node.js, and Express.',
+    href: '/tech/backend',
   },
   {
-    icon: Layers,
-    title: 'ERP Solutions',
-    desc: 'Comprehensive enterprise resource planning software to consolidate and manage your backend business processes flawlessly.',
-    href: '/software/erp',
-  },
-  {
-    icon: Users,
-    title: 'CRM Systems',
-    desc: 'Custom-built relationship platforms to automate lead nurturing, track pipelines, and elevate customer retention rates.',
-    href: '/software/crm',
-  },
-  {
-    icon: Award,
-    title: 'LMS Platforms',
-    desc: 'Highly interactive, stable, and secure learning management hubs configured for schools, colleges, and training enterprises.',
-    href: '/software/lms',
-  },
-  {
-    icon: RefreshCw,
-    title: 'Booking & Dispatch Systems',
-    desc: 'Intuitive calendars, reservations matrices, automated schedulers, and payment sync for perfect operation mechanics.',
-    href: '/software/booking',
+    icon: Code,
+    title: 'Frontend Development',
+    desc: 'Breathtakingly responsive, modular, and eye-safe user interfaces built with React, Next.js, HTML5, and Tailwind CSS.',
+    href: '/tech/frontend',
   },
   {
     icon: Database,
-    title: 'Inventory Management',
-    desc: 'Real-time multi-location warehouse trackers, stock automated alerts, purchase management workflows, and instant status updates.',
-    href: '/software/inventory',
+    title: 'Database Solutions',
+    desc: 'Secure SQL indexing, Firestore data rules, query performance tuning, and structured cloud storage configurations.',
+    href: '/tech/databases',
   },
   {
-    icon: Settings,
-    title: 'Business Automation Tools',
-    desc: 'Empower your workers by replacing boring manual routines with high-speed automated software systems and triggers.',
-    href: '/software/business-tools',
+    icon: Cloud,
+    title: 'Server & Cloud Support',
+    desc: 'Cloud-native load balancing, Docker container setup, and low-latency API proxy channels on AWS and Google Cloud.',
+    href: '/tech/server-cloud',
   },
   {
-    icon: Network,
-    title: 'API & Gateway Integrations',
-    desc: 'Link all your legacy platforms, cloud storage, payment handlers, and third-party databases through clean microservice APIs.',
-    href: '/software/api-integrations',
+    icon: Zap,
+    title: 'Workflow Automation',
+    desc: 'Streamline repetitive daily activities, sync internal information, and optimize performance using advanced event-triggers.',
+    href: '/tech/automation',
   },
 ];
 
 const valueProps = [
   {
-    title: 'Scalable Microservices',
-    desc: 'We partition logic into modular containers that scale independently to ensure high availability on sudden user spikes.',
-    icon: Layers,
+    title: 'Modern Stack Selection',
+    desc: 'By selecting elite lightweight frameworks, we achieve lightningfast interactive screens and smaller overall file footprints.',
+    icon: Code,
   },
   {
-    title: 'State-of-the-Art Security',
-    desc: 'We configure AES encryption, multi-factor logins, data sanitization, and automated backups to shield enterprise databases.',
-    icon: Lock,
-  },
-  {
-    title: 'Cloud-Native Prowess',
-    desc: 'Leverage AWS, Google Cloud, or Azure optimizations to maintain extremely high server speeds and lower hosting overheads.',
-    icon: Cloud,
-  },
-  {
-    title: 'Agile Implementation',
-    desc: 'Gain total transparency through weekly sprints, functional staging previews, and rapid adaptation loops.',
-    icon: Workflow,
-  },
-  {
-    title: 'Robust Core Integrity',
-    desc: 'We enforce strict unit diagnostics and end-to-end integration automated checks to assure robust offline behavior.',
+    title: 'Absolute Code Integrity',
+    desc: 'We enforce intensive unit tests, type assertions, and modular setups to target zero structural regressions.',
     icon: Shield,
   },
   {
-    title: 'Elegant Component Architecture',
-    desc: 'By separating state management from design layers, layouts remain fast, elegant, and simple to expand.',
-    icon: Layout,
+    title: 'Cloud Scalability Tuning',
+    desc: 'We configure autoscaling groups and microservice clusters that grow effortlessly during peak client logins.',
+    icon: Cloud,
   },
   {
-    title: 'Database Load Tuning',
-    desc: 'We optimize PostgreSQL and NoSQL indexing structures to deliver lightning-fast read/write queries at scale.',
-    icon: Server,
+    title: 'Hardened Threat Firewalls',
+    desc: 'We implement CORS configurations, verified credentials handling, sanitization practices, and regular threat database scans.',
+    icon: Lock,
   },
   {
-    title: 'SLA Maintenance Plans',
-    desc: 'Keep applications constantly up-to-date with library security upgrades, database health sweeps, and performance monitoring.',
+    title: 'Optimized Query Indexing',
+    desc: 'We structure databases to optimize performance speeds of search queries, even under massive multi-thousand transaction tables.',
+    icon: Database,
+  },
+  {
+    title: 'Biometric & Utility Integration',
+    desc: 'Connect applications smoothly with biometric logins, cameras, physical printers, payment gateways, and Bluetooth.',
+    icon: Cpu,
+  },
+  {
+    title: 'API Microservices Gateway',
+    desc: 'We architect decoupled, neat webhook nodes and payload channels that communicate seamlessly without blocking workflows.',
+    icon: Network,
+  },
+  {
+    title: '100% IP Intellectual Handover',
+    desc: 'Full repository, developer documentation, configuration scripts, and master server codes transfer to you completely.',
+    icon: Shield,
+  },
+  {
+    title: 'Responsive Cross-Device Support',
+    desc: 'All websites, layouts, panels, and tools adapt perfectly to mobile screens, physical tablets, laptops, and ultra-wide displays.',
+    icon: Layers,
+  },
+  {
+    title: 'Sustained Maintenance Plans',
+    desc: 'Our long-term maintenance SLAs cover software updates, dependency upgrades, file hosting checkups, and bug diagnostics.',
     icon: RefreshCw,
-  },
-  {
-    title: 'Direct Product Mentoring',
-    desc: 'Our senior product team helps wireframe and logic-test workflows to maximize real user utility before dev cycles begin.',
-    icon: Target,
-  },
-  {
-    title: 'Performance Optimization',
-    desc: 'We analyze query runtime latency & file bundles size to provide an app with instant startup speeds and smooth scrolling.',
-    icon: Zap,
   },
 ];
 
-const developmentProcess = [
+const techWorkflow = [
   {
     step: '01',
-    title: 'System Analysis & Blueprinting',
-    desc: 'Mapping out clear relational data schemas, secure security limits, and interactive page layouts.',
+    title: 'Logic Audit & Architecture',
+    desc: 'Deconstructing operational constraints, establishing secure database schemas, and mapping out the data flows.',
   },
   {
     step: '02',
-    title: 'High-Fidelity Modern UI/UX',
-    desc: 'Translating concepts into gorgeous responsive designs that drive high user adoption.',
+    title: 'Modern UI/UX Screen Prototyping',
+    desc: 'Designing intuitive, lightweight layout wires focused on high interaction efficiency and pixel-perfect aesthetics.',
   },
   {
     step: '03',
-    title: 'High-Speed Engineering',
-    desc: 'Writing optimized modular components, fast APIs, and secure database pathways.',
+    title: 'High-Velocity Technical Coding',
+    desc: 'Deploying modular Components, type-safe structures, and lightning-fast backend API paths.',
   },
   {
     step: '04',
-    title: 'Testing Sweeps & Launch',
-    desc: 'Conducting deep load stress audits, multi-browser diagnostics, and launching live systems.',
+    title: 'Diagnostics Sweeps & Live Deploy',
+    desc: 'Performing rigid stress audits, network latency evaluations, and deploying live systems to production servers.',
   },
 ];
 
 const faqs = [
   {
-    question: 'Why choose custom software over ready-made off-the-shelf products?',
-    answer: 'Ready-made systems impose major custom license constraints and force you to mold your business operations around rigid features. Custom development gives you absolute ownership of secure, unique features structured precisely to serve your actual workflow and save overhead pricing.',
+    question: 'How do you pick the ideal technology stack for a new custom project?',
+    answer: 'We analyze your expected transaction volumes, scale objectives, future mobile capabilities, and offline query needs. Based on that, we choose high-speed, scalable stacks like Next.js, Node.js, and Express, utilizing stable SQL databases like PostgreSQL or enterprise Firestore.',
   },
   {
-    question: 'Which software development tech stacks do you specialize in?',
-    answer: 'At Grehasoft, we deploy highly secure and performant technology. We focus on modern frameworks including Next.js, React, Node.js, and Express, utilizing stable SQL databases like PostgreSQL, enterprise Firestore, and AWS Lambda microservices.',
+    question: 'How do you handle software data migration from outdated systems?',
+    answer: 'We construct secure, temporary script mapping gateways to ingest your historical records, validate field sanitization rules, eliminate duplicates, and securely port your dataset over into the clean custom framework without operational downtime.',
   },
   {
-    question: 'How do you preserve security and keep data pathways safe?',
-    answer: 'We build strict secure practices into our codebases from line one. We run complete authorization checks, integrate secure JSON Web Token parameters, map multi-layered security rules, perform sanitization checks to prevent SQL injection, and schedule automated cloud data backups.',
+    question: 'Will we have ongoing technical support following our platform launch?',
+    answer: 'Yes. We offer robust SLA (Service Level Agreement) support structures. This includes standard monthly database health monitoring, cloud server maintenance, library security patches, and emergency operational debugging.',
   },
   {
-    question: 'Will we have complete intellectual property ownership over the source code?',
-    answer: 'Yes, 100%. Upon completing and settling the project phases, full legal intellectual property rights, database codebases, and custom server credentials transfer to your systems directly.',
+    question: 'How do we protect user credentials and personal communications under strict rules?',
+    answer: 'We build strict security practices into our codebases from line one. We run complete authorization checks, integrate secure JSON Web Token parameters, map multi-layered security rules, perform sanitization checks to prevent SQL injection, and schedule automated cloud data backups.',
   },
 ];
 
-export default function SoftwareServicesPage() {
+export default function TechnologyServicesPage() {
   const advantagesList = [
     {
-      title: 'Automate Operational Friction',
-      subtitle: 'Seamless Efficiency',
-      desc: 'Ditch lagging spreadsheets and manually repeated admin steps. Tailored workflows let your team automate reporting, client communications, and complex data tracking in real time.',
-      badge: 'Zero Manual Workload',
-      icon: RefreshCw,
+      title: 'Decoupled Server Resilience',
+      subtitle: 'Zero Interruption Operations',
+      desc: 'Keep backend system logic fully separated from client interfaces. Decoupled server systems guarantee your applications stay fast, isolated from traffic spikes, and simple to expand.',
+      badge: 'Fail-Safe Logic Engine',
+      icon: Server,
       color: 'text-indigo-650 bg-indigo-50 border-indigo-100',
-      tagline: 'Refunnel resource hours toward direct growth targets instead of managing repetitive backend routines.'
+      tagline: 'Achieve absolute uptime by isolating critical data processing from regular system adjustments.'
     },
     {
-      title: 'Total System Control & IP',
-      subtitle: 'Complete Ownership',
-      desc: 'Free your business from endless user licensing fees, rigid third-party upgrades, and platform closures. A custom system guarantees you own the entire intellectual asset from day one.',
-      badge: 'Unrestricted Expansion',
-      icon: Shield,
+      title: 'Cloud-Scale Acceleration',
+      subtitle: 'Dynamic Speed Capabilities',
+      desc: 'Minimize load bottlenecks completely. Fully leverage modern cloud microservices to handle sudden peaks in concurrent user transactions without raising storage billing margins.',
+      badge: 'Optimized Server Spend',
+      icon: Cloud,
       color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
-      tagline: 'Configure and expand your core features freely without paying heavy per-user licensing taxes.'
+      tagline: 'Scale storage nodes organically according to actual daily traffic demands.'
     },
     {
-      title: 'Flawless App Connectivity',
-      subtitle: 'Integrated Data Hub',
-      desc: 'Break down administrative information silos. Sync your custom system securely with payment gateways, biometric controllers, legacy CRM dashboards, or any external public web API.',
-      badge: 'High-Integrity Syncing',
-      icon: Network,
-      color: 'text-amber-650 bg-amber-50 border-amber-100',
-      tagline: 'Consolidate multiple operations into a single cohesive system of truth with immediate updates.'
-    },
-    {
-      title: 'Scalable Modular Design',
-      subtitle: 'Engineered for Growth',
-      desc: 'Your application evolves strictly alongside practical operational requirements. Seamless, scalable codebases permit you to append new databases, dashboard features, and user groups.',
-      badge: 'Painless Adaptations',
+      title: 'Flawless Hardware Hookups',
+      subtitle: 'Seamless Device Synergies',
+      desc: 'We engineer secure custom integrations with hardware utilities. Directly hook your tools into standard office biometric systems, security cameras, printers, and GPS mapping modules.',
+      badge: 'Physical-Asset Sync',
       icon: Cpu,
-      color: 'text-purple-650 bg-purple-50 border-purple-100',
-      tagline: 'Deploy new modules and API tunnels without interrupting current workflows.'
+      color: 'text-amber-650 bg-amber-50 border-amber-100',
+      tagline: 'Gain instant real-world tracking metrics through secure API handshakes.'
     },
     {
-      title: 'Premium Security Protocols',
-      subtitle: 'Enterprise Shield',
-      desc: 'Guard your proprietary data files from threat leaks. Build hardened, customized access configurations, secure identity systems, data encryption, and automatic off-site server backups.',
-      badge: 'Hardened Security',
-      icon: Lock,
+      title: 'Next-Gen Interface Speeds',
+      subtitle: 'Ultra-Fluid Navigation',
+      desc: 'Deliver lightning-fast page loading times. We avoid complex bloat, optimize image loads, compress static files, and leverage native React caching structures to keep scroll states dynamic.',
+      badge: 'Friction-Free CTR',
+      icon: Zap,
+      color: 'text-purple-650 bg-purple-50 border-purple-100',
+      tagline: 'Reduce bounce rates with instant initial loads under a fraction of a second.'
+    },
+    {
+      title: 'Hardened Security Firewalls',
+      subtitle: 'Ultimate Data Defense',
+      desc: 'Form complete security shields around your company databases. We set up comprehensive input sanitization, multi-layered JWT rules, private credentials storage, and regular cloud backups.',
+      badge: 'Elite Data Encryption',
+      icon: Shield,
       color: 'text-primary bg-primary/5 border-primary/10',
-      tagline: 'Deliver safe, robust security to audit trails and verify strict privacy standards.'
+      tagline: 'Verify all operational handshakes under verified cryptographic compliance rules.'
     }
   ];
 
   return (
     <main className="min-h-screen">
       <PageHeader
-        title="Software & Web App Development Kochi"
-        description="Top software development company in Kerala. We engineer secure custom software, cloud-native ERPs, CRM platforms, and scalable web apps."
+        title="Technology Services Kochi"
+        description="Top-rated technology and software integration company in Kerala. We build secure backend structures, fast React frontends, and robust cloud automations."
         breadcrumb={[
           { name: 'Services', href: '/services' },
-          { name: 'Software', href: '/software' },
+          { name: 'Technology', href: '/tech' },
         ]}
       />
 
@@ -251,24 +232,24 @@ export default function SoftwareServicesPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Software Innovation</span>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Tech Innovation</span>
               <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6 leading-tight">
-                Engineered for <span className="text-primary">Operational Scale</span>
+                Architecting Powerful <span className="text-primary">Digital Foundations</span>
               </h2>
               <p className="text-text-gray text-lg mb-6 leading-relaxed">
-                Grehasoft is a leading **software development company in Kochi**, helping forward-thinking enterprises design and build secure, feature-rich custom web applications and business automation tools.
+                Grehasoft is a premiere **technology services company in Kochi**, specialized in crafting high-efficiency, secure digital solutions, fast database scaling schemas, and low-latency cloud systems for growing enterprises.
               </p>
               <p className="text-text-gray text-lg mb-8 leading-relaxed">
-                From high-performing native **Next.js web apps in Kerala** to resilient database-driven enterprise planning platforms, our engineers write clean, robust code that solves hard administrative challenges.
+                From type-safe **backend development in Kochi** to responsive, beautiful **Next.js frontends in Kerala**, our seasoned software engineers deploy clean, structured code mapped to your unique business growth trajectory.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
                 {[
-                  'Scalable Next.js & React Apps',
-                  'Secure Microservices & REST APIs',
-                  'Enterprise CRM & ERP Systems',
-                  'PostgreSQL & Cloud Load Tuning',
-                  'Automated Biometric System Sync',
-                  '100% Code Ownership Transfer'
+                  'Scalable Node.js & Express APIs',
+                  'Optimized Next.js & React Frontends',
+                  'High-ROI Database Performance Tuning',
+                  'Secure OAuth & IAM Identity Systems',
+                  'Automated Systems & Webhook Schedulers',
+                  'AWS, Google Cloud & Docker Setup'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
@@ -277,7 +258,7 @@ export default function SoftwareServicesPage() {
                 ))}
               </div>
               <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                Consult With A Software Engineer <ArrowRight className="w-5 h-5" />
+                Consult With Our Tech Architects <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
             <motion.div 
@@ -286,10 +267,10 @@ export default function SoftwareServicesPage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50 text-accent">
+              <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50">
                 <img
-                  src="https://picsum.photos/seed/software-kochi/1200/900"
-                  alt="Software & Web Apps Koch"
+                  src="https://picsum.photos/seed/tech-kochi/1200/900"
+                  alt="Technology Services Kochi"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -301,8 +282,8 @@ export default function SoftwareServicesPage() {
                     <Terminal className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">100%</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Code Transparency</p>
+                    <p className="text-2xl font-bold text-dark">99.99%</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Standard Cloud Uptime</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -310,8 +291,8 @@ export default function SoftwareServicesPage() {
                     <Rocket className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">45+</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Cloud Platfoms Deployed</p>
+                    <p className="text-2xl font-bold text-dark">80+</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">API Integrations Formed</p>
                   </div>
                 </div>
               </div>
@@ -320,16 +301,16 @@ export default function SoftwareServicesPage() {
         </div>
       </section>
 
-      {/* Advantages Section - Custom Interactive Grid */}
-      <section className="section-padding bg-white overflow-hidden relative" id="advantages_software_web_section">
+      {/* Advantages Section - Custom interactive grid */}
+      <section className="section-padding bg-white overflow-hidden relative" id="advantages_tech_section">
         <div className="container-custom relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-6 block">Strategic Value</span>
             <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Unrivaled <span className="text-primary">Advantages</span> of Custom Software
+              Unrivaled <span className="text-primary">Advantages</span> of Modern Tech
             </h2>
             <p className="text-text-gray text-lg leading-relaxed font-sans">
-              Accelerate team output, secure critical intellectual data assets, sync legacy APIs, and scale enterprise databases safely.
+              Keep databases secure, optimize cloud-server hosting structures, connect system components via fast webhooks, and deliver snappy navigation.
             </p>
           </div>
 
@@ -397,40 +378,40 @@ export default function SoftwareServicesPage() {
             className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-[3rem] border border-dashed border-primary/30"
           >
             <p className="text-gray-750 font-medium leading-relaxed italic text-lg">
-              "Custom software is not just an administrative tool; it is a long-term compound asset that eliminates monthly software tax rates, scales internal workflows, and protects operational workflows."
+              "Robust core technology constitutes the structural blueprint of your digital asset. Upgrading server databases and performance parameters accelerates team velocity while lowering software risk."
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services/Expertise Grid Section */}
+      {/* Services Grid */}
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Software Expertise</span>
-            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Software & Web Services</span></h2>
+            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Technology Expertise</span>
+            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Technology & Engineering Services</span></h2>
             <p className="text-text-gray text-lg">We deliver custom-architected web engines, database systems, and integration interfaces tailored for high productivity.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {softwareServices.map((service, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            {techServices.map((service, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.1 }}
                 className="p-8 bg-white rounded-3xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between"
               >
                 <div>
                   <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500">
                     <service.icon className="w-7 h-7" />
                   </div>
-                  <h3 className="text-xl font-bold text-dark mb-3">{service.title}</h3>
+                  <h3 className="text-lg font-bold text-dark mb-3">{service.title}</h3>
                   <p className="text-text-gray leading-relaxed mb-6 text-xs">{service.desc}</p>
                 </div>
                 <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all text-xs">
-                  Explore Solution <ArrowRight className="w-4 h-4" />
+                  Explore Tech <ArrowRight className="w-4 h-4" />
                 </Link>
               </motion.div>
             ))}
@@ -438,7 +419,7 @@ export default function SoftwareServicesPage() {
         </div>
       </section>
 
-      {/* Platform & Product Blueprint Section */}
+      {/* Platform & Product Blueprint */}
       <section className="section-padding bg-gray-50 border-t border-gray-100">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -450,26 +431,26 @@ export default function SoftwareServicesPage() {
             >
               <span className="text-accent font-bold uppercase tracking-widest text-sm block">Growth & Visibility Blueprint</span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-tight">
-                Software Systems <span className="text-primary">Engineered</span> To Scale Dynamically
+                Advanced Systems <span className="text-primary">Engineered</span> for Extreme Scalability
               </h2>
               <div className="text-text-gray text-base leading-relaxed space-y-6 font-sans">
                 <p>
-                  At Grehasoft, high availability, load-balanced backend routes, and database optimization are the central principles driving our specialized web developments. We build clean software logic tailored strictly to accelerate internal business velocities. We resolve hard structural constraints inside your business systems, letting you organize operational records cleanly.
+                  At Grehasoft, visual fluidity, high container decoupling, and low database query latencies represent our core parameters for designing premium software. We construct type-safe backend environments, microservice APIs, and lightweight Next.js views tailored to protect and extend corporate operations globally.
                 </p>
                 <p>
-                  By creating responsive components, low-latency queues, and robust authorization models, we ensure full data alignment. As your long-term engineering partner, we deliver secure, fast APIs, configure continuous integration, and coordinate clear telemetry boards to track application performance indices worldwide.
+                  By creating organized data mappings, choosing high-performance storage servers, and defining strict CORS and security logic, we prevent database degradation. As your long-term technology scaling partner, we deploy neat codebases, optimize hosting setups, and provide clear operational analytics boards to monitor your systems internationally.
                 </p>
                 <p>
-                  Our scalable custom microservices benefit corporations by establishing fully independent lanes. We help you stop relying on rigid SaaS structures with increasing user taxes, reduce third-party limitations, and build a highly customized system to ensure corporate authority.
+                  Our scalable solutions benefit enterprises by establishing total system autarchy. We help you replace outdated monolithic setups, minimize server billing overheads, and construct solid, customized technologies that ensure security, high uptime speeds, and stable performance assets.
                 </p>
               </div>
               <div className="p-8 bg-white border border-gray-100 shadow-sm rounded-3xl">
-                <p className="text-primary font-semibold text-lg mb-2">Cloud-Native Software Infrastructure</p>
+                <p className="text-primary font-semibold text-lg mb-2">Cloud-Native Technology Architectures</p>
                 <p className="text-text-gray text-sm leading-relaxed mb-4">
-                  We write extremely performant database structures and integrate clean REST APIs that scale dynamically with your operations, significantly reducing query response time while keeping code elegant.
+                  We write extremely high-efficiency cloud configurations and prepare clean developer guidelines, significantly simplifying downstream maintenance while safeguarding application stability.
                 </p>
                 <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Launch Your Software Project <ArrowRight className="w-5 h-5" />
+                  Launch Your Tech Transformation <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </motion.div>
@@ -482,8 +463,8 @@ export default function SoftwareServicesPage() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/3]">
                 <img
-                  src="https://picsum.photos/seed/software-strategies-grehasoft/1200/900"
-                  alt="Software Strategies"
+                  src="https://picsum.photos/seed/tech-strategies-grehasoft/1200/900"
+                  alt="Technology Strategies"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -493,12 +474,12 @@ export default function SoftwareServicesPage() {
                 <div className="text-dark font-bold text-lg mb-2">Our Dual Engine Approach</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="border-l-4 border-primary pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Tailored CRM & Automations</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Consolidate multiple internal data paths and customer interactions into a single highly responsive operations panel.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Scale-Ready Architecture</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Isolate core workflows inside independent containers that autoscale horizontally under traffic loads instantly.</p>
                   </div>
                   <div className="border-l-4 border-accent pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Architectural Load Tuning</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Optimize background queries, index structures, and memory pipelines to support high numbers of concurrent users.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Optimized Execution Nodes</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Minimize server lag, memory allocation spikes, and index failures to deliver beautiful UI feedback loops.</p>
                   </div>
                 </div>
               </div>
@@ -507,7 +488,7 @@ export default function SoftwareServicesPage() {
         </div>
       </section>
 
-      {/* What Makes Us the Best Section */}
+      {/* What Makes Us the Best */}
       <section className="section-padding bg-white border-b border-gray-100">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -518,7 +499,7 @@ export default function SoftwareServicesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {valueProps.map((prop, idx) => (
               <motion.div
                 key={idx}
@@ -542,7 +523,7 @@ export default function SoftwareServicesPage() {
           <div className="mt-16 text-center">
             <div className="inline-block p-1 bg-gray-50 border border-gray-100 rounded-full">
               <div className="flex flex-wrap items-center justify-center gap-4 px-6 py-3 text-sm">
-                <span className="font-semibold text-dark">Ready to build your next next-generation custom software solution?</span>
+                <span className="font-semibold text-dark">Ready to build dynamic cloud infrastructures with us?</span>
                 <Link href="/contact" className="text-primary font-extrabold flex items-center gap-2 hover:gap-3 transition-all cursor-pointer">
                   Team up with Grehasoft <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -552,20 +533,20 @@ export default function SoftwareServicesPage() {
         </div>
       </section>
 
-      {/* Software Development Process Section */}
+      {/* Development Process */}
       <section className="section-padding bg-dark text-white overflow-hidden">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Growth Methodology</span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Development Workflow</span></h2>
-            <p className="text-gray-400 text-lg">A structured and highly secure workflow to build stable, scalable software solutions.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Technology Workflow</span></h2>
+            <p className="text-gray-400 text-lg">A structured and highly logical workflow to engineering enterprise-grade cloud integrations.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting Line */}
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2" />
             
-            {developmentProcess.map((step, index) => (
+            {techWorkflow.map((step, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -585,7 +566,7 @@ export default function SoftwareServicesPage() {
         </div>
       </section>
 
-      {/* FAQ Accordion Section */}
+      {/* FAQ Section */}
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
           <div className="grid lg:grid-cols-3 gap-16">
@@ -593,11 +574,11 @@ export default function SoftwareServicesPage() {
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Support & Insights</span>
               <h2 className="text-4xl font-black text-dark mb-6 leading-tight">Frequent <br />Questions</h2>
               <p className="text-gray-500 mb-8">
-                Learn more about our custom programming processes, hosting configurations, security rules, and code ownership.
+                Learn more about migration standards, timeline schedules, platform custom security, and continuous SLAs.
               </p>
               <div className="p-8 bg-primary rounded-3xl text-white">
-                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Development Tip</p>
-                <p className="text-lg italic font-medium">"Custom programming guarantees direct brand asset ownership. Avoid rigid per-user license models to scale freely."</p>
+                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Technology Tip</p>
+                <p className="text-lg italic font-medium">"Type stability constitutes robust code logic. Choose clean, resilient frameworks to protect system scalability."</p>
               </div>
             </div>
             <div className="lg:col-span-2 space-y-4">
@@ -618,6 +599,7 @@ export default function SoftwareServicesPage() {
       </section>
 
       <CTA />
+      <Footer />
     </main>
   );
 }

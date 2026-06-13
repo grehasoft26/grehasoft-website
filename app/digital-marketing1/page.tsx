@@ -6,6 +6,7 @@ import CTA from '@/components/CTA';
 import { Megaphone, Search, MousePointerClick, Share2, BarChart, Globe, Mail, Target, CheckCircle2, ArrowRight, MessageSquare, TrendingUp, Zap, Shield, Users, Rocket, Facebook, Instagram, Youtube, Linkedin, Twitter, Pin, Award, Lightbulb, Heart, RefreshCw, Settings, ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
 const marketingServices = [
   {
@@ -592,6 +593,7 @@ export default function DigitalMarketing() {
       </section>
 
       <CTA />
+      <Footer />
     </main>
   );
 }

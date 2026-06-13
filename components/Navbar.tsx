@@ -42,7 +42,7 @@ const DEFAULT_MENU = [
   { id: "5", title: "Products", url: "/products", parent: "0" },
   { id: "6", title: "Careers", url: "/careers", parent: "0" },
   { id: "7", title: "Blog", url: "/blog", parent: "0" },
-  { id: "8", title: "Contact", url: "/contact", parent: "0" }
+  { id: "8", title: "Contact", url: "/contact-us", parent: "0" }
 ];
 
 export default function Navbar() {
@@ -267,7 +267,7 @@ const getSubMenu = (id: any) =>
             );
           })}
 
-          <Link href="/contact" className="btn-primary py-2 px-6 text-sm">
+          <Link href="/contact-us" className="btn-primary py-2 px-6 text-sm">
             Get Started
           </Link>
           

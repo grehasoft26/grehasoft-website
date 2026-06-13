@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react';
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
 import { 
-  Code, 
-  Database, 
-  Server, 
-  Cpu, 
-  Zap, 
+  Palette, 
+  PenTool, 
+  Layout, 
   Shield, 
+  Zap, 
   ArrowRight, 
   CheckCircle2, 
   ChevronDown, 
@@ -22,203 +21,209 @@ import {
   Users, 
   Target, 
   Rocket,
-  Lock,
-  Cloud,
-  Network,
-  Workflow,
-  Layers,
-  Terminal,
+  Paintbrush,
   Eye,
-  Briefcase
+  Briefcase,
+  Compass,
+  Layers,
+  FileText,
+  Cpu
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
-const techServices = [
+const brandingServices = [
   {
-    icon: Server,
-    title: 'Backend Development',
-    desc: 'Robust, lightning-fast server architectures and optimized logical structures engineered with Next.js, Node.js, and Express.',
-    href: '/tech/backend',
+    icon: Palette,
+    title: 'Graphic Design',
+    desc: 'Visually stunning and high-impact graphics designed to grab attention, deliver messages, and build brand reputation across digital platforms.',
+    href: '/branding/graphic-design',
   },
   {
-    icon: Code,
-    title: 'Frontend Development',
-    desc: 'Breathtakingly responsive, modular, and eye-safe user interfaces built with React, Next.js, HTML5, and Tailwind CSS.',
-    href: '/tech/frontend',
+    icon: Paintbrush,
+    title: 'Logo Design & Identity',
+    desc: 'Custom-crafted, iconic logos that convey your company\'s vision, value system, and industry authority with instant recall value.',
+    href: '/branding/logo-design',
   },
   {
-    icon: Database,
-    title: 'Database Solutions',
-    desc: 'Secure SQL indexing, Firestore data rules, query performance tuning, and structured cloud storage configurations.',
-    href: '/tech/databases',
+    icon: Shield,
+    title: 'Branding Packages',
+    desc: 'All-inclusive corporate branding kits, typography structures, style guides, and master palettes designed from baseline research.',
+    href: '/branding/packages',
   },
   {
-    icon: Cloud,
-    title: 'Server & Cloud Support',
-    desc: 'Cloud-native load balancing, Docker container setup, and low-latency API proxy channels on AWS and Google Cloud.',
-    href: '/tech/server-cloud',
+    icon: Layout,
+    title: 'User Interface (UI/UX) Design',
+    desc: 'Polished layouts, web elements design, and high-fidelity mockups crafted strictly to maximize retention and conversion loops.',
+    href: '/branding/ui-ux',
   },
   {
-    icon: Zap,
-    title: 'Workflow Automation',
-    desc: 'Streamline repetitive daily activities, sync internal information, and optimize performance using advanced event-triggers.',
-    href: '/tech/automation',
+    icon: FileText,
+    title: 'Brochure & Flyer Design',
+    desc: 'Professional, custom-tailored print and digital marketing collateral to reinforce your field campaigns and corporate pitches.',
+    href: '/branding/brochure-flyer',
+  },
+  {
+    icon: Briefcase,
+    title: 'Business Cards & Stationery',
+    desc: 'Premium design files for corporate business cards, letterheads, brand envelopes, and physical assets that establish authority immediately.',
+    href: '/branding/business-cards',
   },
 ];
 
 const valueProps = [
   {
-    title: 'Modern Stack Selection',
-    desc: 'By selecting elite lightweight frameworks, we achieve lightningfast interactive screens and smaller overall file footprints.',
-    icon: Code,
+    title: 'Human-Centered Concepting',
+    desc: 'We research exact client personas, market triggers, and competitor dynamics before illustrating a single visual concept.',
+    icon: Target,
   },
   {
-    title: 'Absolute Code Integrity',
-    desc: 'We enforce intensive unit tests, type assertions, and modular setups to target zero structural regressions.',
-    icon: Shield,
+    title: 'Vector Precision & Guidelines',
+    desc: 'We deliver ultra-sharp, mathematical vector files that scale flawlessly from 16px favicons to massive street-side exhibition bill-boards.',
+    icon: Compass,
   },
   {
-    title: 'Cloud Scalability Tuning',
-    desc: 'We configure autoscaling groups and microservice clusters that grow effortlessly during peak client logins.',
-    icon: Cloud,
+    title: 'Color Psychology Mapping',
+    desc: 'Our design team selects tone variations that represent your enterprise\'s specific traits, ensuring proper emotional responses from viewers.',
+    icon: Palette,
   },
   {
-    title: 'Hardened Threat Firewalls',
-    desc: 'We implement CORS configurations, verified credentials handling, sanitization practices, and regular threat database scans.',
-    icon: Lock,
+    title: 'Systemic Hierarchy Rules',
+    desc: 'We map detailed brand guidelines defining exact font uses, proper spacing ratios, and permitted background colors.',
+    icon: Settings,
   },
   {
-    title: 'Optimized Query Indexing',
-    desc: 'We structure databases to optimize performance speeds of search queries, even under massive multi-thousand transaction tables.',
-    icon: Database,
+    title: 'Interactive Design Alignment',
+    desc: 'We design digital touchpoints with a strong focus on touch targets, negative spacing, and rapid visual reading flows.',
+    icon: Layout,
   },
   {
-    title: 'Biometric & Utility Integration',
-    desc: 'Connect applications smoothly with biometric logins, cameras, physical printers, payment gateways, and Bluetooth.',
-    icon: Cpu,
-  },
-  {
-    title: 'API Microservices Gateway',
-    desc: 'We architect decoupled, neat webhook nodes and payload channels that communicate seamlessly without blocking workflows.',
-    icon: Network,
-  },
-  {
-    title: '100% IP Intellectual Handover',
-    desc: 'Full repository, developer documentation, configuration scripts, and master server codes transfer to you completely.',
-    icon: Shield,
-  },
-  {
-    title: 'Responsive Cross-Device Support',
-    desc: 'All websites, layouts, panels, and tools adapt perfectly to mobile screens, physical tablets, laptops, and ultra-wide displays.',
+    title: 'Multi-Medium Adaptability',
+    desc: 'Every graphic asset is crafted to render cleanly on light and dark interfaces, print media, social feeds, and corporate software panels.',
     icon: Layers,
   },
   {
-    title: 'Sustained Maintenance Plans',
-    desc: 'Our long-term maintenance SLAs cover software updates, dependency upgrades, file hosting checkups, and bug diagnostics.',
+    title: 'Total Copyright Transition',
+    desc: 'Gain 100% outright ownership and legal rights to all original vector files, design blueprints, and style guidelines securely.',
+    icon: Shield,
+  },
+  {
+    title: 'Agile Collaborative Iterations',
+    desc: 'We establish modern staging reviews, interactive mockup playgrounds, and direct feedback loops with Senior Art Directors.',
     icon: RefreshCw,
+  },
+  {
+    title: 'Performance-Safe Optimization',
+    desc: 'Files are meticulously compressed as WebP and lightweight SVGs to keep your website speeds remarkably rapid.',
+    icon: Zap,
+  },
+  {
+    title: 'Esthetic Consistency',
+    desc: 'By building comprehensive visual design systems, your social pages, software layouts, and physical cards speak a single cohesive voice.',
+    icon: Heart,
   },
 ];
 
-const techWorkflow = [
+const designProcess = [
   {
     step: '01',
-    title: 'Logic Audit & Architecture',
-    desc: 'Deconstructing operational constraints, establishing secure database schemas, and mapping out the data flows.',
+    title: 'Audit & Discovery Scope',
+    desc: 'Deciphering corporate goals, target viewer psychological behaviors, competitors, and core value markers.',
   },
   {
     step: '02',
-    title: 'Modern UI/UX Screen Prototyping',
-    desc: 'Designing intuitive, lightweight layout wires focused on high interaction efficiency and pixel-perfect aesthetics.',
+    title: 'Concept & Wireframe Drafts',
+    desc: 'Sketching multiple creative directions, layout wires, and typographic formulas for direct evaluation.',
   },
   {
     step: '03',
-    title: 'High-Velocity Technical Coding',
-    desc: 'Deploying modular Components, type-safe structures, and lightning-fast backend API paths.',
+    title: 'Vector Refining & Detailing',
+    desc: 'Refining chosen concepts into perfect vector shapes, choosing color swatches, and building typography rules.',
   },
   {
     step: '04',
-    title: 'Diagnostics Sweeps & Live Deploy',
-    desc: 'Performing rigid stress audits, network latency evaluations, and deploying live systems to production servers.',
+    title: 'Brand Book & Handover Assets',
+    desc: 'Assembling complete corporate mockups, exporting standard scaling formats, and releasing legal master copyrights.',
   },
 ];
 
 const faqs = [
   {
-    question: 'How do you pick the ideal technology stack for a new custom project?',
-    answer: 'We analyze your expected transaction volumes, scale objectives, future mobile capabilities, and offline query needs. Based on that, we choose high-speed, scalable stacks like Next.js, Node.js, and Express, utilizing stable SQL databases like PostgreSQL or enterprise Firestore.',
+    question: 'Why choose custom strategic branding over cheap online logo generators?',
+    answer: 'Cheap template generators output repetitive, unoriginal vectors that cannot be trademarked, confusing your audience and weakening brand trust. A custom strategic branding campaign establishes secure credibility, unique brand storytelling, and consistent visual systems that command market premium.',
   },
   {
-    question: 'How do you handle software data migration from outdated systems?',
-    answer: 'We construct secure, temporary script mapping gateways to ingest your historical records, validate field sanitization rules, eliminate duplicates, and securely port your dataset over into the clean custom framework without operational downtime.',
+    question: 'What deliverables are included inside a full corporate branding kit?',
+    answer: 'A comprehensive branding package from Grehasoft includes responsive primary/secondary logos, clean typography structures, detailed color guidelines, layout grid specifications, stationery vector files, business card layouts, social profile assets, and a complete design handbook.',
   },
   {
-    question: 'Will we have ongoing technical support following our platform launch?',
-    answer: 'Yes. We offer robust SLA (Service Level Agreement) support structures. This includes standard monthly database health monitoring, cloud server maintenance, library security patches, and emergency operational debugging.',
+    question: 'How long does a complete brand identity design project take?',
+    answer: 'A standard custom logo design lifecycle spans 2 to 3 weeks. A full enterprise identity blueprint — including research audits, custom guidelines books, collateral design, and online element scaling — typically requires 6 to 10 weeks.',
   },
   {
-    question: 'How do we protect user credentials and personal communications under strict rules?',
-    answer: 'We build strict security practices into our codebases from line one. We run complete authorization checks, integrate secure JSON Web Token parameters, map multi-layered security rules, perform sanitization checks to prevent SQL injection, and schedule automated cloud data backups.',
+    question: 'Do we receive full copyrights and vector file formats for our designs?',
+    answer: 'Yes, 100%. Upon finalizing and settling the design stages, full intellectual property copyrights are transferred to you. We hand over highly organized master vector packages (AI, SVG, EPS) along with print-ready PDFs and responsive web formats.',
   },
 ];
 
-export default function TechnologyServicesPage() {
+export default function BrandingServicesPage() {
   const advantagesList = [
     {
-      title: 'Decoupled Server Resilience',
-      subtitle: 'Zero Interruption Operations',
-      desc: 'Keep backend system logic fully separated from client interfaces. Decoupled server systems guarantee your applications stay fast, isolated from traffic spikes, and simple to expand.',
-      badge: 'Fail-Safe Logic Engine',
-      icon: Server,
+      title: 'Instant Marketplace Recall',
+      subtitle: 'Premium Visual Real Estate',
+      desc: 'Form a permanent, memorable imprint on your target audience\'s memory. Consistent, beautiful visuals increase organic top-of-mind recall and build strong customer trust.',
+      badge: 'Immediate Recognition',
+      icon: Eye,
       color: 'text-indigo-650 bg-indigo-50 border-indigo-100',
-      tagline: 'Achieve absolute uptime by isolating critical data processing from regular system adjustments.'
+      tagline: 'Establish an elite voice that elevates click-through ratios across print and web campaigns alike.'
     },
     {
-      title: 'Cloud-Scale Acceleration',
-      subtitle: 'Dynamic Speed Capabilities',
-      desc: 'Minimize load bottlenecks completely. Fully leverage modern cloud microservices to handle sudden peaks in concurrent user transactions without raising storage billing margins.',
-      badge: 'Optimized Server Spend',
-      icon: Cloud,
+      title: 'Sustained Premium Positioning',
+      subtitle: 'Market Value Dominance',
+      desc: 'Businesses with beautiful, well-documented design systems successfully escape commodity price battles. High-quality visuals establish immediate authority and justify premium pricing structures.',
+      badge: 'Margin Upgrade',
+      icon: TrendingUp,
       color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
-      tagline: 'Scale storage nodes organically according to actual daily traffic demands.'
+      tagline: 'Position your business as the obvious premium choice inside Kerala\'s competitive corporate markets.'
     },
     {
-      title: 'Flawless Hardware Hookups',
-      subtitle: 'Seamless Device Synergies',
-      desc: 'We engineer secure custom integrations with hardware utilities. Directly hook your tools into standard office biometric systems, security cameras, printers, and GPS mapping modules.',
-      badge: 'Physical-Asset Sync',
-      icon: Cpu,
-      color: 'text-amber-650 bg-amber-50 border-amber-100',
-      tagline: 'Gain instant real-world tracking metrics through secure API handshakes.'
-    },
-    {
-      title: 'Next-Gen Interface Speeds',
-      subtitle: 'Ultra-Fluid Navigation',
-      desc: 'Deliver lightning-fast page loading times. We avoid complex bloat, optimize image loads, compress static files, and leverage native React caching structures to keep scroll states dynamic.',
-      badge: 'Friction-Free CTR',
-      icon: Zap,
-      color: 'text-purple-650 bg-purple-50 border-purple-100',
-      tagline: 'Reduce bounce rates with instant initial loads under a fraction of a second.'
-    },
-    {
-      title: 'Hardened Security Firewalls',
-      subtitle: 'Ultimate Data Defense',
-      desc: 'Form complete security shields around your company databases. We set up comprehensive input sanitization, multi-layered JWT rules, private credentials storage, and regular cloud backups.',
-      badge: 'Elite Data Encryption',
+      title: 'Unbreakable Consumer Trust',
+      subtitle: 'Immediate Credibility',
+      desc: 'Sloppy design signals sloppy physical services. Perfect color balance, premium layouts, and consistent style guides assure current buyers that your operations meet strict standards.',
+      badge: 'Verified Integrity',
       icon: Shield,
+      color: 'text-amber-650 bg-amber-50 border-amber-100',
+      tagline: 'Deliver deep, structural reliability at the first point of contact with your potential leads.'
+    },
+    {
+      title: 'Flawless Digital Translation',
+      subtitle: 'Smooth System Alignment',
+      desc: 'Our design systems translate smoothly onto advanced web apps, digital advertising campaigns, and interactive screens. Code-ready design components facilitate faster frontend builds.',
+      badge: 'Seamless Implementation',
+      icon: Cpu,
+      color: 'text-purple-650 bg-purple-50 border-purple-100',
+      tagline: 'Eliminate design fragmentation across social assets, mobile apps, and enterprise dashboards.'
+    },
+    {
+      title: 'Emotional Audience Catalyst',
+      subtitle: 'Humanized Connection',
+      desc: 'Strategic art direction aligns your brand voice with the real-world motivations of your demographic. We construct visual stories that resonate deeply and convert viewers into loyal repeat advocates.',
+      badge: 'Direct Conversion Fuel',
+      icon: Users,
       color: 'text-primary bg-primary/5 border-primary/10',
-      tagline: 'Verify all operational handshakes under verified cryptographic compliance rules.'
+      tagline: 'Build immediate corporate authority under official Apple and Google licensing protocols.'
     }
   ];
 
   return (
     <main className="min-h-screen">
       <PageHeader
-        title="Technology Services Kochi"
-        description="Top-rated technology and software integration company in Kerala. We build secure backend structures, fast React frontends, and robust cloud automations."
+        title="Branding & Logo Design Kochi"
+        description="Top branding agency in Kerala. We create custom logos, corporate identity systems, rich graphics, and complete visual guidelines engineered to grow."
         breadcrumb={[
           { name: 'Services', href: '/services' },
-          { name: 'Technology', href: '/tech' },
+          { name: 'Branding & Design', href: '/branding' },
         ]}
       />
 
@@ -231,24 +236,24 @@ export default function TechnologyServicesPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Tech Innovation</span>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Branding Innovation</span>
               <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6 leading-tight">
-                Architecting Powerful <span className="text-primary">Digital Foundations</span>
+                Crafting Identities that <span className="text-primary">Connect & Inspire</span>
               </h2>
               <p className="text-text-gray text-lg mb-6 leading-relaxed">
-                Grehasoft is a premiere **technology services company in Kochi**, specialized in crafting high-efficiency, secure digital solutions, fast database scaling schemas, and low-latency cloud systems for growing enterprises.
+                Grehasoft is a leading **branding agency in Kochi**, specializing in sculpting memorable corporate identity engines, clean typography frameworks, and modern, eye-safe web design styles.
               </p>
               <p className="text-text-gray text-lg mb-8 leading-relaxed">
-                From type-safe **backend development in Kochi** to responsive, beautiful **Next.js frontends in Kerala**, our seasoned software engineers deploy clean, structured code mapped to your unique business growth trajectory.
+                From hand-crafted **logo design in Kochi** to professional corporate identity packages across Kerala, our creators synthesize art, psychology, and design to help your company dominate digital marketplaces.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
                 {[
-                  'Scalable Node.js & Express APIs',
-                  'Optimized Next.js & React Frontends',
-                  'High-ROI Database Performance Tuning',
-                  'Secure OAuth & IAM Identity Systems',
-                  'Automated Systems & Webhook Schedulers',
-                  'AWS, Google Cloud & Docker Setup'
+                  'Strategic Icon & Logo Craft',
+                  'Master Typographic Frameworks',
+                  'High-ROI Digital Graphics Packages',
+                  'Interactive Web Touchpoints UX',
+                  'Comprehensive Brand Guidelines Book',
+                  '100% Vector Source Copyrights'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
@@ -257,7 +262,7 @@ export default function TechnologyServicesPage() {
                 ))}
               </div>
               <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                Consult With Our Tech Architects <ArrowRight className="w-5 h-5" />
+                Launch Your Brand Transformation <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
             <motion.div 
@@ -268,8 +273,8 @@ export default function TechnologyServicesPage() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50">
                 <img
-                  src="https://picsum.photos/seed/tech-kochi/1200/900"
-                  alt="Technology Services Kochi"
+                  src="https://picsum.photos/seed/branding-kochi/1200/900"
+                  alt="Branding & Design Kochi"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -278,11 +283,11 @@ export default function TechnologyServicesPage() {
               <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 hidden xl:block z-20">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <Terminal className="w-6 h-6" />
+                    <Palette className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">99.99%</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Standard Cloud Uptime</p>
+                    <p className="text-2xl font-bold text-dark">100%</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Original Artistry</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -290,8 +295,8 @@ export default function TechnologyServicesPage() {
                     <Rocket className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">80+</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">API Integrations Formed</p>
+                    <p className="text-2xl font-bold text-dark">120+</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Brand Kits Formulated</p>
                   </div>
                 </div>
               </div>
@@ -301,15 +306,15 @@ export default function TechnologyServicesPage() {
       </section>
 
       {/* Advantages Section - Custom interactive grid */}
-      <section className="section-padding bg-white overflow-hidden relative" id="advantages_tech_section">
+      <section className="section-padding bg-white overflow-hidden relative" id="advantages_branding_design_section">
         <div className="container-custom relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-6 block">Strategic Value</span>
             <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Unrivaled <span className="text-primary">Advantages</span> of Modern Tech
+              Unrivaled <span className="text-primary">Advantages</span> of Strategic Branding
             </h2>
             <p className="text-text-gray text-lg leading-relaxed font-sans">
-              Keep databases secure, optimize cloud-server hosting structures, connect system components via fast webhooks, and deliver snappy navigation.
+              Engage clients directly with secure native databases, immediate notification structures, offline operational speed, and reliable device hardware access.
             </p>
           </div>
 
@@ -377,7 +382,7 @@ export default function TechnologyServicesPage() {
             className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-[3rem] border border-dashed border-primary/30"
           >
             <p className="text-gray-750 font-medium leading-relaxed italic text-lg">
-              "Robust core technology constitutes the structural blueprint of your digital asset. Upgrading server databases and performance parameters accelerates team velocity while lowering software risk."
+              "Strategic art direction is not just visual decoration; it is a long-term business accelerant that transforms standard communications into an elite asset, command premium pricing, and binds users directly."
             </p>
           </motion.div>
         </div>
@@ -387,30 +392,28 @@ export default function TechnologyServicesPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Technology Expertise</span>
-            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Technology & Engineering Services</span></h2>
-            <p className="text-text-gray text-lg">We deliver custom-architected web engines, database systems, and integration interfaces tailored for high productivity.</p>
+            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Marketing Expertise</span>
+            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Design & Branding Expertise</span></h2>
+            <p className="text-text-gray text-lg">We offer a full spectrum of graphic and brand strategy services to match your goals.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {techServices.map((service, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {brandingServices.map((service, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-8 bg-white rounded-3xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between"
+                className="p-10 bg-white rounded-3xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group"
               >
-                <div>
-                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                    <service.icon className="w-7 h-7" />
-                  </div>
-                  <h3 className="text-lg font-bold text-dark mb-3">{service.title}</h3>
-                  <p className="text-text-gray leading-relaxed mb-6 text-xs">{service.desc}</p>
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                  <service.icon className="w-8 h-8" />
                 </div>
-                <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all text-xs">
-                  Explore Tech <ArrowRight className="w-4 h-4" />
+                <h3 className="text-2xl font-bold text-dark mb-4">{service.title}</h3>
+                <p className="text-text-gray leading-relaxed mb-6 text-sm">{service.desc}</p>
+                <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
+                  Explore Deliverable <ArrowRight className="w-4 h-4" />
                 </Link>
               </motion.div>
             ))}
@@ -430,26 +433,26 @@ export default function TechnologyServicesPage() {
             >
               <span className="text-accent font-bold uppercase tracking-widest text-sm block">Growth & Visibility Blueprint</span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-tight">
-                Advanced Systems <span className="text-primary">Engineered</span> for Extreme Scalability
+                Design Blueprints <span className="text-primary">Engineered</span> To Build Market Equity
               </h2>
               <div className="text-text-gray text-base leading-relaxed space-y-6 font-sans">
                 <p>
-                  At Grehasoft, visual fluidity, high container decoupling, and low database query latencies represent our core parameters for designing premium software. We construct type-safe backend environments, microservice APIs, and lightweight Next.js views tailored to protect and extend corporate operations globally.
+                  At Grehasoft, visual rhythm, unified style parameters, and typography pairing schemes represent our core vectors for constructing brand equity. We draft secure, modern, high-precision vector artwork tailored strictly to project systemic authority and scale. We optimize readability matrices across both screens and physical sheets, letting you connect with potential leads flawlessly.
                 </p>
                 <p>
-                  By creating organized data mappings, choosing high-performance storage servers, and defining strict CORS and security logic, we prevent database degradation. As your long-term technology scaling partner, we deploy neat codebases, optimize hosting setups, and provide clear operational analytics boards to monitor your systems internationally.
+                  By designing tailored icon patterns, choosing human-focused color weights, and establishing guidelines, we ensure long-term visual consistency. As your creative engineering partner, we deliver print-ready assets, configure SVG code blocks, and establish clear guidelines to protect your design patterns internationally.
                 </p>
                 <p>
-                  Our scalable solutions benefit enterprises by establishing total system autarchy. We help you replace outdated monolithic setups, minimize server billing overheads, and construct solid, customized technologies that ensure security, high uptime speeds, and stable performance assets.
+                  Our scalable solutions benefit companies by establishing direct aesthetic clarity. We help you replace boring template resources, eliminate third-party licensing risks, and construct an elite, customized asset structure that guarantees long-term brand authority and high market premiums.
                 </p>
               </div>
               <div className="p-8 bg-white border border-gray-100 shadow-sm rounded-3xl">
-                <p className="text-primary font-semibold text-lg mb-2">Cloud-Native Technology Architectures</p>
+                <p className="text-primary font-semibold text-lg mb-2">High-Resolution Vector Architectures</p>
                 <p className="text-text-gray text-sm leading-relaxed mb-4">
-                  We write extremely high-efficiency cloud configurations and prepare clean developer guidelines, significantly simplifying downstream maintenance while safeguarding application stability.
+                  We write extremely performant vector code assets and prepare extensive design guides that leverage unified designs, drastically simplifying future web development while maintaining brand integrity.
                 </p>
                 <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Launch Your Tech Transformation <ArrowRight className="w-5 h-5" />
+                  Launch Your Branding Project <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </motion.div>
@@ -462,8 +465,8 @@ export default function TechnologyServicesPage() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/3]">
                 <img
-                  src="https://picsum.photos/seed/tech-strategies-grehasoft/1200/900"
-                  alt="Technology Strategies"
+                  src="https://picsum.photos/seed/branding-strategies-grehasoft/1200/900"
+                  alt="Branding Strategies"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -473,12 +476,12 @@ export default function TechnologyServicesPage() {
                 <div className="text-dark font-bold text-lg mb-2">Our Dual Engine Approach</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="border-l-4 border-primary pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Scale-Ready Architecture</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Isolate core workflows inside independent containers that autoscale horizontally under traffic loads instantly.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Stretched Recall Value</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Synthesize iconic visual identifiers that hook interest across competitive feeds and stay top-of-mind eternally.</p>
                   </div>
                   <div className="border-l-4 border-accent pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Optimized Execution Nodes</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Minimize server lag, memory allocation spikes, and index failures to deliver beautiful UI feedback loops.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Design System Uniformity</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Establish strict layouts, font pairing hierarchies, and padding guides to secure seamless digital scaling.</p>
                   </div>
                 </div>
               </div>
@@ -494,7 +497,7 @@ export default function TechnologyServicesPage() {
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Excellence Standard</span>
             <h2 className="text-4xl font-extrabold text-dark mb-6">What Makes Us <span className="text-primary">the Best?</span></h2>
             <p className="text-text-gray text-lg">
-              At Grehasoft, we strive to represent the standard of excellence in custom software engineering. Here are the core metrics and workflows that set us apart:
+              At Grehasoft, we pride ourselves on being the epitome of excellence in corporate branding. Here are the core values and capabilities that set us apart:
             </p>
           </div>
 
@@ -522,7 +525,7 @@ export default function TechnologyServicesPage() {
           <div className="mt-16 text-center">
             <div className="inline-block p-1 bg-gray-50 border border-gray-100 rounded-full">
               <div className="flex flex-wrap items-center justify-center gap-4 px-6 py-3 text-sm">
-                <span className="font-semibold text-dark">Ready to build dynamic cloud infrastructures with us?</span>
+                <span className="font-semibold text-dark">Ready to design your next brand asset with us?</span>
                 <Link href="/contact" className="text-primary font-extrabold flex items-center gap-2 hover:gap-3 transition-all cursor-pointer">
                   Team up with Grehasoft <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -537,15 +540,15 @@ export default function TechnologyServicesPage() {
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Growth Methodology</span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Technology Workflow</span></h2>
-            <p className="text-gray-400 text-lg">A structured and highly logical workflow to engineering enterprise-grade cloud integrations.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Branding Workflow</span></h2>
+            <p className="text-gray-400 text-lg">A structured and highly collaborative workflow to engineering distinctive, memorable identities.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting Line */}
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2" />
             
-            {techWorkflow.map((step, index) => (
+            {designProcess.map((step, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -573,11 +576,11 @@ export default function TechnologyServicesPage() {
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Support & Insights</span>
               <h2 className="text-4xl font-black text-dark mb-6 leading-tight">Frequent <br />Questions</h2>
               <p className="text-gray-500 mb-8">
-                Learn more about migration standards, timeline schedules, platform custom security, and continuous SLAs.
+                Learn more about vector standards, timeline schedules, intellectual property, and branding book guidelines.
               </p>
               <div className="p-8 bg-primary rounded-3xl text-white">
-                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Technology Tip</p>
-                <p className="text-lg italic font-medium">"Type stability constitutes robust code logic. Choose clean, resilient frameworks to protect system scalability."</p>
+                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Creative Tip</p>
+                <p className="text-lg italic font-medium">"Strategic design represents raw business architecture. Avoid generic vector templates to claim authentic value."</p>
               </div>
             </div>
             <div className="lg:col-span-2 space-y-4">
@@ -598,6 +601,7 @@ export default function TechnologyServicesPage() {
       </section>
 
       <CTA />
+      <Footer />
     </main>
   );
 }

@@ -4,13 +4,18 @@ import { useState, useEffect } from 'react';
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
 import { 
-  Palette, 
-  PenTool, 
-  Layout, 
-  Shield, 
+  Smartphone, 
+  Tablet, 
   Zap, 
-  ArrowRight, 
+  Shield, 
+  Layout, 
+  BarChart, 
   CheckCircle2, 
+  ArrowRight, 
+  MessageSquare, 
+  Code2, 
+  Globe, 
+  Cpu, 
   ChevronDown, 
   Award, 
   Lightbulb, 
@@ -21,195 +26,191 @@ import {
   Users, 
   Target, 
   Rocket,
-  Paintbrush,
-  Eye,
   Briefcase,
-  Compass,
-  Layers,
-  FileText,
-  Cpu
+  Wrench
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Footer from '@/components/Footer';
 
-const brandingServices = [
+const mobileServices = [
   {
-    icon: Palette,
-    title: 'Graphic Design',
-    desc: 'Visually stunning and high-impact graphics designed to grab attention, deliver messages, and build brand reputation across digital platforms.',
-    href: '/branding/graphic-design',
+    icon: Smartphone,
+    title: 'Android App Development',
+    desc: 'Custom Android applications built with Kotlin and Java, optimized for maximum performance, battery efficiency, and scalability on all device profiles.',
+    href: '/mobile-apps/android',
   },
   {
-    icon: Paintbrush,
-    title: 'Logo Design & Identity',
-    desc: 'Custom-crafted, iconic logos that convey your company\'s vision, value system, and industry authority with instant recall value.',
-    href: '/branding/logo-design',
+    icon: Tablet,
+    title: 'iOS App Development',
+    desc: 'High-end iOS applications for iPhone and iPad using Swift, conforming to Apple\'s strict Human Interface Guidelines and premium quality checks.',
+    href: '/mobile-apps/ios',
   },
   {
-    icon: Shield,
-    title: 'Branding Packages',
-    desc: 'All-inclusive corporate branding kits, typography structures, style guides, and master palettes designed from baseline research.',
-    href: '/branding/packages',
+    icon: Zap,
+    title: 'Hybrid App Development',
+    desc: 'Highly budget-friendly cross-platform apps using Flutter and React Native that operate flawlessly across both Android and iOS devices.',
+    href: '/mobile-apps/hybrid',
   },
   {
-    icon: Layout,
-    title: 'User Interface (UI/UX) Design',
-    desc: 'Polished layouts, web elements design, and high-fidelity mockups crafted strictly to maximize retention and conversion loops.',
-    href: '/branding/ui-ux',
-  },
-  {
-    icon: FileText,
-    title: 'Brochure & Flyer Design',
-    desc: 'Professional, custom-tailored print and digital marketing collateral to reinforce your field campaigns and corporate pitches.',
-    href: '/branding/brochure-flyer',
+    icon: Globe,
+    title: 'Progressive Web Apps (PWA)',
+    desc: 'Cutting-edge web-based applications that offer an immersive app-like feel, native-level caching, offline capabilities, and instant loading speeds.',
+    href: '/mobile-apps/pwa',
   },
   {
     icon: Briefcase,
-    title: 'Business Cards & Stationery',
-    desc: 'Premium design files for corporate business cards, letterheads, brand envelopes, and physical assets that establish authority immediately.',
-    href: '/branding/business-cards',
+    title: 'Enterprise & Business Apps',
+    desc: 'Tailored corporate applications designed to streamline operations, facilitate internal communications, and automate field-force activities.',
+    href: '/mobile-apps/business-apps',
+  },
+  {
+    icon: Wrench,
+    title: 'Custom Utility Applications',
+    desc: 'Niche mobile and tablet tools built to perform specific tasks, offline calculations, biometric syncing, and hardware integrations perfectly.',
+    href: '/mobile-apps/utility-apps',
   },
 ];
 
 const valueProps = [
   {
-    title: 'Human-Centered Concepting',
-    desc: 'We research exact client personas, market triggers, and competitor dynamics before illustrating a single visual concept.',
+    title: 'Strategic Architecture',
+    desc: 'We map out detailed wireframes, user touchpoints, and systemic flowcharts before writing a single line of database or frontend code.',
     icon: Target,
   },
   {
-    title: 'Vector Precision & Guidelines',
-    desc: 'We deliver ultra-sharp, mathematical vector files that scale flawlessly from 16px favicons to massive street-side exhibition bill-boards.',
-    icon: Compass,
+    title: 'App Store Expertise',
+    desc: 'Our expert team guides your app through the comprehensive compliance checklists required for swift approval on Google Play and Apple App Stores.',
+    icon: Award,
   },
   {
-    title: 'Color Psychology Mapping',
-    desc: 'Our design team selects tone variations that represent your enterprise\'s specific traits, ensuring proper emotional responses from viewers.',
-    icon: Palette,
+    title: 'Cutting-Edge Tech Stack',
+    desc: 'By utilizing modern performance standards like Kotlin, Swift, Flutter, and React Native, your applications remain robust, scalable, and stable.',
+    icon: Lightbulb,
   },
   {
-    title: 'Systemic Hierarchy Rules',
-    desc: 'We map detailed brand guidelines defining exact font uses, proper spacing ratios, and permitted background colors.',
+    title: 'Custom Adaptations',
+    desc: 'Every layout is tailored to match your precise user personas, custom security parameters, and distinct corporate branding rules.',
     icon: Settings,
   },
   {
-    title: 'Interactive Design Alignment',
-    desc: 'We design digital touchpoints with a strong focus on touch targets, negative spacing, and rapid visual reading flows.',
-    icon: Layout,
+    title: 'Data & Behavior Analytics',
+    desc: 'Integrate robust in-app click tracking, user journeys mapping, and system event logging to optimize user conversion loops over time.',
+    icon: BarChart,
   },
   {
-    title: 'Multi-Medium Adaptability',
-    desc: 'Every graphic asset is crafted to render cleanly on light and dark interfaces, print media, social feeds, and corporate software panels.',
-    icon: Layers,
+    title: 'Transparent Collaboration',
+    desc: 'Receive active build updates, direct feedback opportunities, and sandbox testing credentials at every milestone of development.',
+    icon: MessageSquare,
   },
   {
-    title: 'Total Copyright Transition',
-    desc: 'Gain 100% outright ownership and legal rights to all original vector files, design blueprints, and style guidelines securely.',
-    icon: Shield,
+    title: 'Hardware Optimization',
+    desc: 'We configure deep hardware utilities like biometric authentication, cameras, bluetooth handshakes, and offline storage queues securely.',
+    icon: Cpu,
   },
   {
-    title: 'Agile Collaborative Iterations',
-    desc: 'We establish modern staging reviews, interactive mockup playgrounds, and direct feedback loops with Senior Art Directors.',
+    title: 'Sustained Maintenance',
+    desc: 'Keep your application aligned with sudden OS changes, deprecation warnings, security patches, and modern smartphone designs.',
     icon: RefreshCw,
   },
   {
-    title: 'Performance-Safe Optimization',
-    desc: 'Files are meticulously compressed as WebP and lightweight SVGs to keep your website speeds remarkably rapid.',
-    icon: Zap,
+    title: 'User-First Philosophy',
+    desc: 'We prioritize touch target guidelines, minimal loading visual gaps, and fluid interface layouts to delight users first.',
+    icon: Heart,
   },
   {
-    title: 'Esthetic Consistency',
-    desc: 'By building comprehensive visual design systems, your social pages, software layouts, and physical cards speak a single cohesive voice.',
-    icon: Heart,
+    title: 'Scalable Cloud Backends',
+    desc: 'Ensure flawless, rapid data synchronization with secure, fast database backends capable of serving thousands of concurrent users.',
+    icon: TrendingUp,
   },
 ];
 
-const designProcess = [
+const mobileProcess = [
   {
     step: '01',
-    title: 'Audit & Discovery Scope',
-    desc: 'Deciphering corporate goals, target viewer psychological behaviors, competitors, and core value markers.',
+    title: 'Product Strategy & Logic',
+    desc: 'Establishing functional goals, backend pathways, competitor reviews, and targeted client personas.',
   },
   {
     step: '02',
-    title: 'Concept & Wireframe Drafts',
-    desc: 'Sketching multiple creative directions, layout wires, and typographic formulas for direct evaluation.',
+    title: 'High-Fidelity UI/UX',
+    desc: 'Drafting responsive screen blueprints, custom interactive components, and comprehensive design systems.',
   },
   {
     step: '03',
-    title: 'Vector Refining & Detailing',
-    desc: 'Refining chosen concepts into perfect vector shapes, choosing color swatches, and building typography rules.',
+    title: 'Development & APIs',
+    desc: 'Engineering optimize frontend code coupled with secure cloud APIs and highly safe payload exchanges.',
   },
   {
     step: '04',
-    title: 'Brand Book & Handover Assets',
-    desc: 'Assembling complete corporate mockups, exporting standard scaling formats, and releasing legal master copyrights.',
+    title: 'Testing & Store Launch',
+    desc: 'Running intensive device diagnostics, unit diagnostics, and managing the complete official app store release.',
   },
 ];
 
 const faqs = [
   {
-    question: 'Why choose custom strategic branding over cheap online logo generators?',
-    answer: 'Cheap template generators output repetitive, unoriginal vectors that cannot be trademarked, confusing your audience and weakening brand trust. A custom strategic branding campaign establishes secure credibility, unique brand storytelling, and consistent visual systems that command market premium.',
+    question: 'How much does it cost to develop a custom mobile application?',
+    answer: 'The operational cost fluctuates depending on the structural complexity, overall feature count, visual design density, and choice of targets (Native Android/iOS or Cross-Platform Hybrid). We offer tailored development quotes based on your exact business roadmap.',
   },
   {
-    question: 'What deliverables are included inside a full corporate branding kit?',
-    answer: 'A comprehensive branding package from Grehasoft includes responsive primary/secondary logos, clean typography structures, detailed color guidelines, layout grid specifications, stationery vector files, business card layouts, social profile assets, and a complete design handbook.',
+    question: 'How long does the mobile app development lifecycle take?',
+    answer: 'A highly streamlined, clean MVP application typically spans 8 to 12 weeks. Large-scale enterprise platforms with microservice backends, extensive database integrations, or complicated hardware controls can require 16 to 24 weeks or more.',
   },
   {
-    question: 'How long does a complete brand identity design project take?',
-    answer: 'A standard custom logo design lifecycle spans 2 to 3 weeks. A full enterprise identity blueprint — including research audits, custom guidelines books, collateral design, and online element scaling — typically requires 6 to 10 weeks.',
+    question: 'Will you manage Google Play and Apple App Store submissions?',
+    answer: 'Absolutely. We coordinate and execute the entire marketplace compilation, legal privacy checks, application descriptions, and store screenshots, guaranteeing a complete submission that meets Apple and Google developer guidelines.',
   },
   {
-    question: 'Do we receive full copyrights and vector file formats for our designs?',
-    answer: 'Yes, 100%. Upon finalizing and settling the design stages, full intellectual property copyrights are transferred to you. We hand over highly organized master vector packages (AI, SVG, EPS) along with print-ready PDFs and responsive web formats.',
+    question: 'Do you offer ongoing post-launch maintenance packages?',
+    answer: 'Yes. We provide recurring support and performance optimization plans to protect your software codebase against major operating system upgrades (iOS changes, Android versions), deprecation issues, and system expansions.',
   },
 ];
 
-export default function BrandingServicesPage() {
+export default function MobileAppDevelopment() {
   const advantagesList = [
     {
-      title: 'Instant Marketplace Recall',
-      subtitle: 'Premium Visual Real Estate',
-      desc: 'Form a permanent, memorable imprint on your target audience\'s memory. Consistent, beautiful visuals increase organic top-of-mind recall and build strong customer trust.',
-      badge: 'Immediate Recognition',
-      icon: Eye,
+      title: 'Direct Consumer Engagement',
+      subtitle: 'Unrivaled Real Estate',
+      desc: 'Earn a permanent spot on your clients\' home screens. Having a dedicated application increases top-of-mind brand visibility and builds direct interactive connections.',
+      badge: 'Brand Real-Estate',
+      icon: Smartphone,
       color: 'text-indigo-650 bg-indigo-50 border-indigo-100',
-      tagline: 'Establish an elite voice that elevates click-through ratios across print and web campaigns alike.'
+      tagline: 'Stay active inside high-intent channels where modern users spend over 90% of their mobile time.'
     },
     {
-      title: 'Sustained Premium Positioning',
-      subtitle: 'Market Value Dominance',
-      desc: 'Businesses with beautiful, well-documented design systems successfully escape commodity price battles. High-quality visuals establish immediate authority and justify premium pricing structures.',
-      badge: 'Margin Upgrade',
-      icon: TrendingUp,
+      title: 'Flawless Push Alerts',
+      subtitle: 'Immediate Communication',
+      desc: 'Send fast, highly engaging alerts directly to your customer base. Bypass cluttered email folders with instant updates, tailored deals, or critical application notifications.',
+      badge: 'Immediate CTR Boost',
+      icon: Zap,
       color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
-      tagline: 'Position your business as the obvious premium choice inside Kerala\'s competitive corporate markets.'
+      tagline: 'Deliver time-sensitive announcements with instant, action-driven click-through paths.'
     },
     {
-      title: 'Unbreakable Consumer Trust',
-      subtitle: 'Immediate Credibility',
-      desc: 'Sloppy design signals sloppy physical services. Perfect color balance, premium layouts, and consistent style guides assure current buyers that your operations meet strict standards.',
-      badge: 'Verified Integrity',
-      icon: Shield,
-      color: 'text-amber-650 bg-amber-50 border-amber-100',
-      tagline: 'Deliver deep, structural reliability at the first point of contact with your potential leads.'
-    },
-    {
-      title: 'Flawless Digital Translation',
-      subtitle: 'Smooth System Alignment',
-      desc: 'Our design systems translate smoothly onto advanced web apps, digital advertising campaigns, and interactive screens. Code-ready design components facilitate faster frontend builds.',
-      badge: 'Seamless Implementation',
+      title: 'Deep Hardware Utilities',
+      subtitle: 'Advanced Capabilities',
+      desc: 'Leverage built-in device features seamlessly. Connect your system to core biometric parameters, device cameras, high-definition GPS routes, and native calendar schedules.',
+      badge: 'Hardware Syncing',
       icon: Cpu,
-      color: 'text-purple-650 bg-purple-50 border-purple-100',
-      tagline: 'Eliminate design fragmentation across social assets, mobile apps, and enterprise dashboards.'
+      color: 'text-amber-650 bg-amber-50 border-amber-100',
+      tagline: 'Enable intuitive customer interactions like fingerprint authorization and automated site routing.'
     },
     {
-      title: 'Emotional Audience Catalyst',
-      subtitle: 'Humanized Connection',
-      desc: 'Strategic art direction aligns your brand voice with the real-world motivations of your demographic. We construct visual stories that resonate deeply and convert viewers into loyal repeat advocates.',
-      badge: 'Direct Conversion Fuel',
-      icon: Users,
+      title: 'Offline Operational Flow',
+      subtitle: 'Continuous Accessibility',
+      desc: 'Give users essential access to features even during network outages. Native databases permit data lookups, draft writing, and transaction tracking offline.',
+      badge: 'Fail-Safe Availability',
+      icon: Shield,
+      color: 'text-purple-650 bg-purple-50 border-purple-100',
+      tagline: 'Keep business transactions queued securely for synchronization the exact second connection resumes.'
+    },
+    {
+      title: 'Elevated Brand Trust',
+      subtitle: 'Marketplace Authority',
+      desc: 'Earn strong credibility by maintaining a verified app store presence. Safe app store distribution proves your enterprise meets strict security, privacy, and development policies.',
+      badge: 'Store Verification',
+      icon: Code2,
       color: 'text-primary bg-primary/5 border-primary/10',
       tagline: 'Build immediate corporate authority under official Apple and Google licensing protocols.'
     }
@@ -218,11 +219,11 @@ export default function BrandingServicesPage() {
   return (
     <main className="min-h-screen">
       <PageHeader
-        title="Branding & Logo Design Kochi"
-        description="Top branding agency in Kerala. We create custom logos, corporate identity systems, rich graphics, and complete visual guidelines engineered to grow."
+        title="Mobile App Development Kochi"
+        description="Top-rated mobile app development company in Kerala. We build custom Android, iOS, and Hybrid apps that drive business growth."
         breadcrumb={[
           { name: 'Services', href: '/services' },
-          { name: 'Branding & Design', href: '/branding' },
+          { name: 'Mobile App Development', href: '/mobile-apps' },
         ]}
       />
 
@@ -235,24 +236,24 @@ export default function BrandingServicesPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Branding Innovation</span>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Mobile Innovation</span>
               <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6 leading-tight">
-                Crafting Identities that <span className="text-primary">Connect & Inspire</span>
+                Building Next-Gen <span className="text-primary">Mobile Experiences</span>
               </h2>
               <p className="text-text-gray text-lg mb-6 leading-relaxed">
-                Grehasoft is a leading **branding agency in Kochi**, specializing in sculpting memorable corporate identity engines, clean typography frameworks, and modern, eye-safe web design styles.
+                Grehasoft is a leading **mobile app development company in Kochi**, specialized in engineering fast, highly refined, and secure mobile applications. We help brands convert vision into flawless software products.
               </p>
               <p className="text-text-gray text-lg mb-8 leading-relaxed">
-                From hand-crafted **logo design in Kochi** to professional corporate identity packages across Kerala, our creators synthesize art, psychology, and design to help your company dominate digital marketplaces.
+                From **Android app development in Kerala** to high-performing native **iOS apps in Kochi**, our multi-disciplinary engineers deploy clean code, beautiful aesthetics, and solid database pathways that scale organically.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
                 {[
-                  'Strategic Icon & Logo Craft',
-                  'Master Typographic Frameworks',
-                  'High-ROI Digital Graphics Packages',
-                  'Interactive Web Touchpoints UX',
-                  'Comprehensive Brand Guidelines Book',
-                  '100% Vector Source Copyrights'
+                  'Robust Native Kotlin & Swift',
+                  'Optimized Flutter & React Native',
+                  'Intuitive Touch Interface Design',
+                  'Secure Microservice API Sync',
+                  'Full App Store Submissions',
+                  'Reliable SLA Code Maintenanceing'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
@@ -261,7 +262,7 @@ export default function BrandingServicesPage() {
                 ))}
               </div>
               <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                Launch Your Brand Transformation <ArrowRight className="w-5 h-5" />
+                Discuss Your Mobile Project <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
             <motion.div 
@@ -272,8 +273,8 @@ export default function BrandingServicesPage() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50">
                 <img
-                  src="https://picsum.photos/seed/branding-kochi/1200/900"
-                  alt="Branding & Design Kochi"
+                  src="https://picsum.photos/seed/mobile-kochi/1200/900"
+                  alt="Mobile App Development Kochi"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -282,11 +283,11 @@ export default function BrandingServicesPage() {
               <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 hidden xl:block z-20">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <Palette className="w-6 h-6" />
+                    <TrendingUp className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">100%</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Original Artistry</p>
+                    <p className="text-2xl font-bold text-dark">99.9%</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">App Crash-Free Rate</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -294,8 +295,8 @@ export default function BrandingServicesPage() {
                     <Rocket className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">120+</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Brand Kits Formulated</p>
+                    <p className="text-2xl font-bold text-dark">50+</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Store Launches Done</p>
                   </div>
                 </div>
               </div>
@@ -304,13 +305,13 @@ export default function BrandingServicesPage() {
         </div>
       </section>
 
-      {/* Advantages Section - Custom interactive grid */}
-      <section className="section-padding bg-white overflow-hidden relative" id="advantages_branding_design_section">
+      {/* Advantages of going mobile - Custom interactive grid */}
+      <section className="section-padding bg-white overflow-hidden relative" id="advantages_mobile_apps_section">
         <div className="container-custom relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-6 block">Strategic Value</span>
             <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Unrivaled <span className="text-primary">Advantages</span> of Strategic Branding
+              Unrivaled <span className="text-primary">Advantages</span> of Custom Apps
             </h2>
             <p className="text-text-gray text-lg leading-relaxed font-sans">
               Engage clients directly with secure native databases, immediate notification structures, offline operational speed, and reliable device hardware access.
@@ -381,7 +382,7 @@ export default function BrandingServicesPage() {
             className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-[3rem] border border-dashed border-primary/30"
           >
             <p className="text-gray-750 font-medium leading-relaxed italic text-lg">
-              "Strategic art direction is not just visual decoration; it is a long-term business accelerant that transforms standard communications into an elite asset, command premium pricing, and binds users directly."
+              "A custom mobile app acts as the center-point of modern corporate interaction, letting you securely scale brand authority, engage audiences without friction, and gain deeper consumer data insights."
             </p>
           </motion.div>
         </div>
@@ -392,12 +393,12 @@ export default function BrandingServicesPage() {
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Marketing Expertise</span>
-            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Design & Branding Expertise</span></h2>
-            <p className="text-text-gray text-lg">We offer a full spectrum of graphic and brand strategy services to match your goals.</p>
+            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Mobile App Expertise</span></h2>
+            <p className="text-text-gray text-lg">We offer a full spectrum of mobile development services to meet your business needs.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {brandingServices.map((service, index) => (
+            {mobileServices.map((service, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -412,7 +413,7 @@ export default function BrandingServicesPage() {
                 <h3 className="text-2xl font-bold text-dark mb-4">{service.title}</h3>
                 <p className="text-text-gray leading-relaxed mb-6 text-sm">{service.desc}</p>
                 <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
-                  Explore Deliverable <ArrowRight className="w-4 h-4" />
+                  Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
               </motion.div>
             ))}
@@ -432,26 +433,26 @@ export default function BrandingServicesPage() {
             >
               <span className="text-accent font-bold uppercase tracking-widest text-sm block">Growth & Visibility Blueprint</span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-tight">
-                Design Blueprints <span className="text-primary">Engineered</span> To Build Market Equity
+                Mobile Strategy <span className="text-primary">Blueprints</span> Built To Scale
               </h2>
               <div className="text-text-gray text-base leading-relaxed space-y-6 font-sans">
                 <p>
-                  At Grehasoft, visual rhythm, unified style parameters, and typography pairing schemes represent our core vectors for constructing brand equity. We draft secure, modern, high-precision vector artwork tailored strictly to project systemic authority and scale. We optimize readability matrices across both screens and physical sheets, letting you connect with potential leads flawlessly.
+                  At Grehasoft, mobile apps, database sync, and rapid API response layers are the primary pillars driving our functional software engineering. We architect and implement scalable code bases customized to expand your enterprise services. We resolve hard structural constraints across iOS, Android, and PWAs, allowing you to delight clients seamlessly.
                 </p>
                 <p>
-                  By designing tailored icon patterns, choosing human-focused color weights, and establishing guidelines, we ensure long-term visual consistency. As your creative engineering partner, we deliver print-ready assets, configure SVG code blocks, and establish clear guidelines to protect your design patterns internationally.
+                  By creating responsive screens, fast cached data loops, and localized offline stores, we ensure maximum client retention. As your software partner, we build robust backend architectures, integrate secure payment platforms, and configure advanced telemetry tools that help you monitor performance metrics globally.
                 </p>
                 <p>
-                  Our scalable solutions benefit companies by establishing direct aesthetic clarity. We help you replace boring template resources, eliminate third-party licensing risks, and construct an elite, customized asset structure that guarantees long-term brand authority and high market premiums.
+                  Our scalable solutions benefit organizations of any scale by establishing direct interaction lanes with your buyers. We help you skip third-party listing marketplaces, reduce intermediary dependencies, and establish secure personal channels to build long-term loyalty and scalable transaction volumes.
                 </p>
               </div>
               <div className="p-8 bg-white border border-gray-100 shadow-sm rounded-3xl">
-                <p className="text-primary font-semibold text-lg mb-2">High-Resolution Vector Architectures</p>
+                <p className="text-primary font-semibold text-lg mb-2">High-Performance Hybrid Platforms</p>
                 <p className="text-text-gray text-sm leading-relaxed mb-4">
-                  We write extremely performant vector code assets and prepare extensive design guides that leverage unified designs, drastically simplifying future web development while maintaining brand integrity.
+                  We write extremely high-efficiency cross-platform applications that leverage unified code bases across iOS and Android, drastically lowering deployment costs while keeping core animations highly fluid.
                 </p>
                 <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Launch Your Branding Project <ArrowRight className="w-5 h-5" />
+                  Launch Your Mobile App <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </motion.div>
@@ -464,8 +465,8 @@ export default function BrandingServicesPage() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/3]">
                 <img
-                  src="https://picsum.photos/seed/branding-strategies-grehasoft/1200/900"
-                  alt="Branding Strategies"
+                  src="https://picsum.photos/seed/mobile-strategies-grehasoft/1200/900"
+                  alt="Mobile Strategies"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -475,12 +476,12 @@ export default function BrandingServicesPage() {
                 <div className="text-dark font-bold text-lg mb-2">Our Dual Engine Approach</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="border-l-4 border-primary pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Stretched Recall Value</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Synthesize iconic visual identifiers that hook interest across competitive feeds and stay top-of-mind eternally.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Direct Brand Real Estate</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Secure premium placement directly on user home screens, gaining 24/7 visual presence and automated notification channels.</p>
                   </div>
                   <div className="border-l-4 border-accent pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Design System Uniformity</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Establish strict layouts, font pairing hierarchies, and padding guides to secure seamless digital scaling.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Extreme Performance</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Optimize background threading, memory allocations, and network responses for rapid and friction-free user journeys.</p>
                   </div>
                 </div>
               </div>
@@ -496,11 +497,11 @@ export default function BrandingServicesPage() {
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Excellence Standard</span>
             <h2 className="text-4xl font-extrabold text-dark mb-6">What Makes Us <span className="text-primary">the Best?</span></h2>
             <p className="text-text-gray text-lg">
-              At Grehasoft, we pride ourselves on being the epitome of excellence in corporate branding. Here are the core values and capabilities that set us apart:
+              At Grehasoft, we pride ourselves on being the epitome of excellence in mobile app development. Here are the core values and capabilities that set us apart:
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {valueProps.map((prop, idx) => (
               <motion.div
                 key={idx}
@@ -514,7 +515,7 @@ export default function BrandingServicesPage() {
                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     <prop.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-dark mb-3 leading-snug">{prop.title}</h3>
+                  <h3 className="text-lg font-bold text-dark mb-3 leading-snug">{prop.title}</h3>
                   <p className="text-text-gray text-xs leading-relaxed font-sans">{prop.desc}</p>
                 </div>
               </motion.div>
@@ -524,7 +525,7 @@ export default function BrandingServicesPage() {
           <div className="mt-16 text-center">
             <div className="inline-block p-1 bg-gray-50 border border-gray-100 rounded-full">
               <div className="flex flex-wrap items-center justify-center gap-4 px-6 py-3 text-sm">
-                <span className="font-semibold text-dark">Ready to design your next brand asset with us?</span>
+                <span className="font-semibold text-dark">Ready to build your next custom mobile solution?</span>
                 <Link href="/contact" className="text-primary font-extrabold flex items-center gap-2 hover:gap-3 transition-all cursor-pointer">
                   Team up with Grehasoft <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -539,15 +540,15 @@ export default function BrandingServicesPage() {
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Growth Methodology</span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Branding Workflow</span></h2>
-            <p className="text-gray-400 text-lg">A structured and highly collaborative workflow to engineering distinctive, memorable identities.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Development Workflow</span></h2>
+            <p className="text-gray-400 text-lg">A structured and transparent approach to engineering highly reliable custom mobile apps.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting Line */}
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2" />
             
-            {designProcess.map((step, index) => (
+            {mobileProcess.map((step, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -575,11 +576,11 @@ export default function BrandingServicesPage() {
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Support & Insights</span>
               <h2 className="text-4xl font-black text-dark mb-6 leading-tight">Frequent <br />Questions</h2>
               <p className="text-gray-500 mb-8">
-                Learn more about vector standards, timeline schedules, intellectual property, and branding book guidelines.
+                Explore answers regarding timeline allocations, marketplace standards, and technical optimization loops.
               </p>
               <div className="p-8 bg-primary rounded-3xl text-white">
-                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Creative Tip</p>
-                <p className="text-lg italic font-medium">"Strategic design represents raw business architecture. Avoid generic vector templates to claim authentic value."</p>
+                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Development Tip</p>
+                <p className="text-lg italic font-medium">"Native-like responsive interactions deliver massive friction reduction. Always prioritize fast, secure cached storage loops."</p>
               </div>
             </div>
             <div className="lg:col-span-2 space-y-4">
@@ -600,6 +601,7 @@ export default function BrandingServicesPage() {
       </section>
 
       <CTA />
+      <Footer />
     </main>
   );
 }

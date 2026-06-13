@@ -2,9 +2,10 @@ import WebDesignTemplate from '@/components/templates/WebDesignTemplate';
 import DigitalMarketingTemplate from '@/components/templates/DigitalMarketingTemplate';
 import BrandingTemplate from '@/components/templates/BrandingTemplate';
 import MobileAppTemplate from '@/components/templates/MobileAppTemplate';
-import SoftwareTemplate from '@/components/templates/SoftwareTemplate';
+
 import TechnologyTemplate from '@/components/templates/TechnologyTemplate';
 import axiosInstance from '@/lib/axios';
+import MainTemplate from '@/components/templates/MainTemplate';
 
 interface PageProps {
   params: Promise<{
@@ -88,9 +89,9 @@ export default async function Page({
         />
       );
 
-    case 'software':
+    case 'main':
       return (
-        <SoftwareTemplate
+        <MainTemplate
           service={service}
       
         />
