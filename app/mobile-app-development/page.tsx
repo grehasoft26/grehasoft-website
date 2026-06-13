@@ -3,218 +3,226 @@
 import { useState, useEffect } from 'react';
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
-import { Megaphone, Search, MousePointerClick, Share2, BarChart, Globe, Mail, Target, CheckCircle2, ArrowRight, MessageSquare, TrendingUp, Zap, Shield, Users, Rocket, Facebook, Instagram, Youtube, Linkedin, Twitter, Pin, Award, Lightbulb, Heart, RefreshCw, Settings, ChevronDown } from 'lucide-react';
+import { 
+  Smartphone, 
+  Tablet, 
+  Zap, 
+  Shield, 
+  Layout, 
+  BarChart, 
+  CheckCircle2, 
+  ArrowRight, 
+  MessageSquare, 
+  Code2, 
+  Globe, 
+  Cpu, 
+  ChevronDown, 
+  Award, 
+  Lightbulb, 
+  Settings, 
+  Heart, 
+  RefreshCw, 
+  TrendingUp, 
+  Users, 
+  Target, 
+  Rocket,
+  Briefcase,
+  Wrench
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 
-const marketingServices = [
+const mobileServices = [
   {
-    icon: Search,
-    title: 'SEO Services',
-    desc: 'Improve your organic search engine visibility and capture higher organic keyword traffic inside Kochi, Kerala, and across global listings.',
-    href: '/seo',
+    icon: Smartphone,
+    title: 'Android App Development',
+    desc: 'Custom Android applications built with Kotlin and Java, optimized for maximum performance, battery efficiency, and scalability on all device profiles.',
+    href: '/mobile-apps/android',
   },
   {
-    icon: MousePointerClick,
-    title: 'SEM (Google Ads)',
-    desc: 'Capture immediate high-intent buyers with professionally optimized pay-per-click advertisements on target search engines.',
-    href: '/search-engine-marketing',
+    icon: Tablet,
+    title: 'iOS App Development',
+    desc: 'High-end iOS applications for iPhone and iPad using Swift, conforming to Apple\'s strict Human Interface Guidelines and premium quality checks.',
+    href: '/mobile-apps/ios',
   },
   {
-    icon: Share2,
-    title: 'Social Media Marketing',
-    desc: 'Cultivate strong online community hubs, establish dynamic touchpoints, and raise organic reach across top networks.',
-    href: '/social-media-marketing',
+    icon: Zap,
+    title: 'Hybrid App Development',
+    desc: 'Highly budget-friendly cross-platform apps using Flutter and React Native that operate flawlessly across both Android and iOS devices.',
+    href: '/mobile-apps/hybrid',
   },
   {
-    icon: Facebook,
-    title: 'Facebook Marketing',
-    desc: 'Target granular customer characteristics, create effective custom leads pipelines, and boost conversions using specialized Meta Ads.',
-    href: '/social-media-marketing/facebook',
+    icon: Globe,
+    title: 'Progressive Web Apps (PWA)',
+    desc: 'Cutting-edge web-based applications that offer an immersive app-like feel, native-level caching, offline capabilities, and instant loading speeds.',
+    href: '/mobile-apps/pwa',
   },
   {
-    icon: Instagram,
-    title: 'Instagram Marketing',
-    desc: 'Engage modern viewers using pixel-perfect aesthetics, high-performing reels campaigns, and strategic brand integrations.',
-    href: '/social-media-marketing/instagram',
+    icon: Briefcase,
+    title: 'Enterprise & Business Apps',
+    desc: 'Tailored corporate applications designed to streamline operations, facilitate internal communications, and automate field-force activities.',
+    href: '/mobile-apps/business-apps',
   },
   {
-    icon: Youtube,
-    title: 'YouTube Marketing',
-    desc: 'Establish powerful thought leadership, product demonstrations, and video SEO paths with structured digital video campaigns.',
-    href: '/social-media-marketing/youtube',
-  },
-  {
-    icon: Linkedin,
-    title: 'LinkedIn Marketing',
-    desc: 'Engage key corporate leaders, manage professional B2B lead generation streams, and elevate corporate industry authority.',
-    href: '/social-media-marketing/linkedin',
-  },
-  {
-    icon: Pin,
-    title: 'Pinterest Marketing',
-    desc: 'Drive organic visual discovery, build thematic boards, and tap into visual search directories to direct traffic back to your shop.',
-    href: '/social-media-marketing/pinterest',
-  },
-  {
-    icon: Twitter,
-    title: 'Twitter Marketing',
-    desc: 'Capture real-time user engagement, lead dynamic trend conversations, and publish high-converting micro-updates.',
-    href: '/social-media-marketing/twitter',
-  },
-];
-
-const marketingProcess = [
-  {
-    step: '01',
-    title: 'Strategy & Planning',
-    desc: 'Defining clear goals and a roadmap to achieve them based on market research and competitor analysis.',
-  },
-  {
-    step: '02',
-    title: 'Execution & Launch',
-    desc: 'Implementing the marketing strategies across chosen channels with precision and creativity.',
-  },
-  {
-    step: '03',
-    title: 'Monitoring & Analysis',
-    desc: 'Continuous tracking of campaign performance using advanced analytics tools to measure success.',
-  },
-  {
-    step: '04',
-    title: 'Optimization',
-    desc: 'Data-driven adjustments to improve campaign performance and maximize your return on investment.',
-  },
-];
-
-const faqs = [
-  {
-    question: 'Why does my business need digital marketing?',
-    answer: 'Digital marketing allows you to reach a global audience, target specific demographics, and measure your results in real-time, making it more cost-effective than traditional marketing.',
-  },
-  {
-    question: 'How long does it take to see results?',
-    answer: 'Results vary by service. SEM can drive traffic instantly, while SEO and content marketing are long-term strategies that typically show significant results in 3-6 months.',
-  },
-  {
-    question: 'Do you provide customized marketing plans?',
-    answer: 'Yes, we create tailored digital marketing strategies based on your unique business goals, industry, and target audience.',
-  },
-  {
-    question: 'How do you track the success of campaigns?',
-    answer: 'We use advanced tools like Google Analytics, Search Console, and platform-specific insights to track key metrics like traffic, conversions, and ROI.',
+    icon: Wrench,
+    title: 'Custom Utility Applications',
+    desc: 'Niche mobile and tablet tools built to perform specific tasks, offline calculations, biometric syncing, and hardware integrations perfectly.',
+    href: '/mobile-apps/utility-apps',
   },
 ];
 
 const valueProps = [
   {
-    title: 'Strategic Approach',
-    desc: "We don’t just execute tactics blindly; we craft strategic digital marketing plans tailored to each client's unique goals, target audience, and industry landscape.",
+    title: 'Strategic Architecture',
+    desc: 'We map out detailed wireframes, user touchpoints, and systemic flowcharts before writing a single line of database or frontend code.',
     icon: Target,
   },
   {
-    title: 'Proven Expertise',
-    desc: 'Our team comprises seasoned professionals with years of experience and a track record of driving tangible results for our clients across various digital marketing channels.',
+    title: 'App Store Expertise',
+    desc: 'Our expert team guides your app through the comprehensive compliance checklists required for swift approval on Google Play and Apple App Stores.',
     icon: Award,
   },
   {
-    title: 'Innovative Solutions',
-    desc: 'We stay ahead of the curve by constantly innovating and adapting to the latest trends and technologies in digital marketing, ensuring our clients always receive cutting-edge solutions.',
+    title: 'Cutting-Edge Tech Stack',
+    desc: 'By utilizing modern performance standards like Kotlin, Swift, Flutter, and React Native, your applications remain robust, scalable, and stable.',
     icon: Lightbulb,
   },
   {
-    title: 'Customized Strategies',
-    desc: 'We understand that one size doesn’t fit all. That’s why we take a personalized approach, customizing our strategies to meet the specific needs and objectives of each client.',
+    title: 'Custom Adaptations',
+    desc: 'Every layout is tailored to match your precise user personas, custom security parameters, and distinct corporate branding rules.',
     icon: Settings,
   },
   {
-    title: 'Data-Driven Insights',
-    desc: 'Our decisions are backed by data. We leverage advanced analytics tools to gather valuable insights, track performance metrics, and optimize our campaigns for maximum ROI.',
+    title: 'Data & Behavior Analytics',
+    desc: 'Integrate robust in-app click tracking, user journeys mapping, and system event logging to optimize user conversion loops over time.',
     icon: BarChart,
   },
   {
-    title: 'Transparent Communication',
-    desc: 'We believe in open and transparent communication with our clients every step of the way. From initial consultations to regular progress updates, we keep our clients informed and involved in the process.',
+    title: 'Transparent Collaboration',
+    desc: 'Receive active build updates, direct feedback opportunities, and sandbox testing credentials at every milestone of development.',
     icon: MessageSquare,
   },
   {
-    title: 'Collaborative Partnership',
-    desc: 'We view our clients as partners, not just customers. We collaborate closely with them to understand their business inside and out, aligning our efforts with their long-term vision and objectives.',
-    icon: Users,
+    title: 'Hardware Optimization',
+    desc: 'We configure deep hardware utilities like biometric authentication, cameras, bluetooth handshakes, and offline storage queues securely.',
+    icon: Cpu,
   },
   {
-    title: 'Continuous Improvement',
-    desc: 'We are committed to continuous improvement and learning. We stay curious, seek feedback, and constantly refine our strategies and processes to deliver even better results for our clients.',
+    title: 'Sustained Maintenance',
+    desc: 'Keep your application aligned with sudden OS changes, deprecation warnings, security patches, and modern smartphone designs.',
     icon: RefreshCw,
   },
   {
-    title: 'Exceptional Customer Service',
-    desc: 'Our dedicated team goes above and beyond to provide exceptional customer service and support. We’re always here to answer questions, address concerns, and ensure our clients are satisfied every step of the way.',
+    title: 'User-First Philosophy',
+    desc: 'We prioritize touch target guidelines, minimal loading visual gaps, and fluid interface layouts to delight users first.',
     icon: Heart,
   },
   {
-    title: 'Measurable Results',
-    desc: 'Ultimately, what makes us the best is our ability to deliver measurable results that drive business growth and success for our clients. We set clear objectives, track key performance indicators, and deliver tangible outcomes.’',
+    title: 'Scalable Cloud Backends',
+    desc: 'Ensure flawless, rapid data synchronization with secure, fast database backends capable of serving thousands of concurrent users.',
     icon: TrendingUp,
   },
 ];
 
-export default function DigitalMarketing() {
+const mobileProcess = [
+  {
+    step: '01',
+    title: 'Product Strategy & Logic',
+    desc: 'Establishing functional goals, backend pathways, competitor reviews, and targeted client personas.',
+  },
+  {
+    step: '02',
+    title: 'High-Fidelity UI/UX',
+    desc: 'Drafting responsive screen blueprints, custom interactive components, and comprehensive design systems.',
+  },
+  {
+    step: '03',
+    title: 'Development & APIs',
+    desc: 'Engineering optimize frontend code coupled with secure cloud APIs and highly safe payload exchanges.',
+  },
+  {
+    step: '04',
+    title: 'Testing & Store Launch',
+    desc: 'Running intensive device diagnostics, unit diagnostics, and managing the complete official app store release.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'How much does it cost to develop a custom mobile application?',
+    answer: 'The operational cost fluctuates depending on the structural complexity, overall feature count, visual design density, and choice of targets (Native Android/iOS or Cross-Platform Hybrid). We offer tailored development quotes based on your exact business roadmap.',
+  },
+  {
+    question: 'How long does the mobile app development lifecycle take?',
+    answer: 'A highly streamlined, clean MVP application typically spans 8 to 12 weeks. Large-scale enterprise platforms with microservice backends, extensive database integrations, or complicated hardware controls can require 16 to 24 weeks or more.',
+  },
+  {
+    question: 'Will you manage Google Play and Apple App Store submissions?',
+    answer: 'Absolutely. We coordinate and execute the entire marketplace compilation, legal privacy checks, application descriptions, and store screenshots, guaranteeing a complete submission that meets Apple and Google developer guidelines.',
+  },
+  {
+    question: 'Do you offer ongoing post-launch maintenance packages?',
+    answer: 'Yes. We provide recurring support and performance optimization plans to protect your software codebase against major operating system upgrades (iOS changes, Android versions), deprecation issues, and system expansions.',
+  },
+];
+
+export default function MobileAppDevelopment() {
   const advantagesList = [
     {
-      title: 'Borderless Global Reach',
-      subtitle: 'Worldwide Scaling',
-      desc: 'Showcase your products and services online to find new markets globally. A sophisticated web presence acts as a borderless global directory available 24/7.',
-      badge: 'Global Directories',
-      icon: Globe,
-      color: 'text-indigo-600 bg-indigo-50 border-indigo-100',
-      tagline: 'Connect instantly with customers in New York, London, Tokyo, and beyond from Kochi.'
+      title: 'Direct Consumer Engagement',
+      subtitle: 'Unrivaled Real Estate',
+      desc: 'Earn a permanent spot on your clients\' home screens. Having a dedicated application increases top-of-mind brand visibility and builds direct interactive connections.',
+      badge: 'Brand Real-Estate',
+      icon: Smartphone,
+      color: 'text-indigo-650 bg-indigo-50 border-indigo-100',
+      tagline: 'Stay active inside high-intent channels where modern users spend over 90% of their mobile time.'
     },
     {
-      title: 'Significantly Lower Cost',
-      subtitle: 'Budget Efficiency',
-      desc: 'Compared to traditional marketing like print or television, a properly planned and targeted digital marketing campaign can reach the right customer demographics at a much lower cost.',
-      badge: 'Highly Cost-Effective',
+      title: 'Flawless Push Alerts',
+      subtitle: 'Immediate Communication',
+      desc: 'Send fast, highly engaging alerts directly to your customer base. Bypass cluttered email folders with instant updates, tailored deals, or critical application notifications.',
+      badge: 'Immediate CTR Boost',
       icon: Zap,
       color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
-      tagline: 'Zero printed wastage. Pay exclusively for qualified clicks and active keywords search.'
+      tagline: 'Deliver time-sensitive announcements with instant, action-driven click-through paths.'
     },
     {
-      title: 'Improved Conversion Rates',
-      subtitle: 'Seamless Purchasing',
-      desc: 'If you list your services or products elegantly online, it becomes incredibly easy for people to make a direct purchase while searching. Digital marketing is seamless and immediate.',
-      badge: 'Instant Buying Intent',
-      icon: TrendingUp,
+      title: 'Deep Hardware Utilities',
+      subtitle: 'Advanced Capabilities',
+      desc: 'Leverage built-in device features seamlessly. Connect your system to core biometric parameters, device cameras, high-definition GPS routes, and native calendar schedules.',
+      badge: 'Hardware Syncing',
+      icon: Cpu,
       color: 'text-amber-650 bg-amber-50 border-amber-100',
-      tagline: 'Remove manual friction. Give buyers instant purchase control with one-click payment paths.'
+      tagline: 'Enable intuitive customer interactions like fingerprint authorization and automated site routing.'
     },
     {
-      title: 'Trackable, Measurable Results',
-      subtitle: 'Precision Metrics',
-      desc: 'Gain detailed information on how customers use your website or react to your advertising through advanced web analytics. No more guess-work or speculative budgets.',
-      badge: 'Precision Metrics',
-      icon: BarChart,
+      title: 'Offline Operational Flow',
+      subtitle: 'Continuous Accessibility',
+      desc: 'Give users essential access to features even during network outages. Native databases permit data lookups, draft writing, and transaction tracking offline.',
+      badge: 'Fail-Safe Availability',
+      icon: Shield,
       color: 'text-purple-650 bg-purple-50 border-purple-100',
-      tagline: 'Track metrics down to the millisecond with precise attribution models of campaign ROI.'
+      tagline: 'Keep business transactions queued securely for synchronization the exact second connection resumes.'
     },
     {
-      title: 'Deep Openness & Brand Loyalty',
-      subtitle: 'Trust & Reputation Builder',
-      desc: 'Being engaged in social media and managing it carefully builds powerful customer loyalty, fostering solid business reputation, high-integrity authority, and authentic client trust.',
-      badge: 'Reputation Framework',
-      icon: Users,
+      title: 'Elevated Brand Trust',
+      subtitle: 'Marketplace Authority',
+      desc: 'Earn strong credibility by maintaining a verified app store presence. Safe app store distribution proves your enterprise meets strict security, privacy, and development policies.',
+      badge: 'Store Verification',
+      icon: Code2,
       color: 'text-primary bg-primary/5 border-primary/10',
-      tagline: 'Direct, responsive consumer interaction cultivates long-term emotional brand advocate circles.'
+      tagline: 'Build immediate corporate authority under official Apple and Google licensing protocols.'
     }
   ];
+
   return (
     <main className="min-h-screen">
       <PageHeader
-        title="Digital Marketing Services Kochi"
-        description="Grow your business online with expert digital marketing strategies in Kerala. We specialize in SEO, SEM, SMM, and data-driven growth solutions."
+        title="Mobile App Development Kochi"
+        description="Top-rated mobile app development company in Kerala. We build custom Android, iOS, and Hybrid apps that drive business growth."
         breadcrumb={[
           { name: 'Services', href: '/services' },
-          { name: 'Digital Marketing', href: '/digital-marketing' },
+          { name: 'Mobile App Development', href: '/mobile-apps' },
         ]}
       />
 
@@ -227,24 +235,24 @@ export default function DigitalMarketing() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Growth Marketing Agency</span>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Mobile Innovation</span>
               <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6 leading-tight">
-                Scale Your Business with <span className="text-primary">Digital Excellence</span>
+                Building Next-Gen <span className="text-primary">Mobile Experiences</span>
               </h2>
               <p className="text-text-gray text-lg mb-6 leading-relaxed">
-                Grehasoft is a leading **digital marketing agency in Kochi**, dedicated to helping businesses achieve sustainable growth in the digital landscape. We combine creative thinking with data-driven strategies.
+                Grehasoft is a leading **mobile app development company in Kochi**, specialized in engineering fast, highly refined, and secure mobile applications. We help brands convert vision into flawless software products.
               </p>
               <p className="text-text-gray text-lg mb-8 leading-relaxed">
-                Our **digital marketing services in Kerala** cover the entire spectrum of online growth. Whether you are a startup or an established enterprise, we have the expertise to elevate your brand and drive measurable results.
+                From **Android app development in Kerala** to high-performing native **iOS apps in Kochi**, our multi-disciplinary engineers deploy clean code, beautiful aesthetics, and solid database pathways that scale organically.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
                 {[
-                  'Data-Driven SEO Strategies',
-                  'High-ROI Google Ads (SEM)',
-                  'Engaging Social Media Marketing',
-                  'Targeted Content Marketing',
-                  'Email Marketing Automation',
-                  'Transparent Analytics & Reporting'
+                  'Robust Native Kotlin & Swift',
+                  'Optimized Flutter & React Native',
+                  'Intuitive Touch Interface Design',
+                  'Secure Microservice API Sync',
+                  'Full App Store Submissions',
+                  'Reliable SLA Code Maintenanceing'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
@@ -253,7 +261,7 @@ export default function DigitalMarketing() {
                 ))}
               </div>
               <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                Get a Free Marketing Audit <ArrowRight className="w-5 h-5" />
+                Discuss Your Mobile Project <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
             <motion.div 
@@ -264,8 +272,8 @@ export default function DigitalMarketing() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50">
                 <img
-                  src="https://picsum.photos/seed/digital-marketing-kochi/1200/900"
-                  alt="Digital Marketing Kochi"
+                  src="https://picsum.photos/seed/mobile-kochi/1200/900"
+                  alt="Mobile App Development Kochi"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -277,8 +285,8 @@ export default function DigitalMarketing() {
                     <TrendingUp className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">150%</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Average Traffic Growth</p>
+                    <p className="text-2xl font-bold text-dark">99.9%</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">App Crash-Free Rate</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -286,8 +294,8 @@ export default function DigitalMarketing() {
                     <Rocket className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">200+</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Successful Campaigns</p>
+                    <p className="text-2xl font-bold text-dark">50+</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Store Launches Done</p>
                   </div>
                 </div>
               </div>
@@ -296,16 +304,16 @@ export default function DigitalMarketing() {
         </div>
       </section>
 
-      {/* Advantages of Digital Marketing - Custom Interactive Grid Layout (SEO-style Process) */}
-      <section className="section-padding bg-white overflow-hidden relative" id="advantages_digital_marketing_section">
+      {/* Advantages of going mobile - Custom interactive grid */}
+      <section className="section-padding bg-white overflow-hidden relative" id="advantages_mobile_apps_section">
         <div className="container-custom relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-6 block">Strategic Value</span>
             <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Unrivaled <span className="text-primary">Advantages</span> of Going Digital
+              Unrivaled <span className="text-primary">Advantages</span> of Custom Apps
             </h2>
             <p className="text-text-gray text-lg leading-relaxed font-sans">
-              Harness the capability of modern channels to optimize customer acquisition costs, capture global visibility, and build highly trusted corporate brands.
+              Engage clients directly with secure native databases, immediate notification structures, offline operational speed, and reliable device hardware access.
             </p>
           </div>
 
@@ -372,8 +380,8 @@ export default function DigitalMarketing() {
             whileInView={{ opacity: 1 }}
             className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-[3rem] border border-dashed border-primary/30"
           >
-            <p className="text-gray-705 font-medium leading-relaxed italic text-lg">
-              "Transitioning your commercial operations to modernized digital marketing tracks is the single most powerful step to achieve scalable, high-authority, and lower-cost customer growth."
+            <p className="text-gray-750 font-medium leading-relaxed italic text-lg">
+              "A custom mobile app acts as the center-point of modern corporate interaction, letting you securely scale brand authority, engage audiences without friction, and gain deeper consumer data insights."
             </p>
           </motion.div>
         </div>
@@ -384,12 +392,12 @@ export default function DigitalMarketing() {
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Marketing Expertise</span>
-            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Marketing Expertise</span></h2>
-            <p className="text-text-gray text-lg">We offer a comprehensive range of digital marketing services to help you reach your target audience and achieve your goals.</p>
+            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Mobile App Expertise</span></h2>
+            <p className="text-text-gray text-lg">We offer a full spectrum of mobile development services to meet your business needs.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {marketingServices.map((service, index) => (
+            {mobileServices.map((service, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -402,7 +410,7 @@ export default function DigitalMarketing() {
                   <service.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-bold text-dark mb-4">{service.title}</h3>
-                <p className="text-text-gray leading-relaxed mb-6">{service.desc}</p>
+                <p className="text-text-gray leading-relaxed mb-6 text-sm">{service.desc}</p>
                 <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
                   Learn More <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -412,7 +420,7 @@ export default function DigitalMarketing() {
         </div>
       </section>
 
-      {/* Online Marketing Strategies */}
+      {/* Platform & Product Blueprint */}
       <section className="section-padding bg-gray-50 border-t border-gray-100">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -424,26 +432,26 @@ export default function DigitalMarketing() {
             >
               <span className="text-accent font-bold uppercase tracking-widest text-sm block">Growth & Visibility Blueprint</span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-tight">
-                Online Marketing <span className="text-primary">Strategies</span> to Scale Internationally
+                Mobile Strategy <span className="text-primary">Blueprints</span> Built To Scale
               </h2>
               <div className="text-text-gray text-base leading-relaxed space-y-6 font-sans">
                 <p>
-                  At Grehasoft, marketing, technology, and analytics are the core pillars that guide our comprehensive strategic decisions. We build and refine robust strategies that are specifically tailored to scale your enterprise operations locally and globally. We help you achieve all major digital objectives across SEO, SEM, and SMM channels, actively optimizing websites alongside dynamic social feeds.
+                  At Grehasoft, mobile apps, database sync, and rapid API response layers are the primary pillars driving our functional software engineering. We architect and implement scalable code bases customized to expand your enterprise services. We resolve hard structural constraints across iOS, Android, and PWAs, allowing you to delight clients seamlessly.
                 </p>
                 <p>
-                  By optimizing websites, search indexing, and social media channels, we secure high brand loyalty and generate consistent sales. As your complete online marketing partner, we author engaging media content, manage performance-focused campaigns, and drive highly qualified organic leads directly to your storefront. Our custom plans act as catalysts to grant small and large brands unified access to the mass market.
+                  By creating responsive screens, fast cached data loops, and localized offline stores, we ensure maximum client retention. As your software partner, we build robust backend architectures, integrate secure payment platforms, and configure advanced telemetry tools that help you monitor performance metrics globally.
                 </p>
                 <p>
-                  Our advanced multi-channel solutions benefit businesses of all sizes by giving you reliable access to mass market channels. We enable you to connect with your precise buyer personas in a cost-effective, transparent, and measurable way—delivering deep personalization far superior to traditional print or broadcast media. Unlike legacy methods (print advertising or TV ads), our modern strategy ensures ultra-precise attribution.
+                  Our scalable solutions benefit organizations of any scale by establishing direct interaction lanes with your buyers. We help you skip third-party listing marketplaces, reduce intermediary dependencies, and establish secure personal channels to build long-term loyalty and scalable transaction volumes.
                 </p>
               </div>
               <div className="p-8 bg-white border border-gray-100 shadow-sm rounded-3xl">
-                <p className="text-primary font-semibold text-lg mb-2">High-Performing Paid Ads Ecosystems</p>
+                <p className="text-primary font-semibold text-lg mb-2">High-Performance Hybrid Platforms</p>
                 <p className="text-text-gray text-sm leading-relaxed mb-4">
-                  We deploy smart, tailored budgets across Google Search Ads, Facebook Ads, LinkedIn Networks, and strategic PPC paths to generate predictable lead flow and rapid customer action.
+                  We write extremely high-efficiency cross-platform applications that leverage unified code bases across iOS and Android, drastically lowering deployment costs while keeping core animations highly fluid.
                 </p>
                 <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Launch Your Custom Campaign <ArrowRight className="w-5 h-5" />
+                  Launch Your Mobile App <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </motion.div>
@@ -456,23 +464,23 @@ export default function DigitalMarketing() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/3]">
                 <img
-                  src="https://picsum.photos/seed/online-strategies-grehasoft/1200/900"
-                  alt="Online Marketing Strategies"
+                  src="https://picsum.photos/seed/mobile-strategies-grehasoft/1200/900"
+                  alt="Mobile Strategies"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               
               <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl space-y-4">
-                <div className="text-dark font-bold text-lg mb-2">Our Dual Marketing Engine</div>
+                <div className="text-dark font-bold text-lg mb-2">Our Dual Engine Approach</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="border-l-4 border-primary pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Mass Market Access</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Expand your brand presence and establish consistent top-of-mind recall on visual feed screens across global directories.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Direct Brand Real Estate</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Secure premium placement directly on user home screens, gaining 24/7 visual presence and automated notification channels.</p>
                   </div>
                   <div className="border-l-4 border-accent pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Hyper-Personalization</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Direct dynamic advertisements to precise visitor demographics based on verified, real-time consumer intent data.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Extreme Performance</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Optimize background threading, memory allocations, and network responses for rapid and friction-free user journeys.</p>
                   </div>
                 </div>
               </div>
@@ -488,7 +496,7 @@ export default function DigitalMarketing() {
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Excellence Standard</span>
             <h2 className="text-4xl font-extrabold text-dark mb-6">What Makes Us <span className="text-primary">the Best?</span></h2>
             <p className="text-text-gray text-lg">
-              At Grehasoft, we pride ourselves on being the epitome of excellence in the realm of digital marketing agencies. Here are the core values and capabilities that set us apart:
+              At Grehasoft, we pride ourselves on being the epitome of excellence in mobile app development. Here are the core values and capabilities that set us apart:
             </p>
           </div>
 
@@ -516,7 +524,7 @@ export default function DigitalMarketing() {
           <div className="mt-16 text-center">
             <div className="inline-block p-1 bg-gray-50 border border-gray-100 rounded-full">
               <div className="flex flex-wrap items-center justify-center gap-4 px-6 py-3 text-sm">
-                <span className="font-semibold text-dark">Ready to skyrocket your growth and capture massive online revenue?</span>
+                <span className="font-semibold text-dark">Ready to build your next custom mobile solution?</span>
                 <Link href="/contact" className="text-primary font-extrabold flex items-center gap-2 hover:gap-3 transition-all cursor-pointer">
                   Team up with Grehasoft <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -526,20 +534,20 @@ export default function DigitalMarketing() {
         </div>
       </section>
 
-      {/* Marketing Process */}
+      {/* Development Process */}
       <section className="section-padding bg-dark text-white overflow-hidden">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Growth Methodology</span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Marketing Workflow</span></h2>
-            <p className="text-gray-400 text-lg">A structured approach to building and scaling successful digital marketing campaigns.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Development Workflow</span></h2>
+            <p className="text-gray-400 text-lg">A structured and transparent approach to engineering highly reliable custom mobile apps.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting Line */}
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2" />
             
-            {marketingProcess.map((step, index) => (
+            {mobileProcess.map((step, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -567,11 +575,11 @@ export default function DigitalMarketing() {
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Support & Insights</span>
               <h2 className="text-4xl font-black text-dark mb-6 leading-tight">Frequent <br />Questions</h2>
               <p className="text-gray-500 mb-8">
-                Learn more about our digital marketing process, expectations, and reporting standards across Kerala.
+                Explore answers regarding timeline allocations, marketplace standards, and technical optimization loops.
               </p>
               <div className="p-8 bg-primary rounded-3xl text-white">
-                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Growth Tip</p>
-                <p className="text-lg italic font-medium">"Dynamic scaling starts with an integrated strategy. Keep all user touchpoints connected and fully tracked."</p>
+                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Development Tip</p>
+                <p className="text-lg italic font-medium">"Native-like responsive interactions deliver massive friction reduction. Always prioritize fast, secure cached storage loops."</p>
               </div>
             </div>
             <div className="lg:col-span-2 space-y-4">

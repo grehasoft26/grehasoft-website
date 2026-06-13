@@ -3,218 +3,226 @@
 import { useState, useEffect } from 'react';
 import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
-import { Megaphone, Search, MousePointerClick, Share2, BarChart, Globe, Mail, Target, CheckCircle2, ArrowRight, MessageSquare, TrendingUp, Zap, Shield, Users, Rocket, Facebook, Instagram, Youtube, Linkedin, Twitter, Pin, Award, Lightbulb, Heart, RefreshCw, Settings, ChevronDown } from 'lucide-react';
+import { 
+  Palette, 
+  PenTool, 
+  Layout, 
+  Shield, 
+  Zap, 
+  ArrowRight, 
+  CheckCircle2, 
+  ChevronDown, 
+  Award, 
+  Lightbulb, 
+  Settings, 
+  Heart, 
+  RefreshCw, 
+  TrendingUp, 
+  Users, 
+  Target, 
+  Rocket,
+  Paintbrush,
+  Eye,
+  Briefcase,
+  Compass,
+  Layers,
+  FileText,
+  Cpu
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 
-const marketingServices = [
+const brandingServices = [
   {
-    icon: Search,
-    title: 'SEO Services',
-    desc: 'Improve your organic search engine visibility and capture higher organic keyword traffic inside Kochi, Kerala, and across global listings.',
-    href: '/seo',
+    icon: Palette,
+    title: 'Graphic Design',
+    desc: 'Visually stunning and high-impact graphics designed to grab attention, deliver messages, and build brand reputation across digital platforms.',
+    href: '/branding/graphic-design',
   },
   {
-    icon: MousePointerClick,
-    title: 'SEM (Google Ads)',
-    desc: 'Capture immediate high-intent buyers with professionally optimized pay-per-click advertisements on target search engines.',
-    href: '/search-engine-marketing',
+    icon: Paintbrush,
+    title: 'Logo Design & Identity',
+    desc: 'Custom-crafted, iconic logos that convey your company\'s vision, value system, and industry authority with instant recall value.',
+    href: '/branding/logo-design',
   },
   {
-    icon: Share2,
-    title: 'Social Media Marketing',
-    desc: 'Cultivate strong online community hubs, establish dynamic touchpoints, and raise organic reach across top networks.',
-    href: '/social-media-marketing',
+    icon: Shield,
+    title: 'Branding Packages',
+    desc: 'All-inclusive corporate branding kits, typography structures, style guides, and master palettes designed from baseline research.',
+    href: '/branding/packages',
   },
   {
-    icon: Facebook,
-    title: 'Facebook Marketing',
-    desc: 'Target granular customer characteristics, create effective custom leads pipelines, and boost conversions using specialized Meta Ads.',
-    href: '/social-media-marketing/facebook',
+    icon: Layout,
+    title: 'User Interface (UI/UX) Design',
+    desc: 'Polished layouts, web elements design, and high-fidelity mockups crafted strictly to maximize retention and conversion loops.',
+    href: '/branding/ui-ux',
   },
   {
-    icon: Instagram,
-    title: 'Instagram Marketing',
-    desc: 'Engage modern viewers using pixel-perfect aesthetics, high-performing reels campaigns, and strategic brand integrations.',
-    href: '/social-media-marketing/instagram',
+    icon: FileText,
+    title: 'Brochure & Flyer Design',
+    desc: 'Professional, custom-tailored print and digital marketing collateral to reinforce your field campaigns and corporate pitches.',
+    href: '/branding/brochure-flyer',
   },
   {
-    icon: Youtube,
-    title: 'YouTube Marketing',
-    desc: 'Establish powerful thought leadership, product demonstrations, and video SEO paths with structured digital video campaigns.',
-    href: '/social-media-marketing/youtube',
-  },
-  {
-    icon: Linkedin,
-    title: 'LinkedIn Marketing',
-    desc: 'Engage key corporate leaders, manage professional B2B lead generation streams, and elevate corporate industry authority.',
-    href: '/social-media-marketing/linkedin',
-  },
-  {
-    icon: Pin,
-    title: 'Pinterest Marketing',
-    desc: 'Drive organic visual discovery, build thematic boards, and tap into visual search directories to direct traffic back to your shop.',
-    href: '/social-media-marketing/pinterest',
-  },
-  {
-    icon: Twitter,
-    title: 'Twitter Marketing',
-    desc: 'Capture real-time user engagement, lead dynamic trend conversations, and publish high-converting micro-updates.',
-    href: '/social-media-marketing/twitter',
-  },
-];
-
-const marketingProcess = [
-  {
-    step: '01',
-    title: 'Strategy & Planning',
-    desc: 'Defining clear goals and a roadmap to achieve them based on market research and competitor analysis.',
-  },
-  {
-    step: '02',
-    title: 'Execution & Launch',
-    desc: 'Implementing the marketing strategies across chosen channels with precision and creativity.',
-  },
-  {
-    step: '03',
-    title: 'Monitoring & Analysis',
-    desc: 'Continuous tracking of campaign performance using advanced analytics tools to measure success.',
-  },
-  {
-    step: '04',
-    title: 'Optimization',
-    desc: 'Data-driven adjustments to improve campaign performance and maximize your return on investment.',
-  },
-];
-
-const faqs = [
-  {
-    question: 'Why does my business need digital marketing?',
-    answer: 'Digital marketing allows you to reach a global audience, target specific demographics, and measure your results in real-time, making it more cost-effective than traditional marketing.',
-  },
-  {
-    question: 'How long does it take to see results?',
-    answer: 'Results vary by service. SEM can drive traffic instantly, while SEO and content marketing are long-term strategies that typically show significant results in 3-6 months.',
-  },
-  {
-    question: 'Do you provide customized marketing plans?',
-    answer: 'Yes, we create tailored digital marketing strategies based on your unique business goals, industry, and target audience.',
-  },
-  {
-    question: 'How do you track the success of campaigns?',
-    answer: 'We use advanced tools like Google Analytics, Search Console, and platform-specific insights to track key metrics like traffic, conversions, and ROI.',
+    icon: Briefcase,
+    title: 'Business Cards & Stationery',
+    desc: 'Premium design files for corporate business cards, letterheads, brand envelopes, and physical assets that establish authority immediately.',
+    href: '/branding/business-cards',
   },
 ];
 
 const valueProps = [
   {
-    title: 'Strategic Approach',
-    desc: "We don’t just execute tactics blindly; we craft strategic digital marketing plans tailored to each client's unique goals, target audience, and industry landscape.",
+    title: 'Human-Centered Concepting',
+    desc: 'We research exact client personas, market triggers, and competitor dynamics before illustrating a single visual concept.',
     icon: Target,
   },
   {
-    title: 'Proven Expertise',
-    desc: 'Our team comprises seasoned professionals with years of experience and a track record of driving tangible results for our clients across various digital marketing channels.',
-    icon: Award,
+    title: 'Vector Precision & Guidelines',
+    desc: 'We deliver ultra-sharp, mathematical vector files that scale flawlessly from 16px favicons to massive street-side exhibition bill-boards.',
+    icon: Compass,
   },
   {
-    title: 'Innovative Solutions',
-    desc: 'We stay ahead of the curve by constantly innovating and adapting to the latest trends and technologies in digital marketing, ensuring our clients always receive cutting-edge solutions.',
-    icon: Lightbulb,
+    title: 'Color Psychology Mapping',
+    desc: 'Our design team selects tone variations that represent your enterprise\'s specific traits, ensuring proper emotional responses from viewers.',
+    icon: Palette,
   },
   {
-    title: 'Customized Strategies',
-    desc: 'We understand that one size doesn’t fit all. That’s why we take a personalized approach, customizing our strategies to meet the specific needs and objectives of each client.',
+    title: 'Systemic Hierarchy Rules',
+    desc: 'We map detailed brand guidelines defining exact font uses, proper spacing ratios, and permitted background colors.',
     icon: Settings,
   },
   {
-    title: 'Data-Driven Insights',
-    desc: 'Our decisions are backed by data. We leverage advanced analytics tools to gather valuable insights, track performance metrics, and optimize our campaigns for maximum ROI.',
-    icon: BarChart,
+    title: 'Interactive Design Alignment',
+    desc: 'We design digital touchpoints with a strong focus on touch targets, negative spacing, and rapid visual reading flows.',
+    icon: Layout,
   },
   {
-    title: 'Transparent Communication',
-    desc: 'We believe in open and transparent communication with our clients every step of the way. From initial consultations to regular progress updates, we keep our clients informed and involved in the process.',
-    icon: MessageSquare,
+    title: 'Multi-Medium Adaptability',
+    desc: 'Every graphic asset is crafted to render cleanly on light and dark interfaces, print media, social feeds, and corporate software panels.',
+    icon: Layers,
   },
   {
-    title: 'Collaborative Partnership',
-    desc: 'We view our clients as partners, not just customers. We collaborate closely with them to understand their business inside and out, aligning our efforts with their long-term vision and objectives.',
-    icon: Users,
+    title: 'Total Copyright Transition',
+    desc: 'Gain 100% outright ownership and legal rights to all original vector files, design blueprints, and style guidelines securely.',
+    icon: Shield,
   },
   {
-    title: 'Continuous Improvement',
-    desc: 'We are committed to continuous improvement and learning. We stay curious, seek feedback, and constantly refine our strategies and processes to deliver even better results for our clients.',
+    title: 'Agile Collaborative Iterations',
+    desc: 'We establish modern staging reviews, interactive mockup playgrounds, and direct feedback loops with Senior Art Directors.',
     icon: RefreshCw,
   },
   {
-    title: 'Exceptional Customer Service',
-    desc: 'Our dedicated team goes above and beyond to provide exceptional customer service and support. We’re always here to answer questions, address concerns, and ensure our clients are satisfied every step of the way.',
-    icon: Heart,
+    title: 'Performance-Safe Optimization',
+    desc: 'Files are meticulously compressed as WebP and lightweight SVGs to keep your website speeds remarkably rapid.',
+    icon: Zap,
   },
   {
-    title: 'Measurable Results',
-    desc: 'Ultimately, what makes us the best is our ability to deliver measurable results that drive business growth and success for our clients. We set clear objectives, track key performance indicators, and deliver tangible outcomes.’',
-    icon: TrendingUp,
+    title: 'Esthetic Consistency',
+    desc: 'By building comprehensive visual design systems, your social pages, software layouts, and physical cards speak a single cohesive voice.',
+    icon: Heart,
   },
 ];
 
-export default function DigitalMarketing() {
+const designProcess = [
+  {
+    step: '01',
+    title: 'Audit & Discovery Scope',
+    desc: 'Deciphering corporate goals, target viewer psychological behaviors, competitors, and core value markers.',
+  },
+  {
+    step: '02',
+    title: 'Concept & Wireframe Drafts',
+    desc: 'Sketching multiple creative directions, layout wires, and typographic formulas for direct evaluation.',
+  },
+  {
+    step: '03',
+    title: 'Vector Refining & Detailing',
+    desc: 'Refining chosen concepts into perfect vector shapes, choosing color swatches, and building typography rules.',
+  },
+  {
+    step: '04',
+    title: 'Brand Book & Handover Assets',
+    desc: 'Assembling complete corporate mockups, exporting standard scaling formats, and releasing legal master copyrights.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Why choose custom strategic branding over cheap online logo generators?',
+    answer: 'Cheap template generators output repetitive, unoriginal vectors that cannot be trademarked, confusing your audience and weakening brand trust. A custom strategic branding campaign establishes secure credibility, unique brand storytelling, and consistent visual systems that command market premium.',
+  },
+  {
+    question: 'What deliverables are included inside a full corporate branding kit?',
+    answer: 'A comprehensive branding package from Grehasoft includes responsive primary/secondary logos, clean typography structures, detailed color guidelines, layout grid specifications, stationery vector files, business card layouts, social profile assets, and a complete design handbook.',
+  },
+  {
+    question: 'How long does a complete brand identity design project take?',
+    answer: 'A standard custom logo design lifecycle spans 2 to 3 weeks. A full enterprise identity blueprint — including research audits, custom guidelines books, collateral design, and online element scaling — typically requires 6 to 10 weeks.',
+  },
+  {
+    question: 'Do we receive full copyrights and vector file formats for our designs?',
+    answer: 'Yes, 100%. Upon finalizing and settling the design stages, full intellectual property copyrights are transferred to you. We hand over highly organized master vector packages (AI, SVG, EPS) along with print-ready PDFs and responsive web formats.',
+  },
+];
+
+export default function BrandingServicesPage() {
   const advantagesList = [
     {
-      title: 'Borderless Global Reach',
-      subtitle: 'Worldwide Scaling',
-      desc: 'Showcase your products and services online to find new markets globally. A sophisticated web presence acts as a borderless global directory available 24/7.',
-      badge: 'Global Directories',
-      icon: Globe,
-      color: 'text-indigo-600 bg-indigo-50 border-indigo-100',
-      tagline: 'Connect instantly with customers in New York, London, Tokyo, and beyond from Kochi.'
+      title: 'Instant Marketplace Recall',
+      subtitle: 'Premium Visual Real Estate',
+      desc: 'Form a permanent, memorable imprint on your target audience\'s memory. Consistent, beautiful visuals increase organic top-of-mind recall and build strong customer trust.',
+      badge: 'Immediate Recognition',
+      icon: Eye,
+      color: 'text-indigo-650 bg-indigo-50 border-indigo-100',
+      tagline: 'Establish an elite voice that elevates click-through ratios across print and web campaigns alike.'
     },
     {
-      title: 'Significantly Lower Cost',
-      subtitle: 'Budget Efficiency',
-      desc: 'Compared to traditional marketing like print or television, a properly planned and targeted digital marketing campaign can reach the right customer demographics at a much lower cost.',
-      badge: 'Highly Cost-Effective',
-      icon: Zap,
-      color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
-      tagline: 'Zero printed wastage. Pay exclusively for qualified clicks and active keywords search.'
-    },
-    {
-      title: 'Improved Conversion Rates',
-      subtitle: 'Seamless Purchasing',
-      desc: 'If you list your services or products elegantly online, it becomes incredibly easy for people to make a direct purchase while searching. Digital marketing is seamless and immediate.',
-      badge: 'Instant Buying Intent',
+      title: 'Sustained Premium Positioning',
+      subtitle: 'Market Value Dominance',
+      desc: 'Businesses with beautiful, well-documented design systems successfully escape commodity price battles. High-quality visuals establish immediate authority and justify premium pricing structures.',
+      badge: 'Margin Upgrade',
       icon: TrendingUp,
+      color: 'text-emerald-650 bg-emerald-50 border-emerald-100',
+      tagline: 'Position your business as the obvious premium choice inside Kerala\'s competitive corporate markets.'
+    },
+    {
+      title: 'Unbreakable Consumer Trust',
+      subtitle: 'Immediate Credibility',
+      desc: 'Sloppy design signals sloppy physical services. Perfect color balance, premium layouts, and consistent style guides assure current buyers that your operations meet strict standards.',
+      badge: 'Verified Integrity',
+      icon: Shield,
       color: 'text-amber-650 bg-amber-50 border-amber-100',
-      tagline: 'Remove manual friction. Give buyers instant purchase control with one-click payment paths.'
+      tagline: 'Deliver deep, structural reliability at the first point of contact with your potential leads.'
     },
     {
-      title: 'Trackable, Measurable Results',
-      subtitle: 'Precision Metrics',
-      desc: 'Gain detailed information on how customers use your website or react to your advertising through advanced web analytics. No more guess-work or speculative budgets.',
-      badge: 'Precision Metrics',
-      icon: BarChart,
+      title: 'Flawless Digital Translation',
+      subtitle: 'Smooth System Alignment',
+      desc: 'Our design systems translate smoothly onto advanced web apps, digital advertising campaigns, and interactive screens. Code-ready design components facilitate faster frontend builds.',
+      badge: 'Seamless Implementation',
+      icon: Cpu,
       color: 'text-purple-650 bg-purple-50 border-purple-100',
-      tagline: 'Track metrics down to the millisecond with precise attribution models of campaign ROI.'
+      tagline: 'Eliminate design fragmentation across social assets, mobile apps, and enterprise dashboards.'
     },
     {
-      title: 'Deep Openness & Brand Loyalty',
-      subtitle: 'Trust & Reputation Builder',
-      desc: 'Being engaged in social media and managing it carefully builds powerful customer loyalty, fostering solid business reputation, high-integrity authority, and authentic client trust.',
-      badge: 'Reputation Framework',
+      title: 'Emotional Audience Catalyst',
+      subtitle: 'Humanized Connection',
+      desc: 'Strategic art direction aligns your brand voice with the real-world motivations of your demographic. We construct visual stories that resonate deeply and convert viewers into loyal repeat advocates.',
+      badge: 'Direct Conversion Fuel',
       icon: Users,
       color: 'text-primary bg-primary/5 border-primary/10',
-      tagline: 'Direct, responsive consumer interaction cultivates long-term emotional brand advocate circles.'
+      tagline: 'Build immediate corporate authority under official Apple and Google licensing protocols.'
     }
   ];
+
   return (
     <main className="min-h-screen">
       <PageHeader
-        title="Digital Marketing Services Kochi"
-        description="Grow your business online with expert digital marketing strategies in Kerala. We specialize in SEO, SEM, SMM, and data-driven growth solutions."
+        title="Branding & Logo Design Kochi"
+        description="Top branding agency in Kerala. We create custom logos, corporate identity systems, rich graphics, and complete visual guidelines engineered to grow."
         breadcrumb={[
           { name: 'Services', href: '/services' },
-          { name: 'Digital Marketing', href: '/digital-marketing' },
+          { name: 'Branding & Design', href: '/branding' },
         ]}
       />
 
@@ -227,24 +235,24 @@ export default function DigitalMarketing() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Growth Marketing Agency</span>
+              <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Branding Innovation</span>
               <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6 leading-tight">
-                Scale Your Business with <span className="text-primary">Digital Excellence</span>
+                Crafting Identities that <span className="text-primary">Connect & Inspire</span>
               </h2>
               <p className="text-text-gray text-lg mb-6 leading-relaxed">
-                Grehasoft is a leading **digital marketing agency in Kochi**, dedicated to helping businesses achieve sustainable growth in the digital landscape. We combine creative thinking with data-driven strategies.
+                Grehasoft is a leading **branding agency in Kochi**, specializing in sculpting memorable corporate identity engines, clean typography frameworks, and modern, eye-safe web design styles.
               </p>
               <p className="text-text-gray text-lg mb-8 leading-relaxed">
-                Our **digital marketing services in Kerala** cover the entire spectrum of online growth. Whether you are a startup or an established enterprise, we have the expertise to elevate your brand and drive measurable results.
+                From hand-crafted **logo design in Kochi** to professional corporate identity packages across Kerala, our creators synthesize art, psychology, and design to help your company dominate digital marketplaces.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-10">
                 {[
-                  'Data-Driven SEO Strategies',
-                  'High-ROI Google Ads (SEM)',
-                  'Engaging Social Media Marketing',
-                  'Targeted Content Marketing',
-                  'Email Marketing Automation',
-                  'Transparent Analytics & Reporting'
+                  'Strategic Icon & Logo Craft',
+                  'Master Typographic Frameworks',
+                  'High-ROI Digital Graphics Packages',
+                  'Interactive Web Touchpoints UX',
+                  'Comprehensive Brand Guidelines Book',
+                  '100% Vector Source Copyrights'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-primary" />
@@ -253,7 +261,7 @@ export default function DigitalMarketing() {
                 ))}
               </div>
               <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                Get a Free Marketing Audit <ArrowRight className="w-5 h-5" />
+                Launch Your Brand Transformation <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
             <motion.div 
@@ -264,8 +272,8 @@ export default function DigitalMarketing() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50">
                 <img
-                  src="https://picsum.photos/seed/digital-marketing-kochi/1200/900"
-                  alt="Digital Marketing Kochi"
+                  src="https://picsum.photos/seed/branding-kochi/1200/900"
+                  alt="Branding & Design Kochi"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -274,11 +282,11 @@ export default function DigitalMarketing() {
               <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 hidden xl:block z-20">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <TrendingUp className="w-6 h-6" />
+                    <Palette className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">150%</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Average Traffic Growth</p>
+                    <p className="text-2xl font-bold text-dark">100%</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Original Artistry</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -286,8 +294,8 @@ export default function DigitalMarketing() {
                     <Rocket className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-dark">200+</p>
-                    <p className="text-xs text-text-gray uppercase font-bold">Successful Campaigns</p>
+                    <p className="text-2xl font-bold text-dark">120+</p>
+                    <p className="text-xs text-text-gray uppercase font-bold">Brand Kits Formulated</p>
                   </div>
                 </div>
               </div>
@@ -296,16 +304,16 @@ export default function DigitalMarketing() {
         </div>
       </section>
 
-      {/* Advantages of Digital Marketing - Custom Interactive Grid Layout (SEO-style Process) */}
-      <section className="section-padding bg-white overflow-hidden relative" id="advantages_digital_marketing_section">
+      {/* Advantages Section - Custom interactive grid */}
+      <section className="section-padding bg-white overflow-hidden relative" id="advantages_branding_design_section">
         <div className="container-custom relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-6 block">Strategic Value</span>
             <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Unrivaled <span className="text-primary">Advantages</span> of Going Digital
+              Unrivaled <span className="text-primary">Advantages</span> of Strategic Branding
             </h2>
             <p className="text-text-gray text-lg leading-relaxed font-sans">
-              Harness the capability of modern channels to optimize customer acquisition costs, capture global visibility, and build highly trusted corporate brands.
+              Engage clients directly with secure native databases, immediate notification structures, offline operational speed, and reliable device hardware access.
             </p>
           </div>
 
@@ -372,8 +380,8 @@ export default function DigitalMarketing() {
             whileInView={{ opacity: 1 }}
             className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-[3rem] border border-dashed border-primary/30"
           >
-            <p className="text-gray-705 font-medium leading-relaxed italic text-lg">
-              "Transitioning your commercial operations to modernized digital marketing tracks is the single most powerful step to achieve scalable, high-authority, and lower-cost customer growth."
+            <p className="text-gray-750 font-medium leading-relaxed italic text-lg">
+              "Strategic art direction is not just visual decoration; it is a long-term business accelerant that transforms standard communications into an elite asset, command premium pricing, and binds users directly."
             </p>
           </motion.div>
         </div>
@@ -384,12 +392,12 @@ export default function DigitalMarketing() {
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Marketing Expertise</span>
-            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Marketing Expertise</span></h2>
-            <p className="text-text-gray text-lg">We offer a comprehensive range of digital marketing services to help you reach your target audience and achieve your goals.</p>
+            <h2 className="text-4xl font-bold text-dark mb-6">Our <span className="text-primary">Design & Branding Expertise</span></h2>
+            <p className="text-text-gray text-lg">We offer a full spectrum of graphic and brand strategy services to match your goals.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {marketingServices.map((service, index) => (
+            {brandingServices.map((service, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -402,9 +410,9 @@ export default function DigitalMarketing() {
                   <service.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-bold text-dark mb-4">{service.title}</h3>
-                <p className="text-text-gray leading-relaxed mb-6">{service.desc}</p>
+                <p className="text-text-gray leading-relaxed mb-6 text-sm">{service.desc}</p>
                 <Link href={service.href} className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all">
-                  Learn More <ArrowRight className="w-4 h-4" />
+                  Explore Deliverable <ArrowRight className="w-4 h-4" />
                 </Link>
               </motion.div>
             ))}
@@ -412,7 +420,7 @@ export default function DigitalMarketing() {
         </div>
       </section>
 
-      {/* Online Marketing Strategies */}
+      {/* Platform & Product Blueprint */}
       <section className="section-padding bg-gray-50 border-t border-gray-100">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -424,26 +432,26 @@ export default function DigitalMarketing() {
             >
               <span className="text-accent font-bold uppercase tracking-widest text-sm block">Growth & Visibility Blueprint</span>
               <h2 className="text-4xl md:text-5xl font-extrabold text-dark leading-tight">
-                Online Marketing <span className="text-primary">Strategies</span> to Scale Internationally
+                Design Blueprints <span className="text-primary">Engineered</span> To Build Market Equity
               </h2>
               <div className="text-text-gray text-base leading-relaxed space-y-6 font-sans">
                 <p>
-                  At Grehasoft, marketing, technology, and analytics are the core pillars that guide our comprehensive strategic decisions. We build and refine robust strategies that are specifically tailored to scale your enterprise operations locally and globally. We help you achieve all major digital objectives across SEO, SEM, and SMM channels, actively optimizing websites alongside dynamic social feeds.
+                  At Grehasoft, visual rhythm, unified style parameters, and typography pairing schemes represent our core vectors for constructing brand equity. We draft secure, modern, high-precision vector artwork tailored strictly to project systemic authority and scale. We optimize readability matrices across both screens and physical sheets, letting you connect with potential leads flawlessly.
                 </p>
                 <p>
-                  By optimizing websites, search indexing, and social media channels, we secure high brand loyalty and generate consistent sales. As your complete online marketing partner, we author engaging media content, manage performance-focused campaigns, and drive highly qualified organic leads directly to your storefront. Our custom plans act as catalysts to grant small and large brands unified access to the mass market.
+                  By designing tailored icon patterns, choosing human-focused color weights, and establishing guidelines, we ensure long-term visual consistency. As your creative engineering partner, we deliver print-ready assets, configure SVG code blocks, and establish clear guidelines to protect your design patterns internationally.
                 </p>
                 <p>
-                  Our advanced multi-channel solutions benefit businesses of all sizes by giving you reliable access to mass market channels. We enable you to connect with your precise buyer personas in a cost-effective, transparent, and measurable way—delivering deep personalization far superior to traditional print or broadcast media. Unlike legacy methods (print advertising or TV ads), our modern strategy ensures ultra-precise attribution.
+                  Our scalable solutions benefit companies by establishing direct aesthetic clarity. We help you replace boring template resources, eliminate third-party licensing risks, and construct an elite, customized asset structure that guarantees long-term brand authority and high market premiums.
                 </p>
               </div>
               <div className="p-8 bg-white border border-gray-100 shadow-sm rounded-3xl">
-                <p className="text-primary font-semibold text-lg mb-2">High-Performing Paid Ads Ecosystems</p>
+                <p className="text-primary font-semibold text-lg mb-2">High-Resolution Vector Architectures</p>
                 <p className="text-text-gray text-sm leading-relaxed mb-4">
-                  We deploy smart, tailored budgets across Google Search Ads, Facebook Ads, LinkedIn Networks, and strategic PPC paths to generate predictable lead flow and rapid customer action.
+                  We write extremely performant vector code assets and prepare extensive design guides that leverage unified designs, drastically simplifying future web development while maintaining brand integrity.
                 </p>
                 <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
-                  Launch Your Custom Campaign <ArrowRight className="w-5 h-5" />
+                  Launch Your Branding Project <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </motion.div>
@@ -456,23 +464,23 @@ export default function DigitalMarketing() {
             >
               <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white aspect-[4/3]">
                 <img
-                  src="https://picsum.photos/seed/online-strategies-grehasoft/1200/900"
-                  alt="Online Marketing Strategies"
+                  src="https://picsum.photos/seed/branding-strategies-grehasoft/1200/900"
+                  alt="Branding Strategies"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               
               <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl space-y-4">
-                <div className="text-dark font-bold text-lg mb-2">Our Dual Marketing Engine</div>
+                <div className="text-dark font-bold text-lg mb-2">Our Dual Engine Approach</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="border-l-4 border-primary pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Mass Market Access</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Expand your brand presence and establish consistent top-of-mind recall on visual feed screens across global directories.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Stretched Recall Value</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Synthesize iconic visual identifiers that hook interest across competitive feeds and stay top-of-mind eternally.</p>
                   </div>
                   <div className="border-l-4 border-accent pl-4">
-                    <div className="font-extrabold text-dark text-sm mb-1">Hyper-Personalization</div>
-                    <p className="text-xs text-text-gray leading-relaxed">Direct dynamic advertisements to precise visitor demographics based on verified, real-time consumer intent data.</p>
+                    <div className="font-extrabold text-dark text-sm mb-1">Design System Uniformity</div>
+                    <p className="text-xs text-text-gray leading-relaxed">Establish strict layouts, font pairing hierarchies, and padding guides to secure seamless digital scaling.</p>
                   </div>
                 </div>
               </div>
@@ -488,11 +496,11 @@ export default function DigitalMarketing() {
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Excellence Standard</span>
             <h2 className="text-4xl font-extrabold text-dark mb-6">What Makes Us <span className="text-primary">the Best?</span></h2>
             <p className="text-text-gray text-lg">
-              At Grehasoft, we pride ourselves on being the epitome of excellence in the realm of digital marketing agencies. Here are the core values and capabilities that set us apart:
+              At Grehasoft, we pride ourselves on being the epitome of excellence in corporate branding. Here are the core values and capabilities that set us apart:
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {valueProps.map((prop, idx) => (
               <motion.div
                 key={idx}
@@ -506,7 +514,7 @@ export default function DigitalMarketing() {
                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     <prop.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-dark mb-3 leading-snug">{prop.title}</h3>
+                  <h3 className="text-base font-bold text-dark mb-3 leading-snug">{prop.title}</h3>
                   <p className="text-text-gray text-xs leading-relaxed font-sans">{prop.desc}</p>
                 </div>
               </motion.div>
@@ -516,7 +524,7 @@ export default function DigitalMarketing() {
           <div className="mt-16 text-center">
             <div className="inline-block p-1 bg-gray-50 border border-gray-100 rounded-full">
               <div className="flex flex-wrap items-center justify-center gap-4 px-6 py-3 text-sm">
-                <span className="font-semibold text-dark">Ready to skyrocket your growth and capture massive online revenue?</span>
+                <span className="font-semibold text-dark">Ready to design your next brand asset with us?</span>
                 <Link href="/contact" className="text-primary font-extrabold flex items-center gap-2 hover:gap-3 transition-all cursor-pointer">
                   Team up with Grehasoft <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -526,20 +534,20 @@ export default function DigitalMarketing() {
         </div>
       </section>
 
-      {/* Marketing Process */}
+      {/* Development Process */}
       <section className="section-padding bg-dark text-white overflow-hidden">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 block">Our Growth Methodology</span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Marketing Workflow</span></h2>
-            <p className="text-gray-400 text-lg">A structured approach to building and scaling successful digital marketing campaigns.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">The <span className="text-primary">Branding Workflow</span></h2>
+            <p className="text-gray-400 text-lg">A structured and highly collaborative workflow to engineering distinctive, memorable identities.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting Line */}
             <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -translate-y-1/2" />
             
-            {marketingProcess.map((step, index) => (
+            {designProcess.map((step, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -567,11 +575,11 @@ export default function DigitalMarketing() {
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">Support & Insights</span>
               <h2 className="text-4xl font-black text-dark mb-6 leading-tight">Frequent <br />Questions</h2>
               <p className="text-gray-500 mb-8">
-                Learn more about our digital marketing process, expectations, and reporting standards across Kerala.
+                Learn more about vector standards, timeline schedules, intellectual property, and branding book guidelines.
               </p>
               <div className="p-8 bg-primary rounded-3xl text-white">
-                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Growth Tip</p>
-                <p className="text-lg italic font-medium">"Dynamic scaling starts with an integrated strategy. Keep all user touchpoints connected and fully tracked."</p>
+                <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">Creative Tip</p>
+                <p className="text-lg italic font-medium">"Strategic design represents raw business architecture. Avoid generic vector templates to claim authentic value."</p>
               </div>
             </div>
             <div className="lg:col-span-2 space-y-4">
