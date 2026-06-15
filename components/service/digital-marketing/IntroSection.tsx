@@ -118,53 +118,108 @@ export default function IntroSection({
           </motion.div>
 
           {/* RIGHT IMAGE */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
+        {/* RIGHT IMAGE */}
+<motion.div
+  initial={{ opacity: 0, scale: 0.9 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8 }}
+  className="relative flex justify-center"
+>
+  {/* MAIN IMAGE CARD */}
+  <motion.div
+    className="relative aspect-[4/5] w-full max-w-[500px] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl"
+    animate={{
+      y: [0, -15, 0],
+      rotate: [2, 3, 2],
+    }}
+    transition={{
+      y: {
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+      rotate: {
+        duration: 8,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    }}
+  >
+    <Image
+      src={heroImageUrl || featuredImage}
+      alt={acf?.hero_title1 || "Service Image"}
+      fill
+      className="object-cover"
+      priority
+    />
+  </motion.div>
 
-           <div className="relative aspect-[4/5] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl">
+  {/* TOP RIGHT FLOATING BADGE */}
+  <motion.div
+    className="absolute top-10 -right-4 lg:-right-8 bg-white px-5 py-3 rounded-2xl shadow-xl border border-gray-100 hidden md:flex items-center gap-3"
+    animate={{
+      y: [0, -12, 0],
+    }}
+    transition={{
+      duration: 3,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+  >
+    <div className="w-3 h-3 bg-green-500 rounded-full" />
+    <span className="text-sm font-semibold text-dark">
+      High Performance
+    </span>
+  </motion.div>
 
-            <Image
-  src={heroImageUrl || featuredImage}
-  alt={acf?.hero_title1 || "Service Image"}
-  fill
-  className="object-cover"
-/>
+  {/* BOTTOM LEFT FLOATING BADGE */}
+  <motion.div
+    className="absolute bottom-16 -left-4 lg:-left-8 bg-white px-5 py-3 rounded-2xl shadow-xl border border-gray-100 hidden md:flex items-center gap-3"
+    animate={{
+      y: [0, 12, 0],
+    }}
+    transition={{
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+  >
+    
+    
+  </motion.div>
 
-            </div>
+  {/* EXISTING STATS CARD */}
+  {acf.stat_3_text && (
+    <motion.div
+      className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-xl border border-gray-100 hidden md:block"
+      animate={{
+        y: [0, -8, 0],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+          <TrendingUp className="w-6 h-6" />
+        </div>
 
-            {/* FLOATING BOX */}
-            {acf.stat_3_text && (
-              <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-xl border border-gray-100 hidden md:block">
+        <div>
+          <p className="text-xl font-bold text-dark">
+            {acf.stat_3_text}
+          </p>
 
-                <div className="flex items-center gap-4">
-
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
-                    <TrendingUp className="w-6 h-6" />
-                  </div>
-
-                  <div>
-
-                    <p className="text-xl font-bold text-dark">
-                      {acf.stat_3_text}
-                    </p>
-
-                    <p className="text-sm text-gray-400">
-                      {acf.stat_3_number}
-                    </p>
-
-                  </div>
-
-                </div>
-
-              </div>
-            )}
-
-          </motion.div>
+          <p className="text-sm text-gray-400">
+            {acf.stat_3_number}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  )}
+</motion.div>
 
         </div>
 

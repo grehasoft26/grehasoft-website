@@ -55,7 +55,7 @@ if (!slides.length) {
 }
 
   return (
-    <section className="relative min-h-screen w-full flex items-center overflow-hidden bg-dark">
+<section className="relative min-h-[55vh] xl:min-h-screen w-full flex items-start lg:items-center overflow-hidden bg-dark pt-16 lg:pt-0">
 
       {/* Background */}
       <div className="absolute inset-0 z-0">
@@ -77,7 +77,7 @@ if (!slides.length) {
   loop
   preload="auto"
   poster={slides[currentIndex]?.thumbnail}
-  className={`w-full h-full object-center ${isMobile ? "object-contain" : "object-cover"}`}
+className={`w-full h-full object-center ${isMobile ? "object-contain" : "object-cover"}`}
 >
   <source
     key={slides[currentIndex].video}   // ⭐ VERY IMPORTANT
@@ -100,42 +100,67 @@ if (!slides.length) {
       </div>
 
       {/* Content */}
-      <div className="container-custom relative z-10 text-left text-white px-4">
+      {/* <div className="container-custom relative z-10 text-left text-white px-4">
         <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-2xl"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1 mb-6 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
-          <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-          {/* Label - Desktop only */}
-    <span className="hidden md:inline-block  text-sm ">
+  key={currentIndex}
+  initial={{ opacity: 0, x: -30 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8 }}
+  className="max-w-2xl pt-10 md:pt-0"
+> */}
+  {/* <div className="inline-flex items-center gap-2 px-4 py-1 mb-4 md:mb-6 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
+    <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+    <span className="text-xs md:text-sm">
       {slides[currentIndex]?.label}
     </span>
-           </div>
-         {/* Title - All devices */}
-    <h1 className="text-2xl md:text-6xl font-bold mb-4 md:mb-6 uppercase text-white">
-      {slides[currentIndex]?.title}
-    </h1>
- {/* Description - Desktop only */}
-    <p className="hidden md:block text-white/70 mb-10 max-w-lg">
-      {slides[currentIndex]?.description}
-    </p>
+  </div>
 
-         <Link href="/services" className="group inline-flex items-center gap-3 uppercase tracking-[0.3em] text-sm text-white transition duration-300">
-  
-  <span className="relative pb-1 transition duration-300 group-hover:text-green-400">
-    Explore Services
-    <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white/40 transition duration-300 group-hover:bg-green-400"></span>
-  </span>
+ <h1 className="text-[20px] md:text-6xl font-bold mb-4 md:mb-6 uppercase text-white leading-tight">
+    {slides[currentIndex]?.title}
+  </h1>
 
-  <ArrowRight className="w-4 h-4 transition duration-300 group-hover:text-green-400 group-hover:translate-x-1" />
+  <p className="hidden md:block text-white/70 text-sm md:text-base mb-6 md:mb-10 max-w-lg">
+  {slides[currentIndex]?.description}
+</p>
 
-</Link>
-        </motion.div>
-      </div>
+  <Link
+  href="/services"
+  className="hidden md:inline-flex group items-center gap-3 uppercase tracking-[0.3em] text-sm text-white transition duration-300"
+>
+    <span className="relative pb-1 transition duration-300 group-hover:text-green-400">
+      Explore Services
+      <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white/40 transition duration-300 group-hover:bg-green-400"></span>
+    </span>
+
+    <ArrowRight className="w-4 h-4 transition duration-300 group-hover:text-green-400 group-hover:translate-x-1" />
+  </Link> */}
+{/* </motion.div>
+      </div> */}
+
+{/* 
+      {/* Mobile description Below Video */}
+
+{/* <div className="md:hidden absolute bottom-35 left-4 right-4 z-30">
+<p className="text-white/70 text-[11px] leading-4 max-w-[220px]">
+   {slides[currentIndex]?.description}
+</p>
+</div> */}
+
+{/* Mobile Button Below Video */}
+{/* <div className="md:hidden absolute bottom-24 left-4 right-4 z-30">
+ 
+  <Link
+  href="/services"
+  className="group inline-flex items-center gap-2 uppercase tracking-[0.15em] text-xs text-white mt-2"
+>
+    <span className="relative pb-1">
+      Explore Services
+      <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white/40"></span>
+    </span>
+
+    <ArrowRight className="w-3 h-3" />
+  </Link>
+</div> */} 
 
       {/* Progress Bars */}
       <div className="absolute bottom-12 left-12 flex gap-3 z-30">

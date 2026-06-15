@@ -18,8 +18,9 @@ export async function getHomeData(): Promise<HomeData> {
   let slidesData: any[] = [];
   let servicesData: any[] = [];
   let clientsData: any[] = [];
-  let portfolioProjects: any[] = [];
-  let portfolioCategories: any[] = [];
+ let portfolioProjects: any[] = [];
+ let portfolioCategories: any[] = [];
+
   let contactData: any = null;
   let footerData: any = null;
   let footerMenu: any[] = [];
