@@ -110,12 +110,12 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                 SERVICE {acf?.service_tag}
               </span>
 
-              <h2
+              <h3
                 className="
-                  text-[34px]
-                  sm:text-[44px]
-                  md:text-[54px]
-                  lg:text-[64px]
+                  text-[24px]
+                  sm:text-[34px]
+                  md:text-[44px]
+                  lg:text-[54px]
 
                   font-bold
                   text-[#0b0b45]
@@ -127,7 +127,7 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                 "
               >
                <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent"> {acf?.hero_title}</span>
-              </h2>
+              </h3>
 
               <p
                 className="

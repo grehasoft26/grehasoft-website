@@ -73,7 +73,7 @@ export default function WhyChooseUs() {
             transition={{ duration: 0.8 }}
             className="text-4xl md:text-5xl lg:text-6xl font-black text-dark mb-6 tracking-tight leading-none"
           >
-            Why Choose  <span className="text-primary">Grehasoft?</span>
+            Why <span className="text-primary"> Grehasoft </span> Is Kochi's Most Trusted IT Partner
           </motion.h2>
           
           <motion.p

@@ -284,32 +284,32 @@ const faqs = [
   {
     id: 1,
     category: 'company',
-    question: "Which is the best software company in Kochi, Kerala?",
-    answer: "Grehasoft is widely recognized as one of the best software companies in Kochi, Kerala, known for delivering high-quality, innovative IT solutions tailored to business needs."
+    question: "Why is Grehasoft considered the best IT company in Kochi?",
+    answer: "Grehasoft has over 10 years of IT delivery experience, a team of 50+ engineers and designers based in Kochi, and a track record of 100+ successful projects across Kerala. We combine technical depth with business strategy — delivering measurable results rather than just completing tasks. Our Kakkanad-based teams serve clients from Ernakulam to Thiruvananthapuram."
   },
   {
     id: 2,
     category: 'services',
-    question: "Can Grehasoft handle enterprise-level software projects?",
-    answer: "Yes, we have extensive experience in managing and delivering complex, enterprise-level software projects with scalable architectures, enterprise-grade databases, and robust security frameworks."
+    question: "How long does a software development project take at Grehasoft?",
+    answer: "Project timelines at Grehasoft range from 2 weeks for a landing page to 6–12 months for a full ERP or custom enterprise software system. We follow Agile project management with milestone-based delivery so clients in Kochi and across Kerala always know exactly where their project stands."
   },
   {
     id: 3,
     category: 'services',
-    question: "What services does Grehasoft offer for businesses and startups?",
-    answer: "We offer a comprehensive suite of digital solutions, including premium website design, custom software development, high-performance mobile apps, data-driven digital marketing, and strategic IT consulting."
+    question: "What services does Grehasoft offer as an IT company in Kochi?",
+    answer: "Grehasoft offers six core IT services from its Kochi offices: website design and development, mobile app development, SEO and digital marketing, branding and graphic design, custom software and ERP/CRM systems, and cloud and backend technology services. We serve startups, SMEs, and enterprises across Ernakulam, Kakkanad, Infopark, and all of Kerala."
   },
   {
     id: 4,
     category: 'services',
-    question: "How much does custom software development cost in Kochi?",
-    answer: "The cost depends on project parameters such as feature complexity, timeline, and technology stack. We believe in transparency and offer competitive pricing with detailed, structural breakdowns after initial consultations."
+    question: "How much does it cost to build a website with an IT company in Kochi?",
+    answer: "Website development costs in Kochi typically range from ₹15,000 for basic landing pages to ₹3,00,000 or more for custom e-commerce or web application projects. Grehasoft offers transparent, milestone-based pricing with no hidden charges — get a free detailed quote from our Kochi team by contacting us today."
   },
   {
     id: 5,
     category: 'services',
-    question: "How can Grehasoft help a startup in Kerala?",
-    answer: "We offer end-to-end technical companionship for startups, ranging from prototyping and Minimum Viable Product (MVP) designs to agile scaling and global SEO optimization."
+    question: "Which areas does Grehasoft serve?",
+    answer: "Grehasoft serves businesses across Kerala, India, and international markets, including GCC countries. Based in Infopark, Kakkanad, Kochi, we provide website development, custom software, mobile app development, ERP, CRM, SEO, digital marketing, branding, and end-to-end technology solutions for startups, SMEs, and enterprises worldwide."
   },
   {
     id: 6,
@@ -320,20 +320,20 @@ const faqs = [
   {
     id: 7,
     category: 'services',
-    question: "Does Grehasoft provide mobile app development services in Kochi?",
-    answer: "Absolutely. Our mobile engineering focus delivers beautiful native iOS, Android, and modular cross-platform apps characterized by smooth animations and offline state handling."
+    question: "Does Grehasoft provide mobile app development in Kochi?",
+    answer: "Yes. Grehasoft provides native Android, iOS, Hybrid, and Progressive Web App (PWA) development from our Kochi development centre in Kakkanad, Infopark. We build apps for startups launching their first product and enterprises modernising existing systems — across Kerala and beyond"
   },
   {
     id: 8,
     category: 'company',
-    question: "How do I contact Grehasoft for a project?",
-    answer: "You can use our secure online contact form, text us directly via WhatsApp, or call our team for friendly expert guidance. We usually respond with full system outlines within 24 business hours."
+    question: "Does Grehasoft offer digital marketing services in Kochi?",
+    answer: "Yes. Grehasoft provides full-spectrum digital marketing services to businesses in Kochi, Ernakulam, and across Kerala — including SEO, Google Ads (SEM), social media marketing on Facebook, Instagram, YouTube, and LinkedIn, and performance analytics. Our campaigns are built to generate qualified leads and real ROI."
   },
   {
     id: 9,
     category: 'company',
-    question: "Why should I choose Grehasoft over other software companies in Kochi?",
-    answer: "Our commitments set us apart: absolute transparency, rigorous UX design principles, scalable framework architectures, and a proven track record of digital operational optimization."
+    question: "How do I contact Grehasoft for a free IT consultation in Kochi?",
+    answer: "You can reach Grehasoft through our website contact form, by calling our Kochi office directly, or by visiting our offices in Kakkanad, Ernakulam. We offer a free initial consultation with our senior IT strategists — with no obligation — to assess your requirements and recommend the right technology solution for your business."
   }
 ];
 

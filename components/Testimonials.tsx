@@ -216,9 +216,9 @@ import { Quote, Star, ArrowUpRight, CheckCircle, Shield, Sparkles } from 'lucide
 const testimonials = [
   {
     id: 1,
-    name: 'John Doe',
-    role: 'CEO, TechCorp',
-    content: "Grehasoft's expertise in software development has been a game-changer for our business. Their team is professional, innovative, and highly responsive.",
+    name: 'SumesH VadakkumkarayiL',
+    role: '',
+    content: "We engaged Grehasoft for our Ecommerce website design, SMM, SEO, and Google Business Listing management, and the overall experience has been smooth and well-coordinated. The team understood our website requirements clearly and developed a website that presents our business in a simple and professional way.",
     image: 'https://picsum.photos/seed/user1/200/200',
     rating: 5,
     metrics: '99.8% Project Delivery Rate',
@@ -226,9 +226,9 @@ const testimonials = [
   },
   {
     id: 2,
-    name: 'Sarah Smith',
-    role: 'Marketing Director, GlobalBrand',
-    content: "The digital marketing strategies implemented by Grehasoft have significantly boosted our online presence and ROI. Highly recommended!",
+    name: 'Rafal Embroidery',
+    role: '',
+    content: "We contacted Grehasoft first for our website development, and then for SMM, SEO, and Google Business Profile management, and the experiences were so good from start to finish. They understood our requirements clearly and delivered an SEO friendly website that represents our business well.",
     image: 'https://picsum.photos/seed/user2/200/200',
     rating: 5,
     metrics: '340% Traffic Increase',
@@ -236,10 +236,20 @@ const testimonials = [
   },
   {
     id: 3,
-    name: 'Michael Brown',
-    role: 'CTO, InnovateX',
-    content: "Their PMS product has streamlined our operations and improved our efficiency by 40%. A truly remarkable solution for modern businesses.",
+    name: 'Muhammed Nishab K. Shamsudheen',
+    role: '',
+    content: "Good experience with Grehasoft! Their Professional and creative website design services helped us build both our business and personal websites with outstanding quality and professionalism. Their SEO services really improved our search visibility, and the Local Map Listing support made it easier for customers to find us. Highly recommended!",
     image: 'https://picsum.photos/seed/user3/200/200',
+    rating: 5,
+    metrics: '40% Productivity Efficiency Boost',
+    stats: 'No Extra Workforce Required'
+  },
+  {
+    id: 4,
+    name: 'Chithra Shukla',
+    role: '',
+    content: "I’m very satisfied with Grehasoft’s e-commerce website development services. They built my online store from scratch with great attention to design, speed, performance, and user experience. Their team is professional, reliable, and detail-oriented. I truly believe Grehasoft is one of the best e-commerce service providers I have worked with. Thanks a million Raji and team!!!",
+    image: 'https://picsum.photos/seed/user4/200/200',
     rating: 5,
     metrics: '40% Productivity Efficiency Boost',
     stats: 'No Extra Workforce Required'

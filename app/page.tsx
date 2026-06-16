@@ -14,7 +14,10 @@ import FAQ from '@/components/FAQ';
 import TrustedITSection from '@/components/TrustedITSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
 
+
 import { getHomeData } from '@/lib/api';
+import KochiIntroSection from '@/components/KochiIntroSection';
+import EndToEndServicesIntro from '@/components/EndToEndServicesIntro';
 
 export const revalidate = 60;
 
@@ -25,7 +28,8 @@ export default async function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero slides={homeData.hero} />
-      
+      <KochiIntroSection />
+      <EndToEndServicesIntro />
       <StickyScrollServices initialServices={homeData.services || []} />
       <TrustedITSection />
       <Clients initialClients={homeData.clients || []} />
