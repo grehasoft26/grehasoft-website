@@ -18,9 +18,52 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 import { getHomeData } from '@/lib/api';
 import KochiIntroSection from '@/components/KochiIntroSection';
 import EndToEndServicesIntro from '@/components/EndToEndServicesIntro';
+import type { Metadata } from "next";
 
 export const revalidate = 60;
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const res = await fetch(
+      "https://cms.grehasoft.com/wp-json/wp/v2/pages/1072?_fields=yoast_head_json",
+      {
+        next: { revalidate: 60 },
+      }
+    );
 
+    if (!res.ok) {
+      return {};
+    }
+
+    const page = await res.json();
+
+    return {
+      title: page?.yoast_head_json?.title || "GrehaSoft",
+      description: page?.yoast_head_json?.description || "",
+
+      alternates: {
+        canonical: page?.yoast_head_json?.og_url,
+      },
+
+      openGraph: {
+        title: page?.yoast_head_json?.og_title,
+        description: page?.yoast_head_json?.og_description,
+        url: page?.yoast_head_json?.og_url,
+        images:
+          page?.yoast_head_json?.og_image?.map(
+            (img: { url: string }) => img.url
+          ) || [],
+      },
+
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  } catch (error) {
+    console.error("Home metadata error:", error);
+    return {};
+  }
+}
 export default async function Home() {
   const homeData = await getHomeData();
 
