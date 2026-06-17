@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   );
 
   const page = await res.json();
-console.log(page.yoast_head_json);
+
   return {
     
    title: page?.yoast_head_json?.title || "GrehaSoft",
