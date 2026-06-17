@@ -26,6 +26,14 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
+       {homeData.schemaJson && (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: homeData.schemaJson,
+      }}
+    />
+  )}
       <Navbar />
       <Hero slides={homeData.hero} />
       <KochiIntroSection />

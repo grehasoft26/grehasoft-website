@@ -13,18 +13,42 @@ const poppins = Poppins({
   variable: '--font-sans',
 });
 
-export const metadata: Metadata = {
-  title: 'Grehasoft | Modern IT Solutions & Digital Agency',
-  description: 'Grehasoft is a leading IT company providing premium software solutions, digital marketing, and PMS products.',
-  keywords: ['IT Company', 'Software Development', 'PMS', 'Digital Agency', 'Grehasoft'],
- icons: {
-    icon: '/images/icon.png',
+export async function generateMetadata(): Promise<Metadata> {
+  const res = await fetch(
+    "https://cms.grehasoft.com/wp-json/wp/v2/pages/1072?_fields=yoast_head_json",
+    { next: { revalidate: 60 } }
+  );
+
+  const page = await res.json();
+console.log(page.yoast_head_json);
+  return {
+    
+   title: page?.yoast_head_json?.title || "GrehaSoft",
+  description: page?.yoast_head_json?.description || "",
+
+  alternates: {
+     canonical: page?.yoast_head_json?.og_url,
   },
-  robots: {
-    index: false,
-    follow: false,
+
+  openGraph: {
+    title: page?.yoast_head_json?.og_title,
+    description: page?.yoast_head_json?.og_description,
+    url: page?.yoast_head_json?.og_url,
+    images: page?.yoast_head_json?.og_image?.map(
+      (img: { url: string }) => img.url
+    ) || [],
   },
-};
+
+    icons: {
+      icon: "/images/icon.png", // adjust path if needed
+    },
+
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 export default function RootLayout({
   children,

@@ -80,6 +80,7 @@ export async function getHomeData(): Promise<HomeData> {
   }
 
   const acf = pageData?.acf || {};
+  //console.log(acf.schema_json);
   const aboutMedia = pageData?.about_media || {};
   const awardsMedia = pageData?.awards_media || {};
   const pmsMedia = pageData?.pms_media || {};
@@ -96,6 +97,7 @@ export async function getHomeData(): Promise<HomeData> {
 
   return {
     hero: slides,
+    schemaJson: acf?.schema_json || "",
     about: pageData ? { ...acf, ...aboutMedia } : null,
     awards: pageData ? { ...acf, awards_media: awardsMedia } : null,
     cta: pageData ? acf : null,

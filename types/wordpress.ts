@@ -96,4 +96,5 @@ export interface HomeData {
   contact: any | null;
   footerData: any | null;
   footerMenu: any[] | null;
+  schemaJson: string;
 }
