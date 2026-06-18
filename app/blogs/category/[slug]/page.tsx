@@ -157,7 +157,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         title={pageTitle}
         description={`Explore the latest insights in ${pageTitle}`}
         breadcrumb={[
-          { name: "Blogs", href: "/blog" },
+          { name: "Blogs", href: "/blogs" },
           { name: pageTitle, href: "#" }
         ]}
       />
@@ -249,7 +249,10 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                   post._embedded?.["wp:term"]?.[0]
                     ?.filter((t: any) => t.taxonomy === "category")
                     ?.map((t: any) => t.name) || [];
-
+const categorySlug =
+  post._embedded?.["wp:term"]?.[0]
+    ?.find((t: any) => t.taxonomy === "category")
+    ?.slug || "uncategorized";
                 return (
                   <motion.div
                     key={post.id}
@@ -286,7 +289,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                         dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
                       />
 
-                      <Link href={`/blog/${post.slug}`} className="text-primary font-bold">
+                      <Link href={`/blogs/${categorySlug}/${post.slug}`} className="text-primary font-bold">
                         Read More →
                       </Link>
 

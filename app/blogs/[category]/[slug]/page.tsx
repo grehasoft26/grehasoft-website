@@ -8,9 +8,15 @@ import PageHeader from '@/components/PageHeader';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import { useParams } from 'next/navigation';
+import type { Metadata } from "next";
+
+
 
 export default function BlogDetails() {
-  const { slug } = useParams();
+  const params = useParams();
+
+const slug = params.slug as string;
+const category = params.category as string;
 
   const [postData, setPostData] = useState<any>(null);
   const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
@@ -127,16 +133,29 @@ export default function BlogDetails() {
     currentIndex !== -1 && currentIndex < allPosts.length - 1
       ? allPosts[currentIndex + 1]
       : null;
+const prevCategory =
+  prevPost?._embedded?.["wp:term"]?.[0]
+    ?.find((t: any) => t.taxonomy === "category")
+    ?.slug || "uncategorized";
+
+
+    const nextCategory =
+  nextPost?._embedded?.["wp:term"]?.[0]
+    ?.find((t: any) => t.taxonomy === "category")
+    ?.slug || "uncategorized";
+
+    
+  
 
   return (
     <main className="min-h-screen bg-white">
-
+  
       {/* HEADER */}
       <PageHeader
         title="Blog Details"
         description="Explore insights and updates"
         breadcrumb={[
-          { name: 'Blogs', href: '/blog' },
+          { name: 'Blogs', href: '/blogs' },
           { name: 'Details', href: '#' },
         ]}
       />
@@ -149,8 +168,10 @@ export default function BlogDetails() {
             className="text-5xl font-bold text-dark mb-6"
             dangerouslySetInnerHTML={{ __html: postData.title }}
           />
-
-          <div className="flex items-center gap-6 text-sm text-text-gray border-b pb-6">
+           <span className="px-3 py-1 bg-primary/10 text-primary rounded-full font-medium capitalize">
+    {category.replace(/-/g, ' ')}
+  </span>
+          <div className="flex items-center gap-6 text-sm text-text-gray border-b pb-6 mt-3">
             <span>{postData.author}</span>
 
             <div className="flex items-center gap-2">
@@ -204,18 +225,18 @@ export default function BlogDetails() {
 
                 {prevPost ? (
                   <Link
-                    href={`/blog/${prevPost.slug}`}
-                    className="text-dark font-medium hover:text-primary"
-                  >
-                    ← Prev blog
-                  </Link>
+  href={`/blogs/${prevCategory}/${prevPost.slug}`}
+  className="text-dark font-medium hover:text-primary"
+>
+  ← Prev blog
+</Link>
                 ) : (
                   <div />
                 )}
 
                 {nextPost ? (
                   <Link
-                    href={`/blog/${nextPost.slug}`}
+                    href={`/blogs/${nextCategory}/${nextPost.slug}`}
                     className="text-dark font-medium hover:text-primary"
                   >
                     Next blog →
@@ -231,8 +252,18 @@ export default function BlogDetails() {
             <div className="lg:col-span-3">
               <h3 className="font-bold mb-6">Related Insights</h3>
 
-              {relatedPosts.map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`}>
+              {relatedPosts.map((post) => {
+
+  const relatedCategory =
+    post._embedded?.["wp:term"]?.[0]
+      ?.find((t: any) => t.taxonomy === "category")
+      ?.slug || "uncategorized";
+
+  return (
+    <Link
+      key={post.id}
+      href={`/blogs/${relatedCategory}/${post.slug}`}
+    >
                   <div className="mb-6 cursor-pointer group">
                     <img
                       src={
@@ -250,7 +281,8 @@ export default function BlogDetails() {
                     <span className="text-primary text-sm">Read More →</span>
                   </div>
                 </Link>
-              ))}
+  );
+})}
 
             </div>
 

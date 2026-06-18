@@ -154,25 +154,39 @@ export default function BlogPage() {
   const featuredPost = displayPosts[0];
 
   const industryUpdates = displayPosts.slice(1, 4).map((post: any) => ({
-    title: post.title?.rendered || "Untitled Article",
-    description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
-    author: post._embedded?.author?.[0]?.name || "Admin",
-    date: post.date ? new Date(post.date).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }) : "June 2026",
-    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png",
-    slug: post.slug
-  }));
+  title: post.title?.rendered || "Untitled Article",
+  description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
+  author: post._embedded?.author?.[0]?.name || "Admin",
+  date: post.date
+    ? new Date(post.date).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : "June 2026",
+  image:
+    post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    "/images/logo.png",
+  slug: post.slug,
+  categorySlug:
+    post._embedded?.["wp:term"]?.[0]
+      ?.find((t: any) => t.taxonomy === "category")
+      ?.slug || "uncategorized",
+}));
 
   const catchUpPosts = displayPosts.slice(4, 7).map((post: any) => ({
-    title: post.title?.rendered || "Untitled Article",
-    description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
-    image: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png",
-    slug: post.slug,
-    category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog"
-  }));
+  title: post.title?.rendered || "Untitled Article",
+  description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
+  image:
+    post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    "/images/logo.png",
+  slug: post.slug,
+  category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog",
+  categorySlug:
+    post._embedded?.["wp:term"]?.[0]
+      ?.find((t: any) => t.taxonomy === "category")
+      ?.slug || "uncategorized",
+}));
 
   const insiderTips = [
     { title: "Efficiency Enhancements", description: "Automation tips", icon: Settings },
@@ -180,14 +194,20 @@ export default function BlogPage() {
     { title: "Enterprise Security", description: "Security tips", icon: Zap },
     { title: "Cloud Performance", description: "Cloud optimization", icon: Cloud }
   ];
+const featuredCategory =
+  featuredPost?._embedded?.["wp:term"]?.[0]
+    ?.find((t: any) => t.taxonomy === "category")
+    ?.slug || "uncategorized";
 
+
+    
   return (
     <main className="min-h-screen bg-white">
 
       <PageHeader
-        title="Our Blog"
+        title="Our Blogs"
         description="Stay updated with the latest trends and insights"
-        breadcrumb={[{ name: 'Blogs', href: '/blog' }]}
+        breadcrumb={[{ name: 'Blogs', href: '/blogs' }]}
       />
 
       {/* FEATURED */}
@@ -207,7 +227,7 @@ export default function BlogPage() {
               />
               <p dangerouslySetInnerHTML={{ __html: featuredPost.excerpt?.rendered || "" }} />
 
-              <Link href={`/blog/${featuredPost.slug}`} className="text-primary font-bold">
+              <Link href={`/blogs/${featuredCategory}/${featuredPost.slug}`} className="text-primary font-bold">
                 Read More →
               </Link>
             </div>
@@ -234,19 +254,19 @@ export default function BlogPage() {
       </section>
 
       {/* CATEGORY */}
-      <section className="section-padding">
+      {/* <section className="section-padding">
         <div className="container-custom flex flex-wrap gap-3 justify-center">
           {displayCategories.map((cat: any) => (
             <Link
               key={cat.id}
-              href={`/blog/category/${cat.slug}`}
+              href={`/blogs/category/${cat.slug}`}
               className="px-6 py-2.5 rounded-full border border-gray-200 hover:border-primary hover:text-primary transition"
             >
               {cat.name}
             </Link>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* TRENDING */}
       <section className="section-padding bg-white">
@@ -345,9 +365,12 @@ function ArticleCard({ post, index }: any) {
 
       <p className="text-text-gray mb-4 line-clamp-3">{post.description}</p>
 
-      <Link href={`/blog/${post.slug}`} className="text-primary font-bold flex items-center gap-2">
-        Read More <ArrowRight size={16} />
-      </Link>
+     <Link
+  href={`/blogs/${post.categorySlug}/${post.slug}`}
+  className="text-primary font-bold flex items-center gap-2"
+>
+  Read More <ArrowRight size={16} />
+</Link>
     </motion.div>
   );
 }
@@ -377,7 +400,7 @@ function TrendingArticleCard({ post, index }: { post: any; index: number }) {
         <p className="text-text-gray text-sm mb-6 line-clamp-2 leading-relaxed">
           {post.description}
         </p>
-        <Link href={`/blog/${post.slug || "data-analytics-and-ai-integration"}`} className="inline-flex items-center gap-2 text-primary font-bold group-hover:gap-3 transition-all">
+        <Link   href={`/blogs/${post.categorySlug}/${post.slug}`} className="inline-flex items-center gap-2 text-primary font-bold group-hover:gap-3 transition-all">
           Read More <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
