@@ -122,7 +122,7 @@ export default function IntroSection({
             <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-50">
               <Image
                 src={
-                  intro?.main_image?.url ||
+                 featuredImage ||
                   '/images/fallback.png'
                 }
                 alt={intro?.title || 'Technology Services'}
