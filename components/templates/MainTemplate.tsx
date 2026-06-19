@@ -7,7 +7,7 @@ import ServicesGrid from '@/components/service/digital-marketing/ServicesGrid';
 import WhySEOSection from '@/components/service/digital-marketing/WhySEOSection';
 import ProcessSection from '@/components/service/digital-marketing/ProcessSection';
 import IndustriesSection from '@/components/service/main/IndustriesSection';
-import StandOutSection from '@/components/service/digital-marketing/StandOutSection';
+import StandOutSection from '@/components/service/branding/StandOutSection';
 import ContactSection from '@/components/service/digital-marketing/ContactSection';
 import FAQSection from '@/components/service/digital-marketing/FAQSection';
 import LocalSection from '@/components/service/digital-marketing/LocalSection';
@@ -15,6 +15,7 @@ import AdvantagesSection from '@/components/service/main/AdvantagesSection';
 import ServicesSection from '@/components/service/main/ServicesSection';
 import ResultsTimelineSection from '@/components/service/main/ResultsTimelineSection';
 import PricingPackagesSection from '@/components/service/main/PricingPackagesSection';
+import ResultsTimelineSection1 from '@/components/service/main/ResultsTimelineSection1';
 interface Props {
   service: any;
   heroImageUrl?: string;
@@ -56,18 +57,22 @@ export default function MainTemplate({
      {/*<AdvantagesSection acf={acf} /> */}
 
      {/*<ServicesSection acf={acf} /> */}
-     <ServicesGrid acf={acf} />
-      <WhySEOSection acf={acf} />
       <LocalSection acf={acf} />
+     <ServicesGrid acf={acf} />
+<ProcessSection acf={acf} /> 
+      
+    
      
-   <ProcessSection acf={acf} /> 
+   
    <ResultsTimelineSection acf={acf} />
+  
    <PricingPackagesSection acf={acf} />
-
+ 
       <IndustriesSection acf={acf} /> 
-
-       <ContactSection acf={acf} /> 
-
+ <WhySEOSection acf={acf} />
+     
+       <ResultsTimelineSection1 acf={acf} />
+ <StandOutSection acf={acf} />
        <FAQSection acf={acf} /> 
 
     <CTA />
