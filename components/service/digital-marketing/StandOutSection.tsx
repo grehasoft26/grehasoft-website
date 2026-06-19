@@ -126,16 +126,24 @@ if (!data?.expert_left_title) return null;
             )}
 
             {data?.expert_right_description_one && (
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                {data.expert_right_description_one}
-              </p>
+             
+               <div
+                className="text-gray-600 mb-6 text-lg leading-relaxed space-y-4"
+                dangerouslySetInnerHTML={{
+                  __html:data.expert_right_description_one,
+                }}
+              />
             )}
             
 
             {data?.expert_right_description_two && (
-              <p className="text-gray-600 leading-relaxed mb-10">
-                {data.expert_right_description_two}
-              </p>
+              
+              <div
+                className="text-gray-600 leading-relaxed mb-10"
+                dangerouslySetInnerHTML={{
+                  __html:data.expert_right_description_two,
+                }}
+              />
             )}
 
             {data?.expert_highlight_text && (

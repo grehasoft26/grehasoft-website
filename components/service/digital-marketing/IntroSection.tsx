@@ -39,7 +39,7 @@ export default function IntroSection({
               </span>
             )}
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-dark mb-8 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-dark mb-8 leading-tight">
 
               {acf.hero_title1}
 
@@ -53,7 +53,7 @@ export default function IntroSection({
                 </>
               )}
 
-            </h1>
+            </h2>
 
             {acf.hero_description && (
               <div

@@ -157,6 +157,12 @@ export default function ProcessSection({ acf }: Props) {
       desc: processData?.process7_description,
       icon: processData?.process7_icon,
     },
+    {
+      phase: processData?.process8_phase,
+      title: processData?.process8_title,
+      desc: processData?.process8_description,
+      icon: processData?.process8_icon,
+    },
   ];
 if (!processData?.process_title) return null;
   return (
@@ -246,7 +252,7 @@ if (!processData?.process_title) return null;
         </div>
 
         {/* BOTTOM 3 CARDS */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 justify-center mt-8">
+        <div className="grid md:grid-cols-4 gap-6 lg:gap-8 justify-center mt-8">
 
           {seoProcess.slice(4).map((step, i) => {
 

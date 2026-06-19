@@ -62,8 +62,9 @@ import {
   Server,
   HardDrive,
   Globe,
+MousePointerClick,
 
- 
+ Share2
   
  
 
@@ -129,6 +130,8 @@ const iconMap: any = {
   Server: Server,
   HardDrive: HardDrive,
 Palette: Palette,
+MousePointerClick: MousePointerClick,
+Share2: Share2,
 
 
   
@@ -217,7 +220,7 @@ if (!data?.services_section_title) return null;
           {seoServices.map((service, i) => {
 
             const IconComponent = iconMap[service.icon] || Globe;
-
+             if (!service.title) return null
             return (
 
               <motion.div
