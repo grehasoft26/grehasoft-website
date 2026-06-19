@@ -11,6 +11,7 @@ import StandOutSection from '@/components/service/digital-marketing/StandOutSect
 import ContactSection from '@/components/service/digital-marketing/ContactSection';
 import FAQSection from '@/components/service/digital-marketing/FAQSection';
 import LocalSection from '@/components/service/digital-marketing/LocalSection';
+import SeoCaseStudiesSection from '@/components/service/digital-marketing/SeoCaseStudiesSection';
 interface Props {
   service: any;
   heroImageUrl?: string;
@@ -58,6 +59,7 @@ export default function DigitalMarketingTemplate({
    <ProcessSection acf={acf} /> 
 
       <IndustriesSection acf={acf} /> 
+      <SeoCaseStudiesSection acf={acf} />
 
        <ContactSection acf={acf} /> 
 

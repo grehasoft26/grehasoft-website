@@ -403,6 +403,18 @@ export default function Testimonials() {
               })}
             </div>
 
+            {/* Google Reviews CTA */}
+<a
+  href="https://maps.app.goo.gl/CcVcPNMvPcXKQNjH7"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center justify-center gap-3 bg-white border border-primary/20 hover:border-primary rounded-2xl p-4 font-semibold text-primary hover:bg-primary hover:text-white transition-all duration-300"
+>
+  ⭐ Read More Reviews on Google
+  <ArrowUpRight className="w-4 h-4" />
+</a>
+
+
             {/* Custom brand statistics footer note */}
             <div className="bg-primary/5 border border-primary/10 rounded-2xl p-5 mt-6 lg:mt-0">
               <div className="flex items-center gap-3">
