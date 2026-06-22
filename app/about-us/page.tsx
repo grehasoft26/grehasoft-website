@@ -178,7 +178,7 @@ export default function AboutPage() {
                 className="space-y-4"
               >
                 <h2 className="text-3xl md:text-5xl font-black text-dark tracking-tight leading-none">
-                  About Grehasoft – A <span className="text-primary">Trusted IT Solutions</span> Company
+                  A <span className="text-primary">Trusted IT Solutions</span> Company
                 </h2>
                 <p className="text-lg text-gray-600 font-medium leading-relaxed">
                   Grehasoft is one of the best IT solutions company committed to helping businesses grow through meaningful digital experiences. What began as a small web application development initiative in Kochi, Kerala has grown into a reliable IT solutions provider serving clients across India, the Middle East, Europe, and beyond.
@@ -233,7 +233,7 @@ export default function AboutPage() {
                   <h3 className="font-extrabold text-lg text-white mt-2">
                     Delivered Digital Products
                   </h3>
-                  <p className="text-xs text-white/60 leading-relaxed mt-2">
+                  <p className="text-sm text-white/60 leading-relaxed mt-2">
                     Delivered high-performance dynamic software integrations, ecommerce, core architectures, and stunning web systems globals.
                   </p>
                 </div>
@@ -337,7 +337,7 @@ export default function AboutPage() {
                   <h3 className="text-base font-black text-dark mb-2.5 tracking-tight group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed">
+                  <p className="text-gray-500 text-sm leading-relaxed">
                     {service.desc}
                   </p>
                 </div>
@@ -397,7 +397,7 @@ export default function AboutPage() {
                       Jan 2007
                     </span>
                     <h3 className="text-xl font-bold mb-2">Freelance Beginnings</h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">
+                    <p className="text-sm text-gray-500 leading-relaxed">
                       Grehasoft began its journey offering small freelance web projects driven by passion, and a commitment to quality. What started as a one-person initiative with a strong software programming background soon matured, helping clients build robust digital systems.
                     </p>
                   </motion.div>
@@ -438,7 +438,7 @@ export default function AboutPage() {
                       Referral Foundation
                     </span>
                     <h3 className="text-xl font-bold mb-2">Natural Growth & Word of Mouth</h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">
+                    <p className="text-sm text-gray-500 leading-relaxed">
                       Over the years, we dedicated ourselves to delivering work that spoke for itself. The brand grew naturally through referrals, consistent quality, client trust, and word-of-mouth validation.
                     </p>
                   </motion.div>
@@ -463,7 +463,7 @@ export default function AboutPage() {
                       Year 2013
                     </span>
                     <h3 className="text-xl font-bold mb-2">ITES Habitat Centre Head Office</h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">
+                    <p className="text-sm text-gray-500 leading-relaxed">
                       Grehasoft took a major step forward by setting up its first official office space at the ITES Habitat Centre under the Kerala IT Mission. Transitioning from small domestic contracts to handling high-status international assignments successfully.
                     </p>
                   </motion.div>
@@ -506,7 +506,7 @@ export default function AboutPage() {
                       Infopark Kochi
                     </span>
                     <h3 className="text-xl font-bold mb-2">Global Operations Hub</h3>
-                    <p className="text-xs text-white/75 leading-relaxed">
+                    <p className="text-sm text-white/75 leading-relaxed">
                       Today, Grehasoft proudly operates from our main enterprise office at Infopark, Kochi. We continue to serve a fantastic worldwide client base while expanding strategically into global zones with our signature authentic, humble engineering focus.
                     </p>
                   </motion.div>
@@ -553,7 +553,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white mb-1">Uncompromising Quality</h4>
-                    <p className="text-xs text-white/50 leading-relaxed">
+                    <p className="text-sm text-white/50 leading-relaxed">
                       Pristine lines of code, responsive design systems, and robust performance standards on every single project deployment.
                     </p>
                   </div>
@@ -565,7 +565,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-white mb-1">Post-Launch Care</h4>
-                    <p className="text-xs text-white/50 leading-relaxed">
+                    <p className="text-sm text-white/50 leading-relaxed">
                       Continuous technical support, server fine-tuning, proactive speed upgrades, and security validations post-delivery.
                     </p>
                   </div>
@@ -593,20 +593,20 @@ export default function AboutPage() {
                       </div>
                     </div>
 
-                    <p className="text-xs text-white/60 leading-relaxed">
+                    <p className="text-sm text-white/60 leading-relaxed">
                       Whether you require customized enterprise web applications, high conversion eCommerce, clean product branding, or top search engineering, our modern specialists are ready.
                     </p>
 
                     <div className="space-y-3 pt-2">
-                      <div className="flex items-center gap-2.5 text-xs text-white/80">
+                      <div className="flex items-center gap-2.5 text-sm text-white/80">
                         <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
                         <span>Free Consultation Scoping Call</span>
                       </div>
-                      <div className="flex items-center gap-2.5 text-xs text-white/80">
+                      <div className="flex items-center gap-2.5 text-sm text-white/80">
                         <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                         <span>Transparent Cost Scoping</span>
                       </div>
-                      <div className="flex items-center gap-2.5 text-xs text-white/80">
+                      <div className="flex items-center gap-2.5 text-sm text-white/80">
                         <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                         <span>Long-term Reliable Partnership Care</span>
                       </div>
@@ -621,7 +621,7 @@ export default function AboutPage() {
                       </Link>
                     </div>
 
-                    <p className="text-[9px] text-white/30 text-center font-bold tracking-widest uppercase">
+                    <p className="text-[12px] text-white/30 text-center font-bold tracking-widest uppercase">
                       No overpromising • Only high results
                     </p>
                   </div>
@@ -668,10 +668,10 @@ export default function AboutPage() {
                     {str.title}
                   </h3>
                 </div>
-                <p className="text-gray-500 text-xs leading-relaxed">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   {str.desc}
                 </p>
-                <div className="flex items-center gap-2 mt-4 text-[9px] text-primary/40 font-black tracking-widest uppercase">
+                <div className="flex items-center gap-2 mt-4 text-[12px] text-primary/40 font-black tracking-widest uppercase">
                   <CheckCircle className="w-3.5 h-3.5 text-accent" />
                   <span>Trusted Standard</span>
                 </div>

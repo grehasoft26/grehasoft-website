@@ -229,7 +229,7 @@ export default function BrandStoryPage() {
                         {pt.title}
                       </h4>
                     </div>
-                    <p className="text-xs text-gray-500 leading-relaxed font-normal pl-8">
+                    <p className="text-sm text-gray-500 leading-relaxed font-normal pl-8">
                       {pt.desc}
                     </p>
                   </motion.div>
@@ -364,12 +364,12 @@ export default function BrandStoryPage() {
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">
                   Today, Grehasoft stands as a grounded, client-focused IT solutions company. After years of building a strong presence, Grehasoft entered a new phase of growth — expanding services, strengthening operations, and stepping more confidently into global markets. This new brand identity marks the next chapter for Grehasoft — a chapter of global expansion, innovative solutions, and deeper partnerships.
                 </p>
-                <p className="text-xs font-bold text-accent">
+                <p className="text-sm font-bold text-accent">
                   But while the look changed, our values did not.
                 </p>
               </div>
 
-              <div className="border-t border-gray-100 pt-5 mt-6 text-[10px] uppercase font-black tracking-widest text-gray-400">
+              <div className="border-t border-gray-100 pt-5 mt-6 text-[12px] uppercase font-black tracking-widest text-gray-400">
                 Next Chapter of Growth
               </div>
             </div>
@@ -388,7 +388,7 @@ export default function BrandStoryPage() {
                     </div>
                     <div>
                       <h5 className="font-extrabold text-sm text-dark">{item.title}</h5>
-                      <p className="text-xs text-gray-500 mt-0.5 font-normal">{item.desc}</p>
+                      <p className="text-sm text-gray-500 mt-0.5 font-normal">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -429,12 +429,12 @@ export default function BrandStoryPage() {
                   <h3 className="text-base font-black text-dark mb-2.5 tracking-tight leading-snug">
                     {ax.title}
                   </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed font-normal">
+                  <p className="text-gray-500 text-sm leading-relaxed font-normal">
                     {ax.desc}
                   </p>
                 </div>
                 
-                <div className="flex items-center gap-2 mt-6 text-[9px] font-black uppercase tracking-widest text-primary border-t border-gray-100 pt-4">
+                <div className="flex items-center gap-2 mt-6 text-[12px] font-black uppercase tracking-widest text-primary border-t border-gray-100 pt-4">
                   <span>Heart of Grehasoft</span>
                 </div>
               </div>
@@ -458,7 +458,7 @@ export default function BrandStoryPage() {
                 </p>
                 <div className="pt-4 flex items-center gap-2">
                   <span className="h-0.5 w-10 bg-primary/30" />
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400">Est. 2007, Kochi Infopark</span>
+                  <span className="text-[12px] font-mono uppercase tracking-wider text-gray-400">Est. 2007, Kochi Infopark</span>
                 </div>
               </div>
 

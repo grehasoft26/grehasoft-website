@@ -119,7 +119,7 @@ export default function AwardsPage() {
                 className="inline-flex items-center gap-2 bg-primary/5 border border-primary/10 rounded-full px-4 py-1.5"
               >
                 <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
-                <span className="text-primary font-black uppercase tracking-wider text-[10px]">
+                <span className="text-accent font-black uppercase tracking-wider text-[10px]">
                   Grehasoft Achievements & Credibility
                 </span>
               </motion.div>
@@ -166,15 +166,15 @@ export default function AwardsPage() {
                 <div className="border-t border-white/10 pt-6 mt-6 space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <p className="text-xs text-white/70">Verified State & Regional Recognitions</p>
+                    <p className="text-sm text-white/70">Verified State & Regional Recognitions</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <p className="text-xs text-white/70">100+ Live Production Deployments</p>
+                    <p className="text-sm text-white/70">100+ Live Production Deployments</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <p className="text-xs text-white/70">Zero Cost-Overrun Client Promise</p>
+                    <p className="text-sm text-white/70">Zero Cost-Overrun Client Promise</p>
                   </div>
                 </div>
               </div>
@@ -294,7 +294,7 @@ export default function AwardsPage() {
                 <h4 className="font-extrabold text-lg text-dark mt-3 leading-tight">
                   Satisfied Clients Segment
                 </h4>
-                <p className="text-xs text-gray-500 leading-relaxed mt-2">
+                <p className="text-sm text-gray-500 leading-relaxed mt-2">
                   Serving small, micro, and enterprise businesses successfully across India, the Middle East, Europe, and the USA.
                 </p>
               </div>
@@ -326,7 +326,7 @@ export default function AwardsPage() {
                   Kochi Infopark Hub
                 </h3>
                 
-                <p className="text-xs text-white/70 leading-relaxed mt-2.5">
+                <p className="text-sm text-white/70 leading-relaxed mt-2.5">
                   Our core operational base at leading IT hub Infopark Kochi underlines our legitimacy, structures, and professional commitment as a verified software organization.
                 </p>
               </div>
@@ -358,7 +358,7 @@ export default function AwardsPage() {
                   Full-Suite Digital Deliveries
                 </h4>
                 
-                <ul className="space-y-3.5 text-xs text-gray-500 font-medium">
+                <ul className="space-y-3.5 text-sm text-gray-500 font-medium">
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-accent flex-shrink-0" />
                     <span>Responsive Websites</span>

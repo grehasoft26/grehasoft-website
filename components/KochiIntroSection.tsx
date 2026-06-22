@@ -127,7 +127,7 @@ export default function KochiIntroSection() {
 
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-gray-50 aspect-[4/4] group bg-gray-50">
               <img
-                src="/images/IT-company.webp"
+                src="/images/IT-company1.webp"
                 alt="Best IT Company in Kochi, Kerala"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
