@@ -120,7 +120,7 @@ export default function WhyChooseUs() {
                   <Award className="w-4 h-4 text-accent" />
                   Successfully Delivered IT Projects
                 </p>
-                <p className="text-xs text-white/50 mt-1 leading-relaxed">
+                <p className="text-sm text-white/50 mt-1 leading-relaxed">
                   Proven experience in delivering custom software, corporate websites, and enterprise integrations.
                 </p>
               </div>
@@ -135,7 +135,7 @@ export default function WhyChooseUs() {
                     <h4 className="font-extrabold text-sm text-white tracking-wide uppercase">
                       Global Footprint
                     </h4>
-                    <p className="text-xs text-white/60 leading-normal mt-1 mb-3">
+                    <p className="text-sm text-white/60 leading-normal mt-1 mb-3">
                       Serving a diverse, world-class clientele across multiple strategic global zones:
                     </p>
                     {/* Region Pill Badges */}
@@ -193,7 +193,7 @@ export default function WhyChooseUs() {
                   <h3 className="text-lg font-black text-dark mb-3 tracking-tight group-hover:text-primary transition-colors">
                     {point.title}
                   </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed">
+                  <p className="text-gray-500 text-sm leading-relaxed">
                     {point.desc}
                   </p>
                 </div>
@@ -225,7 +225,7 @@ export default function WhyChooseUs() {
                   <h3 className="text-lg md:text-xl font-black text-dark tracking-tight mt-1">
                     Reliable Support After Delivery
                   </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed max-w-xl mt-1">
+                  <p className="text-gray-500 text-sm leading-relaxed max-w-xl mt-1">
                     Quality care doesn't stop after deployment. We offer continuous digital maintenance, robust server troubleshooting, and continuous security optimizations post-launch.
                   </p>
                 </div>
@@ -233,7 +233,7 @@ export default function WhyChooseUs() {
               
               <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-primary/10 pt-4 md:pt-0 md:pl-8 flex-shrink-0 justify-between md:justify-start">
                 <div>
-                  <p className="text-xs font-black text-primary uppercase">Guaranteed</p>
+                  <p className="text-sm font-black text-primary uppercase">Guaranteed</p>
                   <p className="text-[10px] text-gray-400">Response Window</p>
                 </div>
                 <div className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />

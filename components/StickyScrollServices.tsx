@@ -84,7 +84,9 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
     "";
 
   return (
+    
     <div ref={containerRef} className="h-[300vh]">
+       
       <div className="sticky top-0 h-screen flex items-center bg-white overflow-hidden">
         {loading ? (
           <div className="container-custom relative z-10 w-full flex items-center justify-center">
@@ -157,11 +159,11 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                   text-sm sm:text-base
                   font-medium
 
-                  bg-black
+                  bg-primary
 
                   transition-all duration-300
 
-                  hover:bg-blue-600
+                  hover:bg-green-600
                   hover:scale-105
                   hover:shadow-lg hover:shadow-blue-200
                 "

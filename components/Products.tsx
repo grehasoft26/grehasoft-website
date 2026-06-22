@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { ArrowRight, Layers, Zap, Shield, BarChart } from 'lucide-react';
+import { ArrowRight, Layers, Zap, Shield, BarChart, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -90,9 +90,13 @@ export default function Products({ data }: ProductsProps) {
           >
 
             {/* BADGE */}
-            <span className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block">
-              {pms.pms_badge}
-            </span>
+           
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                {pms.pms_badge}
+              </span>
+            </div>
 
             {/* TITLE */}
    <div className="w-full">      

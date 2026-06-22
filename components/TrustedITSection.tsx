@@ -59,9 +59,12 @@ export default function TrustedITSection() {
             className="lg:col-span-6 flex flex-col justify-between bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] border border-gray-100"
           >
             <div>
-              <span className="text-accent font-bold uppercase tracking-wider text-xs mb-4 block bg-primary/5 px-3 py-1.5 rounded-full w-fit">
-               About Grehasoft
+               <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                About Grehasoft
               </span>
+            </div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-dark mb-6 leading-tight">
                 Trusted IT Company in Kochi - <br />
                 <span className="text-primary">Offering Smart IT Solutions</span>
@@ -71,7 +74,7 @@ export default function TrustedITSection() {
                 <p className="text-base md:text-lg leading-relaxed font-normal">
                   Grehasoft is a trusted IT company delivering smart, scalable, and affordable digital solutions for businesses of all sizes. As a reliable IT service company, we focus on helping brands grow with high-quality websites, effective digital marketing, mobile applications, and custom software solutions.
                 </p>
-                <p className="text-sm leading-relaxed text-text-gray/80">
+                <p className="text-base md:text-lgleading-relaxed font-normal">
                   With years of experience as an IT services provider, we ensure every project is built for performance, reliability, and long-term success.
                 </p>
               </div>
@@ -81,7 +84,7 @@ export default function TrustedITSection() {
                 {coreOfferings.map((offering, idx) => (
                   <div key={idx} className="flex items-center gap-2 bg-gray-50 border border-gray-100 py-1.5 px-3.5 rounded-full">
                     {offering.icon}
-                    <span className="text-xs font-semibold text-dark/90">{offering.title}</span>
+                    <span className="text-sm font-semibold text-dark/90">{offering.title}</span>
                   </div>
                 ))}
               </div>
@@ -93,7 +96,7 @@ export default function TrustedITSection() {
                   <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                   Get powerful IT services designed for growth.
                 </p>
-                <Link href="/contact" className="btn-accent group inline-flex items-center">
+                <Link href="/contact" className="btn-primary group inline-flex items-center">
                   Get a Free Consultation
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
                 </Link>
@@ -141,7 +144,7 @@ export default function TrustedITSection() {
                       </div>
                       <div>
                         <p className="text-white font-bold text-sm leading-snug">{item.title}</p>
-                        <p className="text-white/60 text-[11px] mt-1 leading-normal">{item.desc}</p>
+                        <p className="text-white/60 text-sm mt-1 leading-normal">{item.desc}</p>
                       </div>
                     </div>
                   ))}

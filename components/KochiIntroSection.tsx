@@ -64,7 +64,7 @@ export default function KochiIntroSection() {
             className="lg:col-span-7 space-y-6"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
-              <Sparkles className="w-4 h-4 text-accent animate-pulse" />
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
               <span className="text-xs font-bold text-accent uppercase tracking-widest">
                 Kochi's Premier IT Leader
               </span>
@@ -120,7 +120,7 @@ export default function KochiIntroSection() {
             className="lg:col-span-5 relative space-y-8"
           >
             {/* Embedded Location Badge */}
-            <div className="absolute top-4 left-4 z-20 bg-dark/85 backdrop-blur-md text-white py-2 px-4 rounded-2xl flex items-center gap-2 shadow-lg border border-white/10">
+            <div className="absolute top-4 left-4 z-20 bg-primary/85 backdrop-blur-md text-white py-2 px-4 rounded-2xl flex items-center gap-2 shadow-lg border border-white/10">
               <MapPin className="w-4 h-4 text-accent" />
               <span className="text-xs font-extrabold tracking-wider uppercase">Infopark, Kochi</span>
             </div>
@@ -161,7 +161,7 @@ export default function KochiIntroSection() {
                 </div>
                 <div>
                   <h4 className="font-bold text-dark text-sm mb-1">Serving Key Growth Nodes</h4>
-                  <p className="text-xs text-text-gray leading-relaxed">
+                  <p className="text-sm text-text-gray leading-relaxed">
                     Deploying custom architectures for SMEs and large-scale commercial centers spanning Thiruvananthapuram, Thrissur, Ernakulam, Kakkanad, and high-tech corporate zones.
                   </p>
                 </div>

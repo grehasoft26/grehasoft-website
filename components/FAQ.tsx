@@ -366,10 +366,13 @@ export default function FAQ() {
         
         {/* Centered Heading Layout */}
         <div className="max-w-3xl mx-auto text-center mb-16 lg:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-5 text-[10px] font-black uppercase tracking-widest text-accent bg-primary/10 rounded-full border border-primary/5">
-            <Sparkles className="w-3.5 h-3.5 text-accent" />
-            Knowledge Base Hub
-          </div>
+          
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                Knowledge Base Hub
+              </span>
+            </div>
           <h2 className="text-4xl md:text-5.5xl font-extrabold text-dark tracking-tight leading-none mb-6">
             Frequently Asked <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Questions</span>
           </h2>

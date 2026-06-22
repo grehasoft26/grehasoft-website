@@ -22,18 +22,7 @@ export default function IntroSection({
     <section className="section-padding overflow-hidden text-center md:text-left">
 
       <div className="container-custom">
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-          {/* LEFT CONTENT */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-
-            {acf.hero_tag && (
+   {acf.hero_tag && (
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
                 {acf.hero_tag}
               </span>
@@ -54,10 +43,21 @@ export default function IntroSection({
               )}
 
             </h2>
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* LEFT CONTENT */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+
+         
 
             {acf.hero_description && (
               <div
-                className="text-gray-600 mb-6 text-lg leading-relaxed space-y-4"
+                className="text-gray-600 mb-6 text-lg leading-relaxed space-y-4 "
                 dangerouslySetInnerHTML={{
                   __html: acf.hero_description,
                 }}

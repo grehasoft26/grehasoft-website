@@ -236,7 +236,7 @@ const testimonials = [
   },
   {
     id: 3,
-    name: 'Muhammed Nishab K. Shamsudheen',
+    name: 'Muhammed Nishab ',
     role: '',
     content: "Good experience with Grehasoft! Their Professional and creative website design services helped us build both our business and personal websites with outstanding quality and professionalism. Their SEO services really improved our search visibility, and the Local Map Listing support made it easier for customers to find us. Highly recommended!",
     image: 'https://picsum.photos/seed/user3/200/200',
@@ -255,6 +255,15 @@ const testimonials = [
     stats: 'No Extra Workforce Required'
   },
 ];
+const getInitials = (name: string) => {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(word => word[0])
+    .join('')
+    .toUpperCase();
+};
 
 export default function Testimonials() {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -272,10 +281,14 @@ export default function Testimonials() {
         
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16 lg:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-5 text-[10px] font-black uppercase tracking-widest text-accent bg-primary/10 rounded-full border border-primary/5">
-            <Sparkles className="w-3 h-3 text-accent" />
-            Empowering Partners Worldwide
-          </div>
+           
+         
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                Empowering Partners Worldwide
+              </span>
+            </div>
           <h2 className="text-4xl md:text-5.5xl font-extrabold text-dark tracking-tight leading-tight mb-6">
             Client success stories that <br></br><span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">inspire our growth</span>
           </h2>
@@ -316,7 +329,8 @@ export default function Testimonials() {
                   </div>
 
                   {/* Testimonial Core Block */}
-                  <p className="text-xl md:text-2xl text-dark font-medium leading-relaxed italic mb-8 relative z-10 select-none">
+                 
+                 <p className="text-text-gray text-lg max-w-2xl mx-auto leading-relaxed ">
                     "{active.content}"
                   </p>
                 </div>
@@ -324,12 +338,9 @@ export default function Testimonials() {
                 {/* Client Profile and Stats block */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-gray-100 relative z-10">
                   <div className="flex items-center gap-4">
-                    <img
-                      src={active.image}
-                      alt={active.name}
-                      className="w-14 h-14 rounded-full object-cover border-2 border-primary/20 p-0.5"
-                      referrerPolicy="no-referrer"
-                    />
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg border-2 border-primary/20">
+  {getInitials(active.name)}
+</div>
                     <div>
                       <h4 className="text-lg font-bold text-dark tracking-tight">{active.name}</h4>
                       <p className="text-sm text-text-gray font-medium">{active.role}</p>
@@ -374,14 +385,15 @@ export default function Testimonials() {
                     )}
 
                     {/* Client Avatar */}
-                    <img
-                      src={test.image}
-                      alt={test.name}
-                      className={`w-12 h-12 rounded-full object-cover border-2 ${
-                        isActive ? 'border-primary' : 'border-gray-200'
-                      }`}
-                      referrerPolicy="no-referrer"
-                    />
+                    <div
+  className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm border-2 ${
+    isActive
+      ? 'border-primary bg-gradient-to-br from-primary to-accent'
+      : 'border-gray-200 bg-gradient-to-br from-[#0753F6] to-[#1AB728]'
+  }`}
+>
+  {getInitials(test.name)}
+</div>
 
                     {/* Short text snippet details */}
                     <div className="flex-1 min-w-0">
@@ -396,7 +408,7 @@ export default function Testimonials() {
                         )}
                       </div>
                       <p className="text-xs text-text-gray font-medium truncate mt-0.5">{test.role}</p>
-                      <p className="text-xs text-text-gray/80 line-clamp-1 mt-1">{test.content}</p>
+                      <p className="text-sm text-text-gray/80 line-clamp-1 mt-1">{test.content}</p>
                     </div>
                   </button>
                 );

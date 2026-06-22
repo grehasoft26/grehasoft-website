@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from '@/lib/axios';
 import { motion } from 'motion/react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function Clients({ initialClients = [] }: { initialClients?: any[] }) {
   const [clients, setClients] = useState<any[]>([]);
@@ -59,11 +59,17 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
             transition={{ duration: 0.8 }}
             className="flex-1"
           >
-            <div className="flex items-center gap-4 mb-5">
+            {/* <div className="flex items-center gap-4 mb-5">
               <div className="w-12 h-[1px] bg-accent" />
 
               <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold">
                 Trusted By Industry Leaders
+              </span>
+            </div> */}
+             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+              Trusted By Industry Leaders
               </span>
             </div>
 

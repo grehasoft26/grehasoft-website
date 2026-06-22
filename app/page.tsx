@@ -80,7 +80,7 @@ export default async function Home() {
       <Navbar />
       <Hero slides={homeData.hero} />
       <KochiIntroSection />
-      <EndToEndServicesIntro />
+       <EndToEndServicesIntro /> 
       <StickyScrollServices initialServices={homeData.services || []} />
       <TrustedITSection />
       <Clients initialClients={homeData.clients || []} />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, X, Award, Trophy, Star, Target } from 'lucide-react';
+import { Play, X, Award, Trophy, Star, Target, Sparkles } from 'lucide-react';
 
 import { AwardsData } from '@/types/wordpress';
 
@@ -63,7 +63,13 @@ export default function Awards({ data }: AwardsProps) {
               viewport={{ once: true }}
               className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block"
             >
-              {data.section_tag}
+               <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full ">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+               {data.section_tag}
+              </span>
+            </div>
+             
             </motion.span>
 
             <motion.h2

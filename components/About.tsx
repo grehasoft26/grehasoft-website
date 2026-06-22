@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { CheckCircle2, Play, ArrowRight } from "lucide-react";
+import { CheckCircle2, Play, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -35,10 +35,13 @@ export default function About({ data }: AboutProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block">
-            Company Overview Section
-            </span>
-
+            
+  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                 Company Overview Section
+              </span>
+            </div>
             {/* TITLE */}
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-dark leading-tight">
               {acf.title_

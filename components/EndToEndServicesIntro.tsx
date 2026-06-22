@@ -5,7 +5,7 @@ import { Layers } from 'lucide-react';
 
 export default function EndToEndServicesIntro() {
   return (
-    <section id="end-to-end-services-intro" className="py-20 md:py-24 bg-gray-50/50 border-t border-b border-gray-100 relative overflow-hidden">
+    <section id="end-to-end-services-intro" className="section-padding bg-gray-50/50 border-t border-b border-gray-100 relative overflow-hidden">
       {/* Background radial highlight */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl opacity-45 -z-10 pointer-events-none" />
       
