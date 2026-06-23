@@ -165,7 +165,7 @@ if (!industry?.industry_title) return null;
                   <IconComponent className="w-5 h-5" />
                 </div>
 
-                <span className="font-bold text-dark text-[10px] sm:text-xs leading-tight">
+                <span className="font-bold text-dark text-[10px] sm:text-sm leading-tight">
                   {ind.name}
                 </span>
 

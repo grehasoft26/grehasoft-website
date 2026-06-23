@@ -238,7 +238,7 @@ if (!processData?.process_title) return null;
                       {step.title}
                     </h3>
 
-                    <p className="text-gray-500 text-xs leading-relaxed">
+                    <p className="text-gray-500 text-sm leading-relaxed">
                       {step.desc}
                     </p>
 
@@ -295,7 +295,7 @@ if (!processData?.process_title) return null;
                       {step.title}
                     </h3>
 
-                    <p className="text-gray-500 text-xs leading-relaxed">
+                    <p className="text-gray-500 text-sm leading-relaxed">
                       {step.desc}
                     </p>
 

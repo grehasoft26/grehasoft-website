@@ -129,7 +129,7 @@ if (!faq?.faq_title) return null;
 
                 </summary>
 
-                <div className="px-6 pb-6 text-gray-500 whitespace-pre-line border-t border-gray-100 pt-4 leading-relaxed text-xs md:text-sm">
+                <div className="px-6 pb-6 text-gray-500 whitespace-pre-line border-t border-gray-100 pt-4 leading-relaxed text-sm md:text-sm">
                   {item.a}
                 </div>
 

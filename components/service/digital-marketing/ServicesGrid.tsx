@@ -241,7 +241,7 @@ if (!data?.services_section_title) return null;
                   {service.title}
                 </h3>
 
-                <p className="text-gray-500 leading-relaxed text-xs">
+                <p className="text-gray-500 leading-relaxed text-sm">
                   {service.desc}
                 </p>
 

@@ -16,6 +16,7 @@ import ServicesSection from '@/components/service/main/ServicesSection';
 import ResultsTimelineSection from '@/components/service/main/ResultsTimelineSection';
 import PricingPackagesSection from '@/components/service/main/PricingPackagesSection';
 import ResultsTimelineSection1 from '@/components/service/main/ResultsTimelineSection1';
+
 interface Props {
   service: any;
   heroImageUrl?: string;
@@ -53,10 +54,11 @@ export default function MainTemplate({
         heroImageUrl={heroImageUrl}
          featuredImage={featuredImage}
       />
-      {/*<StandOutSection acf={acf} /> */} 
-     {/*<AdvantagesSection acf={acf} /> */}
 
-     {/*<ServicesSection acf={acf} /> */}
+      <StandOutSection acf={acf} /> 
+     <AdvantagesSection acf={acf} /> 
+
+     <ServicesSection acf={acf} /> 
       <LocalSection acf={acf} />
      <ServicesGrid acf={acf} />
 <ProcessSection acf={acf} /> 

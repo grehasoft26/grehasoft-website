@@ -52,7 +52,7 @@ if (!data?.expert_left_title) return null;
               {data?.expert_feature_one && (
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-xs ">
+                  <span className="font-semibold text-sm">
                     {data.expert_feature_one}
                   </span>
                 </div>
@@ -61,7 +61,7 @@ if (!data?.expert_left_title) return null;
               {data?.expert_feature_two && (
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-xs">
+                  <span className="font-semibold text-sm">
                     {data.expert_feature_two}
                   </span>
                 </div>
@@ -70,7 +70,7 @@ if (!data?.expert_left_title) return null;
               {data?.expert_feature_three && (
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-xs">
+                  <span className="font-semibold text-sm">
                     {data.expert_feature_three}
                   </span>
                 </div>
@@ -79,7 +79,7 @@ if (!data?.expert_left_title) return null;
               {data?.expert_feature_four && (
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-xs">
+                  <span className="font-semibold text-sm">
                     {data.expert_feature_four}
                   </span>
                 </div>
@@ -87,7 +87,7 @@ if (!data?.expert_left_title) return null;
                {data?.expert_feature_five && (
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-xs">
+                  <span className="font-semibold text-sm">
                     {data.expert_feature_five}
                   </span>
                 </div>
@@ -95,7 +95,7 @@ if (!data?.expert_left_title) return null;
                {data?.expert_feature_six && (
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary" />
-                  <span className="font-semibold text-xs">
+                  <span className="font-semibold text-sm">
                     {data.expert_feature_six}
                   </span>
                 </div>

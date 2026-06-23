@@ -149,7 +149,7 @@ export default function ServicesSection({ acf }: Props) {
                     {service.title}
                   </h3>
 
-                  <p className="text-text-gray leading-relaxed mb-6 text-xs">
+                  <p className="text-text-gray leading-relaxed mb-6 text-sm">
                     {service.desc}
                   </p>
 
@@ -157,7 +157,7 @@ export default function ServicesSection({ acf }: Props) {
 
                 <Link
                   href={service.href || '#'}
-                  className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all text-xs"
+                  className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all text-sm"
                 >
                   Explore Tech
                   <ArrowRight className="w-4 h-4" />

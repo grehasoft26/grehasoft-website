@@ -24,18 +24,7 @@ export default function IntroSection({
     <section className="section-padding overflow-hidden text-center md:text-left">
 
       <div className="container-custom">
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-          {/* LEFT CONTENT */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-
-            {intro?.hero_tag && (
+ {intro?.hero_tag && (
               <div className="inline-flex items-center gap-2 px-3 py-1 mb-5 text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 rounded-full border border-primary/5">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 {intro.hero_tag}
@@ -56,6 +45,17 @@ export default function IntroSection({
               )}
 
             </h1>
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* LEFT CONTENT */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+
+           
 
             {intro?.hero_description && (
               <div
@@ -68,7 +68,7 @@ export default function IntroSection({
 
             {intro?.hero_description_2 && (
               <div
-                className="text-gray-600 mb-6 leading-relaxed"
+                className="text-gray-600 text-lg mb-6 leading-relaxed"
                 dangerouslySetInnerHTML={{
                   __html: intro.hero_description_2,
                 }}
@@ -77,7 +77,7 @@ export default function IntroSection({
 
             {intro?.hero_description_3 && (
               <div
-                className="text-gray-600 mb-8 leading-relaxed font-semibold"
+                className="text-gray-600 text-lg mb-8 leading-relaxed font-semibold"
                 dangerouslySetInnerHTML={{
                   __html: intro.hero_description_3,
                 }}
@@ -128,7 +128,7 @@ export default function IntroSection({
             className="relative"
           >
 
-            <div className="aspect-[4/5] bg-gray-100 rounded-[3rem] overflow-hidden -rotate-2 shadow-2xl relative">
+            <div className="aspect-[4/5]  bg-gray-100 rounded-[3rem] overflow-hidden -rotate-2 shadow-2xl relative ">
 
               <Image
                  src={featuredImage || "/images/fallback.png"}

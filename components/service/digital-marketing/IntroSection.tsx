@@ -34,7 +34,7 @@ export default function IntroSection({
 
               {acf.hero_highlight && (
                 <>
-                  <br />
+                  
 
                   <span className="text-primary italic">
                     {acf.hero_highlight}
@@ -66,7 +66,7 @@ export default function IntroSection({
 
             {acf.hero_description_2 && (
               <div
-                className="text-gray-600 mb-6 leading-relaxed space-y-4"
+                className="text-gray-600 mb-6 text-lg leading-relaxed space-y-4"
                 dangerouslySetInnerHTML={{
                   __html: acf.hero_description_2,
                 }}
@@ -124,11 +124,11 @@ export default function IntroSection({
   whileInView={{ opacity: 1, scale: 1 }}
   viewport={{ once: true }}
   transition={{ duration: 0.8 }}
-  className="relative flex justify-center"
+  className="relative flex items-start"
 >
   {/* MAIN IMAGE CARD */}
   <motion.div
-    className="relative aspect-[4/5] w-full max-w-[500px] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl"
+    className="relative aspect-[4/5] w-full max-w-[500px] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl "
     animate={{
       y: [0, -15, 0],
       rotate: [2, 3, 2],
@@ -150,7 +150,7 @@ export default function IntroSection({
       src={heroImageUrl || featuredImage}
       alt={acf?.hero_title1 || "Service Image"}
       fill
-      className="object-cover"
+      className="object-cover "
       priority
     />
   </motion.div>

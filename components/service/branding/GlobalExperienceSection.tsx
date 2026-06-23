@@ -72,7 +72,7 @@ export default function GlobalExperienceSection({ acf }: Props) {
 
             {data?.section_description_2 && (
 
-              <p className="text-gray-600 leading-relaxed text-sm mb-6">
+              <p className="text-gray-600 leading-relaxed text-lg mb-6">
                 {data.section_description_2}
               </p>
 
@@ -126,7 +126,7 @@ export default function GlobalExperienceSection({ acf }: Props) {
                       {item.title}
                     </h4>
 
-                    <p className="text-gray-500 text-xs leading-relaxed">
+                    <p className="text-gray-500 text-sm leading-relaxed">
                       {item.desc}
                     </p>
 

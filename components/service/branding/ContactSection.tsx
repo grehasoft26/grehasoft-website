@@ -89,7 +89,7 @@ export default function ContactSection({ acf }: Props) {
 
               {contact?.asset_card_description && (
 
-                <p className="text-white/60 text-xs mt-3 leading-relaxed">
+                <p className="text-white/60 text-smmt-3 leading-relaxed">
                   {contact.asset_card_description}
                 </p>
 
@@ -108,7 +108,7 @@ export default function ContactSection({ acf }: Props) {
 
                 </div>
 
-                <p className="text-white/70 text-xs leading-relaxed">
+                <p className="text-white/70 text-sm leading-relaxed">
                   {contact.strategy_card_text}
                 </p>
 
@@ -147,7 +147,7 @@ export default function ContactSection({ acf }: Props) {
 
               {contact?.right_panel_description_1 && (
 
-                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                <p className="text-white/70 text-sm sm:text-base leading-relaxed">
                   {contact.right_panel_description_1}
                 </p>
 
@@ -168,7 +168,7 @@ export default function ContactSection({ acf }: Props) {
 
                 </div>
 
-                <div className="col-span-9 text-xs text-white/60 leading-relaxed pl-2">
+                <div className="col-span-9 text-sm text-white/60 leading-relaxed pl-2">
 
                   {contact.experience_description}
 
@@ -178,7 +178,7 @@ export default function ContactSection({ acf }: Props) {
 
               {contact?.right_panel_description_2 && (
 
-                <p className="font-semibold text-white/80 text-xs sm:text-sm leading-relaxed border-t border-white/5 pt-5">
+                <p className="font-semibold text-white/80 text-sm sm:text-sm leading-relaxed border-t border-white/5 pt-5">
 
                   {contact.right_panel_description_2}
 
@@ -207,7 +207,7 @@ export default function ContactSection({ acf }: Props) {
 
                 <Link
                   href={contact?.cta_button_link || '/contact'}
-                  className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4 rounded-full shadow-lg hover:scale-105 transition-all inline-flex items-center gap-2 uppercase tracking-wider"
+                  className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-sm px-8 py-4 rounded-full shadow-lg hover:scale-105 transition-all inline-flex items-center gap-2 uppercase tracking-wider"
                 >
 
                   <span>{contact.cta_button_text}</span>

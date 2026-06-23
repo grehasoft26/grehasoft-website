@@ -121,7 +121,7 @@ return ( <section className="section-padding bg-gray-55"> <div className="contai
     <div className="text-center max-w-4xl mx-auto mb-20">
 
       {data?.section_subtitle && (
-        <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
+        <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-4 block">
           {data.section_subtitle}
         </span>
       )}
@@ -159,11 +159,11 @@ return ( <section className="section-padding bg-gray-55"> <div className="contai
               {industry.title}
             </h4>
 
-            <p className="text-[10px] text-gray-400 mb-2 font-sans">
+            <p className="text-[14px] text-gray-600 mb-2 font-sans">
               {industry.description}
             </p>
 
-            <span className="text-[9px] font-bold text-primary uppercase tracking-wider font-sans mt-auto">
+            <span className="text-[10px] font-bold text-primary uppercase tracking-wider font-sans mt-auto">
               {industry.services}
             </span>
           </div>

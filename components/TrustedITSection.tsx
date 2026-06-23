@@ -46,9 +46,9 @@ export default function TrustedITSection() {
   ];
 
   return (
-    <section id="trusted-it-solutions" className="section-padding bg-gray-50/50 overflow-hidden border-y border-gray-100">
+    <section id="trusted-it-solutions" className="section-padding bg-gray-50/50 overflow-hidden border-b border-gray-100">
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Kochi IT Solutions Column */}
           <motion.div
@@ -56,7 +56,7 @@ export default function TrustedITSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-6 flex flex-col justify-between bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] border border-gray-100"
+            className="lg:col-span-6 space-y-6 flex flex-col justify-between bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] border border-gray-100"
           >
             <div>
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">

@@ -141,7 +141,7 @@ export default function AdvantagesSection({ acf }: Props) {
                   </h3>
 
                   {item.desc && (
-                    <p className="text-gray-500 text-xs leading-relaxed mb-4">
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4">
                       {item.desc}
                     </p>
                   )}
@@ -202,7 +202,7 @@ export default function AdvantagesSection({ acf }: Props) {
                     </h3>
 
                     {item.desc && (
-                      <p className="text-gray-500 text-xs leading-relaxed mb-4">
+                      <p className="text-gray-500 text-sm leading-relaxed mb-4">
                         {item.desc}
                       </p>
                     )}

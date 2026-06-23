@@ -98,7 +98,7 @@ export default function StandOutSection({ acf }: Props) {
 
                   <CheckCircle2 className="text-primary w-5 h-5 flex-shrink-0" />
 
-                  <span className="font-bold text-white/90 text-xs whitespace-nowrap">
+                  <span className="font-bold text-white/90 text-sm whitespace-nowrap">
                     {item}
                   </span>
 
@@ -142,7 +142,7 @@ export default function StandOutSection({ acf }: Props) {
                     {pt.title}
                   </h4>
 
-                  <p className="text-gray-500 text-xs leading-relaxed">
+                  <p className="text-gray-500 text-sm leading-relaxed">
                     {pt.desc}
                   </p>
 

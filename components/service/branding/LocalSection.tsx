@@ -89,13 +89,13 @@ export default function LocalSection({ acf }: Props) {
 
                     <CheckCircle2 className="text-primary w-4 h-4 flex-shrink-0" />
 
-                    <span className="font-bold text-dark text-xs">
+                    <span className="font-bold text-dark text-sm">
                       {item.title}
                     </span>
 
                   </div>
 
-                  <p className="text-gray-500 text-[11px] leading-relaxed">
+                  <p className="text-gray-500 text-sm leading-relaxed">
                     {item.desc}
                   </p>
 

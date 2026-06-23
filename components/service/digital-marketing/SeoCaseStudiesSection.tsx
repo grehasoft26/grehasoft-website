@@ -78,7 +78,7 @@ export default function SeoCaseStudiesSection({ acf }: Props) {
                 </h3>
 
                 {cs.description && (
-                  <p className="text-gray-500 mt-4 text-xs md:text-sm leading-relaxed font-sans font-medium">
+                  <p className="text-gray-500 mt-4 text-sm md:text-base leading-relaxed font-sans font-medium">
                     {cs.description}
                   </p>
                 )}
