@@ -87,7 +87,7 @@ export default function TechnologySection({ acf }: Props) {
                   <Code2 className="w-5 h-5 text-primary" />
                 </div>
 
-                <span className="text-xs font-black uppercase text-dark tracking-wider block mb-4 border-b border-gray-100 pb-2">
+                <span className="text-sm font-black uppercase text-dark tracking-wider block mb-4 border-b border-gray-100 pb-2">
                   {tech.category}
                 </span>
 
@@ -95,7 +95,7 @@ export default function TechnologySection({ acf }: Props) {
                   {tech.items?.map((item: string, i: number) => (
                     <li
                       key={i}
-                      className="text-xs text-gray-500 font-semibold flex items-center gap-1.5 font-mono"
+                      className="text-sm text-gray-500 font-semibold flex items-center gap-1.5 font-mono"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                       <span>{item.trim()}</span>

@@ -93,7 +93,7 @@ export default function GlobalExperienceSection({ acf }: Props) {
                   {card.title}
                 </h4>
 
-                <p className="text-gray-500 text-xs leading-relaxed">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   {card.description}
                 </p>
               </div>

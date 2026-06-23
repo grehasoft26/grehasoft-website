@@ -99,7 +99,7 @@ export default function CriticalCheckSection({ acf }: Props) {
                 {sign.title}
               </h4>
 
-              <p className="text-gray-500 text-xs leading-relaxed">
+              <p className="text-gray-500 text-sm leading-relaxed">
                 {sign.desc}
               </p>
             </motion.div>
