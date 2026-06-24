@@ -185,28 +185,25 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
   />
 
   <img
-     src={client.image}
+  src={client.image}
   alt={name}
-    className="
-      relative
-      h-10
-      md:h-14
-      w-auto
-      object-contain
+  className="
+    !w-[160px]
+    !h-[60px]
+    object-contain
 
-      brightness-0
-      invert
-      opacity-80
+    brightness-0
+    invert
+    opacity-80
 
-      group-hover:brightness-100
-      group-hover:invert-0
-      group-hover:opacity-100
-      group-hover:scale-100
+    group-hover:brightness-100
+    group-hover:invert-0
+    group-hover:opacity-100
 
-      transition-all
-      duration-500
-    "
-  />
+    transition-all
+    duration-500
+  "
+/>
 </a>
               );
             })}

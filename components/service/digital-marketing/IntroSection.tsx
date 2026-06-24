@@ -156,7 +156,7 @@ export default function IntroSection({
   </motion.div>
 
   {/* TOP RIGHT FLOATING BADGE */}
-  <motion.div
+  {/* <motion.div
     className="absolute top-10 -right-4 lg:-right-8 bg-white px-5 py-3 rounded-2xl shadow-xl border border-gray-100 hidden md:flex items-center gap-3"
     animate={{
       y: [0, -12, 0],
@@ -171,7 +171,7 @@ export default function IntroSection({
     <span className="text-sm font-semibold text-dark">
       High Performance
     </span>
-  </motion.div>
+  </motion.div> */}
 
   {/* BOTTOM LEFT FLOATING BADGE */}
   <motion.div
