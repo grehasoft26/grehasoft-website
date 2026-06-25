@@ -96,7 +96,7 @@ export default function TrustedITSection() {
                   <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                   Get powerful IT services designed for growth.
                 </p>
-                <Link href="/contact" className="btn-primary group inline-flex items-center">
+                <Link href="/contact-us" className="btn-primary group inline-flex items-center">
                   Get a Free Consultation
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
                 </Link>

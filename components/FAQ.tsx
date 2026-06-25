@@ -445,7 +445,7 @@ export default function FAQ() {
               </p>
               <div className="flex flex-col gap-2.5">
                 <a 
-                  href="https://wa.me/919349942575" 
+                  href="https://wa.me/918921540183" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-5 rounded-xl transition-all shadow-md hover:shadow-accent/20 cursor-pointer"
@@ -454,7 +454,7 @@ export default function FAQ() {
                   <span>Chat on WhatsApp</span>
                 </a>
                 <a 
-                  href="/contact"
+                  href="/contact-us"
                   className="inline-flex items-center justify-center gap-2.5 border border-white/10 hover:bg-white/5 text-white font-bold text-xs py-3.5 px-5 rounded-xl transition-all"
                 >
                   <span>Go to Contact Page</span>

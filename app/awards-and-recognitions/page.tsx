@@ -333,7 +333,7 @@ export default function AwardsPage() {
 
               <div className="pt-6 border-t border-white/10 mt-6 md:mt-0">
                 <a 
-                  href="https://infopark.in" 
+                  href="https://infopark.in/companies-profile/grehasoft" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="w-full inline-flex items-center justify-between bg-primary hover:bg-primary/95 text-white text-[10px] font-black uppercase tracking-widest px-5 py-3 rounded-xl transition-all"

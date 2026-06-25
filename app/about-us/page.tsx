@@ -64,25 +64,25 @@ export default function AboutPage() {
     {
       title: 'Mobile App Development',
       desc: 'High-performance Android & iOS applications customized for fluid experiences on all mobile devices.',
-      href: '/mobile-apps',
+      href: '/mobile-app-development',
       icon: <Smartphone className="w-6 h-6" />
     },
     {
       title: 'Custom Web Applications',
       desc: 'Tailored web applications built with modern stacks to streamline daily business operations.',
-      href: '/software/custom-web',
+      href: '/custom-web-app-development',
       icon: <Code className="w-6 h-6" />
     },
     {
       title: 'Custom Software Solutions',
       desc: 'Robust custom software engineering designed specifically, securely, and scalably to solve business problems.',
-      href: '/software',
+      href: '/software-web-apps',
       icon: <Cpu className="w-6 h-6" />
     },
     {
       title: 'Domain Name & Website Hosting Support',
       desc: 'End-to-end consulting and technical support to acquire the best domain names and elite web hosting servers.',
-      href: '/contact',
+      href: '/contact-us',
       icon: <Globe className="w-6 h-6" />
     }
   ];
@@ -614,7 +614,7 @@ export default function AboutPage() {
 
                     <div className="pt-4 border-t border-white/10">
                       <Link 
-                        href="/contact" 
+                        href="/contact-us" 
                         className="w-full text-center block bg-accent hover:bg-accent/90 text-dark py-4 px-6 rounded-xl font-black uppercase text-xs tracking-wider shadow-lg shadow-accent/20 transition-all duration-300"
                       >
                         Contact Grehasoft Now

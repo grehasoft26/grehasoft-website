@@ -98,7 +98,7 @@ export default function About({ data }: AboutProps) {
             {/* BUTTONS */}
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <Link
-                href="/about"
+                href="/about-us"
                 className="btn-primary w-full sm:w-auto"
               >
                 Learn More About Us

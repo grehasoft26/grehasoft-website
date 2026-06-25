@@ -139,7 +139,7 @@ export default function Products({ data }: ProductsProps) {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
 
-              <Link href={pms.pms_btn2_link || '#'} className="text-white font-semibold hover:text-accent transition-colors flex items-center gap-2">
+              <Link href={pms.pms_btn2_link || '/contact-us'} className="text-white font-semibold hover:text-accent transition-colors flex items-center gap-2">
                 {pms.pms_btn2_text}
                 <ArrowRight className="w-4 h-4" />
               </Link>

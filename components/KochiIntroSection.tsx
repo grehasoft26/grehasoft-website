@@ -102,7 +102,7 @@ export default function KochiIntroSection() {
 
             {/* Call to Actions */}
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
-              <Link href="/contact" className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2">
+              <Link href="/contact-us" className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2">
                 Launch Your Next Phase <ArrowRight className="w-5 h-5" />
               </Link>
               <Link href="/services" className="px-6 py-4 border border-gray-200 hover:border-primary hover:text-primary rounded-xl font-bold text-dark transition-all duration-300 w-full sm:w-auto text-center text-sm">
