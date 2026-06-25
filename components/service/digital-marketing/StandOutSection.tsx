@@ -41,7 +41,7 @@ if (!data?.expert_left_title) return null;
 )}
 
 {data?.expert_left_small_description && (
-  <p className="text-gray-400 leading-relaxed mb-10">
+  <p className="text-gray-300 text-lg leading-relaxed mb-10">
     {data.expert_left_small_description}
   </p>
 )}
@@ -139,7 +139,7 @@ if (!data?.expert_left_title) return null;
             {data?.expert_right_description_two && (
               
               <div
-                className="text-gray-600 leading-relaxed mb-10"
+                className="text-gray-600 text-lg leading-relaxed mb-10"
                 dangerouslySetInnerHTML={{
                   __html:data.expert_right_description_two,
                 }}

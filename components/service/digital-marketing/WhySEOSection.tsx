@@ -219,7 +219,7 @@ if (!whySeo?.why_seo_title_1) return null;
                   {whySeo?.why_seo_bottom_title}
                 </p>
 
-                <p className="text-white/60 text-[9px] uppercase tracking-[0.2em]">
+                <p className="text-white/60 text-[10px] uppercase tracking-[0.2em]">
                   {whySeo?.why_seo_bottom_small_text}
                 </p>
 

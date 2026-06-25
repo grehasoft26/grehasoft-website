@@ -59,8 +59,8 @@ const serviceCategories = [
       { name: "Static HTML Websites", desc: "Ultra-fast, highly secure static sites built to deliver extreme loading speeds and search optimization.", href: "/website-development/static-website" },
       { name: "WordPress Websites", desc: "Customized content-management hubs matching visual brand identity with full administrative independence.", href: "/wordpress-development" },
       { name: "eCommerce Development", desc: "Pristine digital store frameworks designed with robust cart security and seamless transaction steps.", href: "/ecommerce-development" },
-      { name: "WooCommerce Stores", desc: "Convert standard WordPress platforms into fully functional online supermarkets with payment logic.", href: "/ecommerce-development/woocommerce" },
-      { name: "Shopify Stores", desc: "Establish pre-configured storefronts, optimized templates, and clean product collections with speed.", href: "/ecommerce-development/shopify" },
+      { name: "WooCommerce Stores", desc: "Convert standard WordPress platforms into fully functional online supermarkets with payment logic.", href: "/woocommerce-development" },
+      { name: "Shopify Stores", desc: "Establish pre-configured storefronts, optimized templates, and clean product collections with speed.", href: "/shopify-development" },
       { name: "Landing Page Design", desc: "High-level visual triggers and clean sales copy designed to capture immediate sign-ups and leads.", href: "/landing-page-design" },
       { name: "Website Redesign", desc: "Breathe new vigor into legacy websites with updated structural wireframes, clean code, and fast assets.", href: "/website-redesign" },
     ]
@@ -77,12 +77,12 @@ const serviceCategories = [
       { name: "SEO Services", desc: "Climb search rankings sustainably with structured content strategy, on-page optimization, and authoritative backlink architectures.", href: "/seo" },
       { name: "SEM (Google Ads)", desc: "Deploy precision targeting for search ads, shopping, and display networks to drive swift, measurable returns on ad spend.", href: "/search-engine-marketing" },
       { name: "Social Media Marketing", desc: "Nurture brand loyalty with daily creative updates, custom graphics, and customer interaction on major socials.", href: "/social-media-marketing" },
-      { name: "Facebook Marketing", desc: "Micro-target user demographics, craft viral video campaigns, and manage organic business groups with ease.", href: "/social-media-marketing/facebook" },
-      { name: "Instagram Marketing", desc: "Eye-catching visual reels, interactive stories, and influencer synergies optimized for high-impact brand retention.", href: "/social-media-marketing/instagram" },
-      { name: "YouTube Marketing", desc: "Construct cinematic brand video content, high-performing video ads, and SEO-optimized channels.", href: "/social-media-marketing/youtube" },
-      { name: "LinkedIn Marketing", desc: "B2B client acquisition pipelines, enterprise leadership campaigns, and executive recruitment networks.", href: "/social-media-marketing/linkedin" },
-      { name: "Pinterest Marketing", desc: "Aesthetic pin boards that generate consistent referral traffic for design, lifestyle, and commerce brands.", href: "/social-media-marketing/pinterest" },
-      { name: "Twitter (X) Marketing", desc: "Real-time industry comments, viral threads, and interactive brand conversations designed to engage power users.", href: "/social-media-marketing/twitter" },
+      { name: "Facebook Marketing", desc: "Micro-target user demographics, craft viral video campaigns, and manage organic business groups with ease.", href: "/facebook" },
+      { name: "Instagram Marketing", desc: "Eye-catching visual reels, interactive stories, and influencer synergies optimized for high-impact brand retention.", href: "/instagram" },
+      { name: "YouTube Marketing", desc: "Construct cinematic brand video content, high-performing video ads, and SEO-optimized channels.", href: "/youtube" },
+      { name: "LinkedIn Marketing", desc: "B2B client acquisition pipelines, enterprise leadership campaigns, and executive recruitment networks.", href: "/linkedin" },
+      { name: "Pinterest Marketing", desc: "Aesthetic pin boards that generate consistent referral traffic for design, lifestyle, and commerce brands.", href: "/pinterest" },
+      { name: "Twitter (X) Marketing", desc: "Real-time industry comments, viral threads, and interactive brand conversations designed to engage power users.", href: "/twitter" },
     ]
   },
   {
@@ -94,12 +94,12 @@ const serviceCategories = [
     textAccent: "text-indigo-500",
     bgAccent: "bg-indigo-500",
     items: [
-      { name: "Graphic Design", desc: "Custom illustrations, print banners, and promotional visual media built with gorgeous editorial typography.", href: "/branding/graphic-design" },
-      { name: "Logo Design", desc: "Timeless vector emblems with high-contrast scaling that encapsulate your core brand storytelling.", href: "/branding/logo-design" },
-      { name: "Branding Packages", desc: "Complete operational kits containing brand guides, color swatches, font pairings, and design system templates.", href: "/branding/packages" },
-      { name: "Brochure & Flyer Design", desc: "Elegant print and digital layouts optimized to introduce products or events with maximum visual balance.", href: "/branding/brochure-flyer" },
-      { name: "Business Cards & Letterheads", desc: "Premium paper and PDF designs that preserve corporate visual consistency during customer handshakes.", href: "/branding/business-cards" },
-      { name: "UI/UX Design", desc: "Human-centric research, responsive wireframes, Figma prototyping, and thorough usability audits.", href: "/branding/ui-ux" },
+      { name: "Graphic Design", desc: "Custom illustrations, print banners, and promotional visual media built with gorgeous editorial typography.", href: "/graphic-design" },
+      { name: "Logo Design", desc: "Timeless vector emblems with high-contrast scaling that encapsulate your core brand storytelling.", href: "/logo-design" },
+      { name: "Branding Packages", desc: "Complete operational kits containing brand guides, color swatches, font pairings, and design system templates.", href: "/branding-packages" },
+      { name: "Brochure & Flyer Design", desc: "Elegant print and digital layouts optimized to introduce products or events with maximum visual balance.", href: "/brochure-flyer-design" },
+      { name: "Business Cards & Letterheads", desc: "Premium paper and PDF designs that preserve corporate visual consistency during customer handshakes.", href: "/business-card-design" },
+      { name: "UI/UX Design", desc: "Human-centric research, responsive wireframes, Figma prototyping, and thorough usability audits.", href: "/ui-ux-design" },
     ]
   },
   {
@@ -111,12 +111,12 @@ const serviceCategories = [
     textAccent: "text-orange-500",
     bgAccent: "bg-orange-500",
     items: [
-      { name: "Android Apps", desc: "Native Kotlin applications built optimized for the Google Play Store with responsive system interactions.", href: "/mobile-apps/android" },
-      { name: "iOS Apps", desc: "Swift applications with beautiful premium layouts designed to leverage advanced Apple hardware ecosystems.", href: "/mobile-apps/ios" },
-      { name: "Hybrid Apps (Flutter, React)", desc: "Develop unified codebases that deploy to multiple operating systems with fully native performance platforms.", href: "/mobile-apps/hybrid" },
-      { name: "Progressive Web Apps (PWA)", desc: "Offline-first web portals that behave exactly like native apps directly through browser installation.", href: "/mobile-apps/pwa" },
-      { name: "Business/Service Apps", desc: "Dynamic utility systems featuring calendars, real-time push alerts, and direct payment pathways.", href: "/mobile-apps/business-apps" },
-      { name: "Custom Utility Apps", desc: "Solve specific operational challenges with precise task trackers, visual tools, and lightweight applets.", href: "/mobile-apps/utility-apps" },
+      { name: "Android Apps", desc: "Native Kotlin applications built optimized for the Google Play Store with responsive system interactions.", href: "/android-app-development" },
+      { name: "iOS Apps", desc: "Swift applications with beautiful premium layouts designed to leverage advanced Apple hardware ecosystems.", href: "/ios-app-development" },
+      { name: "Hybrid Apps (Flutter, React)", desc: "Develop unified codebases that deploy to multiple operating systems with fully native performance platforms.", href: "/hybrid-app-development" },
+      { name: "Progressive Web Apps (PWA)", desc: "Offline-first web portals that behave exactly like native apps directly through browser installation.", href: "/progressive-web-app-development" },
+      { name: "Business/Service Apps", desc: "Dynamic utility systems featuring calendars, real-time push alerts, and direct payment pathways.", href: "/business-app-development" },
+      { name: "Custom Utility Apps", desc: "Solve specific operational challenges with precise task trackers, visual tools, and lightweight applets.", href: "/utility-app-development" },
     ]
   },
   {
@@ -128,14 +128,14 @@ const serviceCategories = [
     textAccent: "text-pink-500",
     bgAccent: "bg-pink-500",
     items: [
-      { name: "Custom Web Applications", desc: "Dynamic, cloud-hosted SaaS applications built with secure user access levels and real-time database feeds.", href: "/software/custom-web" },
-      { name: "ERP Solutions", desc: "Formulate complete central resource dashboards tracking active projects, payrolls, and operations.", href: "/software/erp" },
-      { name: "CRM Systems", desc: "Empower sales and customer-success reps with client timeline charts, logs, and automatic lead triggers.", href: "/software/crm" },
-      { name: "LMS Platforms", desc: "Construct courses, stream video materials, issue digital exams, and track student completion paths smoothly.", href: "/software/lms" },
-      { name: "Booking Systems", desc: "Integrate multi-currency calendars, hourly time-slots, therapist routing, and automated SMS reminders.", href: "/software/booking" },
-      { name: "Inventory Management", desc: "Track physical warehouse assets, automate low-stock notifications, and export barcode scans.", href: "/software/inventory" },
-      { name: "Custom Business Tools", desc: "Formulate calculators, dynamic report exporters, and digital document signing pathways.", href: "/software/business-tools" },
-      { name: "API Integrations", desc: "Synergize third-party payment gateways, CRM storage, shipping APIs, and maps services smoothly.", href: "/software/api-integrations" },
+      { name: "Custom Web Applications", desc: "Dynamic, cloud-hosted SaaS applications built with secure user access levels and real-time database feeds.", href: "/custom-web-app-development" },
+      { name: "ERP Solutions", desc: "Formulate complete central resource dashboards tracking active projects, payrolls, and operations.", href: "/erp-software-development" },
+      { name: "CRM Systems", desc: "Empower sales and customer-success reps with client timeline charts, logs, and automatic lead triggers.", href: "/crm-software-development" },
+      { name: "LMS Platforms", desc: "Construct courses, stream video materials, issue digital exams, and track student completion paths smoothly.", href: "/lms-development" },
+      { name: "Booking Systems", desc: "Integrate multi-currency calendars, hourly time-slots, therapist routing, and automated SMS reminders.", href: "/booking-system-development" },
+      { name: "Inventory Management", desc: "Track physical warehouse assets, automate low-stock notifications, and export barcode scans.", href: "/inventory-management-software" },
+      { name: "Custom Business Tools", desc: "Formulate calculators, dynamic report exporters, and digital document signing pathways.", href: "/custom-business-software-development" },
+      { name: "API Integrations", desc: "Synergize third-party payment gateways, CRM storage, shipping APIs, and maps services smoothly.", href: "/api-development-integration" },
     ]
   },
   {
@@ -147,11 +147,11 @@ const serviceCategories = [
     textAccent: "text-cyan-500",
     bgAccent: "bg-cyan-500",
     items: [
-      { name: "Backend (Laravel, Node.js)", desc: "Maintain lightning-fast API responses, advanced relational DB query routing, and robust state safety.", href: "/tech/backend" },
-      { name: "Frontend (React, Vue, Angular)", desc: "Employ component architectures with strict visual alignment, micro-animations, and modular state.", href: "/tech/frontend" },
-      { name: "Databases (MySQL, MongoDB)", desc: "Optimize collection schemas, indexing, complex query aggregation, and persistent backup snapshots.", href: "/tech/databases" },
-      { name: "Server & Cloud (AWS, Azure)", desc: "Configure safe firewalls, horizontal container auto-scaling, CDN distributions, and continuous deploy pipes.", href: "/tech/server-cloud" },
-      { name: "Workflow Automation", desc: "Reduce employee overhead by automating CSV parsing, email dispatches, and inter-app webhook events.", href: "/tech/automation" },
+      { name: "Backend (Laravel, Node.js)", desc: "Maintain lightning-fast API responses, advanced relational DB query routing, and robust state safety.", href: "/backend-development" },
+      { name: "Frontend (React, Vue, Angular)", desc: "Employ component architectures with strict visual alignment, micro-animations, and modular state.", href: "/frontend-development" },
+      { name: "Databases (MySQL, MongoDB)", desc: "Optimize collection schemas, indexing, complex query aggregation, and persistent backup snapshots.", href: "/database-development" },
+      { name: "Server & Cloud (AWS, Azure)", desc: "Configure safe firewalls, horizontal container auto-scaling, CDN distributions, and continuous deploy pipes.", href: "/server-cloud-solutions" },
+      { name: "Workflow Automation", desc: "Reduce employee overhead by automating CSV parsing, email dispatches, and inter-app webhook events.", href: "/workflow-automation" },
     ]
   }
 ];

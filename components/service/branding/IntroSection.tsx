@@ -37,7 +37,7 @@ export default function IntroSection({
 
               {intro.hero_highlight && (
                 <>
-                  <br />
+                
                   <span className="text-primary italic">
                     {intro.hero_highlight}
                   </span>
@@ -77,7 +77,7 @@ export default function IntroSection({
 
             {intro?.hero_description_3 && (
               <div
-                className="text-gray-600 text-lg mb-8 leading-relaxed font-semibold"
+                className="text-gray-600 text-lg mb-8 leading-relaxed "
                 dangerouslySetInnerHTML={{
                   __html: intro.hero_description_3,
                 }}
