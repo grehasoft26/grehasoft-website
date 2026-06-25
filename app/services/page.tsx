@@ -390,7 +390,7 @@ export default function ServicesPage() {
                             <h4 className="font-extrabold text-dark text-base leading-snug group-hover:text-primary transition-colors">
                               {sub.name}
                             </h4>
-                            <p className="text-gray-500 text-xs leading-relaxed">{sub.desc}</p>
+                            <p className="text-gray-500 text-sm leading-relaxed">{sub.desc}</p>
                           </div>
 
                           <div className="mt-8 pt-6 border-t border-gray-200/50 flex justify-end">
@@ -478,7 +478,7 @@ export default function ServicesPage() {
                     </div>
                     <div>
                       <h4 className="font-extrabold text-sm md:text-base leading-tight">{opt.label}</h4>
-                      <p className={`text-[11px] mt-1 line-clamp-1 leading-snug ${
+                      <p className={`text-[14px] mt-1 line-clamp-1 leading-snug ${
                         selectedQuizGoal === opt.id ? 'text-white/80' : 'text-white/40'
                       }`}>
                         {opt.summary}
@@ -524,7 +524,7 @@ export default function ServicesPage() {
                           >
                             <div>
                               <p className="font-bold text-white text-xs leading-tight">{service.name}</p>
-                              <span className="text-[9px] text-white/30 font-bold block mt-1 uppercase tracking-widest font-mono">{service.category}</span>
+                              <span className="text-[14px] text-white/30 font-bold block mt-1 uppercase tracking-widest font-mono">{service.category}</span>
                             </div>
                             <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                           </Link>
