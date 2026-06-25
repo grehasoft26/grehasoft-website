@@ -261,7 +261,7 @@ export default function AwardsPage() {
         <div className="container-custom">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-primary font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
+            <span className="text-accent font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
               Proof Through Output
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-dark tracking-tight leading-none mb-4">
@@ -418,7 +418,7 @@ export default function AwardsPage() {
         <div className="container-custom">
           
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <span className="text-primary font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 inline-block">
+            <span className="text-accent font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 inline-block">
               Community Voices
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-dark tracking-tight leading-none mb-4">
@@ -488,7 +488,7 @@ export default function AwardsPage() {
             
             {/* Left Column Sticky Banner */}
             <div className="lg:col-span-4 lg:sticky lg:top-8 space-y-4">
-              <span className="text-primary font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 inline-block">
+              <span className="text-accent font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 inline-block">
                 Strategic Values
               </span>
               <h2 className="text-2xl md:text-4xl font-black text-dark tracking-tight leading-none">

@@ -165,7 +165,7 @@ export default function AboutPage() {
                 className="inline-flex items-center gap-2 bg-primary/5 border border-primary/10 rounded-full px-4 py-1.5"
               >
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-                <span className="text-primary font-black uppercase tracking-wider text-[10px]">
+                <span className="text-accent font-black uppercase tracking-wider text-[10px]">
                   Welcome to Grehasoft
                 </span>
               </motion.div>
@@ -302,7 +302,7 @@ export default function AboutPage() {
         
         <div className="container-custom relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-primary font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
+            <span className="text-accent font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
               Multi-Service IT Solutions Provider
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-dark tracking-tight leading-none mb-4">
@@ -363,7 +363,7 @@ export default function AboutPage() {
         
         <div className="container-custom relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
-            <span className="text-primary font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
+            <span className="text-accent font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
               Milestones of Growth
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-dark tracking-tight leading-none mb-4">
@@ -639,7 +639,7 @@ export default function AboutPage() {
         <div className="container-custom">
           
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <span className="text-primary font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
+            <span className="text-accent font-black uppercase tracking-wider text-[10px] bg-primary/5 rounded-full px-3 py-1 mb-3 inline-block">
               Why We Stand Out
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-dark tracking-tight leading-none mb-4">

@@ -59,7 +59,7 @@ export default async function CareersPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block">
+            <span className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block">
               {data.why_tag}
             </span>
 
@@ -105,7 +105,7 @@ export default async function CareersPage() {
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-primary font-semibold uppercase tracking-wider text-sm mb-4 block">
+            <span className="text-accent font-semibold uppercase tracking-wider text-sm mb-4 block">
               {data.jobs_tag}
             </span>
 

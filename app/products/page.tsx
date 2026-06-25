@@ -134,7 +134,7 @@ export default async function ProductsPage() {
       {/* LEFT */}
       <div className="lg:w-1/2">
 
-        <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
+        <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
           {core?.small_title}
         </span>
 
@@ -219,7 +219,7 @@ export default async function ProductsPage() {
     {/* TOP CONTENT */}
     <div className="text-center max-w-3xl mx-auto mb-20">
 
-      <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
+      <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
         {software?.small_title}
       </span>
 
@@ -339,7 +339,7 @@ export default async function ProductsPage() {
       {/* RIGHT SIDE */}
       <div>
 
-        <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
+        <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
           {adv?.section_tag}
         </span>
 
@@ -385,7 +385,7 @@ export default async function ProductsPage() {
   <div className="container-custom">
 
     <div className="text-center max-w-3xl mx-auto mb-20">
-      <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
+      <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
         {industry?.small_title}
       </span>
 
