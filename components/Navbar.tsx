@@ -130,7 +130,7 @@ const getSubMenu = (id: any) =>
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-8">
+      <div className="hidden xl:flex items-center gap-8">
           {mainMenu.map((item) => {
             const subMenu = getSubMenu(item.id);
 
@@ -276,7 +276,7 @@ const getSubMenu = (id: any) =>
           {/* Mobile Toggle */}
 {!isMobileMenuOpen && (
   <button
-    className="lg:hidden p-2 z-[100]"
+    className="xl:hidden p-2 z-[100]"
     onClick={() => setIsMobileMenuOpen(true)}
   >
     <Menu className={isScrolled ? "text-dark w-7 h-7" : "text-white w-7 h-7"} />

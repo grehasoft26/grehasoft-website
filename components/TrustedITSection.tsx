@@ -56,7 +56,7 @@ export default function TrustedITSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-6 space-y-6 flex flex-col justify-between bg-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] border border-gray-100"
+          className="lg:col-span-6 flex flex-col bg-white rounded-[2.5rem] p-8 lg:p-10 xl:p-12 border border-gray-100 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] h-full"
           >
             <div>
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
@@ -90,8 +90,8 @@ export default function TrustedITSection() {
               </div>
             </div>
 
-            <div>
-              <div className="border-t border-gray-100 pt-8 mt-4">
+           <div className="mt-auto">
+  <div className="border-t border-gray-100 pt-6">
                 <p className="text-dark font-bold text-lg mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                   Get powerful IT services designed for growth.
@@ -110,7 +110,21 @@ export default function TrustedITSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="lg:col-span-6 flex flex-col justify-between bg-dark text-white rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_50px_-15px_rgba(5,4,74,0.15)] relative overflow-hidden"
+           className="
+lg:col-span-6
+flex
+flex-col
+bg-dark
+text-white
+rounded-[2.5rem]
+p-8
+lg:p-10
+xl:p-12
+relative
+overflow-hidden
+shadow-[0_20px_50px_-15px_rgba(5,4,74,0.15)]
+h-full
+"
           >
             {/* Background Accent Gradient */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-primary/20 rounded-full blur-[120px] -mr-32 -mt-32 pointer-events-none" />
@@ -123,11 +137,11 @@ export default function TrustedITSection() {
                   Global Footprint
                 </span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-6 leading-tight">
+            <h3 className="text-2xl lg:text-3xl font-extrabold text-white mb-4 leading-tight">
                 IT Services Provider in India & the Middle East
               </h3>
               
-              <p className="text-white/85 text-sm md:text-base leading-relaxed mb-8">
+             <p className="text-white/85 text-sm lg:text-base leading-relaxed mb-6">
                 Grehasoft is an experienced IT services provider helping businesses streamline operations, strengthen online presence, and achieve measurable digital success. For years, we have supported clients across India, the Middle East, Europe, and the USA with end-to-end digital solutions.
               </p>
 
@@ -136,7 +150,7 @@ export default function TrustedITSection() {
                 <h4 className="text-xs uppercase tracking-widest text-accent font-black mb-4">
                   Our approach is simple:
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4">
                   {approachItems.map((item, index) => (
                     <div key={index} className="flex gap-3 bg-white/5 border border-white/5 hover:border-white/10 p-4 rounded-2xl transition-all duration-300">
                       <div className="p-1 rounded-lg bg-accent/15 h-fit text-accent">
@@ -153,7 +167,7 @@ export default function TrustedITSection() {
             </div>
 
             {/* Bottom trust indicator */}
-            <div className="relative z-10 border-t border-white/10 pt-6 mt-8 flex flex-wrap items-center justify-between gap-4">
+         <div className="relative z-10 border-t border-white/10 pt-6 mt-auto flex flex-wrap items-center justify-between gap-4">
               <p className="text-white/40 text-xs tracking-wider uppercase font-medium">
                 Client Success Oriented
               </p>

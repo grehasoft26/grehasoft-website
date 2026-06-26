@@ -85,9 +85,23 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
 
   return (
     
-    <div ref={containerRef} className="h-[300vh]">
+   <div ref={containerRef} className="h-[220vh] xl:h-[300vh]">
        
-      <div className="sticky top-0 h-screen flex items-center bg-white overflow-hidden">
+    <div
+  className="
+    sticky
+    top-0
+    min-h-[700px]
+    xl:h-screen
+    flex
+    items-start
+    xl:items-center
+    pt-16
+    xl:pt-0
+    bg-white
+    overflow-hidden
+  "
+>
         {loading ? (
           <div className="container-custom relative z-10 w-full flex items-center justify-center">
             <div className="text-center">
@@ -213,50 +227,42 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
         </div>
 
         {/* BACKGROUND TEXT */}
-        <motion.h1
-          style={{ opacity: bgOpacity }}
-          className="
-            absolute
-            top-1/2
-            left-1/2
-            -translate-x-1/2
-            -translate-y-1/2
+ <motion.h1
+  style={{ opacity: bgOpacity }}
+  className="
+    absolute
+    top-1/2
+    left-1/2
+    -translate-x-1/2
+    -translate-y-1/2
 
-            text-[20px]
-            sm:text-[50px]
-            md:text-[80px]
-            lg:text-[100px]
-            xl:text-[130px]
+    text-[20px]
+    sm:text-[50px]
+    md:text-[70px]
+    lg:text-[90px]
+    xl:text-[130px]
 
-            font-bold
-            text-[#0b0b45]
+    font-bold
+    text-[#0b0b45]
 
-            tracking-[2px]
-            sm:tracking-[6px]
-            md:tracking-[12px]
+    tracking-[2px]
+    sm:tracking-[6px]
+    md:tracking-[10px]
 
-            blur-[1px]
+    blur-[1px]
+    pointer-events-none
+    select-none
+    z-0
+    text-center
+    leading-none
+  "
+>
+  <span>{acf?.background_text?.split(" ")[0]}</span>
 
-            whitespace-pre-line
-            lg:whitespace-nowrap
+  <br className="md:block xl:hidden" />
 
-            pointer-events-none
-            select-none
-
-            z-0
-
-            px-4
-            text-center
-            leading-none
-
-            max-w-full
-            overflow-hidden
-          "
-        >
-          {typeof window !== "undefined" && window.innerWidth < 768
-            ? acf?.background_text?.replace(" ", "\n")
-            : acf?.background_text}
-        </motion.h1>
+  <span>{acf?.background_text?.split(" ").slice(1).join(" ")}</span>
+</motion.h1>
           </>
         )}
       </div>

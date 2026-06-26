@@ -53,17 +53,7 @@ export default function KochiIntroSection() {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl opacity-60 -z-10 pointer-events-none" />
       
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
-          {/* Left Block: Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-7 space-y-6"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
+         <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
               <Sparkles className="w-4 h-4 text-primary animate-pulse" />
               <span className="text-xs font-bold text-accent uppercase tracking-widest">
                 Kochi's Premier IT Leader
@@ -74,6 +64,17 @@ export default function KochiIntroSection() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-dark leading-tight tracking-tight">
               Best IT Company in <span className="text-primary">Kochi, Kerala</span> — Powering Businesses with Smart Technology Solutions
             </h1>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mt-6">
+          
+          {/* Left Block: Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-7 space-y-6"
+          >
+           
 
             {/* Paragraph 1 */}
             <p className="text-text-gray text-base md:text-lg leading-relaxed font-sans">
