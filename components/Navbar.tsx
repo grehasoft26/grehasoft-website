@@ -183,12 +183,20 @@ const getSubMenu = (id: any) =>
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 w-[90vw] max-w-7xl bg-white shadow-2xl rounded-b-2xl overflow-hidden border-t-4 border-primary"
+                     className="absolute top-full left-1/2 -translate-x-1/2
+w-[92vw]
+max-w-[1120px]
+bg-white
+shadow-2xl
+rounded-b-2xl
+overflow-hidden
+border-t-4
+border-primary"
                     >
                       <div className="flex">
                         {/* LEFT */}
                        {/* LEFT CONTENT - Dynamic from WordPress */}
-<div className="flex-1 p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+<div className="flex-1 p-6 lg:p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
   {getSubMenu(
     mainMenu.find((m) => m.title === "Services")?.id
   ).map((column) => {
@@ -221,9 +229,9 @@ const getSubMenu = (id: any) =>
 </div>
 
                         {/* RIGHT */}
-                       <div className="w-full lg:w-96 bg-gray-50 p-8 border-l border-gray-100 flex flex-col gap-6">
+                       <div className="w-full lg:w-[330px] xl:w-[360px] bg-gray-50 p-8 border-l border-gray-100 flex flex-col gap-6">
                           <div className="space-y-4">
-                            <h3 className="text-xl font-bold text-dark leading-tight">
+                            <h3 className="text-lg xl:text-xl font-bold text-dark leading-tight">
                               Empowering Startups and Enterprises With Services That Drive Real Impact
                             </h3>
                             <p className="text-sm text-gray-600 leading-relaxed">
@@ -232,7 +240,7 @@ const getSubMenu = (id: any) =>
                           </div>
 
                           {/* IMAGE SECTION */}
-<div className="flex-1 flex items-center justify-center ">
+<div className="flex-1 flex items-center justify-center scale-90 xl:scale-100">
   <ExplodingImage />
 </div>
 
