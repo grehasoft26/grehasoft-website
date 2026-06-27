@@ -61,9 +61,13 @@ export default function KochiIntroSection() {
             </div>
 
             {/* H1 Tag requested by user */}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-dark leading-tight tracking-tight">
-              Best IT Company in <span className="text-primary">Kochi, Kerala</span> — Powering Businesses with Smart Technology Solutions
-            </h1>
+           <h1 className="text-4xl lg:text-[44px] font-black text-dark leading-tight">
+  Smart IT Solutions
+</h1>
+
+<p className="mt-3 text-2xl lg:text-[30px] font-light text-gray-700 leading-tight">
+  From one of the best IT companies in Kochi, Kerala
+</p>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mt-6">
           
           {/* Left Block: Content */}
