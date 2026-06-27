@@ -61,7 +61,7 @@ export default function KochiIntroSection() {
             </div>
 
             {/* H1 Tag requested by user */}
-           <h1 className="text-4xl lg:text-[44px] font-primary text-dark leading-tight">
+           <h1 className="text-4xl lg:text-[44px] font-black text-primary leading-tight">
   Smart IT Solutions
 </h1>
 
