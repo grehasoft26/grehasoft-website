@@ -90,9 +90,11 @@ if (!contact.contact_title) return null;
                 )}
 
                 {contact?.contact_description_two && (
-                  <p className="text-white font-bold lg:text-xl">
-                    {contact.contact_description_two}
-                  </p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: contact.contact_description_two,
+                    }}
+                  />
                 )}
 
               </div>

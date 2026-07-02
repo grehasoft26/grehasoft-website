@@ -64,10 +64,22 @@ import {
   Globe,
 MousePointerClick,
 
- Share2
-  
- 
+ Share2,
+ Calendar,
+ Activity,
 
+  Sparkles,
+ Hotel,
+ Wrench,
+
+
+ 
+  Tv,
+ 
+  Play,
+  RotateCcw,
+ 
+ 
 
 } from 'lucide-react';
 
@@ -132,6 +144,19 @@ const iconMap: any = {
 Palette: Palette,
 MousePointerClick: MousePointerClick,
 Share2: Share2,
+Calendar: Calendar,
+Activity: Activity,
+Sparkles: Sparkles,
+Hotel: Hotel,
+Wrench: Wrench,
+Tv: Tv,
+
+Play: Play,
+RotateCcw: RotateCcw,
+Megaphone: Megaphone,
+
+
+
 
 
   

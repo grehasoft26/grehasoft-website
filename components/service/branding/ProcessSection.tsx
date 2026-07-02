@@ -3,13 +3,60 @@
 import { motion } from 'motion/react';
 
 import {
-  Search,
-  Palette,
-  PenTool,
+   BarChart,
   Layers,
-  Rocket,
+  LineChart,
+  LinkIcon,
+  Search,
+  Settings,
   TrendingUp,
+  BarChart3,
+  FileText,
+  Layout,
+  PanelTop,
+  Palette,
+  Megaphone,
+  ChartColumn,
+  ChartNoAxesCombined,
+  LayoutDashboard,
+  Rocket,
+  BarChart3Icon,
+  ChartNoAxesColumn,
+  Eye,
+  
+  SlidersHorizontal,
   Users,
+  ShieldCheck,
+  Download,
+ 
+  LayoutGrid,
+  
+  MessageSquare,
+  CheckCircle,
+  Layers3,
+  Sparkles,
+  
+  Tags,
+  SlidersVertical,
+  UsersRound,
+  Award,
+ 
+  Printer,
+  
+ 
+  Code,
+  Database,
+  Shield,
+  Zap,
+   
+ 
+  Code2,
+  Cloud,
+  RefreshCw,
+
+  Target,
+  PenTool,
+  
 } from 'lucide-react';
 
 interface Props {
@@ -21,13 +68,59 @@ export default function ProcessSection({ acf }: Props) {
   const processData = acf?.branding?.process_section || {};
 
   const iconMap: any = {
-    Search,
-    Palette,
-    PenTool,
-    Layers,
-    Rocket,
-    TrendingUp,
-    Users,
+     BarChart,
+  Layers,
+  LineChart,
+  LinkIcon,
+  Search,
+  Settings,
+  TrendingUp,
+  BarChart3,
+  FileText,
+  Layout,
+  PanelTop,
+  Palette,
+  Megaphone,
+  ChartColumn,
+  ChartNoAxesCombined,
+  LayoutDashboard,
+  Rocket,
+  BarChart3Icon,
+  ChartNoAxesColumn,
+  Eye,
+  
+  SlidersHorizontal,
+  Users,
+  ShieldCheck,
+  Download,
+ 
+  LayoutGrid,
+  
+  MessageSquare,
+  CheckCircle,
+  Layers3,
+  Sparkles,
+  
+  Tags,
+  SlidersVertical,
+  UsersRound,
+  Award,
+ 
+  Printer,
+  
+ 
+  Code,
+  Database,
+  Shield,
+  Zap,
+   
+ 
+  Code2,
+  Cloud,
+  RefreshCw,
+
+  Target,
+  PenTool,
   };
 
   const brandingProcess = [

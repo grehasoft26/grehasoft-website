@@ -17,6 +17,42 @@ import {
   Eye,
   ArrowRight,
 Monitor,
+Globe,
+  MapPin,
+ 
+  
+  
+  Zap,
+   MessageSquare,
+   Target,
+   Camera,
+   Palette,
+  
+   
+  
+  
+  Heart,
+  Megaphone,
+  
+ 
+  
+  
+  
+   TimerReset,
+   Clock3,
+  ShieldCheck,
+  Activity,
+ 
+  ChartColumn,
+
+ Cpu,
+ 
+  
+ 
+  Settings,
+  Microchip,
+  
+ 
 } from 'lucide-react';
 
 interface Props {
@@ -38,6 +74,27 @@ const iconMap: any = {
   Eye,
   ArrowRight,
 Monitor,
+Globe,
+  MapPin,
+  Zap,
+    MessageSquare,
+    Target,
+  Camera,
+  Palette,
+  Heart,
+  Megaphone,
+  TimerReset,
+  Clock3,
+  ShieldCheck,
+  Activity,
+  ChartColumn,
+  Cpu,
+ 
+ 
+ 
+  Settings,
+  Microchip,
+ 
 };
 
 export default function WhyBrandingSection({ acf }: Props) {

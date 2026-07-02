@@ -15,6 +15,19 @@ import {
   Monitor,
   Utensils,
   Stethoscope,
+ 
+  HeartPulse,
+ 
+  Compass,
+  TrendingUp,
+ 
+  Microchip,
+  Code2,
+  
+  BadgeCheck,
+   
+  Smartphone,
+ 
 } from 'lucide-react';
 
 interface Props {
@@ -38,6 +51,17 @@ export default function IndustriesSection({ acf }: Props) {
     Monitor,
     Utensils,
     Stethoscope,
+    
+  HeartPulse,
+ 
+  Compass,
+  TrendingUp,
+  
+  Microchip,
+  Code2,
+ 
+  BadgeCheck,
+  Smartphone,
   };
 
   const industries = [

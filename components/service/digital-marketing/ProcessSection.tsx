@@ -50,8 +50,12 @@ import {
  
   Code2,
   Cloud,
-  RefreshCw
+  RefreshCw,
+
+  Target,
+  LayoutPanelTop,
   
+  ChartNoAxesColumnIncreasing,
   
  
   
@@ -111,6 +115,9 @@ export default function ProcessSection({ acf }: Props) {
       Code2: Code2,
    Cloud: Cloud,
    RefreshCw: RefreshCw,
+    Target: Target,
+    LayoutPanelTop: LayoutPanelTop,
+    ChartNoAxesColumnIncreasing: ChartNoAxesColumnIncreasing,
 
   };
 

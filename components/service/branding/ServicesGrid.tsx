@@ -16,7 +16,88 @@ import {
   Workflow,
   LayoutPanelTop,
   RefreshCw,
-  SlidersVertical,
+  SlidersVertical,Layout,
+  Settings,
+  MapPin,
+  
+  FileText,
+  Link as LinkIcon,
+  ShoppingBag,
+  Navigation,
+  ChartColumn,
+  SearchCheck,
+  Target,
+  PlayCircle,
+ 
+ Zap,
+ 
+ Facebook,
+ Instagram,
+ Linkedin,
+ 
+  Video,
+  
+  TrendingUp,
+  Users,
+ 
+ 
+  
+  
+  Heart,
+  BriefcaseBusiness,
+
+
+ 
+  Shield,
+ 
+ 
+  Box,
+  
+  
+  
+  
+  Terminal,
+  Code2,
+  Database,
+  Cpu,
+  Cloud,
+  Building2,
+ 
+ 
+  Eye,
+  
+  BadgeCheck,
+ 
+  Layers,
+ 
+  
+  MessageSquare,
+  Server,
+  HardDrive,
+  Globe,
+MousePointerClick,
+
+ Share2,
+
+  CodeXml,
+  Blocks,
+  PanelTop,
+
+   
+  ClipboardList,
+  
+  Compass,
+ 
+  Clock3,
+  Microchip,
+  Calendar,
+ Activity,
+
+  Sparkles,
+ Hotel,
+ Wrench,
+  
+ 
   
 } from 'lucide-react';
 
@@ -39,6 +120,61 @@ const iconMap: any = {
   LayoutPanelTop,
   RefreshCw,
   SlidersVertical,
+  Layout,
+  Settings,
+  MapPin,
+  FileText,
+  LinkIcon,
+  ShoppingBag,
+  Navigation,
+  ChartColumn,
+  SearchCheck,
+  Target,
+  PlayCircle,
+  Zap,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Video,
+  TrendingUp,
+  Users,
+  Heart,
+  BriefcaseBusiness,
+  Shield,
+  Box,
+  Terminal,
+  Code2,
+  Database,
+  Cpu,
+  Cloud,
+  Building2,
+  Eye,
+  BadgeCheck,
+  Layers,
+  MessageSquare,
+  Server,
+  HardDrive,
+  Globe,
+  MousePointerClick,
+  Share2,
+  CodeXml,
+  Blocks,
+  PanelTop,
+  ClipboardList,
+  Compass,
+  Clock3,
+  Microchip,
+  Calendar,
+ Activity,
+
+  Sparkles,
+ Hotel,
+ Wrench,
+
+ 
+  
+  
+
   
 };
 

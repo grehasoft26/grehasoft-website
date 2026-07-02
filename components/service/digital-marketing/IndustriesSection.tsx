@@ -35,7 +35,28 @@ import {
  
   Server,
   Factory,
-  HardDrive
+  HardDrive,
+  ShoppingCart,
+  Package,
+   HeartPulse,
+ 
+  
+  
+  Microchip,
+
+  TrendingUp,
+  Smartphone,
+  
+  BadgeCheck,
+  BriefcaseMedical,
+  BookOpen,
+  Cog,
+  Activity,
+  Sparkles,
+  FileText,
+  ShieldCheck,
+
+   
  
 
 } from 'lucide-react';
@@ -71,7 +92,22 @@ export default function IndustriesSection({ acf }: Props) {
     Layers3,
     Server,
     Factory,
-    HardDrive
+    HardDrive,
+    ShoppingCart,
+    Package,
+    HeartPulse,
+    Microchip,
+    TrendingUp,
+    Smartphone,
+    BadgeCheck,
+    BriefcaseMedical,
+    BookOpen,
+    Cog,
+    Activity,
+    Sparkles,
+    FileText,
+    ShieldCheck,
+
   };
 
   const industries = [
