@@ -35,7 +35,7 @@ export default function Hero({ slides = [] }: HeroProps) {
           setCurrentIndex(curr => (curr + 1) % slides.length);
           return 0;
         }
-        return prev + 0.4;
+        return prev + 0.5;
       });
     }, 50);
 
