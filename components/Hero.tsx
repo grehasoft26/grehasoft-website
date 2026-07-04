@@ -15,15 +15,24 @@ export default function Hero({ slides = [] }: HeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+ const [isMobile, setIsMobile] = useState(false);
+const [isTablet, setIsTablet] = useState(false);
 
-  // Mobile check
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+useEffect(() => {
+  const checkDevice = () => {
+    const width = window.innerWidth;
+
+    setIsMobile(width < 768);
+
+    // iPad Mini, Air, 10.2", etc.
+    setIsTablet(width >= 768 && width <= 1024);
+  };
+
+  checkDevice();
+  window.addEventListener("resize", checkDevice);
+
+  return () => window.removeEventListener("resize", checkDevice);
+}, []);
 
   // Progress + Auto slide
   useEffect(() => {
@@ -55,7 +64,7 @@ if (!slides.length) {
 }
 
   return (
-<section className="relative min-h-[55vh] xl:min-h-screen w-full flex items-start lg:items-center overflow-hidden bg-dark pt-16 lg:pt-0">
+<section className="relative min-h-[55vh]  xl:min-h-screen w-full flex items-start lg:items-center md:min-h-[85vh]     overflow-hidden bg-dark pt-16 lg:pt-0">
 
       {/* Background */}
       <div className="absolute inset-0 z-0">
@@ -77,7 +86,9 @@ if (!slides.length) {
   loop
   preload="auto"
   poster={slides[currentIndex]?.thumbnail}
-className={`w-full h-full object-center ${isMobile ? "object-contain" : "object-cover"}`}
+className={`w-full h-full ${
+  isMobile || isTablet ? "object-contain" : "object-cover"
+}`}
 >
   <source
     key={slides[currentIndex].video}   // ⭐ VERY IMPORTANT
