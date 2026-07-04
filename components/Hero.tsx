@@ -195,14 +195,14 @@ className={`w-full h-full ${
       </div>
 
       {/* Mute Button */}
-      <div className="absolute bottom-12 right-12 z-30">
+      {/* <div className="absolute bottom-12 right-12 z-30">
         <button
           onClick={() => setIsMuted(!isMuted)}
           className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"
         >
           {isMuted ? <VolumeX /> : <Volume2 />}
         </button>
-      </div>
+      </div> */}
 
     </section>
   );
