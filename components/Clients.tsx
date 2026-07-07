@@ -134,8 +134,8 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
     flex
     items-center
     justify-center
-    min-w-[200px]
-    h-[90px]
+    min-w-[260px]
+    h-[120px]
   "
 >
   {/* TOP LINE */}
@@ -188,8 +188,8 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
   src={client.image}
   alt={name}
   className="
-    !w-[160px]
-    !h-[60px]
+    !w-[220px]
+    !h-[100px]
     object-contain
 
     brightness-0
