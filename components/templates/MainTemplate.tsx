@@ -16,6 +16,9 @@ import ServicesSection from '@/components/service/main/ServicesSection';
 import ResultsTimelineSection from '@/components/service/main/ResultsTimelineSection';
 import PricingPackagesSection from '@/components/service/main/PricingPackagesSection';
 import ResultsTimelineSection1 from '@/components/service/main/ResultsTimelineSection1';
+import SeoCaseStudiesSection from '@/components/service/digital-marketing/SeoCaseStudiesSection';
+import TechnologySection from '@/components/service/technology/TechnologySection';
+import CtaSection from '@/components/service/main/CtaSection';
 
 interface Props {
   service: any;
@@ -69,12 +72,15 @@ export default function MainTemplate({
    <ResultsTimelineSection acf={acf} />
   
    <PricingPackagesSection acf={acf} />
+   <TechnologySection acf={acf} />
  
       <IndustriesSection acf={acf} /> 
  <WhySEOSection acf={acf} />
+ <SeoCaseStudiesSection acf={acf} />
      
        <ResultsTimelineSection1 acf={acf} />
  <StandOutSection acf={acf} />
+ <CtaSection acf={acf} />
        <FAQSection acf={acf} /> 
 
     <CTA />

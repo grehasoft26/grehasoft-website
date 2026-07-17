@@ -57,7 +57,8 @@ import {
   
   ChartNoAxesColumnIncreasing,
   
- 
+ SearchCheck,
+  DraftingCompass,
   
  
  
@@ -118,6 +119,8 @@ export default function ProcessSection({ acf }: Props) {
     Target: Target,
     LayoutPanelTop: LayoutPanelTop,
     ChartNoAxesColumnIncreasing: ChartNoAxesColumnIncreasing,
+    SearchCheck: SearchCheck,
+    DraftingCompass: DraftingCompass,
 
   };
 

@@ -13,6 +13,27 @@ Briefcase,
 Factory,
 Plane,
 Building,
+
+HeartPulse,
+ 
+  
+  
+  Truck,
+  Landmark,
+ 
+ 
+  BriefcaseBusiness,
+  Rocket,
+  ShieldCheck,
+  Clapperboard,
+  UtensilsCrossed,
+  Dumbbell,
+  Scale,
+  Car,
+  HardHat,
+  Sprout,
+  Zap,
+  Wifi,
 } from 'lucide-react';
 
 interface Props {
@@ -38,6 +59,27 @@ Briefcase,
 Factory,
 Plane,
 Building,
+HeartPulse,
+ 
+  
+  
+  Truck,
+  Landmark,
+ 
+ 
+  BriefcaseBusiness,
+  Rocket,
+  ShieldCheck,
+  Clapperboard,
+  UtensilsCrossed,
+  Dumbbell,
+  Scale,
+  Car,
+  HardHat,
+  Sprout,
+  Zap,
+  Wifi,
+
 };
 
 const industries = [

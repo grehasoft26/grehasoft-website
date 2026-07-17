@@ -7,6 +7,9 @@ import {
   TrendingUp,
   Target,
   Users,
+   Workflow,
+  ShieldCheck,
+  Waypoints,
 } from 'lucide-react';
 
 interface Props {
@@ -25,6 +28,9 @@ export default function AdvantagesSection({ acf }: Props) {
     TrendingUp,
     Target,
     Users,
+     Workflow,
+  ShieldCheck,
+  Waypoints,
   };
 
   const cards = [
