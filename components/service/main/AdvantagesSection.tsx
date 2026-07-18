@@ -10,6 +10,9 @@ import {
    Workflow,
   ShieldCheck,
   Waypoints,
+  Fingerprint,
+ ChartLine,
+  Handshake
 } from 'lucide-react';
 
 interface Props {
@@ -31,7 +34,10 @@ export default function AdvantagesSection({ acf }: Props) {
      Workflow,
   ShieldCheck,
   Waypoints,
-  };
+  Fingerprint,
+  ChartLine,
+  Handshake
+};
 
   const cards = [
     {

@@ -30,6 +30,14 @@ import {
   ChartColumnIncreasing,
   UserRoundCog,
   BrainCircuit,
+  Palette,
+  ShieldCheck,
+  Fingerprint,
+  ChartLine,
+  Handshake,
+  BadgeCheck,
+  MonitorSmartphone,
+  CreditCard,
 } from 'lucide-react';
 
 interface Props {
@@ -68,6 +76,14 @@ export default function ServicesSection({ acf }: Props) {
   ChartColumnIncreasing,
   UserRoundCog,
   BrainCircuit,
+  Palette,
+  ShieldCheck,
+  Fingerprint,
+  ChartLine,
+  Handshake,
+  BadgeCheck,
+  MonitorSmartphone,
+  CreditCard
   };
 
  const services = [

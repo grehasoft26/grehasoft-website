@@ -63,6 +63,7 @@ export default function MainTemplate({
 
      <ServicesSection acf={acf} /> 
       <LocalSection acf={acf} />
+      <WhySEOSection acf={acf} />
      <ServicesGrid acf={acf} />
 <ProcessSection acf={acf} /> 
       
@@ -72,15 +73,17 @@ export default function MainTemplate({
    <ResultsTimelineSection acf={acf} />
   
    <PricingPackagesSection acf={acf} />
+   <CtaSection acf={acf} />
    <TechnologySection acf={acf} />
  
+
       <IndustriesSection acf={acf} /> 
- <WhySEOSection acf={acf} />
+ 
  <SeoCaseStudiesSection acf={acf} />
      
        <ResultsTimelineSection1 acf={acf} />
- <StandOutSection acf={acf} />
- <CtaSection acf={acf} />
+
+ 
        <FAQSection acf={acf} /> 
 
     <CTA />

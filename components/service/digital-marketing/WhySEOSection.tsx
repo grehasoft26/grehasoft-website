@@ -32,6 +32,12 @@ import {
 
  Cpu,
  Layers3,
+ 
+  Badge,
+  BookOpenCheck,
+ 
+  BriefcaseBusiness,
+  MonitorSmartphone,
   
 } from 'lucide-react';
 
@@ -71,6 +77,11 @@ export default function WhySEOSection({ acf }: Props) {
     ChartColumn: ChartColumn,
       Cpu: Cpu,
       Layers3: Layers3,
+      Badge: Badge,
+  BookOpenCheck: BookOpenCheck,
+ 
+  BriefcaseBusiness: BriefcaseBusiness,
+  MonitorSmartphone: MonitorSmartphone,
     
 
   };

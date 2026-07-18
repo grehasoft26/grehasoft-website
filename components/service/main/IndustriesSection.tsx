@@ -34,6 +34,10 @@ HeartPulse,
   Sprout,
   Zap,
   Wifi,
+
+   
+  ShoppingBag,
+  
 } from 'lucide-react';
 
 interface Props {
@@ -79,6 +83,10 @@ HeartPulse,
   Sprout,
   Zap,
   Wifi,
+   
+  ShoppingBag,
+  
+  
 
 };
 

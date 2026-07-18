@@ -78,6 +78,11 @@ MousePointerClick,
  
   Play,
   RotateCcw,
+   Lightbulb,
+ 
+  Fingerprint,
+ 
+  Handshake,
  
  
 
@@ -154,7 +159,11 @@ Tv: Tv,
 Play: Play,
 RotateCcw: RotateCcw,
 Megaphone: Megaphone,
-
+Lightbulb: Lightbulb,
+ 
+  Fingerprint: Fingerprint,
+ 
+  Handshake: Handshake
 
 
 
