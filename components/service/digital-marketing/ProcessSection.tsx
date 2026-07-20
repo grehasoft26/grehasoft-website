@@ -59,6 +59,8 @@ import {
   
  SearchCheck,
   DraftingCompass,
+   Map,
+  PencilRuler,
   
  
  
@@ -121,6 +123,8 @@ export default function ProcessSection({ acf }: Props) {
     ChartNoAxesColumnIncreasing: ChartNoAxesColumnIncreasing,
     SearchCheck: SearchCheck,
     DraftingCompass: DraftingCompass,
+  Map: Map,
+    PencilRuler: PencilRuler,
 
   };
 

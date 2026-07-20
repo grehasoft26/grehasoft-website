@@ -38,6 +38,13 @@ import {
  
   BriefcaseBusiness,
   MonitorSmartphone,
+
+  GitBranch,
+  Code2,
+ 
+  MessageSquareMore,
+  
+  LifeBuoy,
   
 } from 'lucide-react';
 
@@ -82,7 +89,12 @@ export default function WhySEOSection({ acf }: Props) {
  
   BriefcaseBusiness: BriefcaseBusiness,
   MonitorSmartphone: MonitorSmartphone,
-    
+     GitBranch: GitBranch,
+  Code2: Code2,
+ 
+  MessageSquareMore: MessageSquareMore,
+  
+  LifeBuoy: LifeBuoy,
 
   };
 

@@ -38,6 +38,12 @@ import {
   BadgeCheck,
   MonitorSmartphone,
   CreditCard,
+  Layers3,
+    Smartphone,
+  TabletSmartphone,
+  
+  Building2,
+  Wrench,
 } from 'lucide-react';
 
 interface Props {
@@ -83,7 +89,13 @@ export default function ServicesSection({ acf }: Props) {
   Handshake,
   BadgeCheck,
   MonitorSmartphone,
-  CreditCard
+  CreditCard,
+    Smartphone,
+  TabletSmartphone,
+  Layers3,
+
+  Building2,
+  Wrench,
   };
 
  const services = [

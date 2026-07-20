@@ -12,7 +12,12 @@ import {
   Waypoints,
   Fingerprint,
  ChartLine,
-  Handshake
+  Handshake,
+   BellRing,
+  Cpu,
+  Lightbulb,
+ 
+  Blocks,
 } from 'lucide-react';
 
 interface Props {
@@ -36,7 +41,11 @@ export default function AdvantagesSection({ acf }: Props) {
   Waypoints,
   Fingerprint,
   ChartLine,
-  Handshake
+  Handshake,
+   BellRing,
+  Cpu,
+  Lightbulb,
+  Blocks,
 };
 
   const cards = [

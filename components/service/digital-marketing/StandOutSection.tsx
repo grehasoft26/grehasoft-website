@@ -34,10 +34,13 @@ if (!data?.expert_left_title) return null;
               </h2>
             )}
 
-        {data?.expert_left_description && (
-  <p className="text-gray-300 text-lg leading-relaxed mb-8">
-    {data.expert_left_description}
-  </p>
+       {data?.expert_left_description && (
+  <div
+    className="text-gray-300 text-lg leading-relaxed mb-8 space-y-6"
+    dangerouslySetInnerHTML={{
+      __html: data.expert_left_description,
+    }}
+  />
 )}
 
 {data?.expert_left_small_description && (

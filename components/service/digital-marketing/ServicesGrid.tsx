@@ -83,7 +83,12 @@ MousePointerClick,
   Fingerprint,
  
   Handshake,
+
+  LayoutTemplate,
  
+  Bug,
+ 
+  LifeBuoy,
  
 
 } from 'lucide-react';
@@ -163,7 +168,12 @@ Lightbulb: Lightbulb,
  
   Fingerprint: Fingerprint,
  
-  Handshake: Handshake
+  Handshake: Handshake,
+  LayoutTemplate: LayoutTemplate,
+ 
+  Bug: Bug,
+ 
+  LifeBuoy: LifeBuoy
 
 
 
