@@ -106,9 +106,9 @@ className={`w-full h-full ${
         </AnimatePresence>
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-dark/50" />
-        <div className="absolute inset-0 bg-gradient-to-r from-dark/80 via-dark/20 to-transparent" />
-      </div>
+        {/* <div className="absolute inset-0 bg-dark/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-dark/30 via-dark/20 to-transparent" />
+      </div> */}
 
       {/* Content */}
       {/* <div className="container-custom relative z-10 text-left text-white px-4">
@@ -192,6 +192,7 @@ className={`w-full h-full ${
             )}
           </div>
         ))}
+      </div>
       </div>
 
       {/* Mute Button */}

@@ -17,12 +17,12 @@ import Link from 'next/link';
 
 export default function KochiIntroSection() {
   const highlightPoints = [
-    'Full-Service Technology Partner',
-    'Over a Decade of Experience',
-    '100+ Successful Digital Products',
-    'Designed Around Real Goals',
-    'Kakkanad & Infopark Centric',
-    'Outcome-Driven, No Templates'
+    'Full-Service IT Solutions Company',
+    '10+ Years of Industry Experience',
+    '100+ Successfully Delivered Projects',
+    'Custom Software & Digital Solutions',
+    'Trusted by Businesses Across Kerala',
+    'Results-Driven Technology Partner'
   ];
 
   const statCards = [
@@ -82,17 +82,19 @@ export default function KochiIntroSection() {
 
             {/* Paragraph 1 */}
             <p className="text-text-gray text-base md:text-lg leading-relaxed font-sans">
-              Grehasoft is the best IT company in Kochi, Kerala — a full-service technology partner with over a decade of experience helping businesses across <span className="font-semibold text-dark">Ernakulam</span>, <span className="font-semibold text-dark">Kakkanad</span>, <span className="font-semibold text-dark">Infopark</span>, and Kerala's key commercial hubs grow faster and operate smarter. We build custom software, web applications, mobile apps, ERP systems, and digital marketing campaigns that are designed around your real business goals — not off-the-shelf templates.
+             Grehasoft is a leading IT company in Kochi, Kerala, delivering innovative software solutions that help businesses grow, automate operations, and stay ahead in the digital world. With years of industry expertise, we specialize in custom software development, web and mobile applications, ERP solutions, digital marketing, and branding services tailored to your unique business needs.
+
             </p>
 
             {/* Paragraph 2 */}
             <p className="text-text-gray text-base md:text-lg leading-relaxed font-sans">
-              Whether you are a startup in Infopark Kochi looking to launch your first product, an SME in Ernakulam seeking a reliable IT partner, or an established enterprise across Kerala ready to modernise your technology stack — Grehasoft delivers end-to-end solutions with the professionalism and speed your business demands. From the Kakkanad tech corridor to Thiruvananthapuram and Thrissur, our teams have built over 100 successful digital products for clients who trust us to deliver.
+              we combine cutting-edge technology with strategic thinking to create scalable, secure, and high-performing digital solutions. Whether you're a startup, SME, or enterprise, our experienced team ensures every solution aligns with your business goals and delivers measurable results.
             </p>
 
             {/* Paragraph 3 */}
             <p className="text-text-gray text-base md:text-lg leading-relaxed font-sans">
-              We are Kochi's most relied-upon technology company — and we are here to power your next phase of growth. When businesses in Kerala search for the best IT company in Kochi, they consistently choose Grehasoft for one simple reason: <span className="italic font-bold text-primary">we deliver outcomes, not just deliverables</span>.
+             At Grehasoft, we believe technology should simplify your business, improve productivity, and drive long-term success. From designing modern websites and developing powerful business applications to implementing SEO strategies and digital marketing campaigns, we provide complete end-to-end IT services under one roof. Our customer-first approach, transparent communication, and commitment to quality have earned us the trust of businesses across multiple industries.
+
             </p>
 
             {/* Value Highlights */}
@@ -159,7 +161,7 @@ export default function KochiIntroSection() {
             </div>
 
             {/* Strategic Slogan Area */}
-            <div className="p-6 bg-gray-50 rounded-3xl border border-dashed border-primary/20">
+            {/* <div className="p-6 bg-gray-50 rounded-3xl border border-dashed border-primary/20">
               <div className="flex gap-4 items-start">
                 <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary flex-shrink-0">
                   <Building2 className="w-5 h-5" />
@@ -171,7 +173,7 @@ export default function KochiIntroSection() {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </motion.div>
 
         </div>

@@ -86,7 +86,7 @@ export default async function Home() {
       <Clients initialClients={homeData.clients || []} />
       <WhyChooseUs />
       <Awards data={homeData.awards} />
-      <About data={homeData.about} />
+      {/* <About data={homeData.about} /> */}
       <Portfolio 
         showFilters={false} 
         initialProjects={homeData.portfolioProjects || []} 
