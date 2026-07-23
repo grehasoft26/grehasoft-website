@@ -44,7 +44,7 @@ useEffect(() => {
           setCurrentIndex(curr => (curr + 1) % slides.length);
           return 0;
         }
-        return prev + 0.5;
+        return prev + 0.4545;
       });
     }, 50);
 
