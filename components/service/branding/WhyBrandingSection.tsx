@@ -137,13 +137,7 @@ export default function WhyBrandingSection({ acf }: Props) {
       <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none" />
 
       <div className="container-custom relative z-10">
-
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-
-          {/* LEFT COLUMN */}
-          <div className="lg:col-span-5 text-center lg:text-left lg:sticky lg:top-32">
-
-            {data?.section_tag && (
+         {data?.section_tag && (
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-sm mb-6 block">
                 {data.section_tag}
               </span>
@@ -155,7 +149,7 @@ export default function WhyBrandingSection({ acf }: Props) {
 
               {data?.section_highlight && (
                 <>
-                  <br />
+                 
                   <span className="text-primary italic">
                     {data.section_highlight}
                   </span>
@@ -163,6 +157,13 @@ export default function WhyBrandingSection({ acf }: Props) {
               )}
 
             </h2>
+
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+
+          {/* LEFT COLUMN */}
+          <div className="lg:col-span-5 text-center lg:text-left lg:sticky lg:top-32">
+
+           
 
             <div className="space-y-6 text-white/60 text-lg leading-relaxed">
 
