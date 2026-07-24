@@ -82,12 +82,12 @@ export default function StandOutSection({ acf }: Props) {
             )}
 
             {data?.left_small_description && (
-              <p className="text-white/40 mb-8 leading-relaxed text-sm">
+              <p className="text-white/40 mb-8 leading-relaxed text-lg">
                 {data.left_small_description}
               </p>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-8 mt-8">
 
               {features.map((item, i) => (
 
@@ -98,7 +98,7 @@ export default function StandOutSection({ acf }: Props) {
 
                   <CheckCircle2 className="text-primary w-5 h-5 flex-shrink-0" />
 
-                  <span className="font-bold text-white/90 text-sm whitespace-nowrap">
+                  <span className="font-bold text-white/90 text-sm ">
                     {item}
                   </span>
 
