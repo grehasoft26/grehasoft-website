@@ -82,11 +82,13 @@ export default function StandOutSection({ acf }: Props) {
   />
 )}
 
-            {data?.left_small_description && (
-              <p className="text-white/40 mb-8 leading-relaxed text-lg">
-                {data.left_small_description}
-              </p>
-            )}
+          {data?.left_small_description && (
+  <div
+    className="text-white/60 text-lg mb-6 leading-relaxed"
+    dangerouslySetInnerHTML={{ __html: data.left_small_description }}
+  />
+)}
+           
 
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-8 mt-8">
 

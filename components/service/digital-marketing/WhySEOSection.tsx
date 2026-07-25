@@ -144,7 +144,7 @@ if (!whySeo?.why_seo_title_1) return null;
               </span>
 
             </h2>
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           
 
           {/* LEFT SIDE */}
