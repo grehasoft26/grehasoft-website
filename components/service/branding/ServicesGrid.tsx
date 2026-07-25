@@ -96,7 +96,9 @@ MousePointerClick,
   Sparkles,
  Hotel,
  Wrench,
-  
+  LayoutDashboard,
+  ShoppingCart,
+  ChartNoAxesCombined
  
   
 } from 'lucide-react';
@@ -170,7 +172,10 @@ const iconMap: any = {
   Sparkles,
  Hotel,
  Wrench,
-
+LayoutDashboard,
+  ShoppingCart,
+  ChartNoAxesCombined
+ 
  
   
   
