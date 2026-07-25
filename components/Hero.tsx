@@ -35,21 +35,31 @@ useEffect(() => {
 }, []);
 
   // Progress + Auto slide
-  useEffect(() => {
-    if (!slides.length) return;
+ // Progress + Auto slide
+useEffect(() => {
+  if (!slides.length) return;
 
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          setCurrentIndex(curr => (curr + 1) % slides.length);
-          return 0;
-        }
-        return prev + 0.4545;
-      });
-    }, 50);
+  setProgress(0);
 
-    return () => clearInterval(interval);
-  }, [slides]);
+  const duration = (slides[currentIndex]?.slide_duration || 11) * 1000;
+
+  const start = Date.now();
+
+  const progressInterval = setInterval(() => {
+    const elapsed = Date.now() - start;
+    setProgress(Math.min((elapsed / duration) * 100, 100));
+  }, 50);
+
+  const slideTimeout = setTimeout(() => {
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
+    setProgress(0);
+  }, duration);
+
+  return () => {
+    clearInterval(progressInterval);
+    clearTimeout(slideTimeout);
+  };
+}, [currentIndex, slides]);
 
 if (!slides.length) {
   return (

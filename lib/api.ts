@@ -91,7 +91,8 @@ export async function getHomeData(): Promise<HomeData> {
         video: post.acf?.slide_video || "",
         thumbnail: post.acf?.slide_thumbnail || "",
         label: post.acf?.slide_label || "",
-        description: post.acf?.slide_description || ""
+        description: post.acf?.slide_description || "",
+        slide_duration: Number(post.acf?.slide_duration) || 11,
       }))
     : [];
 

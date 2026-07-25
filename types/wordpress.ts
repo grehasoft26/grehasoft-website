@@ -4,6 +4,7 @@ export interface Slide {
   thumbnail: string;
   label: string;
   description: string;
+  slide_duration: number;
 }
 
 export interface AboutData {
