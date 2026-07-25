@@ -75,11 +75,12 @@ export default function StandOutSection({ acf }: Props) {
               {data.left_title}
             </h2>
 
-            {data?.left_description && (
-              <p className="text-white/60 text-lg mb-6 leading-relaxed">
-                {data.left_description}
-              </p>
-            )}
+          {data?.left_description && (
+  <div
+    className="text-white/60 text-lg mb-6 leading-relaxed"
+    dangerouslySetInnerHTML={{ __html: data.left_description }}
+  />
+)}
 
             {data?.left_small_description && (
               <p className="text-white/40 mb-8 leading-relaxed text-lg">
