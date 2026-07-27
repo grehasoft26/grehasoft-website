@@ -144,7 +144,7 @@ export default function AboutPage() {
       <PageHeader
         title="About Grehasoft"
         description="A trusted and client-focused partner committed to helping businesses grow sustainably through beautiful, high-performing digital experiences."
-        breadcrumb={[{ name: 'About', href: '/about' }]}
+        breadcrumb={[{ name: 'About', href: '/about-us' }]}
       />
 
       {/* Intro Brand Story Section */}
