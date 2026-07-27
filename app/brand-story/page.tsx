@@ -57,8 +57,8 @@ export default function BrandStoryPage() {
         title="Our Brand Story"
         description="The heart and soul of Grehasoft – our journey from a small freelance launch to a reliable global technology partner."
         breadcrumb={[
-          { name: 'About', href: '/about' },
-          { name: 'Brand Story', href: '/about/brand-story' },
+          { name: 'About', href: '/about-us' },
+          { name: 'Brand Story', href: '/brand-story' },
         ]}
       />
 
