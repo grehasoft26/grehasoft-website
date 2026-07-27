@@ -96,8 +96,8 @@ export default function AwardsPage() {
         title="Awards & Recognitions"
         description="Celebrating our milestones and the official industry recognition we have received for our commitment to excellence, transparency, and accessible IT services."
         breadcrumb={[
-          { name: 'About', href: '/about' },
-          { name: 'Awards', href: '/about/awards' },
+          { name: 'About', href: '/about-us' },
+          { name: 'Awards', href: '/awards-and-recognitions' },
         ]}
       />
 
