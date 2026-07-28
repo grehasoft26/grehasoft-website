@@ -10,7 +10,7 @@ export default function ContactPage() {
       <PageHeader
         title="Contact Us"
         description="Have a question or want to discuss a project? Our team is here to help you navigate your digital transformation journey."
-        breadcrumb={[{ name: 'Contact', href: '/contact' }]}
+        breadcrumb={[{ name: 'Contact', href: '/contact-us' }]}
       />
       <ContactSection />
       

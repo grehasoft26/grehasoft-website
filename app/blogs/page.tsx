@@ -205,8 +205,9 @@ const featuredCategory =
     <main className="min-h-screen bg-white">
 
       <PageHeader
-        title="Our Blogs"
-        description="Stay updated with the latest trends and insights"
+        title="Grehasoft Blog - IT & Digital Marketing Insights"
+        description="Stay updated with the latest SEO, web development, and 
+technology trends from our team in Kochi"
         breadcrumb={[{ name: 'Blogs', href: '/blogs' }]}
       />
 
