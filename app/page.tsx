@@ -55,8 +55,8 @@ export async function generateMetadata(): Promise<Metadata> {
       },
 
       robots: {
-        index: false,
-        follow: false,
+        index: true,
+        follow: true,
       },
     };
   } catch (error) {
