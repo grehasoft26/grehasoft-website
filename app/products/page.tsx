@@ -127,12 +127,12 @@ export default async function ProductsPage() {
       />
 
       {/* Core Solutions Section */}
-<section className="section-padding bg-white">
+{/* <section className="section-padding bg-white">
   <div className="container-custom">
-    <div className="flex flex-col lg:flex-row items-center gap-16 mb-20">
+    <div className="flex flex-col lg:flex-row items-center gap-16 mb-20"> */}
 
       {/* LEFT */}
-      <div className="lg:w-1/2">
+      {/* <div className="lg:w-1/2">
 
         <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
           {core?.small_title}
@@ -156,10 +156,10 @@ export default async function ProductsPage() {
           ))}
         </div>
 
-      </div>
+      </div> */}
 
       {/* RIGHT */}
-      <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {/* <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
 
         {[
           {
@@ -206,11 +206,11 @@ export default async function ProductsPage() {
 
       </div>
 
-    </div>
+    </div> 
   </div>
-</section>
+</section>*/}
 
-<ProductsSection data={productsData} />
+
 
 {/* Business Software Grid */}
 <section className="section-padding bg-gray-50">
@@ -295,7 +295,7 @@ export default async function ProductsPage() {
     </div>
   </div>
 </section>
-
+<ProductsSection data={productsData} />
      {/* Why Choose Our Products Section */}
 <section className="section-padding bg-white overflow-hidden relative">
   <div className="container-custom">
