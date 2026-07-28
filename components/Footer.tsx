@@ -28,13 +28,14 @@ const socialMap: any = {
 
 const DEFAULT_FOOTER = {
   description: "Grehasoft is a leading IT solutions provider specializing in cutting-edge software development, cloud services, and digital transformation.",
-  phone: "+91 9876543210",
+  phone: "+918921540183",
   email: "info@grehasoft.com",
-  address: "Grehasoft Technologies, Bangalore, India",
+  address: "Infopark Phase 1, Kakkanad, Kochi",
   facebook: "https://facebook.com/grehasoft",
   twitter: "https://twitter.com/grehasoft",
   instagram: "https://instagram.com/grehasoft",
   linkedin: "https://linkedin.com/company/grehasoft",
+  pinterest: "https://pinterest.com/grehasoft",
 };
 
 export default function Footer({
