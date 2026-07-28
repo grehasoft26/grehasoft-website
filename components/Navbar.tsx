@@ -247,7 +247,7 @@ border-primary"
 {/* BUTTON */}
 <div className="mt-6">
   <Link
-    href="/contact"
+    href="/contact-us"
     className="btn-primary w-full text-center block py-3 rounded-lg"
   >
     Get Started
