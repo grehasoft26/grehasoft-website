@@ -31,11 +31,11 @@ const DEFAULT_FOOTER = {
   phone: "+918921540183",
   email: "info@grehasoft.com",
   address: "Infopark Phase 1, Kakkanad, Kochi",
-  facebook: "https://facebook.com/grehasoft",
-  twitter: "https://twitter.com/grehasoft",
-  instagram: "https://instagram.com/grehasoft",
-  linkedin: "https://linkedin.com/company/grehasoft",
-  pinterest: "https://pinterest.com/grehasoft",
+  facebook: "https://www.facebook.com/grehasoft/",
+  twitter: "https://x.com/grehasoft",
+  instagram: "https://www.instagram.com/grehasoft/",
+  linkedin:   "https://www.linkedin.com/company/grehasoft/",
+  pinterest:  "https://in.pinterest.com/grehasoft/",
 };
 
 export default function Footer({
