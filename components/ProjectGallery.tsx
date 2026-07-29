@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import { ProjectGalleryItem } from '@/types/wordpress';
+import { commonSwiperConfig } from '@/lib/swiperConfig';
 
 // Swiper Styles
 import 'swiper/css';
@@ -141,6 +142,7 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
           {/* Slider Container */}
           <Swiper
             modules={[Navigation, Pagination, Autoplay, Keyboard]}
+            {...commonSwiperConfig}
             navigation={{
               prevEl,
               nextEl,
@@ -148,31 +150,6 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
             pagination={{
               el: '.project-gallery-pagination-dots',
               clickable: true,
-            }}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            loop={true}
-            speed={700}
-            keyboard={{
-              enabled: true,
-              onlyInViewport: true,
-            }}
-            breakpoints={{
-              320: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 24,
-              },
-              1200: {
-                slidesPerView: 3,
-                spaceBetween: 32,
-              },
             }}
             onInit={(swiper: SwiperClass) => {
               // Bind custom arrow refs to Swiper navigation safely
