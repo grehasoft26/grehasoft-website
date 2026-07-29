@@ -19,7 +19,7 @@ const DEFAULT_CTA: CTAData = {
   cta_title_highlight: "extraordinary",
   cta_title_part2: "together",
   cta_description: "Connect with our certified technical engineers today for a complimentary codebase health check or dynamic scope session.",
-  cta_btn_link: "/contact",
+  cta_btn_link: "/contact-us",
   cta_btn_text: "Get Started",
   cta_btn2_link: "/services",
   cta_btn2_text: "Explore Services"
