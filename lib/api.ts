@@ -1,5 +1,5 @@
 import axiosInstance from './axios';
-import { HomeData, Slide } from '@/types/wordpress';
+import { HomeData, Slide, ProjectGalleryItem } from '@/types/wordpress';
 
 export async function getHomeData(): Promise<HomeData> {
   const results = await Promise.allSettled([
@@ -160,5 +160,17 @@ export async function getPortfolioData() {
       projects: [],
       categories: []
     };
+  }
+}
+
+export async function getProjectGallery(): Promise<ProjectGalleryItem[]> {
+  try {
+    const res = await axiosInstance.get<ProjectGalleryItem[]>(
+      '/wp-json/wp/v2/project-gallery?_embed&per_page=100&_fields=id,title,slug,acf,yoast_head_json,_links,_embedded'
+    );
+    return Array.isArray(res.data) ? res.data : [];
+  } catch (error: any) {
+    console.warn('Error in getProjectGallery:', error?.message || error);
+    return [];
   }
 }

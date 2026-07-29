@@ -2,15 +2,21 @@ import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
 import PortfolioSection from '@/components/Portfolio';
+import ProjectGallery from '@/components/ProjectGallery';
 import CTA from '@/components/CTA';
 import Clients from '@/components/Clients';
-import { getPortfolioData, getMenuData } from '@/lib/api';
+import { getPortfolioData, getMenuData, getProjectGallery } from '@/lib/api';
 
 export const revalidate = 60;
 
 export default async function PortfolioPage() {
-  const { projects, categories } = await getPortfolioData();
-  const menuData = await getMenuData();
+  const [portfolioData, menuData, projectGallery] = await Promise.all([
+    getPortfolioData(),
+    getMenuData(),
+    getProjectGallery()
+  ]);
+
+  const { projects, categories } = portfolioData;
 
   return (
     <main className="min-h-screen">
@@ -25,6 +31,9 @@ export default async function PortfolioPage() {
         initialProjects={projects} 
         initialCategories={categories} 
       />
+      
+      {/* Project Gallery Section */}
+      <ProjectGallery projects={projectGallery} />
       
       {/* Our Clients Section */}
       <Clients />

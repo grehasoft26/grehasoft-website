@@ -99,3 +99,64 @@ export interface HomeData {
   footerMenu: any[] | null;
   schemaJson: string;
 }
+
+export interface ACFPostObject {
+  ID: number;
+  post_title: string;
+  post_name: string;
+  post_type: string;
+  post_status: string;
+}
+
+export interface ProjectGalleryACF {
+  short_description: string;
+  related_service_page?: number | ACFPostObject | null;
+  related_service?: number | ACFPostObject | null;
+  live_website?: string | null;
+}
+
+export interface EmbeddedServicePost {
+  id: number;
+  slug: string;
+  type: string;
+  link: string;
+  title: {
+    rendered: string;
+  };
+  featured_media: number;
+}
+
+export interface EmbeddedFeaturedMedia {
+  id?: number;
+  source_url?: string;
+  code?: string;
+  message?: string;
+}
+
+export interface ProjectGalleryEmbedded {
+  'acf:post'?: EmbeddedServicePost[];
+  'wp:featuredmedia'?: EmbeddedFeaturedMedia[];
+}
+
+export interface YoastImage {
+  width: number;
+  height: number;
+  url: string;
+  type: string;
+}
+
+export interface YoastHeadJson {
+  og_image?: YoastImage[];
+}
+
+export interface ProjectGalleryItem {
+  id: number;
+  slug: string;
+  title: {
+    rendered: string;
+  };
+  acf: ProjectGalleryACF;
+  yoast_head_json?: YoastHeadJson;
+  _embedded?: ProjectGalleryEmbedded;
+}
+
