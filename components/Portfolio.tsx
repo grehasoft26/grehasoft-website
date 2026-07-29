@@ -12,10 +12,11 @@ import {
 import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Grid } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/grid";
 
 const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 import axiosInstance from "@/lib/axios";
@@ -243,7 +244,8 @@ export default function Portfolio({
 
         {/* SWIPER */}
         <Swiper
-          modules={[Navigation]}
+          modules={isFullPage ? [Navigation, Grid] : [Navigation]}
+          grid={isFullPage ? { rows: 2, fill: "row" } : undefined}
           navigation={{
             prevEl,
             nextEl,
@@ -255,17 +257,37 @@ export default function Portfolio({
             swiper.navigation.update();
           }}
           spaceBetween={30}
-          breakpoints={{
-            320: {
-              slidesPerView: 1,
-            },
-            768: {
-              slidesPerView: 2,
-            },
-            1200: {
-              slidesPerView: 3,
-            },
-          }}
+          watchOverflow={true}
+          loop={isFullPage ? filteredProjects.length > 6 : filteredProjects.length > 3}
+          className={isFullPage ? "h-[550px] sm:h-[630px] lg:h-[710px] w-full" : "w-full"}
+          breakpoints={
+            isFullPage
+              ? {
+                  320: {
+                    slidesPerView: 1,
+                    grid: { rows: 2, fill: "row" },
+                  },
+                  768: {
+                    slidesPerView: 2,
+                    grid: { rows: 2, fill: "row" },
+                  },
+                  1200: {
+                    slidesPerView: 3,
+                    grid: { rows: 2, fill: "row" },
+                  },
+                }
+              : {
+                  320: {
+                    slidesPerView: 1,
+                  },
+                  768: {
+                    slidesPerView: 2,
+                  },
+                  1200: {
+                    slidesPerView: 3,
+                  },
+                }
+          }
         >
           {filteredProjects.map((item, index) => {
             const image =
@@ -288,21 +310,19 @@ export default function Portfolio({
                     scale: 1,
                   }}
                   transition={{ duration: 0.4 }}
-                  className="
+                  className={`
                     group
                     relative
                     rounded-[2rem]
                     overflow-hidden
                     shadow-xl
-                    h-[260px]
-                    sm:h-[300px]
-                    lg:h-[340px]
+                    ${isFullPage ? "h-full" : "h-[260px] sm:h-[300px] lg:h-[340px]"}
                     bg-white
                     border border-gray-100
                     hover:-translate-y-2
                     transition-all
                     duration-500
-                  "
+                  `}
                 >
                   {/* IMAGE */}
                   <img
