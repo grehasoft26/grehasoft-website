@@ -404,7 +404,7 @@ border-primary"
 
         {/* Button */}
         <Link
-          href="/contact"
+          href="/contact-us"
           className="btn-primary w-full mt-6 text-center"
           onClick={() => setIsMobileMenuOpen(false)}
         >
