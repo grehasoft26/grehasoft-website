@@ -1,5 +1,6 @@
 import axiosInstance from './axios';
 import { HomeData, Slide, ProjectGalleryItem } from '@/types/wordpress';
+import { Logo } from '@/types/logo';
 
 export async function getHomeData(): Promise<HomeData> {
   const results = await Promise.allSettled([
@@ -171,6 +172,27 @@ export async function getProjectGallery(): Promise<ProjectGalleryItem[]> {
     return Array.isArray(res.data) ? res.data : [];
   } catch (error: any) {
     console.warn('Error in getProjectGallery:', error?.message || error);
+    return [];
+  }
+}
+
+export async function getLogoGallery(): Promise<Logo[]> {
+  try {
+    const res = await axiosInstance.get<any[]>(
+      '/wp-json/wp/v2/logo_gallery?_embed&per_page=100'
+    );
+    if (!Array.isArray(res.data)) return [];
+    return res.data.map((post) => {
+      const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+      const imageUrl = featuredMedia?.source_url || '/images/fallback.jpg';
+      return {
+        id: post.id,
+        title: post.title?.rendered?.replace(/<[^>]+>/g, '') || '',
+        image: imageUrl,
+      };
+    });
+  } catch (error: any) {
+    console.warn('Error in getLogoGallery:', error?.message || error);
     return [];
   }
 }

@@ -12,6 +12,7 @@ import ContactSection from '@/components/service/digital-marketing/ContactSectio
 import FAQSection from '@/components/service/digital-marketing/FAQSection';
 import LocalSection from '@/components/service/digital-marketing/LocalSection';
 import SeoCaseStudiesSection from '@/components/service/digital-marketing/SeoCaseStudiesSection';
+import LogoGallery from '@/components/service/digital-marketing/LogoGallery';
 interface Props {
   service: any;
   heroImageUrl?: string;
@@ -51,6 +52,9 @@ export default function DigitalMarketingTemplate({
       />
      <StandOutSection acf={acf} />
    <SeoCaseStudiesSection acf={acf} />
+   {service.acf.show_logo_gallery && (
+  <LogoGallery />
+)}
       <ServicesGrid acf={acf} />
 
       <WhySEOSection acf={acf} />

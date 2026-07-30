@@ -471,13 +471,13 @@ export default function ServicesPage() {
                   }`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${
+                    <div className={`w-14 h-9 rounded-lg flex items-center justify-center font-bold text-xs ${
                       selectedQuizGoal === opt.id ? 'bg-white text-primary' : 'bg-white/10 text-white'
                     }`}>
                       {opt.id === 'brand' ? '01' : opt.id === 'ecommerce' ? '02' : opt.id === 'saas' ? '03' : '04'}
                     </div>
                     <div>
-                      <h4 className="font-extrabold text-sm md:text-base leading-tight">{opt.label}</h4>
+                      <h4 className="font-extrabold text-sm md:text-base leading-tight text-accent">{opt.label}</h4>
                       <p className={`text-[14px] mt-1 line-clamp-1 leading-snug ${
                         selectedQuizGoal === opt.id ? 'text-white/80' : 'text-white/40'
                       }`}>
