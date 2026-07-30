@@ -216,7 +216,7 @@ import { Quote, Star, ArrowUpRight, CheckCircle, Shield, Sparkles } from 'lucide
 const testimonials = [
   {
     id: 1,
-    name: 'SumesH VadakkumkarayiL',
+    name: 'Sumesh Vadakkumkarayil',
     role: '',
     content: "We engaged Grehasoft for our Ecommerce website design, SMM, SEO, and Google Business Listing management, and the overall experience has been smooth and well-coordinated. The team understood our website requirements clearly and developed a website that presents our business in a simple and professional way.",
     image: 'https://picsum.photos/seed/user1/200/200',

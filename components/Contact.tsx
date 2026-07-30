@@ -220,9 +220,9 @@ export default function Contact({ initialData }: { initialData?: any }) {
                       {item.title}
                     </p>
 
-                    <p className="text-[#0b0b45] text-sm sm:text-base font-semibold leading-snug break-words">
-                      {item.value}
-                    </p>
+                    <p className="text-[#0b0b45] text-sm sm:text-base font-semibold leading-snug break-words whitespace-pre-line">
+  {item.value}
+</p>
                   </div>
                 </div>
               ))}

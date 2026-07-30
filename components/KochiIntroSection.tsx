@@ -88,7 +88,7 @@ export default function KochiIntroSection() {
 
             {/* Paragraph 2 */}
             <p className="text-text-gray text-base md:text-lg leading-relaxed font-sans">
-              we combine cutting-edge technology with strategic thinking to create scalable, secure, and high-performing digital solutions. Whether you're a startup, SME, or enterprise, our experienced team ensures every solution aligns with your business goals and delivers measurable results.
+              We combine cutting-edge technology with strategic thinking to create scalable, secure, and high-performing digital solutions. Whether you're a startup, SME, or enterprise, our experienced team ensures every solution aligns with your business goals and delivers measurable results.
             </p>
 
             {/* Paragraph 3 */}
