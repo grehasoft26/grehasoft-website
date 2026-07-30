@@ -179,7 +179,7 @@ export async function getProjectGallery(): Promise<ProjectGalleryItem[]> {
 export async function getLogoGallery(): Promise<Logo[]> {
   try {
     const res = await axiosInstance.get<any[]>(
-      '/wp-json/wp/v2/logo_gallery?_embed&per_page=100'
+      '/wp-json/wp/v2/logo_gallery?_embed&per_page=100&orderby=menu_order&order=asc'
     );
     if (!Array.isArray(res.data)) return [];
     return res.data.map((post) => {
