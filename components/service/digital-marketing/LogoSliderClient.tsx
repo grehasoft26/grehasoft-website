@@ -97,23 +97,21 @@ export default function LogoSliderClient({ logos }: LogoSliderClientProps) {
         className="flex items-center gap-5 md:gap-8 w-max py-4"
         style={{ x: xTranslation }}
       >
-        {duplicatedLogos.map((logo, index) => (
-          <div
-            key={`${logo.id}-${index}`}
-            className="group relative flex items-center justify-center bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1.5 transition-all duration-300 p-6 h-28 w-44 md:h-32 md:w-56 flex-shrink-0"
-          >
-            <div className="relative w-full h-[60px] md:h-[70px] flex items-center justify-center">
-              <Image
-                src={logo.image}
-                alt={logo.title}
-                fill
-                sizes="(max-width: 768px) 150px, 200px"
-                className="object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                priority={index < 8}
-              />
-            </div>
-          </div>
-        ))}
+       {duplicatedLogos.map((logo, index) => (
+  <div
+    key={`${logo.id}-${index}`}
+    className="group flex h-[150px] w-[260px] md:h-[160px] md:w-[280px] flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+  >
+    <Image
+      src={logo.image}
+      alt={logo.title}
+      width={300}
+      height={140}
+      className="max-h-[130px] w-auto max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+      priority={index < 8}
+    />
+  </div>
+))}
       </motion.div>
     </div>
   );
