@@ -40,6 +40,22 @@ export default function SeoCaseStudiesSection({ acf }: Props) {
       title: data.case_study_3_title,
       description: data.case_study_3_description,
     },
+    {
+      image: data.case_study_4_image,
+      title: data.case_study_4_title,
+      description: data.case_study_4_description,
+    },
+    {
+      image: data.case_study_5_image,
+      title: data.case_study_5_title,
+      description: data.case_study_5_description,
+    },
+    {
+      image: data.case_study_6_image,
+      title: data.case_study_6_title,
+      description: data.case_study_6_description,
+    },
+
   ].filter((item) => item.title);
 
   // Graceful Empty State Handling

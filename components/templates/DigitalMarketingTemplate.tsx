@@ -50,7 +50,7 @@ export default function DigitalMarketingTemplate({
          featuredImage={featuredImage}
       />
      <StandOutSection acf={acf} />
-
+   <SeoCaseStudiesSection acf={acf} />
       <ServicesGrid acf={acf} />
 
       <WhySEOSection acf={acf} />
@@ -59,7 +59,7 @@ export default function DigitalMarketingTemplate({
    <ProcessSection acf={acf} /> 
 
       <IndustriesSection acf={acf} /> 
-      <SeoCaseStudiesSection acf={acf} />
+   
 
        <ContactSection acf={acf} /> 
 
