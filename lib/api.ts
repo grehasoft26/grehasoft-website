@@ -167,7 +167,7 @@ export async function getPortfolioData() {
 export async function getProjectGallery(): Promise<ProjectGalleryItem[]> {
   try {
     const res = await axiosInstance.get<ProjectGalleryItem[]>(
-      '/wp-json/wp/v2/project-gallery?_embed&per_page=100&_fields=id,title,slug,acf,yoast_head_json,_links,_embedded'
+      '/wp-json/wp/v2/project-gallery?_embed&per_page=100&orderby=menu_order&order=asc&_fields=id,title,slug,acf,yoast_head_json,_links,_embedded'
     );
     return Array.isArray(res.data) ? res.data : [];
   } catch (error: any) {
