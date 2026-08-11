@@ -6,7 +6,7 @@ import ContactSection from '@/components/Contact';
 export default function ContactPage() {
   return (
     <main className="min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <PageHeader
         title="Contact Us"
         description="Have a question or want to discuss a project? Our team is here to help you navigate your digital transformation journey."

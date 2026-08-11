@@ -46,7 +46,7 @@ export default async function CareersPage() {
 
   return (
     <main className="min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
 
       {/* HEADER (DYNAMIC) */}
       <PageHeader

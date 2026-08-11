@@ -77,7 +77,7 @@ export default async function Home() {
       }}
     />
   )}
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero slides={homeData.hero} />
       <KochiIntroSection />
        <EndToEndServicesIntro /> 

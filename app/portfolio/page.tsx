@@ -20,7 +20,7 @@ export default async function PortfolioPage() {
 
   return (
     <main className="min-h-screen">
-      <Navbar />
+      {/* <Navbar /> */}
       <PageHeader
         title="Our Portfolio"
         description="Explore our successful projects and case studies of how we've helped businesses achieve their digital goals."
