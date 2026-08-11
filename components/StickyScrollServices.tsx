@@ -188,40 +188,19 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
 
             {/* RIGHT IMAGE */}
             <div className="flex justify-center lg:justify-end relative z-10">
-              {image && (
-                <motion.img
-                  key={image}
-                  src={image}
-                  className="
-                    w-[240px]
-                    sm:w-[320px]
-                    md:w-[420px]
-                    lg:w-[500px]
-
-                    max-w-full
-                    h-auto
-                  "
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{
-                    opacity: 1,
-                    y: [0, -15, 0],
-                    rotate: [0, 1.5, -1.5, 0],
-                  }}
-                  transition={{
-                    opacity: { duration: 0.5 },
-                    y: {
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                    rotate: {
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                  }}
-                />
-              )}
+              <img
+  key={image}
+  src={image}
+  alt={acf?.hero_title || "Service"}
+  className="
+    w-[240px]
+    sm:w-[320px]
+    md:w-[420px]
+    lg:w-[500px]
+    max-w-full
+    h-auto
+  "
+/>
             </div>
           </div>
         </div>
