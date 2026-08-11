@@ -45,8 +45,12 @@ const DEFAULT_MENU = [
   { id: "8", title: "Contact", url: "/contact-us", parent: "0" }
 ];
 
-export default function Navbar() {
-  const [menu, setMenu] = useState<any[]>([]);
+export default function Navbar({
+  initialMenu,
+}: {
+  initialMenu: any[];
+}) {
+  const [menu, setMenu] = useState<any[]>(initialMenu);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -70,25 +74,53 @@ export default function Navbar() {
   };
 
   // Fetch WordPress Menu
-  useEffect(() => {
-    const fetchMenu = async () => {
-      try {
-        const res = await axiosInstance.get(
-          '/wp-json/custom/v1/menu/primary-menu'
-        );
-        console.log("MENU DATA:", res.data);
-        setMenu(Array.isArray(res.data) ? res.data : []);
-      } catch (error: any) {
-        console.warn(
-          "Navbar menu error:",
-          error?.message || error
-        );
-        setMenu([]);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchMenu = async () => {
+  //     try {
+  //       const res = await axiosInstance.get(
+  //         '/wp-json/custom/v1/menu/primary-menu'
+  //       );
+  //       console.log("MENU DATA:", res.data);
+  //       setMenu(Array.isArray(res.data) ? res.data : []);
+  //     } catch (error: any) {
+  //       console.warn(
+  //         "Navbar menu error:",
+  //         error?.message || error
+  //       );
+  //       setMenu([]);
+  //     }
+  //   };
 
-    fetchMenu();
-  }, []);
+  //   fetchMenu();
+  // }, []);
+  useEffect(() => {
+  // If server-side menu already loaded successfully,
+  // don't make another request.
+  if (Array.isArray(initialMenu) && initialMenu.length > 0) {
+    return;
+  }
+
+  const fetchMenu = async () => {
+    try {
+      const res = await axiosInstance.get(
+        '/wp-json/custom/v1/menu/primary-menu'
+      );
+
+      console.log('MENU DATA:', res.data);
+
+      if (Array.isArray(res.data) && res.data.length > 0) {
+        setMenu(res.data);
+      }
+    } catch (error: any) {
+      console.warn(
+        'Navbar menu fallback error:',
+        error?.message || error
+      );
+    }
+  };
+
+  fetchMenu();
+}, [initialMenu]);
 
   // Scroll Effect
   useEffect(() => {

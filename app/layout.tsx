@@ -1,6 +1,52 @@
+// import type { Metadata } from 'next';
+// import { Poppins } from 'next/font/google';
+// import '../styles/globals.css';
+// import Navbar from '@/components/Navbar';
+// import Footer from '@/components/Footer';
+// import CustomCursor from '@/components/CustomCursor';
+// import ScrollToTop from '@/components/ScrollToTop';
+// import WhatsAppButton from '@/components/WhatsAppButton';
+
+// const poppins = Poppins({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500', '600', '700'],
+//   variable: '--font-sans',
+// });
+
+// export const metadata: Metadata = {
+//   icons: {
+//     icon: "/images/icon.png",
+//   },
+
+//   robots: {
+//     index: true,
+//     follow: true,
+//   },
+// };
+
+// export default function RootLayout({
+//   children,
+// }: {
+//   children: React.ReactNode;
+// }) {
+//   return (
+//     <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
+//       <body className="antialiased font-sans overflow-x-hidden" suppressHydrationWarning>
+//         <CustomCursor />
+//         <Navbar />
+//         {children}
+       
+//        <ScrollToTop />
+//       <WhatsAppButton />
+      
+//       </body>
+//     </html>
+//   );
+// }
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import '../styles/globals.css';
+
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
@@ -15,7 +61,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/images/icon.png",
+    icon: '/images/icon.png',
   },
 
   robots: {
@@ -24,21 +70,55 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+async function getMenu() {
+  try {
+    const res = await fetch(
+      'https://cms.grehasoft.com/wp-json/custom/v1/menu/primary-menu',
+      {
+        next: {
+          revalidate: 60,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(`Menu API failed: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Failed to fetch primary menu:', error);
+    return [];
+  }
+}
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const menu = await getMenu();
+
   return (
-    <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
-      <body className="antialiased font-sans overflow-x-hidden" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${poppins.variable} scroll-smooth`}
+      suppressHydrationWarning
+    >
+      <body
+        className="antialiased font-sans overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <CustomCursor />
-        <Navbar />
+
+        <Navbar initialMenu={menu} />
+
         {children}
-       
-       <ScrollToTop />
-      <WhatsAppButton />
-      
+
+        <ScrollToTop />
+        <WhatsAppButton />
       </body>
     </html>
   );
