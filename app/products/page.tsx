@@ -12,76 +12,31 @@ import {
   ShoppingCart, Truck, Factory
 } from 'lucide-react';
 
-import axiosInstance from '@/lib/axios';
+import { fetchWP } from '@/lib/api';
 
 export const revalidate = 60;
 
 // ✅ SERVER FETCH
 async function getData() {
-  const endpoint = '/wp-json/wp/v2/pages?slug=products&_fields=acf';
-  console.log(`[ProductsPage] getData() fetching from base: ${axiosInstance.defaults.baseURL} with path: ${endpoint}`);
-  try {
-    const res = await axiosInstance.get(endpoint);
-    console.log(`[ProductsPage] getData() response status: ${res.status}`);
-    const payloadLength = res.data ? JSON.stringify(res.data).length : 0;
-    console.log(`[ProductsPage] getData() response payload length: ${payloadLength}`);
-    
-    if (!res.data || !Array.isArray(res.data) || res.data.length === 0) {
-      console.warn(`[ProductsPage] getData() returned empty or malformed array:`, res.data);
-      return null;
-    }
-    
-    return res.data[0].acf || null;
-  } catch (err: any) {
-    console.error("[ProductsPage] Error fetching products data in getData():", err.message || err);
-    if (err.response) {
-      console.error(`[ProductsPage] Error response status: ${err.response.status}, payload:`, err.response.data);
-    }
-    return null;
-  }
+  const json = await fetchWP<any[]>('/wp-json/wp/v2/pages?slug=products&_fields=acf');
+  return json?.[0]?.acf || null;
 }
 
 // ✅ IMAGE FETCH (ID → URL)
 async function getImageUrl(id: number) {
-  if (!id) {
-    console.log("[ProductsPage] getImageUrl() called with no ID");
-    return null;
-  }
-  const endpoint = `/wp-json/wp/v2/media/${id}`;
-  console.log(`[ProductsPage] getImageUrl(${id}) fetching from base: ${axiosInstance.defaults.baseURL} with path: ${endpoint}`);
-  try {
-    const res = await axiosInstance.get(endpoint);
-    console.log(`[ProductsPage] getImageUrl(${id}) response status: ${res.status}`);
-    return res.data?.source_url || null;
-  } catch (err: any) {
-    console.error(`[ProductsPage] Error fetching products media (${id}):`, err.message || err);
-    if (err.response) {
-      console.error(`[ProductsPage] Media fetch error response status: ${err.response.status}`);
-    }
-    return null;
-  }
+  if (!id) return null;
+  const json = await fetchWP<any>(`/wp-json/wp/v2/media/${id}`);
+  return json?.source_url || null;
 }
 
 export default async function ProductsPage() {
-  console.log("[ProductsPage] Rendering ProductsPage...");
   const data = await getData();
   
   // Fetch PMS details from home page slug to pass to ProductsSection
   let productsData = null;
-  const homeEndpoint = '/wp-json/wp/v2/pages?slug=home&_fields=acf,pms_media';
-  console.log(`[ProductsPage] Fetching PMS details from base: ${axiosInstance.defaults.baseURL} with path: ${homeEndpoint}`);
-  try {
-    const homeRes = await axiosInstance.get(homeEndpoint);
-    console.log(`[ProductsPage] Home page fetch status: ${homeRes.status}`);
-    const homeData = homeRes.data?.[0];
-    if (homeData) {
-      productsData = { ...homeData.acf, ...homeData.pms_media };
-      console.log(`[ProductsPage] Successfully compiled productsData. Has pms_title_part1: ${!!productsData.pms_title_part1}`);
-    } else {
-      console.warn("[ProductsPage] Home page data returned empty.");
-    }
-  } catch (err: any) {
-    console.error("[ProductsPage] Error fetching homepage products details:", err.message || err);
+  const homeData = (await fetchWP<any[]>('/wp-json/wp/v2/pages?slug=home&_fields=acf,pms_media'))?.[0];
+  if (homeData) {
+    productsData = { ...homeData.acf, ...homeData.pms_media };
   }
 
   if (!data) {

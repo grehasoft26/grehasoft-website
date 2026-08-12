@@ -10,9 +10,8 @@ import { getPortfolioData, getMenuData, getProjectGallery } from '@/lib/api';
 export const revalidate = 60;
 
 export default async function PortfolioPage() {
-  const [portfolioData, menuData, projectGallery] = await Promise.all([
+  const [portfolioData, projectGallery] = await Promise.all([
     getPortfolioData(),
-    getMenuData(),
     getProjectGallery()
   ]);
 
@@ -39,7 +38,7 @@ export default async function PortfolioPage() {
       <Clients />
       
       <CTA />
-      <Footer initialData={menuData.footerAcf} initialMenu={menuData.footerMenu || []} />
+      {/* <Footer /> is provided by RootLayout */}
     </main>
   );
 }

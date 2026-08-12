@@ -11,6 +11,9 @@ if (apiURL) {
 }
 
 const nextConfig = {
+  experimental: {
+    cpus: 1,
+  },
   images: {
     remotePatterns: [
       {

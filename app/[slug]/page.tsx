@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import axiosInstance from '@/lib/axios';
+import { fetchWP } from '@/lib/api';
 
 import WebDesignTemplate from '@/components/templates/WebDesignTemplate';
 import DigitalMarketingTemplate from '@/components/templates/DigitalMarketingTemplate';
@@ -20,11 +20,11 @@ export async function generateMetadata({
   const { slug } = await params;
 
   try {
-    const res = await axiosInstance.get(
+    const data = await fetchWP<any[]>(
       `/wp-json/wp/v2/services?slug=${slug}`
     );
 
-    const service = res.data?.[0];
+    const service = data?.[0];
 
     if (!service) return {};
 
@@ -64,11 +64,11 @@ export default async function Page({
   let service: any = null;
 
   try {
-    const res = await axiosInstance.get(
+    const data = await fetchWP<any[]>(
       `/wp-json/wp/v2/services?slug=${slug}&_embed`
     );
 
-    service = res.data?.[0] || null;
+    service = data?.[0] || null;
   } catch (error) {
     console.error(
       'Error loading service data for slug:',
@@ -97,11 +97,11 @@ export default async function Page({
 
   if (heroImageId) {
     try {
-      const mediaRes = await axiosInstance.get(
+      const media = await fetchWP<any>(
         `/wp-json/wp/v2/media/${heroImageId}`
       );
 
-      heroImageUrl = mediaRes.data?.source_url || '';
+      heroImageUrl = media?.source_url || '';
     } catch (err) {
       console.error(
         'Error loading hero media:',

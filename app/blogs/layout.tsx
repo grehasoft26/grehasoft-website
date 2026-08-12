@@ -1,18 +1,9 @@
 import type { Metadata } from "next";
-import axios from "@/lib/axios";
+import { fetchWP } from "@/lib/api";
 import React from "react";
 
 async function getBlogsPage() {
-  try {
-    const res = await axios.get(
-      "/wp-json/wp/v2/pages/1276?acf_format=standard"
-    );
-
-    return res.data;
-  } catch (error) {
-    console.error("Failed to fetch Blogs page:", error);
-    return null;
-  }
+  return await fetchWP<any>("/wp-json/wp/v2/pages/1276?acf_format=standard");
 }
 
 export async function generateMetadata(): Promise<Metadata> {

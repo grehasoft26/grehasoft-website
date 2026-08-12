@@ -301,67 +301,8 @@ export default function Testimonials() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
           
           {/* LEFT PANEL: Selected spotlight details (7 columns) */}
-          <div className="lg:col-span-7 flex flex-col justify-between">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIdx}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
-                className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-between h-full relative overflow-hidden"
-              >
-                {/* Embedded dynamic quote icon blur */}
-                <Quote className="absolute -right-4 -top-4 w-40 h-40 text-primary/[0.03] select-none pointer-events-none" />
-
-                <div>
-                  {/* Rating Stars & Stats Tag */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-8">
-                    <div className="flex gap-1 bg-gray-50 px-3.5 py-1.5 rounded-full border border-gray-100">
-                      {[...Array(active.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs font-bold text-accent px-3 py-1 rounded-full bg-accent/5 border border-accent/10 uppercase tracking-wider">
-                      <CheckCircle className="w-3.5 h-3.5" />
-                      {active.metrics}
-                    </div>
-                  </div>
-
-                  {/* Testimonial Core Block */}
-                 
-                 <p className="text-text-gray text-lg max-w-2xl mx-auto leading-relaxed ">
-                    "{active.content}"
-                  </p>
-                </div>
-
-                {/* Client Profile and Stats block */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-gray-100 relative z-10">
-                  <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg border-2 border-primary/20">
-  {getInitials(active.name)}
-</div>
-                    <div>
-                      <h4 className="text-lg font-bold text-dark tracking-tight">{active.name}</h4>
-                      <p className="text-sm text-text-gray font-medium">{active.role}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col gap-1 sm:items-end">
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-text-gray">IMPACT REALIZED</span>
-                    <div className="flex items-center gap-2 bg-primary/5 text-primary text-xs font-extrabold px-3 py-1.5 rounded-xl border border-primary/10">
-                      <Shield className="w-3.5 h-3.5 fill-current text-primary" />
-                      <span>{active.stats}</span>
-                    </div>
-                  </div>
-                </div>
-
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* RIGHT PANEL: Interactive story selection list dock (5 columns) */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+        
+            <div className="lg:col-span-5 flex flex-col justify-between gap-4">
             <div className="space-y-4">
               <div className="text-xs font-bold text-text-gray/80 px-2 uppercase tracking-widest block mb-1">
                 Select Client Success File
@@ -436,6 +377,66 @@ export default function Testimonials() {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* RIGHT PANEL: Interactive story selection list dock (5 columns) */}
+          <div className="lg:col-span-7 flex flex-col justify-between">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIdx}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-between h-full relative overflow-hidden"
+              >
+                {/* Embedded dynamic quote icon blur */}
+                <Quote className="absolute -right-4 -top-4 w-40 h-40 text-primary/[0.03] select-none pointer-events-none" />
+
+                <div>
+                  {/* Rating Stars & Stats Tag */}
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-8">
+                    <div className="flex gap-1 bg-gray-50 px-3.5 py-1.5 rounded-full border border-gray-100">
+                      {[...Array(active.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-2 text-xs font-bold text-accent px-3 py-1 rounded-full bg-accent/5 border border-accent/10 uppercase tracking-wider">
+                      <CheckCircle className="w-3.5 h-3.5" />
+                      {active.metrics}
+                    </div>
+                  </div>
+
+                  {/* Testimonial Core Block */}
+                 
+                 <p className="text-text-gray text-lg max-w-2xl mx-auto leading-relaxed ">
+                    "{active.content}"
+                  </p>
+                </div>
+
+                {/* Client Profile and Stats block */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-6 border-t border-gray-100 relative z-10">
+                  <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg border-2 border-primary/20">
+  {getInitials(active.name)}
+</div>
+                    <div>
+                      <h4 className="text-lg font-bold text-dark tracking-tight">{active.name}</h4>
+                      <p className="text-sm text-text-gray font-medium">{active.role}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col gap-1 sm:items-end">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-text-gray">IMPACT REALIZED</span>
+                    <div className="flex items-center gap-2 bg-primary/5 text-primary text-xs font-extrabold px-3 py-1.5 rounded-xl border border-primary/10">
+                      <Shield className="w-3.5 h-3.5 fill-current text-primary" />
+                      <span>{active.stats}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
           </div>
 
         </div>

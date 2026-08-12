@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import axios from "@/lib/axios";
+import { fetchWP } from "@/lib/api";
 import React from "react";
 
 async function getPageData() {
-  try {
-    const res = await axios.get(
-      "/wp-json/wp/v2/pages?slug=contact-us&_fields=acf,yoast_head_json"
-    );
-
-    return res.data?.[0] || null;
-  } catch (error) {
-    console.error("Contact page fetch failed:", error);
-    return null;
-  }
+  const data = await fetchWP<any[]>("/wp-json/wp/v2/pages?slug=contact-us&_fields=acf,yoast_head_json");
+  return data?.[0] || null;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

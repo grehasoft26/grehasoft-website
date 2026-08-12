@@ -48,6 +48,7 @@ import { Poppins } from 'next/font/google';
 import '../styles/globals.css';
 import FooterWrapper from '@/components/FooterWrapper';
 import Navbar from '@/components/Navbar';
+import { fetchWP } from '@/lib/api';
 
 import CustomCursor from '@/components/CustomCursor';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -71,27 +72,8 @@ export const metadata: Metadata = {
 };
 
 async function getMenu() {
-  try {
-    const res = await fetch(
-      'https://cms.grehasoft.com/wp-json/custom/v1/menu/primary-menu',
-      {
-        next: {
-          revalidate: 60,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Menu API failed: ${res.status}`);
-    }
-
-    const data = await res.json();
-
-    return Array.isArray(data) ? data : [];
-  } catch (error) {
-    console.error('Failed to fetch primary menu:', error);
-    return [];
-  }
+  const data = await fetchWP<any[]>('/wp-json/custom/v1/menu/primary-menu');
+  return Array.isArray(data) ? data : [];
 }
 
 export default async function RootLayout({

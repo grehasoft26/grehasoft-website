@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
 import CTA from '@/components/CTA';
-import axios from '@/lib/axios';
+import { fetchWP } from '@/lib/api';
 
 const DEFAULT_CAREERS = {
   career_title: "Careers",
@@ -32,13 +32,8 @@ const DEFAULT_CAREERS = {
 
 // ✅ SERVER SIDE FETCH
 async function getData() {
-  try {
-    const res = await axios.get('/wp-json/wp/v2/pages?slug=careers&_fields=acf', { timeout: 10000 });
-    return res.data?.[0]?.acf || DEFAULT_CAREERS;
-  } catch (err) {
-    console.error("Error fetching careers data:", err);
-    return DEFAULT_CAREERS;
-  }
+  const data = await fetchWP<any[]>('/wp-json/wp/v2/pages?slug=careers&_fields=acf');
+  return data?.[0]?.acf || DEFAULT_CAREERS;
 }
 
 export default async function CareersPage() {

@@ -15,7 +15,7 @@ import TrustedITSection from '@/components/TrustedITSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
 
 
-import { getHomeData } from '@/lib/api';
+import { getHomeData, fetchWP } from '@/lib/api';
 import KochiIntroSection from '@/components/KochiIntroSection';
 import EndToEndServicesIntro from '@/components/EndToEndServicesIntro';
 import type { Metadata } from "next";
@@ -23,18 +23,9 @@ import type { Metadata } from "next";
 export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const res = await fetch(
-      "https://cms.grehasoft.com/wp-json/wp/v2/pages/1072?_fields=yoast_head_json",
-      {
-        next: { revalidate: 60 },
-      }
+    const page = await fetchWP<any>(
+      "/wp-json/wp/v2/pages/1072?_fields=yoast_head_json"
     );
-
-    if (!res.ok) {
-      return {};
-    }
-
-    const page = await res.json();
 
     return {
       title: page?.yoast_head_json?.title || "GrehaSoft",
@@ -97,7 +88,7 @@ export default async function Home() {
       <Testimonials />
       <CTA data={homeData.cta} />
       <Contact initialData={homeData.contact} />
-      <Footer initialData={homeData.footerData} initialMenu={homeData.footerMenu || []} />
+      {/* <Footer is provided by RootLayout */}
     </main>
   );
 }

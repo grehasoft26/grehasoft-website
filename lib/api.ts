@@ -1,101 +1,201 @@
-import axiosInstance from './axios';
+import { cache } from 'react';
+import fs from 'fs';
+import path from 'path';
+import crypto from 'crypto';
 import { HomeData, Slide, ProjectGalleryItem } from '@/types/wordpress';
 import { Logo } from '@/types/logo';
 
-export async function getHomeData(): Promise<HomeData> {
-  const results = await Promise.allSettled([
-    axiosInstance.get('/wp-json/wp/v2/pages?slug=home&_fields=acf,about_media,awards_media,pms_media').catch(err => { console.warn("Home page fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/wp/v2/hero-slide').catch(err => { console.warn("Hero slides fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/wp/v2/ourservices?_embed').catch(err => { console.warn("Services CPT fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/wp/v2/clients?per_page=100').catch(err => { console.warn("Clients CPT fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/wp/v2/portfolio?_embed').catch(err => { console.warn("Portfolio CPT fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/wp/v2/portfolio_category').catch(err => { console.warn("Portfolio categories fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/wp/v2/contact').catch(err => { console.warn("Contact CPT fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/wp/v2/pages?slug=footer&_fields=acf').catch(err => { console.warn("Footer ACF fetch error:", err.message); return null; }),
-    axiosInstance.get('/wp-json/custom/v1/menu/footer-menu').catch(err => { console.warn("Footer menu fetch error:", err.message); return null; })
+const API_BASE = (process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://cms.grehasoft.com').replace(/\/$/, '');
+
+const CACHE_DIR = path.join(process.cwd(), 'node_modules', '.cache', 'wp-api');
+const CACHE_TTL_MS = 60 * 1000; // 60s freshness TTL
+
+// In-memory in-flight request deduplication map
+const inFlightRequests = new Map<string, Promise<any>>();
+
+// Concurrency queue to protect Hostinger MySQL from connection spikes
+const MAX_CONCURRENT_REQUESTS = 3;
+let activeRequests = 0;
+const waitQueue: Array<() => void> = [];
+
+async function acquireSlot(): Promise<void> {
+  if (activeRequests < MAX_CONCURRENT_REQUESTS) {
+    activeRequests++;
+    return;
+  }
+  return new Promise<void>((resolve) => {
+    waitQueue.push(() => {
+      activeRequests++;
+      resolve();
+    });
+  });
+}
+
+function releaseSlot(): void {
+  activeRequests--;
+  if (waitQueue.length > 0) {
+    const next = waitQueue.shift();
+    if (next) next();
+  }
+}
+
+function getCached<T>(key: string, ignoreTTL = false): T | null {
+  try {
+    const hash = crypto.createHash('md5').update(key).digest('hex');
+    const filePath = path.join(CACHE_DIR, `${hash}.json`);
+    if (fs.existsSync(filePath)) {
+      const stats = fs.statSync(filePath);
+      if (ignoreTTL || Date.now() - stats.mtimeMs < CACHE_TTL_MS) {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        return JSON.parse(raw) as T;
+      }
+    }
+  } catch {
+    // Ignore cache read errors
+  }
+  return null;
+}
+
+function setCached<T>(key: string, data: T): void {
+  try {
+    if (!fs.existsSync(CACHE_DIR)) {
+      fs.mkdirSync(CACHE_DIR, { recursive: true });
+    }
+    const hash = crypto.createHash('md5').update(key).digest('hex');
+    const filePath = path.join(CACHE_DIR, `${hash}.json`);
+    fs.writeFileSync(filePath, JSON.stringify(data), 'utf-8');
+  } catch {
+    // Ignore cache write errors
+  }
+}
+
+export async function fetchWP<T = any>(endpoint: string, options?: RequestInit, retries = 4): Promise<T | null> {
+  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+
+  // 1. Check fresh cross-worker filesystem cache
+  const cached = getCached<T>(url);
+  if (cached !== null) {
+    return cached;
+  }
+
+  // 2. Check if the exact same URL is already in-flight (promise coalescing)
+  if (inFlightRequests.has(url)) {
+    return inFlightRequests.get(url) as Promise<T | null>;
+  }
+
+  // 3. Create execution promise and register it
+  const fetchPromise = (async (): Promise<T | null> => {
+    await acquireSlot();
+    try {
+      // Re-check cache after acquiring concurrency slot
+      const freshCache = getCached<T>(url);
+      if (freshCache !== null) {
+        return freshCache;
+      }
+
+      for (let attempt = 0; attempt <= retries; attempt++) {
+        try {
+          const res = await fetch(url, {
+            ...options,
+            next: { revalidate: 60, ...options?.next },
+          });
+
+          if (!res.ok) {
+            if (attempt < retries && (res.status === 429 || res.status >= 500)) {
+              const delay = Math.pow(2, attempt + 1) * 500 + Math.random() * 400;
+              await new Promise((resolve) => setTimeout(resolve, delay));
+              continue;
+            }
+
+            const errorBody = await res.text().catch(() => '');
+            console.error(
+              `[fetchWP] HTTP ${res.status} for ${endpoint}\n`,
+              errorBody.slice(0, 300)
+            );
+            return getCached<T>(url, true);
+          }
+
+          const json = await res.json();
+          if (json !== null && json !== undefined) {
+            setCached(url, json);
+          }
+          return json;
+        } catch (error: any) {
+          // Never swallow Next.js internal control-flow exceptions
+          if (
+            error?.digest?.startsWith('NEXT_') ||
+            error?.message?.includes('NEXT_') ||
+            error?.name === 'DynamicServerError'
+          ) {
+            throw error;
+          }
+
+          if (attempt < retries) {
+            const delay = Math.pow(2, attempt + 1) * 500 + Math.random() * 400;
+            await new Promise((resolve) => setTimeout(resolve, delay));
+            continue;
+          }
+          console.warn(`[fetchWP] Network error for ${endpoint}:`, error?.message || error);
+          return getCached<T>(url, true);
+        }
+      }
+      return getCached<T>(url, true);
+    } finally {
+      releaseSlot();
+      inFlightRequests.delete(url);
+    }
+  })();
+
+  inFlightRequests.set(url, fetchPromise);
+  return fetchPromise;
+}
+
+export const getHomeData = cache(async (): Promise<HomeData> => {
+  const [
+    pageDataRes,
+    slidesDataRes,
+    servicesDataRes,
+    clientsDataRes,
+    portfolioProjectsRes,
+    portfolioCategoriesRes,
+    contactDataRes,
+    footerDataRes,
+    footerMenuRes,
+  ] = await Promise.allSettled([
+    fetchWP<any[]>('/wp-json/wp/v2/pages?slug=home&_fields=acf,about_media,awards_media,pms_media'),
+    fetchWP<any[]>('/wp-json/wp/v2/hero-slide'),
+    fetchWP<any[]>('/wp-json/wp/v2/ourservices?_embed'),
+    fetchWP<any[]>('/wp-json/wp/v2/clients?per_page=100'),
+    fetchWP<any[]>('/wp-json/wp/v2/portfolio?_embed'),
+    fetchWP<any[]>('/wp-json/wp/v2/portfolio_category'),
+    fetchWP<any[]>('/wp-json/wp/v2/contact'),
+    fetchWP<any[]>('/wp-json/wp/v2/pages?slug=footer&_fields=acf'),
+    fetchWP<any[]>('/wp-json/custom/v1/menu/footer-menu'),
   ]);
 
-  let pageData: any = null;
-  let slidesData: any[] = [];
-  let servicesData: any[] = [];
-  let clientsData: any[] = [];
- let portfolioProjects: any[] = [];
- let portfolioCategories: any[] = [];
-
-  let contactData: any = null;
-  let footerData: any = null;
-  let footerMenu: any[] = [];
-
-  if (results[0].status === 'fulfilled' && results[0].value) {
-    pageData = results[0].value.data?.[0] || null;
-  } else {
-    console.warn('Failed to fetch home page data');
-  }
-
-  if (results[1].status === 'fulfilled' && results[1].value) {
-    slidesData = results[1].value.data || [];
-  } else {
-    console.warn('Failed to fetch hero slides');
-  }
-
-  if (results[2].status === 'fulfilled' && results[2].value) {
-    servicesData = results[2].value.data || [];
-  } else {
-    console.warn('Failed to fetch services CPT');
-  }
-
-  if (results[3].status === 'fulfilled' && results[3].value) {
-    clientsData = results[3].value.data || [];
-  } else {
-    console.warn('Failed to fetch clients CPT');
-  }
-
-  if (results[4].status === 'fulfilled' && results[4].value) {
-    portfolioProjects = results[4].value.data || [];
-  } else {
-    console.warn('Failed to fetch portfolio CPT');
-  }
-
-  if (results[5].status === 'fulfilled' && results[5].value) {
-    portfolioCategories = results[5].value.data || [];
-  } else {
-    console.warn('Failed to fetch portfolio categories');
-  }
-
-  if (results[6].status === 'fulfilled' && results[6].value) {
-    contactData = results[6].value.data?.[0]?.acf || null;
-  } else {
-    console.warn('Failed to fetch contact CPT');
-  }
-
-  if (results[7].status === 'fulfilled' && results[7].value) {
-    footerData = results[7].value.data?.[0]?.acf || null;
-  } else {
-    console.warn('Failed to fetch footer ACF');
-  }
-
-  if (results[8].status === 'fulfilled' && results[8].value) {
-    footerMenu = results[8].value.data || [];
-  } else {
-    console.warn('Failed to fetch footer menu');
-  }
+  const pageData = pageDataRes.status === 'fulfilled' && pageDataRes.value ? pageDataRes.value[0] || null : null;
+  const slidesData = slidesDataRes.status === 'fulfilled' && Array.isArray(slidesDataRes.value) ? slidesDataRes.value : [];
+  const servicesData = servicesDataRes.status === 'fulfilled' && Array.isArray(servicesDataRes.value) ? servicesDataRes.value : [];
+  const clientsData = clientsDataRes.status === 'fulfilled' && Array.isArray(clientsDataRes.value) ? clientsDataRes.value : [];
+  const portfolioProjects = portfolioProjectsRes.status === 'fulfilled' && Array.isArray(portfolioProjectsRes.value) ? portfolioProjectsRes.value : [];
+  const portfolioCategories = portfolioCategoriesRes.status === 'fulfilled' && Array.isArray(portfolioCategoriesRes.value) ? portfolioCategoriesRes.value : [];
+  const contactData = contactDataRes.status === 'fulfilled' && contactDataRes.value ? contactDataRes.value[0]?.acf || null : null;
+  const footerData = footerDataRes.status === 'fulfilled' && footerDataRes.value ? footerDataRes.value[0]?.acf || null : null;
+  const footerMenu = footerMenuRes.status === 'fulfilled' && Array.isArray(footerMenuRes.value) ? footerMenuRes.value : [];
 
   const acf = pageData?.acf || {};
-  //console.log(acf.schema_json);
   const aboutMedia = pageData?.about_media || {};
   const awardsMedia = pageData?.awards_media || {};
   const pmsMedia = pageData?.pms_media || {};
 
-  const slides: Slide[] = Array.isArray(slidesData)
-    ? slidesData.map((post: any) => ({
-        title: post.acf?.slide_title || "",
-        video: post.acf?.slide_video || "",
-        thumbnail: post.acf?.slide_thumbnail || "",
-        label: post.acf?.slide_label || "",
-        description: post.acf?.slide_description || "",
-        slide_duration: Number(post.acf?.slide_duration) || 11,
-      }))
-    : [];
+  const slides: Slide[] = slidesData.map((post: any) => ({
+    title: post.acf?.slide_title || "",
+    video: post.acf?.slide_video || "",
+    thumbnail: post.acf?.slide_thumbnail || "",
+    label: post.acf?.slide_label || "",
+    description: post.acf?.slide_description || "",
+    slide_duration: Number(post.acf?.slide_duration) || 11,
+  }));
 
   return {
     hero: slides,
@@ -110,79 +210,79 @@ export async function getHomeData(): Promise<HomeData> {
     portfolioCategories: portfolioCategories.length > 0 ? portfolioCategories : null,
     contact: contactData,
     footerData: footerData,
-    footerMenu: footerMenu
+    footerMenu: footerMenu,
   };
-}
+});
 
-export async function getMenuData() {
+export const getMenuData = cache(async () => {
   try {
-    const results = await Promise.allSettled([
-      axiosInstance.get('/wp-json/custom/v1/menu/primary-menu').catch(err => { console.warn("Primary menu fetch error:", err.message); return null; }),
-      axiosInstance.get('/wp-json/custom/v1/menu/footer-menu').catch(err => { console.warn("Footer menu fetch error:", err.message); return null; }),
-      axiosInstance.get('/wp-json/wp/v2/pages?slug=footer&_fields=acf').catch(err => { console.warn("Footer ACF fetch error:", err.message); return null; })
+    const [primaryMenuRes, footerMenuRes, footerAcfRes] = await Promise.allSettled([
+      fetchWP<any[]>('/wp-json/custom/v1/menu/primary-menu'),
+      fetchWP<any[]>('/wp-json/custom/v1/menu/footer-menu'),
+      fetchWP<any[]>('/wp-json/wp/v2/pages?slug=footer&_fields=acf'),
     ]);
 
-    const primaryMenu = results[0].status === 'fulfilled' && results[0].value ? results[0].value.data : [];
-    const footerMenu = results[1].status === 'fulfilled' && results[1].value ? results[1].value.data : [];
-    const footerAcf = results[2].status === 'fulfilled' && results[2].value ? results[2].value.data?.[0]?.acf : null;
+    const primaryMenu = primaryMenuRes.status === 'fulfilled' && Array.isArray(primaryMenuRes.value) ? primaryMenuRes.value : [];
+    const footerMenu = footerMenuRes.status === 'fulfilled' && Array.isArray(footerMenuRes.value) ? footerMenuRes.value : [];
+    const footerAcf = footerAcfRes.status === 'fulfilled' && footerAcfRes.value ? footerAcfRes.value[0]?.acf || null : null;
 
     return {
-      primaryMenu: Array.isArray(primaryMenu) ? primaryMenu : [],
-      footerMenu: Array.isArray(footerMenu) ? footerMenu : [],
-      footerAcf
+      primaryMenu,
+      footerMenu,
+      footerAcf,
     };
   } catch (error: any) {
     console.warn('Error in getMenuData:', error?.message || error);
     return {
       primaryMenu: [],
       footerMenu: [],
-      footerAcf: null
+      footerAcf: null,
     };
   }
-}
+});
 
-export async function getPortfolioData() {
+export const getPortfolioData = cache(async () => {
   try {
-    const results = await Promise.allSettled([
-      axiosInstance.get('/wp-json/wp/v2/portfolio?_embed').catch(err => { console.warn("Portfolio fetch error:", err.message); return null; }),
-      axiosInstance.get('/wp-json/wp/v2/portfolio_category').catch(err => { console.warn("Portfolio category fetch error:", err.message); return null; })
+    const [portfolioProjectsRes, portfolioCategoriesRes] = await Promise.allSettled([
+      fetchWP<any[]>('/wp-json/wp/v2/portfolio?_embed'),
+      fetchWP<any[]>('/wp-json/wp/v2/portfolio_category'),
     ]);
 
-    const portfolioProjects = results[0].status === 'fulfilled' && results[0].value ? results[0].value.data : [];
-    const portfolioCategories = results[1].status === 'fulfilled' && results[1].value ? results[1].value.data : [];
+    const portfolioProjects = portfolioProjectsRes.status === 'fulfilled' && Array.isArray(portfolioProjectsRes.value) ? portfolioProjectsRes.value : [];
+    const portfolioCategories = portfolioCategoriesRes.status === 'fulfilled' && Array.isArray(portfolioCategoriesRes.value) ? portfolioCategoriesRes.value : [];
 
     return {
-      projects: Array.isArray(portfolioProjects) ? portfolioProjects : [],
-      categories: Array.isArray(portfolioCategories) ? portfolioCategories : []
+      projects: portfolioProjects,
+      categories: portfolioCategories,
     };
   } catch (error: any) {
     console.warn('Error in getPortfolioData:', error?.message || error);
     return {
       projects: [],
-      categories: []
+      categories: [],
     };
   }
-}
+});
 
-export async function getProjectGallery(): Promise<ProjectGalleryItem[]> {
+export const getProjectGallery = cache(async (): Promise<ProjectGalleryItem[]> => {
   try {
-    const res = await axiosInstance.get<ProjectGalleryItem[]>(
-      '/wp-json/wp/v2/project-gallery?_embed&per_page=100&orderby=menu_order&order=asc&_fields=id,title,slug,acf,yoast_head_json,_links,_embedded'
+    const data = await fetchWP<ProjectGalleryItem[]>(
+      '/wp-json/wp/v2/project-gallery?_embed&per_page=100&orderby=menu_order&order=asc&_fields=id,title,slug,acf,yoast_head_json,_embedded'
     );
-    return Array.isArray(res.data) ? res.data : [];
+    return Array.isArray(data) ? data : [];
   } catch (error: any) {
     console.warn('Error in getProjectGallery:', error?.message || error);
     return [];
   }
-}
+});
 
-export async function getLogoGallery(): Promise<Logo[]> {
+export const getLogoGallery = cache(async (): Promise<Logo[]> => {
   try {
-    const res = await axiosInstance.get<any[]>(
+    const data = await fetchWP<any[]>(
       '/wp-json/wp/v2/logo_gallery?_embed&per_page=100&orderby=menu_order&order=asc'
     );
-    if (!Array.isArray(res.data)) return [];
-    return res.data.map((post) => {
+    if (!Array.isArray(data)) return [];
+    return data.map((post) => {
       const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
       const imageUrl = featuredMedia?.source_url || '/images/fallback.jpg';
       return {
@@ -195,4 +295,4 @@ export async function getLogoGallery(): Promise<Logo[]> {
     console.warn('Error in getLogoGallery:', error?.message || error);
     return [];
   }
-}
+});

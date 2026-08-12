@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import axios from "@/lib/axios";
+import { fetchWP } from "@/lib/api";
 import React from "react";
 
 async function getPageData() {
-  const res = await axios.get(
-    "/wp-json/wp/v2/pages?slug=about-us"
-  );
-
-  return res.data?.[0];
+  const data = await fetchWP<any[]>("/wp-json/wp/v2/pages?slug=about-us");
+  return data?.[0] || null;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

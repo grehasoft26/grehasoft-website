@@ -4,7 +4,7 @@ import BrandingTemplate from '@/components/templates/BrandingTemplate';
 import MobileAppTemplate from '@/components/templates/MobileAppTemplate';
 
 import TechnologyTemplate from '@/components/templates/TechnologyTemplate';
-import axiosInstance from '@/lib/axios';
+import { fetchWP } from '@/lib/api';
 import MainTemplate from '@/components/templates/MainTemplate';
 
 interface PageProps {
@@ -21,10 +21,9 @@ export default async function Page({
   const { slug, child } = await params;
   let service: any = null;
   try {
-    const res = await axiosInstance.get(
+    const allServices = await fetchWP<any[]>(
       '/wp-json/wp/v2/services?_embed'
     );
-    const allServices = res.data;
     if (Array.isArray(allServices)) {
       service = allServices.find(
         (item: any) =>
@@ -61,10 +60,10 @@ export default async function Page({
 
   if (heroImageId) {
     try {
-      const mediaRes = await axiosInstance.get(
+      const media = await fetchWP<any>(
         `/wp-json/wp/v2/media/${heroImageId}`
       );
-      heroImageUrl = mediaRes.data.source_url || '';
+      heroImageUrl = media?.source_url || '';
     } catch (err) {
       console.error("Error loading child hero media:", heroImageId, err);
     }
