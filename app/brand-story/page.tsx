@@ -495,7 +495,7 @@ export default function BrandStoryPage() {
       </section>
      
       <CTA />
-      <Footer />
+    
     </main>
   );
 }

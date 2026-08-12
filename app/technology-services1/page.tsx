@@ -599,7 +599,7 @@ export default function TechnologyServicesPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

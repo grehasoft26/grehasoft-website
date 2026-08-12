@@ -217,7 +217,7 @@ export default function IosAppDevelopment() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

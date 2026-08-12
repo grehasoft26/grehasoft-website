@@ -818,7 +818,7 @@ export default function UIUXDesignPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

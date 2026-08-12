@@ -227,7 +227,7 @@ export default function SitemapPage() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

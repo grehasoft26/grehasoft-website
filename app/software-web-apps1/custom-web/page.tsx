@@ -205,7 +205,7 @@ export default function CustomWebApps() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

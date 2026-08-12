@@ -46,9 +46,9 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import '../styles/globals.css';
-
+import FooterWrapper from '@/components/FooterWrapper';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+
 import CustomCursor from '@/components/CustomCursor';
 import ScrollToTop from '@/components/ScrollToTop';
 import WhatsAppButton from '@/components/WhatsAppButton';
@@ -111,12 +111,12 @@ export default async function RootLayout({
         className="antialiased font-sans overflow-x-hidden"
         suppressHydrationWarning
       >
-        <CustomCursor />
+        {/* <CustomCursor /> */}
 
         <Navbar initialMenu={menu} />
 
         {children}
-
+        <FooterWrapper />
         <ScrollToTop />
         <WhatsAppButton />
       </body>

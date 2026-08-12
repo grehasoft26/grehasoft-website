@@ -72,7 +72,7 @@ export default function TermsPage() {
       </section>
 
       <CTA />
-      <Footer />
+   
     </main>
   );
 }

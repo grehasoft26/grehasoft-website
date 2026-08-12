@@ -728,7 +728,7 @@ export default function AboutPage() {
      
        <CTA />
             
-            <Footer />
+           
     </main>
   );
 }

@@ -102,7 +102,7 @@ export default async function ProductsPage() {
         </div>
         {productsData && <ProductsSection data={productsData} />}
         <CTA />
-        <Footer />
+      
       </main>
     );
   }
@@ -424,7 +424,7 @@ export default async function ProductsPage() {
 </section>
 
       <CTA />
-      <Footer />
+      
 
     </main>
   );

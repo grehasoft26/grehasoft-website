@@ -71,7 +71,7 @@ export default function DigitalMarketingTemplate({
        <FAQSection acf={acf} /> 
 
     <CTA />
-      <Footer />
+      
 
     </main>
   );

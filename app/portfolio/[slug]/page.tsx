@@ -424,7 +424,7 @@ export default function CaseStudyDetail({
 
       <CTA />
       <ConsultationPopup />
-      <Footer />
+     
     </main>
 
   );

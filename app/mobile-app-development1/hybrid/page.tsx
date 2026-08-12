@@ -217,7 +217,7 @@ export default function HybridAppDevelopment() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

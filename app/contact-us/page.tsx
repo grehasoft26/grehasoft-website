@@ -27,7 +27,7 @@ export default function ContactPage() {
         ></iframe>
       </section>
       
-      <Footer />
+      
     </main>
   );
 }

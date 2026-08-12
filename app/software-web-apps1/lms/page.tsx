@@ -250,7 +250,7 @@ export default function LMSPage() {
       </section>
 
       <CTA />
-      <Footer />
+    
     </main>
   );
 }

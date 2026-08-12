@@ -250,7 +250,7 @@ export default function BookingSystemsPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

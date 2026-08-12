@@ -619,7 +619,7 @@ export default function SoftwareServicesPage() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

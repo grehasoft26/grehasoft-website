@@ -216,7 +216,7 @@ export default function AndroidAppDevelopment() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

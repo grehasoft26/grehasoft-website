@@ -53,7 +53,7 @@ export default function BusinessAppsPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

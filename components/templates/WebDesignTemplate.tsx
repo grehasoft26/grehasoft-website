@@ -329,7 +329,7 @@ export default function WebDesignTemplate({
       />
 
       <CTA />
-      <Footer />
+     
 
     </main>
   );

@@ -819,7 +819,7 @@ export default function BrochureFlyerDesignPage() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

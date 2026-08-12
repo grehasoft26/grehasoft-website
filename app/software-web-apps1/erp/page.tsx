@@ -227,7 +227,7 @@ export default function ERPPage() {
       </section>
 
       <CTA />
-      <Footer />
+    
     </main>
   );
 }

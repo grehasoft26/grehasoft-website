@@ -334,7 +334,7 @@ const categorySlug =
       </section>
 
       <CTA />
-      <Footer />
+    
     </main>
   );
 }

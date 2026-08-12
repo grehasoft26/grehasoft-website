@@ -430,7 +430,7 @@ export default function PMSPage() {
           </div>
         </div>
       </section>
-<Footer />
+
     
     </main>
   );

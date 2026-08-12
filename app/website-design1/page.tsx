@@ -452,7 +452,7 @@ export default function WebsiteDesignPage() {
       </section>
 
       <CTA />
-      <Footer />
+   
     </main>
   );
 }

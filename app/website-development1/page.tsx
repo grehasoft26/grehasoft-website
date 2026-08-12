@@ -506,7 +506,7 @@ export default function WebsiteDevelopmentPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

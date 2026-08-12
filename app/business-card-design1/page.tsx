@@ -819,7 +819,7 @@ export default function BusinessCardDesignPage() {
       </section>
 
       <CTA />
-      <Footer /> 
+    
     </main>
   );
 }

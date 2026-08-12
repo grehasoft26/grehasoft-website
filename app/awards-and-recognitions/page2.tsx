@@ -112,7 +112,7 @@ export default async function AwardsPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

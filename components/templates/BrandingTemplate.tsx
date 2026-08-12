@@ -68,7 +68,7 @@ export default function BrandingTemplate({
       <FAQSection acf={acf} />
 
       <CTA />
-      <Footer />
+     
 
     </main>
   );

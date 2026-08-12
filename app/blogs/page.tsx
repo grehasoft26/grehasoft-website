@@ -333,7 +333,7 @@ technology trends from our team in Kochi"
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

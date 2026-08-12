@@ -540,7 +540,7 @@ export default function AwardsPage() {
         </div>
       </section>
 <CTA />
-<Footer />
+
     </main>
   );
 }

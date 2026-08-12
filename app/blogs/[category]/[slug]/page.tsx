@@ -292,7 +292,7 @@ const prevCategory =
       </section>
 
       <CTA />
-      <Footer />
+     
 
     </main>
   );

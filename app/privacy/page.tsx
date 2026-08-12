@@ -68,7 +68,7 @@ export default function PrivacyPage() {
       </section>
 
       <CTA />
-      <Footer />
+    
     </main>
   );
 }

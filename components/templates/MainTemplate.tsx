@@ -87,7 +87,7 @@ export default function MainTemplate({
        <FAQSection acf={acf} /> 
 
     <CTA />
-      <Footer />
+     
 
     </main>
   );

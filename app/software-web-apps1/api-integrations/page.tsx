@@ -250,7 +250,7 @@ export default function APIIntegrationsPage() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

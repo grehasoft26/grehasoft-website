@@ -250,7 +250,7 @@ export default function BusinessToolsPage() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

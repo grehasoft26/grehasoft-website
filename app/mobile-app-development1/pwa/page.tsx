@@ -217,7 +217,7 @@ export default function PwaDevelopment() {
       </section>
 
       <CTA />
-      <Footer />
+      
     </main>
   );
 }

@@ -53,7 +53,7 @@ export default function UtilityAppsPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

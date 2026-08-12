@@ -173,7 +173,7 @@ export default async function CareersPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

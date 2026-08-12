@@ -601,7 +601,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

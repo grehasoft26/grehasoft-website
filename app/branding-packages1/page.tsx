@@ -816,7 +816,7 @@ export default function BrandingPackagesPage() {
       </section>
 
       <CTA />
-      <Footer />
+    
     </main>
   );
 }

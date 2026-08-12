@@ -699,7 +699,7 @@ export default function LogoDesignPage() {
       </section>
 
       <CTA />
-      <Footer />
+     
     </main>
   );
 }

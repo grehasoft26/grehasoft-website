@@ -321,7 +321,7 @@ export default function WordPressDevelopment() {
       </section>
 
       <CTA />
-      <Footer />
+      
 
     </main>
   );
