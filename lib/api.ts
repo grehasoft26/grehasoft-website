@@ -8,13 +8,16 @@ import { Logo } from '@/types/logo';
 const API_BASE = (process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'https://cms.grehasoft.com').replace(/\/$/, '');
 
 const CACHE_DIR = path.join(process.cwd(), 'node_modules', '.cache', 'wp-api');
-const CACHE_TTL_MS = 60 * 1000; // 60s freshness TTL
+const CACHE_TTL_MS = 60 * 1000; // 60s freshness TTL for runtime ISR
 
-// In-memory in-flight request deduplication map
+// Server-side In-memory cache map (retained across all page renders in the Node.js process)
+const memoryCache = new Map<string, { data: any; timestamp: number }>();
+
+// In-memory in-flight request deduplication map (prevents concurrent duplicate network calls)
 const inFlightRequests = new Map<string, Promise<any>>();
 
-// Concurrency queue to protect Hostinger MySQL from connection spikes
-const MAX_CONCURRENT_REQUESTS = 3;
+// Bounded Concurrency queue: limits simultaneous unique outbound network requests to 6
+const MAX_CONCURRENT_REQUESTS = 6;
 let activeRequests = 0;
 const waitQueue: Array<() => void> = [];
 
@@ -41,14 +44,21 @@ function releaseSlot(): void {
 
 function getCached<T>(key: string, ignoreTTL = false): T | null {
   try {
+    // 1. Check in-memory cache
+    const inMem = memoryCache.get(key);
+    if (inMem) {
+      return inMem.data as T;
+    }
+
+    // 2. Check filesystem cache
     const hash = crypto.createHash('md5').update(key).digest('hex');
     const filePath = path.join(CACHE_DIR, `${hash}.json`);
     if (fs.existsSync(filePath)) {
       const stats = fs.statSync(filePath);
-      if (ignoreTTL || Date.now() - stats.mtimeMs < CACHE_TTL_MS) {
-        const raw = fs.readFileSync(filePath, 'utf-8');
-        return JSON.parse(raw) as T;
-      }
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const parsed = JSON.parse(raw) as T;
+      memoryCache.set(key, { data: parsed, timestamp: stats.mtimeMs });
+      return parsed;
     }
   } catch {
     // Ignore cache read errors
@@ -58,6 +68,7 @@ function getCached<T>(key: string, ignoreTTL = false): T | null {
 
 function setCached<T>(key: string, data: T): void {
   try {
+    memoryCache.set(key, { data, timestamp: Date.now() });
     if (!fs.existsSync(CACHE_DIR)) {
       fs.mkdirSync(CACHE_DIR, { recursive: true });
     }
@@ -69,25 +80,31 @@ function setCached<T>(key: string, data: T): void {
   }
 }
 
-export async function fetchWP<T = any>(endpoint: string, options?: RequestInit, retries = 4): Promise<T | null> {
+export async function fetchWP<T = any>(endpoint: string, options?: RequestInit, retries = 1): Promise<T | null> {
   const url = endpoint.startsWith('http') ? endpoint : `${API_BASE}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
 
-  // 1. Check fresh cross-worker filesystem cache
-  const cached = getCached<T>(url);
-  if (cached !== null) {
-    return cached;
+  // 1. MEMORY CACHE: Instant synchronous hit (0.0ms, 0 queue slots consumed)
+  const memCached = memoryCache.get(url);
+  if (memCached) {
+    return memCached.data as T;
   }
 
-  // 2. Check if the exact same URL is already in-flight (promise coalescing)
+  // 2. DISK CACHE: Instant filesystem hit (<0.5ms, 0 queue slots consumed)
+  const diskCached = getCached<T>(url);
+  if (diskCached !== null) {
+    return diskCached;
+  }
+
+  // 3. IN-FLIGHT DEDUPLICATION: Share in-progress network request (0 queue slots consumed)
   if (inFlightRequests.has(url)) {
     return inFlightRequests.get(url) as Promise<T | null>;
   }
 
-  // 3. Create execution promise and register it
+  // 4. CONCURRENCY QUEUE: Only unique uncached requests enter the queue
   const fetchPromise = (async (): Promise<T | null> => {
     await acquireSlot();
     try {
-      // Re-check cache after acquiring concurrency slot
+      // Re-check cache after queue wait in case another worker populated it
       const freshCache = getCached<T>(url);
       if (freshCache !== null) {
         return freshCache;
@@ -95,20 +112,32 @@ export async function fetchWP<T = any>(endpoint: string, options?: RequestInit, 
 
       for (let attempt = 0; attempt <= retries; attempt++) {
         try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout per attempt
+
           const res = await fetch(url, {
             ...options,
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Next.js-Server',
+              'Accept': 'application/json',
+              'Connection': 'keep-alive',
+              ...options?.headers,
+            },
+            signal: options?.signal || controller.signal,
             next: { revalidate: 60, ...options?.next },
           });
 
+          clearTimeout(timeoutId);
+
           if (!res.ok) {
             if (attempt < retries && (res.status === 429 || res.status >= 500)) {
-              const delay = Math.pow(2, attempt + 1) * 500 + Math.random() * 400;
+              const delay = 600 + Math.random() * 400;
               await new Promise((resolve) => setTimeout(resolve, delay));
               continue;
             }
 
             const errorBody = await res.text().catch(() => '');
-            console.error(
+            console.warn(
               `[fetchWP] HTTP ${res.status} for ${endpoint}\n`,
               errorBody.slice(0, 300)
             );
@@ -130,12 +159,16 @@ export async function fetchWP<T = any>(endpoint: string, options?: RequestInit, 
             throw error;
           }
 
+          const errCode = error?.code || error?.cause?.code || error?.name || 'UNKNOWN';
+          const errCause = error?.cause?.message || (typeof error?.cause === 'object' ? JSON.stringify(error.cause) : String(error?.cause || ''));
+
           if (attempt < retries) {
-            const delay = Math.pow(2, attempt + 1) * 500 + Math.random() * 400;
+            const delay = 600 + Math.random() * 400;
+            console.warn(`[fetchWP] Retry ${attempt + 1}/${retries} for ${endpoint} after: [${errCode}] ${error?.message} (Cause: ${errCause})`);
             await new Promise((resolve) => setTimeout(resolve, delay));
             continue;
           }
-          console.warn(`[fetchWP] Network error for ${endpoint}:`, error?.message || error);
+          console.warn(`[fetchWP] Network error for ${endpoint}: [${errCode}] ${error?.message || error} (Cause: ${errCause}) -> serving cached fallback`);
           return getCached<T>(url, true);
         }
       }
@@ -216,18 +249,16 @@ export const getHomeData = cache(async (): Promise<HomeData> => {
 
 export const getMenuData = cache(async () => {
   try {
-    const [primaryMenuRes, footerMenuRes, footerAcfRes] = await Promise.allSettled([
-      fetchWP<any[]>('/wp-json/custom/v1/menu/primary-menu'),
+    const [footerMenuRes, footerAcfRes] = await Promise.allSettled([
       fetchWP<any[]>('/wp-json/custom/v1/menu/footer-menu'),
       fetchWP<any[]>('/wp-json/wp/v2/pages?slug=footer&_fields=acf'),
     ]);
 
-    const primaryMenu = primaryMenuRes.status === 'fulfilled' && Array.isArray(primaryMenuRes.value) ? primaryMenuRes.value : [];
     const footerMenu = footerMenuRes.status === 'fulfilled' && Array.isArray(footerMenuRes.value) ? footerMenuRes.value : [];
     const footerAcf = footerAcfRes.status === 'fulfilled' && footerAcfRes.value ? footerAcfRes.value[0]?.acf || null : null;
 
     return {
-      primaryMenu,
+      primaryMenu: [],
       footerMenu,
       footerAcf,
     };

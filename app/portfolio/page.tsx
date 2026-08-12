@@ -5,14 +5,15 @@ import PortfolioSection from '@/components/Portfolio';
 import ProjectGallery from '@/components/ProjectGallery';
 import CTA from '@/components/CTA';
 import Clients from '@/components/Clients';
-import { getPortfolioData, getMenuData, getProjectGallery } from '@/lib/api';
+import { getPortfolioData, getMenuData, getProjectGallery, getHomeData } from '@/lib/api';
 
 export const revalidate = 60;
 
 export default async function PortfolioPage() {
-  const [portfolioData, projectGallery] = await Promise.all([
+  const [portfolioData, projectGallery, homeData] = await Promise.all([
     getPortfolioData(),
-    getProjectGallery()
+    getProjectGallery(),
+    getHomeData(),
   ]);
 
   const { projects, categories } = portfolioData;
@@ -35,9 +36,9 @@ export default async function PortfolioPage() {
       <ProjectGallery projects={projectGallery} />
       
       {/* Our Clients Section */}
-      <Clients />
+      <Clients initialClients={homeData.clients || []} />
       
-      <CTA />
+      <CTA data={homeData.cta || null} />
       {/* <Footer /> is provided by RootLayout */}
     </main>
   );

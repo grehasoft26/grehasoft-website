@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -9,6 +9,7 @@ import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import { ProjectGalleryItem } from '@/types/wordpress';
 import { commonSwiperConfig } from '@/lib/swiperConfig';
+import axiosInstance from '@/lib/axios';
 
 // Swiper Styles
 import 'swiper/css';
@@ -16,7 +17,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 interface ProjectGalleryProps {
-  projects: ProjectGalleryItem[];
+  projects?: ProjectGalleryItem[];
 }
 
 interface ServiceRelation {
@@ -78,12 +79,39 @@ function resolveServiceRelation(project: ProjectGalleryItem): ServiceRelation | 
   return null;
 }
 
-export default function ProjectGallery({ projects }: ProjectGalleryProps) {
+export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
+  const [galleryProjects, setGalleryProjects] = useState<ProjectGalleryItem[]>(projects);
   const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null);
   const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null);
 
+  // Sync server projects or fallback to client fetch if server returned empty
+  useEffect(() => {
+    if (projects && projects.length > 0) {
+      setGalleryProjects(projects);
+      return;
+    }
+
+    let isMounted = true;
+    axiosInstance
+      .get(
+        '/wp-json/wp/v2/project-gallery?_embed&per_page=100&orderby=menu_order&order=asc&_fields=id,title,slug,acf,yoast_head_json,_embedded'
+      )
+      .then((res) => {
+        if (isMounted && Array.isArray(res.data) && res.data.length > 0) {
+          setGalleryProjects(res.data);
+        }
+      })
+      .catch((err) => {
+        console.warn('ProjectGallery client fallback error:', err?.message || err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [projects]);
+
   // Graceful Empty State Handling
-  if (!projects || projects.length === 0) {
+  if (!galleryProjects || galleryProjects.length === 0) {
     return (
       <section className="section-padding bg-white border-t border-b border-gray-100">
         <div className="container-custom text-center py-16">
@@ -100,10 +128,10 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
   }
 
   // Duplicate slides for smooth infinite loop if we have very few projects
-  let slides = [...projects];
-  if (projects.length > 0) {
+  let slides = [...galleryProjects];
+  if (galleryProjects.length > 0) {
     while (slides.length < 6) {
-      slides = [...slides, ...projects];
+      slides = [...slides, ...galleryProjects];
     }
   }
 
@@ -180,7 +208,7 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
                         alt={titleText}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-contain  transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
 
