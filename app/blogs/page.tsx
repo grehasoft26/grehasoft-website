@@ -269,7 +269,7 @@ technology trends from our team in Kochi"
          <div className="mb-24">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
               {/* Left Side: Headline & Decorative Graphic */}
-              <div className="lg:col-span-5 sticky top-32">
+              <div className="lg:col-span-5 lg:sticky lg:top-32">
                 <span className="text-secondary font-bold uppercase tracking-widest text-xs mb-4 block">Trending</span>
                 <h2 className="text-5xl font-bold text-dark mb-8 leading-tight">
                   Trending Articles You Need To Read
@@ -279,7 +279,7 @@ technology trends from our team in Kochi"
                 </p>
                 
                 {/* Decorative Connectivity Graphic */}
-                <div className="relative w-full aspect-square max-w-[400px] mx-auto opacity-20">
+                <div className="relative w-full aspect-square max-w-[400px] mx-auto opacity-20 overflow-hidden">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
                       <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
