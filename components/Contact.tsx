@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "@/lib/axios";
-import { getContact } from "@/lib/backend-api";
+import { getContact, submitContactForm } from "@/lib/backend-api";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -153,12 +152,9 @@ export default function Contact({ initialData }: { initialData?: any }) {
     if (!validate()) return;
 
     try {
-      const res = await axios.post(
-        "/wp-json/custom/v1/contact",
-        form
-      );
+      const res = await submitContactForm(form);
 
-      if (res.data.success) {
+      if (res && res.success) {
         setSuccess(true);
 
         setForm({

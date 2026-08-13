@@ -160,4 +160,19 @@ export class PagesService {
     this.inFlightRequests.set(cacheKey, promise);
     return promise;
   }
+
+  /**
+   * Forwards a client contact form submission payload to WordPress.
+   */
+  async submitContact(payload: any): Promise<any> {
+    this.logger.log('Forwarding contact form submission payload to WordPress...');
+    const data = await this.wpClient.fetchWP<any>('/wp-json/custom/v1/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+    return data;
+  }
 }

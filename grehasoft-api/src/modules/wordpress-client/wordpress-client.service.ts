@@ -100,15 +100,18 @@ export class WordPressClientService {
   async fetchWP<T = any>(endpoint: string, options?: RequestInit, retries = 3): Promise<T> {
     const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
     const url = `${this.baseUrl}${cleanEndpoint}`;
+    const isPost = options?.method?.toUpperCase() === 'POST';
 
     // 1. Memory Cache Lookup: Instant hit if successful data exists
-    const cachedData = this.cacheService.get<T>(url);
-    if (cachedData !== null) {
-      return cachedData;
+    if (!isPost) {
+      const cachedData = this.cacheService.get<T>(url);
+      if (cachedData !== null) {
+        return cachedData;
+      }
     }
 
     // 2. In-flight Request Deduplication: Share in-progress network promise
-    if (this.inFlightRequests.has(url)) {
+    if (!isPost && this.inFlightRequests.has(url)) {
       this.logger.debug(`Deduplicating in-flight request for: ${cleanEndpoint}`);
       return this.inFlightRequests.get(url) as Promise<T>;
     }
@@ -124,8 +127,9 @@ export class WordPressClientService {
 
           const startTime = Date.now();
           try {
+            const method = options?.method?.toUpperCase() || 'GET';
             this.logger.log(
-              `Outbound Request started [Attempt ${attempt + 1}/${retries + 1}]: GET ${url}`,
+              `Outbound Request started [Attempt ${attempt + 1}/${retries + 1}]: ${method} ${url}`,
             );
 
             const res = await fetch(url, {
@@ -164,22 +168,30 @@ export class WordPressClientService {
                 `Outbound Request completed with HTTP ${res.status} [Non-Retryable] for ${cleanEndpoint} (after ${duration}ms): ${responseText.slice(0, 150)}`,
               );
               throw new HttpException(
-                `WordPress CMS returned HTTP ${res.status}: ${responseText.slice(0, 100)}`,
+                res.status === 503 || res.status === 504 
+                  ? 'WordPress service temporarily unavailable' 
+                  : 'WordPress request failed',
                 res.status || HttpStatus.INTERNAL_SERVER_ERROR,
               );
             }
 
             const json = await res.json();
-            this.logger.log(`Outbound Request completed successfully: GET ${cleanEndpoint} - Status 200 - Took ${duration}ms`);
+            this.logger.log(`Outbound Request completed successfully: ${method} ${cleanEndpoint} - Status 200 - Took ${duration}ms`);
             
-            // Cache only successful JSON responses
-            const ttl = this.resolveTtl(cleanEndpoint);
-            this.cacheService.set(url, json, ttl);
+            // Cache only successful JSON responses (GET requests only)
+            if (!isPost) {
+              const ttl = this.resolveTtl(cleanEndpoint);
+              this.cacheService.set(url, json, ttl);
+            }
 
             return json;
 
           } catch (error: any) {
             clearTimeout(timeoutId);
+
+            if (error instanceof HttpException) {
+              throw error;
+            }
 
             // Check if error is due to abortion (timeout)
             const isTimeout = error.name === 'AbortError';
@@ -209,7 +221,9 @@ export class WordPressClientService {
 
             this.logger.error(`Outbound Request failed [Final]: ${displayError}`);
             throw new HttpException(
-              displayError,
+              isTimeout 
+                ? 'Request to WordPress timed out' 
+                : 'WordPress connection failed',
               error instanceof HttpException ? error.getStatus() : HttpStatus.BAD_GATEWAY,
             );
           }
@@ -217,11 +231,15 @@ export class WordPressClientService {
         throw new HttpException('Request to WordPress failed after maximum retries', HttpStatus.GATEWAY_TIMEOUT);
       } finally {
         this.releaseSlot();
-        this.inFlightRequests.delete(url);
+        if (!isPost) {
+          this.inFlightRequests.delete(url);
+        }
       }
     })();
 
-    this.inFlightRequests.set(url, fetchPromise);
+    if (!isPost) {
+      this.inFlightRequests.set(url, fetchPromise);
+    }
     return fetchPromise;
   }
 
@@ -276,8 +294,13 @@ export class WordPressClientService {
               continue;
             }
 
+            this.logger.error(
+              `Outbound Request (Raw) completed with HTTP ${res.status} [Non-Retryable] for ${cleanEndpoint}: ${responseText.slice(0, 150)}`,
+            );
             throw new HttpException(
-              `WordPress CMS returned HTTP ${res.status}: ${responseText.slice(0, 100)}`,
+              res.status === 503 || res.status === 504 
+                ? 'WordPress service temporarily unavailable' 
+                : 'WordPress request failed',
               res.status || HttpStatus.INTERNAL_SERVER_ERROR,
             );
           }
@@ -289,6 +312,10 @@ export class WordPressClientService {
 
         } catch (error: any) {
           clearTimeout(timeoutId);
+
+          if (error instanceof HttpException) {
+            throw error;
+          }
 
           const isTimeout = error.name === 'AbortError';
           const errCode = error?.code || error?.cause?.code || error?.name || 'UNKNOWN';
@@ -310,8 +337,11 @@ export class WordPressClientService {
             continue;
           }
 
+          this.logger.error(
+            `Outbound Request (Raw) failed [Final]: ${isTimeout ? 'Timeout' : error.message}`,
+          );
           throw new HttpException(
-            isTimeout ? 'Request to WordPress timed out' : `Connection failed: ${error.message}`,
+            isTimeout ? 'Request to WordPress timed out' : 'WordPress connection failed',
             HttpStatus.BAD_GATEWAY,
           );
         }

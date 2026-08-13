@@ -44,8 +44,8 @@ export async function generateMetadata(): Promise<Metadata> {
       },
 
       robots: {
-        index: false,
-        follow: false,
+        index: yoast?.robots?.index === 'noindex' ? false : true,
+        follow: yoast?.robots?.follow === 'nofollow' ? false : true,
       },
     };
   } catch (error) {

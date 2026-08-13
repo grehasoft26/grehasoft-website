@@ -25,6 +25,16 @@ export class WordPressClientController {
    */
   @Get('test')
   async testWordPressConnection(): Promise<WordPressDiagnosticSummary> {
+    const nodeEnv = this.configService.get<string>('nodeEnv');
+    const isDevelopment = nodeEnv && nodeEnv.trim().toLowerCase() === 'development';
+
+    if (!isDevelopment) {
+      this.logger.warn('Blocked attempt to access /wordpress/test in non-development mode');
+      throw new ForbiddenException(
+        'WordPress diagnostic testing is only permitted in development environments.',
+      );
+    }
+
     this.logger.log('Executing complete WordPress endpoints diagnostic test...');
     return this.wpClientService.testConnection();
   }
@@ -35,7 +45,8 @@ export class WordPressClientController {
    */
   @Get('endpoint')
   async queryCustomEndpoint(@Query('path') path: string) {
-    const isProduction = this.configService.get<string>('nodeEnv') === 'production';
+    const nodeEnv = this.configService.get<string>('nodeEnv');
+    const isProduction = !nodeEnv || nodeEnv.trim().toLowerCase() === 'production';
 
     if (isProduction) {
       this.logger.warn('Blocked attempt to access /wordpress/endpoint in production mode');

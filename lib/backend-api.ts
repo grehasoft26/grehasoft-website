@@ -480,3 +480,22 @@ export async function getOurServices(): Promise<any> {
     return null;
   }
 }
+
+/**
+ * Submits the contact form to the NestJS middleware backend.
+ */
+export async function submitContactForm(payload: {
+  name: string;
+  email: string;
+  phone?: string;
+  subject?: string;
+  message: string;
+}): Promise<any> {
+  return await fetchBackend('/contact', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+}
