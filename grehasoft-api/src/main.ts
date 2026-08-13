@@ -12,7 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('port') || 3001;
+ const port = Number(process.env.PORT) || 3001;
   const nodeEnv = configService.get<string>('nodeEnv') || 'development';
   const corsOrigins = configService.get<string | string[]>('corsOrigins') || '*';
 
@@ -45,9 +45,9 @@ async function bootstrap() {
   );
 
   // Listen
-  await app.listen(port);
+ await app.listen(port, '0.0.0.0');
   logger.log(`=======================================================`);
-  logger.log(`  Grehasoft NestJS API running on: http://localhost:${port}/api/v1`);
+ logger.log(`  Grehasoft NestJS API running on: http://0.0.0.0:${port}/api/v1`);
   logger.log(`  Current environment: ${nodeEnv}`);
   logger.log(`  Configured CORS origins: ${JSON.stringify(corsOrigins)}`);
   logger.log(`=======================================================`);
