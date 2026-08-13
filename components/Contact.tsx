@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
+import { getContact } from "@/lib/backend-api";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -66,10 +67,8 @@ export default function Contact({ initialData }: { initialData?: any }) {
 
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          "/wp-json/wp/v2/contact"
-        );
-        setFetchedData(res.data?.[0]?.acf || null);
+        const res = await getContact();
+        setFetchedData(res?.[0]?.acf || null);
         setError(false);
       } catch (err) {
         console.error("Error loading contact data:", err);

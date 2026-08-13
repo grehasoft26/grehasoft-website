@@ -2,7 +2,7 @@ import PageHeader from '@/components/PageHeader';
 import Awards from '@/components/Awards';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
-import { getHomeData, fetchWP } from '@/lib/api';
+import { getHome, getPage } from '@/lib/backend-api';
 import { Shield, Zap, Heart, Globe } from 'lucide-react';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -12,17 +12,13 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   globe: Globe,
 };
 
-// ✅ SERVER SIDE FETCH
-async function getData() {
-  const data = await fetchWP<any[]>('/wp-json/wp/v2/pages?slug=awards&_fields=acf');
-  return data?.[0]?.acf || null;
-}
-
 export default async function AwardsPage() {
-  const [data, homeData] = await Promise.all([
-    getData(),
-    getHomeData(),
+  const [page, homeData] = await Promise.all([
+    getPage('awards'),
+    getHome(),
   ]);
+
+  const data = page?.acf || null;
 
   if (!data) return null;
 

@@ -12,31 +12,19 @@ import {
   ShoppingCart, Truck, Factory
 } from 'lucide-react';
 
-import { fetchWP } from '@/lib/api';
+import { getPage, getHome } from '@/lib/backend-api';
 
 export const revalidate = 60;
 
-// ✅ SERVER FETCH
-async function getData() {
-  const json = await fetchWP<any[]>('/wp-json/wp/v2/pages?slug=products&_fields=acf');
-  return json?.[0]?.acf || null;
-}
-
-// ✅ IMAGE FETCH (ID → URL)
-async function getImageUrl(id: number) {
-  if (!id) return null;
-  const json = await fetchWP<any>(`/wp-json/wp/v2/media/${id}`);
-  return json?.source_url || null;
-}
-
 export default async function ProductsPage() {
-  const data = await getData();
+  const page = await getPage('products');
+  const data = page?.acf || null;
   
-  // Fetch PMS details from home page slug to pass to ProductsSection
+  // Fetch PMS details from home page to pass to ProductsSection
   let productsData = null;
-  const homeData = (await fetchWP<any[]>('/wp-json/wp/v2/pages?slug=home&_fields=acf,pms_media'))?.[0];
-  if (homeData) {
-    productsData = { ...homeData.acf, ...homeData.pms_media };
+  const homeData = await getHome();
+  if (homeData?.products) {
+    productsData = homeData.products;
   }
 
   if (!data) {
@@ -68,7 +56,7 @@ export default async function ProductsPage() {
   const industry = data.industry_section;
 
   console.log("[ProductsPage] adv bg_image ID:", adv?.bg_image);
-  const imageUrl = await getImageUrl(adv?.bg_image);
+  const imageUrl = adv?.bgImageUrl || null;
   console.log("[ProductsPage] Resolved image URL:", imageUrl);
 
   return (

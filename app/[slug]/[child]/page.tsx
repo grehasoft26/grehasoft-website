@@ -4,7 +4,7 @@ import BrandingTemplate from '@/components/templates/BrandingTemplate';
 import MobileAppTemplate from '@/components/templates/MobileAppTemplate';
 
 import TechnologyTemplate from '@/components/templates/TechnologyTemplate';
-import { fetchWP } from '@/lib/api';
+import { getServiceChild } from '@/lib/backend-api';
 import MainTemplate from '@/components/templates/MainTemplate';
 
 interface PageProps {
@@ -21,16 +21,7 @@ export default async function Page({
   const { slug, child } = await params;
   let service: any = null;
   try {
-    const allServices = await fetchWP<any[]>(
-      '/wp-json/wp/v2/services?_embed'
-    );
-    if (Array.isArray(allServices)) {
-      service = allServices.find(
-        (item: any) =>
-          item?.acf?.custom_slug === child &&
-          item?.acf?.parent_slug === slug
-      );
-    }
+    service = await getServiceChild(slug, child);
   } catch (error) {
     console.error("Error loading services for child slug:", child, error);
   }
@@ -53,21 +44,8 @@ export default async function Page({
     );
   }
 
-  // HERO IMAGE
-  const heroImageId = acf.hero_image;
-
-  let heroImageUrl = '';
-
-  if (heroImageId) {
-    try {
-      const media = await fetchWP<any>(
-        `/wp-json/wp/v2/media/${heroImageId}`
-      );
-      heroImageUrl = media?.source_url || '';
-    } catch (err) {
-      console.error("Error loading child hero media:", heroImageId, err);
-    }
-  }
+  // HERO IMAGE (Pre-resolved by NestJS backend!)
+  const heroImageUrl = service.heroImageUrl || '';
 
   switch (acf.layout_type) {
 

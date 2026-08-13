@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { fetchWP } from '@/lib/api';
+import { getService } from '@/lib/backend-api';
 
 import WebDesignTemplate from '@/components/templates/WebDesignTemplate';
 import DigitalMarketingTemplate from '@/components/templates/DigitalMarketingTemplate';
@@ -20,11 +20,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   try {
-    const data = await fetchWP<any[]>(
-      `/wp-json/wp/v2/services?slug=${slug}`
-    );
-
-    const service = data?.[0];
+    const service = await getService(slug);
 
     if (!service) return {};
 
@@ -64,11 +60,7 @@ export default async function Page({
   let service: any = null;
 
   try {
-    const data = await fetchWP<any[]>(
-      `/wp-json/wp/v2/services?slug=${slug}&_embed`
-    );
-
-    service = data?.[0] || null;
+    service = await getService(slug);
   } catch (error) {
     console.error(
       'Error loading service data for slug:',
@@ -90,26 +82,8 @@ export default async function Page({
   // Custom Schema from ACF
   const schemaJson = acf?.schema_json || '';
 
-  // Hero Image
-  const heroImageId = acf.hero_image;
-
-  let heroImageUrl = '';
-
-  if (heroImageId) {
-    try {
-      const media = await fetchWP<any>(
-        `/wp-json/wp/v2/media/${heroImageId}`
-      );
-
-      heroImageUrl = media?.source_url || '';
-    } catch (err) {
-      console.error(
-        'Error loading hero media:',
-        heroImageId,
-        err
-      );
-    }
-  }
+  // Hero Image (Pre-resolved by NestJS backend!)
+  const heroImageUrl = service.heroImageUrl || '';
 
   const schemaScript = schemaJson ? (
     <script

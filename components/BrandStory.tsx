@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { History, Target, Users, Rocket, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import axiosInstance from "@/lib/axios";
+import { getPage } from "@/lib/backend-api";
 
 export default function BrandStory() {
   const [acf, setAcf] = useState<any>({});
@@ -12,12 +12,8 @@ export default function BrandStory() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get("/wp-json/wp/v2/pages?slug=brand-story");
-        const json = res.data;
-
-        console.log("✅ Brand Story:", json);
-
-        setAcf(json[0]?.acf || {});
+        const page = await getPage("brand-story");
+        setAcf(page?.acf || {});
       } catch (err) {
         console.error(err);
       }

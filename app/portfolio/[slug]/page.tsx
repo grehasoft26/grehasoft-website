@@ -8,7 +8,7 @@ import CTA from "@/components/CTA";
 import PageHeader from "@/components/PageHeader";
 import ConsultationPopup from "@/components/ConsultationPopup";
 import Footer from "@/components/Footer";
-import axiosInstance from "@/lib/axios";
+import { getPortfolioProject, getPortfolio } from "@/lib/backend-api";
 
 export default function CaseStudyDetail({
   params,
@@ -26,8 +26,7 @@ export default function CaseStudyDetail({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get(`/wp-json/wp/v2/portfolio?slug=${slug}&_embed`);
-        const json = res.data;
+        const json = await getPortfolioProject(slug);
 
         console.log("✅ Project:", json);
 
@@ -40,8 +39,7 @@ export default function CaseStudyDetail({
         setData(json[0]);
 
         // 🔥 RELATED PROJECTS
-        const res2 = await axiosInstance.get(`/wp-json/wp/v2/portfolio?_embed`);
-        const json2 = res2.data;
+        const json2 = await getPortfolio();
 
         setRelated(json2);
       } catch (err) {

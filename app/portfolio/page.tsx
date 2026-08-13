@@ -5,18 +5,17 @@ import PortfolioSection from '@/components/Portfolio';
 import ProjectGallery from '@/components/ProjectGallery';
 import CTA from '@/components/CTA';
 import Clients from '@/components/Clients';
-import { getPortfolioData, getMenuData, getProjectGallery, getHomeData } from '@/lib/api';
+import { getPortfolio, getPortfolioCategories, getProjectGallery, getHome } from '@/lib/backend-api';
 
 export const revalidate = 60;
 
 export default async function PortfolioPage() {
-  const [portfolioData, projectGallery, homeData] = await Promise.all([
-    getPortfolioData(),
+  const [projects, categories, projectGallery, homeData] = await Promise.all([
+    getPortfolio(),
+    getPortfolioCategories(),
     getProjectGallery(),
-    getHomeData(),
+    getHome(),
   ]);
-
-  const { projects, categories } = portfolioData;
 
   return (
     <main className="min-h-screen">

@@ -1,5 +1,6 @@
 import Footer from "./Footer";
-import { getMenuData } from "@/lib/api";
+import { getMenuData } from "@/lib/backend-api";
+
 
 export default async function FooterWrapper() {
   const menuData = await getMenuData();

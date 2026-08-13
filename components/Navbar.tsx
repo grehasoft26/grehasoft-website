@@ -32,6 +32,7 @@ import { usePathname } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa';
 import WhatsAppButton from './WhatsAppButton';
 import axiosInstance from '@/lib/axios';
+import { getMenu } from '@/lib/backend-api';
 
 /* -------------------- NAVBAR -------------------- */
 const DEFAULT_MENU = [
@@ -102,14 +103,12 @@ export default function Navbar({
 
   const fetchMenu = async () => {
     try {
-      const res = await axiosInstance.get(
-        '/wp-json/custom/v1/menu/primary-menu'
-      );
+      const data = await getMenu('primary-menu');
 
-      console.log('MENU DATA:', res.data);
+      console.log('MENU DATA:', data);
 
-      if (Array.isArray(res.data) && res.data.length > 0) {
-        setMenu(res.data);
+      if (Array.isArray(data) && data.length > 0) {
+        setMenu(data);
       }
     } catch (error: any) {
       console.warn(

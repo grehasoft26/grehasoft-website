@@ -14,8 +14,7 @@ import FAQ from '@/components/FAQ';
 import TrustedITSection from '@/components/TrustedITSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
 
-
-import { getHomeData, fetchWP } from '@/lib/api';
+import { getHome } from '@/lib/backend-api';
 import KochiIntroSection from '@/components/KochiIntroSection';
 import EndToEndServicesIntro from '@/components/EndToEndServicesIntro';
 import type { Metadata } from "next";
@@ -23,24 +22,23 @@ import type { Metadata } from "next";
 export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const page = await fetchWP<any>(
-      "/wp-json/wp/v2/pages/1072?_fields=yoast_head_json"
-    );
+    const homeData = await getHome();
+    const yoast = homeData?.yoastMeta;
 
     return {
-      title: page?.yoast_head_json?.title || "GrehaSoft",
-      description: page?.yoast_head_json?.description || "",
+      title: yoast?.title || "GrehaSoft",
+      description: yoast?.description || "",
 
       alternates: {
-        canonical: page?.yoast_head_json?.og_url,
+        canonical: yoast?.og_url || "",
       },
 
       openGraph: {
-        title: page?.yoast_head_json?.og_title,
-        description: page?.yoast_head_json?.og_description,
-        url: page?.yoast_head_json?.og_url,
+        title: yoast?.og_title || "",
+        description: yoast?.og_description || "",
+        url: yoast?.og_url || "",
         images:
-          page?.yoast_head_json?.og_image?.map(
+          yoast?.og_image?.map(
             (img: { url: string }) => img.url
           ) || [],
       },
@@ -56,7 +54,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 export default async function Home() {
-  const homeData = await getHomeData();
+  const homeData = await getHome();
 
   return (
     <main className="min-h-screen">

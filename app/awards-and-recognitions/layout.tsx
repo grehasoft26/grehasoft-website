@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { fetchWP } from "@/lib/api";
+import { getPage } from "@/lib/backend-api";
 import React from "react";
 
 async function getPageData() {
-  const data = await fetchWP<any[]>("/wp-json/wp/v2/pages?slug=awards-and-recognitions");
-  return data?.[0] || null;
+  const data = await getPage("awards-and-recognitions");
+  return data;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
 import CTA from '@/components/CTA';
-import { fetchWP } from '@/lib/api';
+import { getPage } from '@/lib/backend-api';
 
 const DEFAULT_CAREERS = {
   career_title: "Careers",
@@ -30,14 +30,9 @@ const DEFAULT_CAREERS = {
   job2_link: "mailto:careers@grehasoft.com",
 };
 
-// ✅ SERVER SIDE FETCH
-async function getData() {
-  const data = await fetchWP<any[]>('/wp-json/wp/v2/pages?slug=careers&_fields=acf');
-  return data?.[0]?.acf || DEFAULT_CAREERS;
-}
-
 export default async function CareersPage() {
-  const data = (await getData()) || DEFAULT_CAREERS;
+  const page = await getPage('careers');
+  const data = page?.acf || DEFAULT_CAREERS;
 
   return (
     <main className="min-h-screen">

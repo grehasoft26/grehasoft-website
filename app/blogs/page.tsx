@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import axios from '@/lib/axios';
+import { getPosts, getCategories } from '@/lib/backend-api';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, Settings, Box, Zap, Cloud } from 'lucide-react';
@@ -113,21 +113,15 @@ export default function BlogPage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    axios
-      .get("/wp-json/wp/v2/posts?_embed")
-      .then((res) => {
-        if (Array.isArray(res.data)) {
-          setPosts(res.data);
-        }
+    getPosts({ perPage: 10 })
+      .then(({ posts }) => {
+        setPosts(posts);
       })
       .catch((err) => console.warn("Failed to fetch posts:", err?.message || err));
 
-    axios
-      .get("/wp-json/wp/v2/categories")
-      .then((res) => {
-        if (Array.isArray(res.data)) {
-          setCategories(res.data);
-        }
+    getCategories()
+      .then((data) => {
+        setCategories(data);
       })
       .catch((err) => console.warn("Failed to fetch categories:", err?.message || err));
   }, []);

@@ -2,9 +2,9 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import axiosInstance from '@/lib/axios';
+import { getHome } from '@/lib/backend-api';
 
 import { Slide } from '@/types/wordpress';
 
@@ -28,19 +28,10 @@ export default function Hero({ slides = [] }: HeroProps) {
     }
 
     let isMounted = true;
-    axiosInstance
-      .get('/wp-json/wp/v2/hero-slide')
+    getHome()
       .then((res) => {
-        if (isMounted && Array.isArray(res.data) && res.data.length > 0) {
-          const mapped: Slide[] = res.data.map((post: any) => ({
-            title: post.acf?.slide_title || '',
-            video: post.acf?.slide_video || '',
-            thumbnail: post.acf?.slide_thumbnail || '',
-            label: post.acf?.slide_label || '',
-            description: post.acf?.slide_description || '',
-            slide_duration: Number(post.acf?.slide_duration) || 11,
-          }));
-          setHeroSlides(mapped);
+        if (isMounted && res?.hero && Array.isArray(res.hero) && res.hero.length > 0) {
+          setHeroSlides(res.hero);
         }
       })
       .catch((err) => {

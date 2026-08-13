@@ -18,8 +18,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/grid";
 
-const API = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
-import axiosInstance from "@/lib/axios";
+import { getPortfolio, getPortfolioCategories } from "@/lib/backend-api";
 
 export default function Portfolio({
   isFullPage = false,
@@ -54,19 +53,16 @@ export default function Portfolio({
       try {
         setLoading(true);
 
-        const [portfolioRes, categoryRes] = await Promise.allSettled([
-          axiosInstance.get('/wp-json/wp/v2/portfolio?_embed'),
-          axiosInstance.get('/wp-json/wp/v2/portfolio_category')
+        const [portfolioData, categoryData] = await Promise.all([
+          getPortfolio(),
+          getPortfolioCategories()
         ]);
-
-        const portfolioData = portfolioRes.status === 'fulfilled' ? portfolioRes.value.data : [];
-        const categoryData = categoryRes.status === 'fulfilled' ? categoryRes.value.data : [];
 
         console.log("Portfolio Data:", portfolioData);
         console.log("Category Data:", categoryData);
 
-        setProjects(Array.isArray(portfolioData) ? portfolioData : []);
-        setCategories(Array.isArray(categoryData) ? categoryData : []);
+        setProjects(portfolioData);
+        setCategories(categoryData);
       } catch (error) {
         console.error("❌ Portfolio Error:", error);
         setProjects([]);

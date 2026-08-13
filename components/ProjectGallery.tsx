@@ -9,7 +9,7 @@ import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import { ProjectGalleryItem } from '@/types/wordpress';
 import { commonSwiperConfig } from '@/lib/swiperConfig';
-import axiosInstance from '@/lib/axios';
+import { getProjectGallery } from '@/lib/backend-api';
 
 // Swiper Styles
 import 'swiper/css';
@@ -92,13 +92,10 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
     }
 
     let isMounted = true;
-    axiosInstance
-      .get(
-        '/wp-json/wp/v2/project-gallery?_embed&per_page=100&orderby=menu_order&order=asc&_fields=id,title,slug,acf,yoast_head_json,_embedded'
-      )
-      .then((res) => {
-        if (isMounted && Array.isArray(res.data) && res.data.length > 0) {
-          setGalleryProjects(res.data);
+    getProjectGallery()
+      .then((data) => {
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setGalleryProjects(data);
         }
       })
       .catch((err) => {

@@ -4,9 +4,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
-import axiosInstance from '@/lib/axios';
-
+import { getHome } from '@/lib/backend-api';
 import { CTAData } from '@/types/wordpress';
 
 interface CTAProps {
@@ -36,10 +34,9 @@ export default function CTA({ data }: CTAProps) {
 
     const fetchCTA = async () => {
       try {
-        const res = await axiosInstance.get('/wp-json/wp/v2/pages?slug=home&_fields=acf');
-        const acf = res.data?.[0]?.acf || null;
-        if (acf) {
-          setCtaState(acf);
+        const res = await getHome();
+        if (res?.cta) {
+          setCtaState(res.cta);
         }
       } catch (err: any) {
         console.warn("CTA fetch error:", err.message);

@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import axios from "@/lib/axios";
+import { getPortfolioProject } from "@/lib/backend-api";
 import Script from "next/script";
 import React from "react";
 
 async function getPortfolio(slug: string) {
-  try {
-    const res = await axios.get(
-      `/wp-json/wp/v2/portfolio?slug=${slug}`
-    );
-
-    return res.data?.[0] || null;
-  } catch {
-    return null;
-  }
+  const data = await getPortfolioProject(slug);
+  return data?.[0] || null;
 }
 
 export async function generateMetadata({

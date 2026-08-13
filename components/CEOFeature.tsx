@@ -5,8 +5,7 @@ import { Quote, BookOpen, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import PDFModal from "./PDFModal";
-
-import axiosInstance from "@/lib/axios";
+import { getPage } from "@/lib/backend-api";
 
 export default function CEOFeature() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,37 +13,19 @@ export default function CEOFeature() {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [pdfUrl, setPdfUrl] = useState<string>("");
 
-  // 🔥 Convert ID → URL
-  const getMediaUrl = async (id: number) => {
-    try {
-      const res = await axiosInstance.get(`/wp-json/wp/v2/media/${id}`);
-      const json = res.data;
-      return json.source_url;
-    } catch (error) {
-      console.error("Media fetch error:", error);
-      return null;
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get("/wp-json/wp/v2/pages?slug=brand-story");
-        const json = res.data;
-
-        const acfData = json[0]?.acf || {};
+        const page = await getPage("brand-story");
+        const acfData = page?.acf || {};
         setAcf(acfData);
 
-        // 🔥 IMAGE (ID → URL)
-        if (acfData.story_image) {
-          const img = await getMediaUrl(acfData.story_image);
-          if (img) setImageUrl(img);
+        if (page?.storyImageUrl) {
+          setImageUrl(page.storyImageUrl);
         }
 
-        // 🔥 PDF (ID → URL)
-        if (acfData.story_pdf) {
-          const pdf = await getMediaUrl(acfData.story_pdf);
-          if (pdf) setPdfUrl(pdf);
+        if (page?.storyPdfUrl) {
+          setPdfUrl(page.storyPdfUrl);
         }
 
       } catch (err) {

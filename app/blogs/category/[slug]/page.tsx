@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import axios from "@/lib/axios";
+import { getPosts, getCategories } from '@/lib/backend-api';
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Search, ChevronDown, Check } from "lucide-react";
@@ -81,8 +81,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
         // categories
         let allCats = [];
         try {
-          const catRes = await axios.get("/wp-json/wp/v2/categories?per_page=100");
-          allCats = catRes.data;
+          allCats = await getCategories();
           setCategories(allCats);
         } catch (catErr: any) {
           console.warn("Failed to fetch categories client-side:", catErr.message);
@@ -106,21 +105,15 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           categoryIds = selected;
         }
 
-        // ✅ API URL with pagination
-        let url = `/wp-json/wp/v2/posts?_embed&per_page=6&page=${page}`;
-
-        if (categoryIds.length > 0) {
-          url += `&categories=${categoryIds.join(",")}`;
-        }
-
-        if (search) {
-          url += `&search=${search}`;
-        }
-
         try {
-          const postRes = await axios.get(url);
-          setPosts(postRes.data);
-          setTotalPages(parseInt(postRes.headers["x-wp-totalpages"]) || 1);
+          const { posts: postItems, totalPages: pagesCount } = await getPosts({
+            page,
+            perPage: 6,
+            categories: categoryIds.join(","),
+            search
+          });
+          setPosts(postItems);
+          setTotalPages(pagesCount);
         } catch (postErr: any) {
           console.warn("Failed to fetch posts client-side:", postErr.message);
           setPosts(DEFAULT_POSTS);

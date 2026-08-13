@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-import axiosInstance from "@/lib/axios";
+import { getPortfolio } from "@/lib/backend-api";
 
 export default
 function RelatedProjects({ currentId }: any) {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<any[]>([]);
 
   useEffect(() => {
-    axiosInstance.get("/wp-json/wp/v2/portfolio?_embed")
-      .then((res) => setItems(res.data))
+    getPortfolio()
+      .then((res) => setItems(res || []))
       .catch((err) => console.error("Error loading related projects:", err));
   }, []);
 

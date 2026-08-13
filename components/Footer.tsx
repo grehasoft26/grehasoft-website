@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
+import { getPage, getMenu } from "@/lib/backend-api";
 import Link from "next/link";
 import {
   Facebook,
@@ -38,20 +39,19 @@ const DEFAULT_FOOTER = {
   pinterest:  "https://in.pinterest.com/grehasoft/",
 };
 
-export default function Footer({
-  initialData,
-  initialMenu,
-}: {
+interface FooterProps {
   initialData?: any;
   initialMenu?: any[];
-}) {
+}
+
+export default function Footer({ initialData, initialMenu }: FooterProps) {
   const [footerState, setFooterState] = useState<any>(initialData || null);
   const [menu, setMenu] = useState<any[]>(initialMenu || []);
 
   const footer = footerState || DEFAULT_FOOTER;
-
   const socialLinks = Object.keys(socialMap)
     .map((key) => ({
+      name: key,
       icon: socialMap[key],
       href: footer?.[key],
     }))
@@ -61,10 +61,8 @@ export default function Footer({
     const fetchData = async () => {
       if (!initialData) {
         try {
-          const footerRes = await axios.get(
-            "/wp-json/wp/v2/pages?slug=footer&_fields=acf"
-          );
-          setFooterState(footerRes.data?.[0]?.acf || null);
+          const footerPage = await getPage("footer");
+          setFooterState(footerPage?.acf || null);
         } catch (err: any) {
           console.warn("Footer ACF Error:", err?.message || err);
         }
@@ -74,10 +72,8 @@ export default function Footer({
 
       if (!initialMenu || initialMenu.length === 0) {
         try {
-          const menuRes = await axios.get(
-            "/wp-json/custom/v1/menu/footer-menu"
-          );
-          setMenu(menuRes.data || []);
+          const footerMenuData = await getMenu("footer-menu");
+          setMenu(footerMenuData || []);
         } catch (err: any) {
           console.warn("Footer Menu Error:", err?.message || err);
           setMenu([]);

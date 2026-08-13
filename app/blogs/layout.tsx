@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { fetchWP } from "@/lib/api";
+import { getPage } from "@/lib/backend-api";
 import React from "react";
 
 async function getBlogsPage() {
-  return await fetchWP<any>("/wp-json/wp/v2/pages/1276?acf_format=standard");
+  return await getPage("1276");
 }
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -48,7 +48,7 @@ import { Poppins } from 'next/font/google';
 import '../styles/globals.css';
 import FooterWrapper from '@/components/FooterWrapper';
 import Navbar from '@/components/Navbar';
-import { fetchWP } from '@/lib/api';
+import { getMenu } from '@/lib/backend-api';
 
 import CustomCursor from '@/components/CustomCursor';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -71,10 +71,6 @@ export const metadata: Metadata = {
   },
 };
 
-async function getMenu() {
-  const data = await fetchWP<any[]>('/wp-json/custom/v1/menu/primary-menu');
-  return Array.isArray(data) ? data : [];
-}
 
 export default async function RootLayout({
   children,

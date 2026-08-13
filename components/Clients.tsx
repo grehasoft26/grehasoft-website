@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from '@/lib/axios';
+import { getClients } from '@/lib/backend-api';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
@@ -21,11 +22,9 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
 
     const fetchClients = async () => {
       try {
-        const res = await axios.get(
-          "/wp-json/wp/v2/clients?per_page=100"
-        );
+        const res = await getClients();
 
-        const clientsWithImages = res.data.map((client: any) => ({
+        const clientsWithImages = (res || []).map((client: any) => ({
           ...client,
           image:
             client.featured_image_url ||

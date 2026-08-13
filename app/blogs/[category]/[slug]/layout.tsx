@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import axios from "@/lib/axios";
+import { getPost } from "@/lib/backend-api";
 import React from "react";
 
 export async function generateMetadata({
@@ -13,11 +13,9 @@ export async function generateMetadata({
   const { slug } = await params;
 
   try {
-    const res = await axios.get(
-      `/wp-json/wp/v2/posts?slug=${slug}&_embed`
-    );
+    const res = await getPost(slug);
 
-    const post = res.data?.[0];
+    const post = res?.[0];
 
     if (!post) return {};
 
@@ -62,11 +60,9 @@ export default async function Layout({
   let schemaJson = "";
 
   try {
-    const res = await axios.get(
-      `/wp-json/wp/v2/posts?slug=${slug}`
-    );
+    const res = await getPost(slug);
 
-    const post = res.data?.[0];
+    const post = res?.[0];
 
     schemaJson = post?.acf?.schema_json || "";
   } catch (error) {

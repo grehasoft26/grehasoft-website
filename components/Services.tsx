@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import * as Icons from "lucide-react";
 import Link from 'next/link';
-import axios from '@/lib/axios';
+import { getServicesList } from '@/lib/backend-api';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -31,10 +31,10 @@ export default function Services() {
 
   
   useEffect(() => {
-    axios.get("/wp-json/wp/v2/services?_embed")
-      .then((res) => {
-        console.log("SERVICES DATA:", res.data);
-        setServices(res.data);
+    getServicesList()
+      .then((data) => {
+        console.log("SERVICES DATA:", data);
+        setServices(data);
       })
       .catch((err) => console.error(err));
   }, []);

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import axios from "@/lib/axios";
+import { getOurServices } from "@/lib/backend-api";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function StickyScrollServices({ initialServices = [] }: { initialServices?: any[] }) {
@@ -34,10 +35,8 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
     const fetchServices = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(
-          "/wp-json/wp/v2/ourservices?_embed"
-        );
-        setServices(Array.isArray(res.data) ? res.data : []);
+        const res = await getOurServices();
+        setServices(Array.isArray(res) ? res : []);
         setError(false);
       } catch (err) {
         console.error("Error loading services in StickyScrollServices:", err);

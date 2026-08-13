@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import axios from '@/lib/axios';
+import { getPost, getPosts } from '@/lib/backend-api';
 import Link from 'next/link';
 import { Clock, Eye } from 'lucide-react';
 import PageHeader from '@/components/PageHeader';
@@ -56,12 +56,9 @@ const category = params.category as string;
     if (!slug) return;
 
     // ✅ FETCH CURRENT POST
-    axios
-      .get(
-        `/wp-json/wp/v2/posts?slug=${slug}&_embed`
-      )
-      .then((res) => {
-        const post = res.data?.[0];
+    getPost(slug)
+      .then((data) => {
+        const post = data?.[0];
         if (!post) {
           setPostData(DEFAULT_POST_DETAIL);
           return;
@@ -92,32 +89,22 @@ const category = params.category as string;
       });
 
     // ✅ FETCH ALL POSTS (for Prev / Next)
-    axios
-      .get(
-        `/wp-json/wp/v2/posts?per_page=50&_embed`
-      )
-      .then((res) => {
-        if (Array.isArray(res.data)) {
-          setAllPosts(res.data);
-          const index = res.data.findIndex(
-            (p: any) => p.slug === slug
-          );
-          setCurrentIndex(index);
-        }
+    getPosts({ perPage: 50 })
+      .then(({ posts }) => {
+        setAllPosts(posts);
+        const index = posts.findIndex(
+          (p: any) => p.slug === slug
+        );
+        setCurrentIndex(index);
       })
       .catch((err) => {
         console.warn("Failed to fetch all posts for navigation:", err?.message || err);
       });
 
     // ✅ RELATED POSTS
-    axios
-      .get(
-        `/wp-json/wp/v2/posts?per_page=3&_embed`
-      )
-      .then((res) => {
-        if (Array.isArray(res.data)) {
-          setRelatedPosts(res.data);
-        }
+    getPosts({ perPage: 3 })
+      .then(({ posts }) => {
+        setRelatedPosts(posts);
       })
       .catch((err) => {
         console.warn("Failed to fetch related posts:", err?.message || err);
