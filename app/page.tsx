@@ -13,6 +13,7 @@ import Footer from '@/components/Footer';
 import FAQ from '@/components/FAQ';
 import TrustedITSection from '@/components/TrustedITSection';
 import WhyChooseUs from '@/components/WhyChooseUs';
+import SectionDivider from '@/components/SectionDivider';
 
 import { getHome } from '@/lib/backend-api';
 import KochiIntroSection from '@/components/KochiIntroSection';
@@ -58,32 +59,108 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
-       {homeData.schemaJson && (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: homeData.schemaJson,
-      }}
-    />
-  )}
+      {homeData.schemaJson && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: homeData.schemaJson,
+          }}
+        />
+      )}
       {/* <Navbar /> */}
       <Hero slides={homeData.hero} />
       <KochiIntroSection />
-       <EndToEndServicesIntro /> 
+     <div className="relative">
+  <EndToEndServicesIntro />
+
+  <SectionDivider
+    type="wave"
+    color="#f7f9fc"
+    height={80}
+  />
+</div>
+     
+     
+
       <StickyScrollServices initialServices={homeData.services || []} />
-      <TrustedITSection />
-      <Clients initialClients={homeData.clients || []} />
-      <WhyChooseUs />
-      <Awards data={homeData.awards} />
+     <div className="relative">
+  <TrustedITSection />
+
+  {/* Divider 3: Trusted IT → Clients */}
+ <SectionDivider
+  type="waveReverse"
+  color="#f7f9fc"
+  height={35}
+/>
+</div>
+      {/* <div className="relative"> */}
+  <Clients
+    initialClients={homeData.clients || []}
+  />
+
+  {/* Divider 4: Clients → Why Choose Us
+  <SectionDivider
+    type="diagonal"
+    color="#f7f9fc"
+    height={50}
+  />
+</div> */}
+      <div className="relative">
+  <WhyChooseUs />
+
+  {/* Divider 5: Why Choose Us → Awards */}
+  <SectionDivider
+    type="curve"
+    color="#f7f9fc"
+    height={45}
+  />
+</div>
+    <div className="relative">
+  <Awards data={homeData.awards} />
+
+  {/* Divider 6: Awards → Portfolio */}
+  <SectionDivider
+    type="diagonalReverse"
+    color="#cfdff7ff"
+    height={50}
+  />
+</div>
       {/* <About data={homeData.about} /> */}
-      <Portfolio 
-        showFilters={false} 
-        initialProjects={homeData.portfolioProjects || []} 
-        initialCategories={homeData.portfolioCategories || []} 
-      />
-      <Products data={homeData.products} />
+     <div className="relative">
+  <Portfolio
+    showFilters={false}
+    initialProjects={homeData.portfolioProjects || []}
+    initialCategories={homeData.portfolioCategories || []}
+  />
+
+  {/* Divider 7: Portfolio → Products / PMS */}
+  <SectionDivider
+  type="diagonal"
+  color="#ededf2ff"
+  height={35}
+/>
+</div>
+      <div className="relative">
+  <Products data={homeData.products} />
+
+  {/* Divider 8: Products / PMS → FAQ */}
+  <SectionDivider
+    type="curve"
+    color="#f7f9fc"
+    height={45}
+  />
+</div>
       <FAQ />
-      <Testimonials />
+     <div className="relative">
+  <Testimonials />
+
+  {/* Divider 9: Testimonials → CTA */}
+  <SectionDivider
+    type="diagonal"
+    color="#f7f9fc"
+    height={50}
+  />
+</div>
       <CTA data={homeData.cta} />
       <Contact initialData={homeData.contact} />
       {/* <Footer is provided by RootLayout */}

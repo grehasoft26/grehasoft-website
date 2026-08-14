@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "@/lib/axios";
 import { getOurServices } from "@/lib/backend-api";
 import { motion, useScroll, useTransform } from "framer-motion";
+import SectionDivider from "./SectionDivider";
 
 export default function StickyScrollServices({ initialServices = [] }: { initialServices?: any[] }) {
   const [services, setServices] = useState<any[]>(initialServices);
@@ -84,8 +85,9 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
 
   return (
     
-   <div ref={containerRef} className="h-[220vh] xl:h-[300vh]">
-       
+   <div ref={containerRef} className="relative h-[220vh] xl:h-[300vh]">
+           
+    
     <div
   className="
     sticky
@@ -95,12 +97,14 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
     flex
     items-start
     xl:items-center
-    pt-16
+    pt-6
     xl:pt-0
     bg-white
     overflow-hidden
   "
 >
+
+ 
         {loading ? (
           <div className="container-custom relative z-10 w-full flex items-center justify-center">
             <div className="text-center">
@@ -184,7 +188,7 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                 {acf?.button_text || "Get Started"} →
               </a>
             </div>
-
+ 
             {/* RIGHT IMAGE */}
             <div className="flex justify-center lg:justify-end relative z-10">
               <img
@@ -244,6 +248,11 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
           </>
         )}
       </div>
+      <SectionDivider
+  type="diagonalReverse"
+  color="#f7f9fc"
+  height={55}
+/>
     </div>
   );
 }
