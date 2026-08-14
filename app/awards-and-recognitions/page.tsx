@@ -36,7 +36,10 @@ export default async function AwardsPage() {
       />
 
       {/* MAIN AWARDS SECTION */}
-      <Awards data={homeData?.awards} />
+      <Awards
+  data={homeData?.awards}
+  variant="page"
+/>
 
       {/* OTHER RECOGNITIONS */}
       <section className="section-padding bg-white">

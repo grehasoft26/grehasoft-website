@@ -3,7 +3,7 @@ import { getPage } from "@/lib/backend-api";
 import React from "react";
 
 async function getPageData() {
-  const data = await getPage("awards-and-recognitions");
+  const data = await getPage("awards");
   return data;
 }
 
