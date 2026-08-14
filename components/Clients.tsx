@@ -103,110 +103,98 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
           {/* Right Fade */}
           <div className="absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#02025c] to-transparent" />
 
-          <motion.div
-            className="flex items-center gap-24 w-max"
-            animate={{
-              x: ['0%', '-50%'],
-            }}
-            transition={{
-              duration: 90,
-              ease: 'linear',
-              repeat: Infinity,
-            }}
-          >
-            {[...clients, ...clients].map((client, index) => {
-              const logo = client.image;
-              const name = client.title.rendered;
-              const url = client.acf?.website_url;
+        <div className="clients-marquee-track flex items-center gap-24 w-max">
+  {[...clients, ...clients].map((client, index) => {
+    const logo = client.image;
+    const name = client.title.rendered;
+    const url = client.acf?.website_url;
 
-              if (!logo) return null;
+    if (!logo) return null;
 
-              return (
-               <a
-  key={index}
-  href={url || '#'}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="
-    group
-    relative
-    flex
-    items-center
-    justify-center
-    min-w-[260px]
-    h-[120px]
-  "
->
-  {/* TOP LINE */}
-  <div
-    className="
-      absolute
-      top-0
-      left-0
-      h-[1px]
-      w-0
-      bg-primary
-      group-hover:w-full
-      transition-all
-      duration-500
-    "
-  />
+    return (
+      <a
+        key={index}
+        href={url || '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="
+          group
+          relative
+          flex
+          items-center
+          justify-center
+          min-w-[260px]
+          h-[120px]
+          shrink-0
+        "
+      >
+        {/* TOP LINE */}
+        <div
+          className="
+            absolute
+            top-0
+            left-0
+            h-[1px]
+            w-0
+            bg-primary
+            group-hover:w-full
+            transition-all
+            duration-500
+          "
+        />
 
-  {/* BOTTOM LINE */}
-  <div
-    className="
-      absolute
-      bottom-0
-      right-0
-      h-[1px]
-      w-0
-      bg-accent
-      group-hover:w-full
-      transition-all
-      duration-500
-    "
-  />
+        {/* BOTTOM LINE */}
+        <div
+          className="
+            absolute
+            bottom-0
+            right-0
+            h-[1px]
+            w-0
+            bg-accent
+            group-hover:w-full
+            transition-all
+            duration-500
+          "
+        />
 
-  {/* GLOW */}
-  <div
-    className="
-      absolute
-      inset-0
-      bg-gradient-to-r
-      from-primary/0
-      to-accent/0
-      group-hover:from-primary/5
-      group-hover:to-accent/5
-      rounded-xl
-      transition-all
-      duration-500
-    "
-  />
+        {/* GLOW */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-r
+            from-primary/0
+            to-accent/0
+            group-hover:from-primary/5
+            group-hover:to-accent/5
+            rounded-xl
+            transition-all
+            duration-500
+          "
+        />
 
-  <img
-  src={client.image}
-  alt={name}
-  className="
-    !w-[220px]
-    !h-[100px]
-    object-contain
-
-    brightness-0
-    invert
-    opacity-80
-
-    group-hover:brightness-100
-    group-hover:invert-0
-    group-hover:opacity-100
-
-    transition-all
-    duration-500
-  "
-/>
-</a>
-              );
-            })}
-          </motion.div>
+        <img
+          src={logo}
+          alt={name}
+          className="
+            !w-[220px]
+            !h-[100px]
+            object-contain
+            brightness-0
+            invert
+            opacity-80
+            group-hover:brightness-100
+            group-hover:invert-0
+            group-hover:opacity-100
+            transition-all
+            duration-500
+          "
+        />
+      </a>
+    );
+  })}
+</div>
         </div>
 
         {/* BUTTON */}

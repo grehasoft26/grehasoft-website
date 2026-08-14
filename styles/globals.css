@@ -73,3 +73,24 @@ body {
 .portfolio-swiper .swiper-wrapper {
   padding-bottom: 10px;
 }
+.clients-marquee-track {
+  animation: clients-marquee 100s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes clients-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clients-marquee-track {
+    animation: none;
+  }
+}
