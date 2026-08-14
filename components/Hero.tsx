@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import axiosInstance from '@/lib/axios';
 import { getHome } from '@/lib/backend-api';
 
@@ -19,6 +19,7 @@ export default function Hero({ slides = [] }: HeroProps) {
   const [progress, setProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // Sync slides from server props or fallback to client fetch if server returned empty
   useEffect(() => {
@@ -26,7 +27,15 @@ export default function Hero({ slides = [] }: HeroProps) {
       setHeroSlides(slides);
       return;
     }
+useEffect(() => {
+  if (!videoRef.current) return;
 
+  videoRef.current.currentTime = 0;
+
+  videoRef.current.play().catch(() => {
+    // Browser may block playback until interaction
+  });
+}, [currentIndex]);
     let isMounted = true;
     getHome()
       .then((res) => {
@@ -63,7 +72,12 @@ export default function Hero({ slides = [] }: HeroProps) {
 
     setProgress(0);
 
-    const duration = (heroSlides[currentIndex]?.slide_duration || 11) * 1000;
+   const slideDuration = heroSlides[currentIndex]?.slide_duration;
+
+console.log("Current slide:", heroSlides[currentIndex]);
+console.log("Slide duration:", slideDuration);
+
+const duration = (Number(slideDuration) || 11) * 1000;
     const start = Date.now();
 
     const progressInterval = setInterval(() => {
@@ -109,17 +123,17 @@ export default function Hero({ slides = [] }: HeroProps) {
           >
             {heroSlides[currentIndex]?.video ? (
               <video
-                key={heroSlides[currentIndex].video}
-                autoPlay
-                muted
-                playsInline
-                loop
-                preload="auto"
-                poster={heroSlides[currentIndex]?.thumbnail}
-                className={`w-full h-full ${
-                  isMobile || isTablet ? 'object-contain' : 'object-cover'
-                }`}
-              >
+  ref={videoRef}
+  key={heroSlides[currentIndex].video}
+  autoPlay
+  muted
+  playsInline
+  preload="auto"
+  poster={heroSlides[currentIndex]?.thumbnail}
+  className={`w-full h-full ${
+    isMobile || isTablet ? 'object-contain' : 'object-cover'
+  }`}
+>
                 <source
                   key={heroSlides[currentIndex].video} // ⭐ VERY IMPORTANT
                   src={heroSlides[currentIndex].video}
