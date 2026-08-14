@@ -97,8 +97,10 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
     flex
     items-start
     xl:items-center
-    pt-6
+   pt-6
+    pb-12
     xl:pt-0
+    xl:pb-8
     bg-white
     overflow-hidden
   "
@@ -131,10 +133,10 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
 
               <h3
                 className="
-                  text-[24px]
-                  sm:text-[34px]
-                  md:text-[44px]
-                  lg:text-[54px]
+                 text-[22px]
+sm:text-[32px]
+md:text-[42px]
+lg:text-[48px]
 
                   font-bold
                   text-[#0b0b45]

@@ -71,7 +71,7 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-dark mb-6 tracking-tight leading-none"
+            className="text-4xl md:text-5xl lg:text-[56px] font-black text-dark mb-6 tracking-tight leading-none"
           >
             Why <span className="text-primary"> Grehasoft </span> Is Kochi's Most Trusted IT Partner
           </motion.h2>
@@ -152,7 +152,7 @@ export default function WhyChooseUs() {
             </div>
 
             {/* Premium Network Connection Visual block */}
-            <div className="relative z-10 my-6">
+           <div className="relative z-10 mt-19 mb-6">
               <div className="overflow-hidden rounded-2xl border border-white/10 aspect-[16/10] shadow-inner bg-black/40 group/photo">
                 <img
                   src="/images/footprint.png"
@@ -184,7 +184,7 @@ export default function WhyChooseUs() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: point.delay }}
                 whileHover={{ y: -6 }}
-                className="bg-white hover:bg-white p-8 rounded-[2.5rem] border border-gray-100 hover:border-primary/20 hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 group flex flex-col justify-between"
+                className="bg-white hover:bg-white  p-6 md:p-8 rounded-[2.5rem] border border-gray-100 hover:border-primary/20 hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-primary/5 group-hover:bg-primary group-hover:text-white flex items-center justify-center text-primary transition-all duration-300 mb-6 border border-primary/10">

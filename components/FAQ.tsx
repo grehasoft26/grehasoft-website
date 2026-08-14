@@ -373,9 +373,12 @@ export default function FAQ() {
                 Knowledge Base Hub
               </span>
             </div>
-          <h2 className="text-4xl md:text-5.5xl font-extrabold text-dark tracking-tight leading-none mb-6">
-            Frequently Asked <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">Questions</span>
-          </h2>
+         <h2 className="text-4xl md:text-5.5xl font-extrabold text-dark tracking-tight leading-[1.15] mb-6">
+  Frequently Asked{" "}
+  <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+    Questions
+  </span>
+</h2>
           <p className="text-text-gray text-lg max-w-2xl mx-auto leading-relaxed">
             Have questions about digital scaling, security baselines, budgets, or our workflows? Explore solutions compiled by our specialist team below.
           </p>

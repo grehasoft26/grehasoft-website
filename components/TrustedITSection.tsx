@@ -59,9 +59,9 @@ export default function TrustedITSection() {
           className="lg:col-span-6 flex flex-col bg-white rounded-[2.5rem] p-8 lg:p-10 xl:p-12 border border-gray-100 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] h-full"
           >
             <div>
-               <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
+               <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4">
               <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+              <span className="text-xs font-bold text-accent uppercase tracking-widest ">
                 About Grehasoft
               </span>
             </div>
@@ -74,7 +74,7 @@ export default function TrustedITSection() {
                 <p className="text-base md:text-lg leading-relaxed font-normal">
                   Grehasoft is a trusted IT company delivering smart, scalable, and affordable digital solutions for businesses of all sizes. As a reliable IT service company, we focus on helping brands grow with high-quality websites, effective digital marketing, mobile applications, and custom software solutions.
                 </p>
-                <p className="text-base md:text-lgleading-relaxed font-normal">
+                <p className="text-base md:text-lg leading-relaxed font-normal">
                   With years of experience as an IT services provider, we ensure every project is built for performance, reliability, and long-term success.
                 </p>
               </div>
@@ -90,13 +90,13 @@ export default function TrustedITSection() {
               </div>
             </div>
 
-           <div className="mt-auto">
+           <div className="mt-5">
   <div className="border-t border-gray-100 pt-6">
                 <p className="text-dark font-bold text-lg mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                   Get powerful IT services designed for growth.
                 </p>
-                <Link href="/contact-us" className="btn-primary group inline-flex items-center">
+                <Link href="/contact-us"  className="btn-primary group inline-flex items-center whitespace-nowrap text-sm sm:text-base">
                   Get a Free Consultation
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
                 </Link>
