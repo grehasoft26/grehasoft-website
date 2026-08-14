@@ -249,9 +249,9 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
         )}
       </div>
       <SectionDivider
-  type="diagonalReverse"
-  color="#f7f9fc"
-  height={55}
+  type="diagonal"
+  color="#0753f6"
+  height={30}
 />
     </div>
   );

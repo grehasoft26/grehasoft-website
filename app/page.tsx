@@ -69,30 +69,37 @@ export default async function Home() {
       )}
       {/* <Navbar /> */}
       <Hero slides={homeData.hero} />
-      <KochiIntroSection />
+      <div className="relative"><KochiIntroSection />
+      <SectionDivider
+    type="diagonalReverse"
+    color="#0753f6"
+    height={30}
+  />
+      </div>
+      
      <div className="relative">
   <EndToEndServicesIntro />
 
   <SectionDivider
-    type="wave"
-    color="#f7f9fc"
-    height={80}
+    type="curve"
+    color="#0753f6"
+    height={30}
   />
 </div>
      
      
 
       <StickyScrollServices initialServices={homeData.services || []} />
-     <div className="relative">
+     {/* <div className="relative"> */}
   <TrustedITSection />
 
-  {/* Divider 3: Trusted IT → Clients */}
+  {/* Divider 3: Trusted IT → Clients
  <SectionDivider
   type="waveReverse"
-  color="#f7f9fc"
+  color="#eef4ff"
   height={35}
 />
-</div>
+</div> */}
       {/* <div className="relative"> */}
   <Clients
     initialClients={homeData.clients || []}
@@ -111,8 +118,8 @@ export default async function Home() {
   {/* Divider 5: Why Choose Us → Awards */}
   <SectionDivider
     type="curve"
-    color="#f7f9fc"
-    height={45}
+    color="#0753f6"
+    height={30}
   />
 </div>
     <div className="relative">
@@ -121,8 +128,8 @@ export default async function Home() {
   {/* Divider 6: Awards → Portfolio */}
   <SectionDivider
     type="diagonalReverse"
-    color="#cfdff7ff"
-    height={50}
+    color="#0753f6"
+    height={30}
   />
 </div>
       {/* <About data={homeData.about} /> */}
@@ -136,8 +143,8 @@ export default async function Home() {
   {/* Divider 7: Portfolio → Products / PMS */}
   <SectionDivider
   type="diagonal"
-  color="#ededf2ff"
-  height={35}
+  color="#eef4ff"
+  height={30}
 />
 </div>
       <div className="relative">
@@ -146,19 +153,28 @@ export default async function Home() {
   {/* Divider 8: Products / PMS → FAQ */}
   <SectionDivider
     type="curve"
-    color="#f7f9fc"
-    height={45}
+    color="#eef4ff"
+    height={30}
   />
 </div>
-      <FAQ />
+   <div className="relative">
+  <FAQ />
+
+  {/* Divider: FAQ → Testimonials */}
+  <SectionDivider
+    type="diagonalReverse"
+    color="#0753f6"
+    height={30}
+  />
+</div>
      <div className="relative">
   <Testimonials />
 
   {/* Divider 9: Testimonials → CTA */}
   <SectionDivider
     type="diagonal"
-    color="#f7f9fc"
-    height={50}
+    color="#0753f6"
+    height={30}
   />
 </div>
       <CTA data={homeData.cta} />
