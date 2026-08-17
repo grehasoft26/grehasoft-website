@@ -1,9 +1,184 @@
+// 'use client';
+
+// import { motion, AnimatePresence } from 'framer-motion';
+// import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
+// import { useEffect, useState,useRef } from 'react';
+// import axiosInstance from '@/lib/axios';
+// import { getHome } from '@/lib/backend-api';
+
+// import { Slide } from '@/types/wordpress';
+
+// interface HeroProps {
+//   slides?: Slide[];
+// }
+
+// export default function Hero({ slides = [] }: HeroProps) {
+//   const [heroSlides, setHeroSlides] = useState<Slide[]>(slides);
+//   const [currentIndex, setCurrentIndex] = useState(0);
+//   const [isMuted, setIsMuted] = useState(true);
+//   const [progress, setProgress] = useState(0);
+//   const [isMobile, setIsMobile] = useState(false);
+//   const [isTablet, setIsTablet] = useState(false);
+//   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+//   // Sync slides from server props or fallback to client fetch if server returned empty
+//   useEffect(() => {
+//     if (slides && slides.length > 0) {
+//       setHeroSlides(slides);
+//       return;
+//     }
+// useEffect(() => {
+//   if (!videoRef.current) return;
+
+//   videoRef.current.currentTime = 0;
+
+//   videoRef.current.play().catch(() => {
+//     // Browser may block playback until interaction
+//   });
+// }, [currentIndex]);
+//     let isMounted = true;
+//     getHome()
+//       .then((res) => {
+//         if (isMounted && res?.hero && Array.isArray(res.hero) && res.hero.length > 0) {
+//           setHeroSlides(res.hero);
+//         }
+//       })
+//       .catch((err) => {
+//         console.warn('Hero slides client fallback error:', err?.message || err);
+//       });
+
+//     return () => {
+//       isMounted = false;
+//     };
+//   }, [slides]);
+
+//   useEffect(() => {
+//     const checkDevice = () => {
+//       const width = window.innerWidth;
+//       setIsMobile(width < 768);
+//       // iPad Mini, Air, 10.2", etc.
+//       setIsTablet(width >= 768 && width <= 1024);
+//     };
+
+//     checkDevice();
+//     window.addEventListener('resize', checkDevice);
+
+//     return () => window.removeEventListener('resize', checkDevice);
+//   }, []);
+
+//   // Progress + Auto slide
+//   useEffect(() => {
+//     if (!heroSlides.length) return;
+
+//     setProgress(0);
+
+//    const slideDuration = heroSlides[currentIndex]?.slide_duration;
+
+// console.log("Current slide:", heroSlides[currentIndex]);
+// console.log("Slide duration:", slideDuration);
+
+// const duration = (Number(slideDuration) || 11) * 1000;
+//     const start = Date.now();
+
+//     const progressInterval = setInterval(() => {
+//       const elapsed = Date.now() - start;
+//       setProgress(Math.min((elapsed / duration) * 100, 100));
+//     }, 50);
+
+//     const slideTimeout = setTimeout(() => {
+//       setCurrentIndex((prev) => (prev + 1) % heroSlides.length);
+//       setProgress(0);
+//     }, duration);
+
+//     return () => {
+//       clearInterval(progressInterval);
+//       clearTimeout(slideTimeout);
+//     };
+//   }, [currentIndex, heroSlides]);
+
+//   if (!heroSlides.length) {
+//     return (
+//       <section className="relative min-h-screen w-full bg-dark flex items-center">
+//         <div className="container-custom text-white px-4">
+//           <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase">
+//             Grehasoft
+//           </h1>
+//         </div>
+//       </section>
+//     );
+//   }
+
+//   return (
+//     <section className="relative min-h-[55vh] xl:min-h-screen w-full flex items-start lg:items-center md:min-h-[85vh] overflow-hidden bg-dark pt-16 lg:pt-0">
+//       {/* Background */}
+//       <div className="absolute inset-0 z-0">
+//         <AnimatePresence mode="wait">
+//           <motion.div
+//             key={currentIndex}
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             exit={{ opacity: 0 }}
+//             transition={{ duration: 1 }}
+//             className="absolute inset-0"
+//           >
+//             {heroSlides[currentIndex]?.video ? (
+//               <video
+//   ref={videoRef}
+//   key={heroSlides[currentIndex].video}
+//   autoPlay
+//   muted
+//   playsInline
+//   preload="auto"
+//   poster={heroSlides[currentIndex]?.thumbnail}
+//   className={`w-full h-full ${
+//     isMobile || isTablet ? 'object-contain' : 'object-cover'
+//   }`}
+// >
+//                 <source
+//                   key={heroSlides[currentIndex].video} // ⭐ VERY IMPORTANT
+//                   src={heroSlides[currentIndex].video}
+//                   type="video/mp4"
+//                 />
+//               </video>
+//             ) : (
+//               <div
+//                 className="w-full h-full bg-cover bg-center"
+//                 style={{
+//                   backgroundImage: `url(${heroSlides[currentIndex]?.thumbnail})`,
+//                 }}
+//               />
+//             )}
+//           </motion.div>
+//         </AnimatePresence>
+
+//         {/* Progress Bars */}
+//         <div className="absolute bottom-12 left-12 flex gap-3 z-30">
+//           {heroSlides.map((_, index) => (
+//             <div
+//               key={index}
+//               className="relative w-12 h-[2px] bg-white/20 cursor-pointer"
+//               onClick={() => {
+//                 setCurrentIndex(index);
+//                 setProgress(0);
+//               }}
+//             >
+//               {index === currentIndex && (
+//                 <motion.div
+//                   className="absolute inset-0 bg-white"
+//                   style={{ width: `${progress}%` }}
+//                 />
+//               )}
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
-import { useEffect, useState,useRef } from 'react';
-import axiosInstance from '@/lib/axios';
+import { useEffect, useState, useRef } from 'react';
 import { getHome } from '@/lib/backend-api';
 
 import { Slide } from '@/types/wordpress';
@@ -15,36 +190,39 @@ interface HeroProps {
 export default function Hero({ slides = [] }: HeroProps) {
   const [heroSlides, setHeroSlides] = useState<Slide[]>(slides);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Sync slides from server props or fallback to client fetch if server returned empty
+  // --------------------------------------------------
+  // Sync slides from server props
+  // --------------------------------------------------
   useEffect(() => {
     if (slides && slides.length > 0) {
       setHeroSlides(slides);
       return;
     }
-useEffect(() => {
-  if (!videoRef.current) return;
 
-  videoRef.current.currentTime = 0;
-
-  videoRef.current.play().catch(() => {
-    // Browser may block playback until interaction
-  });
-}, [currentIndex]);
     let isMounted = true;
+
     getHome()
       .then((res) => {
-        if (isMounted && res?.hero && Array.isArray(res.hero) && res.hero.length > 0) {
+        if (
+          isMounted &&
+          res?.hero &&
+          Array.isArray(res.hero) &&
+          res.hero.length > 0
+        ) {
           setHeroSlides(res.hero);
         }
       })
       .catch((err) => {
-        console.warn('Hero slides client fallback error:', err?.message || err);
+        console.warn(
+          'Hero slides client fallback error:',
+          err?.message || err
+        );
       });
 
     return () => {
@@ -52,41 +230,105 @@ useEffect(() => {
     };
   }, [slides]);
 
+  // --------------------------------------------------
+  // Detect device
+  // --------------------------------------------------
   useEffect(() => {
     const checkDevice = () => {
       const width = window.innerWidth;
+
       setIsMobile(width < 768);
-      // iPad Mini, Air, 10.2", etc.
       setIsTablet(width >= 768 && width <= 1024);
     };
 
     checkDevice();
+
     window.addEventListener('resize', checkDevice);
 
-    return () => window.removeEventListener('resize', checkDevice);
+    return () => {
+      window.removeEventListener('resize', checkDevice);
+    };
   }, []);
 
-  // Progress + Auto slide
+  // --------------------------------------------------
+  // Start/restart video whenever slide changes
+  // --------------------------------------------------
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    video.currentTime = 0;
+
+    video.muted = true;
+    video.playsInline = true;
+
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch (error) {
+        console.warn('Hero video autoplay failed:', error);
+      }
+    };
+
+    // If video is already ready, play immediately
+    if (video.readyState >= 2) {
+      playVideo();
+      return;
+    }
+
+    // Otherwise wait until enough data is available
+    video.addEventListener('canplay', playVideo, {
+      once: true,
+    });
+
+    return () => {
+      video.removeEventListener('canplay', playVideo);
+    };
+  }, [currentIndex]);
+
+  // --------------------------------------------------
+  // Slide duration + progress
+  // --------------------------------------------------
   useEffect(() => {
     if (!heroSlides.length) return;
 
     setProgress(0);
 
-   const slideDuration = heroSlides[currentIndex]?.slide_duration;
+    const slideDuration = heroSlides[currentIndex]?.slide_duration;
 
-console.log("Current slide:", heroSlides[currentIndex]);
-console.log("Slide duration:", slideDuration);
+    console.log(
+      `Current slide ${currentIndex + 1}:`,
+      heroSlides[currentIndex]
+    );
 
-const duration = (Number(slideDuration) || 11) * 1000;
+    console.log(
+      'Slide duration:',
+      slideDuration
+    );
+
+    const duration =
+      (Number(slideDuration) || 11) * 1000;
+
     const start = Date.now();
 
     const progressInterval = setInterval(() => {
       const elapsed = Date.now() - start;
-      setProgress(Math.min((elapsed / duration) * 100, 100));
+
+      setProgress(
+        Math.min(
+          (elapsed / duration) * 100,
+          100
+        )
+      );
     }, 50);
 
     const slideTimeout = setTimeout(() => {
-      setCurrentIndex((prev) => (prev + 1) % heroSlides.length);
+      setCurrentIndex(
+        (prev) =>
+          (prev + 1) % heroSlides.length
+      );
+
       setProgress(0);
     }, duration);
 
@@ -96,6 +338,9 @@ const duration = (Number(slideDuration) || 11) * 1000;
     };
   }, [currentIndex, heroSlides]);
 
+  // --------------------------------------------------
+  // Fallback if no slides
+  // --------------------------------------------------
   if (!heroSlides.length) {
     return (
       <section className="relative min-h-screen w-full bg-dark flex items-center">
@@ -108,35 +353,72 @@ const duration = (Number(slideDuration) || 11) * 1000;
     );
   }
 
+  // --------------------------------------------------
+  // Current slide
+  // --------------------------------------------------
+  const currentSlide =
+    heroSlides[currentIndex];
+
   return (
-    <section className="relative min-h-[55vh] xl:min-h-screen w-full flex items-start lg:items-center md:min-h-[85vh] overflow-hidden bg-dark pt-16 lg:pt-0">
+    <section
+      className="
+        relative
+        min-h-[55vh]
+        md:min-h-[85vh]
+        xl:min-h-screen
+        w-full
+        flex
+        items-start
+        lg:items-center
+        overflow-hidden
+        bg-dark
+        pt-16
+        lg:pt-0
+      "
+    >
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            initial={
+              currentIndex === 0
+                ? false
+                : { opacity: 0 }
+            }
+            animate={{
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              duration:
+                currentIndex === 0
+                  ? 0
+                  : isMobile
+                    ? 0.15
+                    : 0.4,
+            }}
             className="absolute inset-0"
           >
-            {heroSlides[currentIndex]?.video ? (
+            {currentSlide?.video ? (
               <video
-  ref={videoRef}
-  key={heroSlides[currentIndex].video}
-  autoPlay
-  muted
-  playsInline
-  preload="auto"
-  poster={heroSlides[currentIndex]?.thumbnail}
-  className={`w-full h-full ${
-    isMobile || isTablet ? 'object-contain' : 'object-cover'
-  }`}
->
+                ref={videoRef}
+                key={currentSlide.video}
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                poster={currentSlide?.thumbnail}
+                className={`w-full h-full ${
+                  isMobile || isTablet
+                    ? 'object-contain'
+                    : 'object-cover'
+                }`}
+              >
                 <source
-                  key={heroSlides[currentIndex].video} // ⭐ VERY IMPORTANT
-                  src={heroSlides[currentIndex].video}
+                  src={currentSlide.video}
                   type="video/mp4"
                 />
               </video>
@@ -144,7 +426,7 @@ const duration = (Number(slideDuration) || 11) * 1000;
               <div
                 className="w-full h-full bg-cover bg-center"
                 style={{
-                  backgroundImage: `url(${heroSlides[currentIndex]?.thumbnail})`,
+                  backgroundImage: `url(${currentSlide?.thumbnail})`,
                 }}
               />
             )}
@@ -152,11 +434,26 @@ const duration = (Number(slideDuration) || 11) * 1000;
         </AnimatePresence>
 
         {/* Progress Bars */}
-        <div className="absolute bottom-12 left-12 flex gap-3 z-30">
+        <div
+          className="
+            absolute
+            bottom-12
+            left-12
+            flex
+            gap-3
+            z-30
+          "
+        >
           {heroSlides.map((_, index) => (
             <div
               key={index}
-              className="relative w-12 h-[2px] bg-white/20 cursor-pointer"
+              className="
+                relative
+                w-12
+                h-[2px]
+                bg-white/20
+                cursor-pointer
+              "
               onClick={() => {
                 setCurrentIndex(index);
                 setProgress(0);
@@ -164,8 +461,14 @@ const duration = (Number(slideDuration) || 11) * 1000;
             >
               {index === currentIndex && (
                 <motion.div
-                  className="absolute inset-0 bg-white"
-                  style={{ width: `${progress}%` }}
+                  className="
+                    absolute
+                    inset-0
+                    bg-white
+                  "
+                  style={{
+                    width: `${progress}%`,
+                  }}
                 />
               )}
             </div>
