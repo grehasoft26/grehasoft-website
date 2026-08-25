@@ -258,7 +258,7 @@ export default function Hero({ slides = [] }: HeroProps) {
 
     if (!video) return;
 
-    video.currentTime = 0;
+    //video.currentTime = 0;
 
     video.muted = true;
     video.playsInline = true;
