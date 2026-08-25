@@ -411,11 +411,7 @@ export default function Hero({ slides = [] }: HeroProps) {
                 playsInline
                 preload="auto"
                 poster={currentSlide?.thumbnail}
-                className={`w-full h-full ${
-                  isMobile || isTablet
-                    ? 'object-contain'
-                    : 'object-cover'
-                }`}
+              className="w-full h-full object-contain lg:object-cover"
               >
                 <source
                   src={currentSlide.video}
