@@ -123,7 +123,7 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
             {/* MAIN CONTAINER */}
             <div className="container-custom relative z-10 w-full">
           
-          <div className="grid lg:grid-cols-2 gap-10 xl:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-8 lg:gap-10 xl:gap-12 items-center">
             
             {/* LEFT */}
             <div className="relative z-10">
@@ -192,20 +192,22 @@ lg:text-[48px]
             </div>
  
             {/* RIGHT IMAGE */}
-            <div className="flex justify-center lg:justify-end relative z-10">
+            <div className="flex justify-center lg:justify-end relative z-10 w-full">
               <img
-  key={image}
-  src={image}
-  alt={acf?.hero_title || "Service"}
-  className="
-    w-[240px]
-    sm:w-[320px]
-    md:w-[420px]
-    lg:w-[500px]
-    max-w-full
-    h-auto
-  "
-/>
+                key={image}
+                src={image}
+                alt={acf?.hero_title || "Service"}
+                className="
+                  w-[240px]
+                  sm:w-[320px]
+                  md:w-[420px]
+                  lg:w-full
+                  max-w-full
+                  h-auto
+                  rounded-[16px] md:rounded-[20px]
+                  overflow-hidden
+                "
+              />
             </div>
           </div>
         </div>

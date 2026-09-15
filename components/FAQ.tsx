@@ -391,7 +391,7 @@ export default function FAQ() {
           <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
             
             {/* Search Input Panel */}
-            <div className="bg-white p-5 rounded-2.5xl shadow-sm border border-gray-100 ring-1 ring-gray-900/5">
+            <div className="bg-white p-5 rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm border border-gray-100 ring-1 ring-gray-900/5">
               <span className="text-[10px] uppercase font-black text-text-gray tracking-widest block mb-3.5">
                 Search Questions
               </span>
@@ -408,7 +408,7 @@ export default function FAQ() {
             </div>
 
             {/* Interactive Tab Selector buttons */}
-            <div className="bg-white p-5 rounded-2.5xl shadow-sm border border-gray-100 ring-1 ring-gray-900/5 space-y-2">
+            <div className="bg-white p-5 rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm border border-gray-100 ring-1 ring-gray-900/5 space-y-2">
               <span className="text-[10px] uppercase font-black text-text-gray tracking-widest block mb-3.5 px-1">
                 Filter by Category
               </span>
@@ -440,7 +440,7 @@ export default function FAQ() {
             </div>
 
             {/* Dynamic support promo card */}
-            <div className="bg-dark text-white rounded-2.5xl p-6 relative overflow-hidden shadow-xl border border-white/5">
+            <div className="bg-dark text-white rounded-[18px] md:rounded-[20px] p-6 relative overflow-hidden shadow-xl border border-white/5">
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
               <h4 className="text-base font-extrabold mb-2 text-white">Still have questions?</h4>
               <p className="text-xs text-slate-300 leading-relaxed mb-5">
@@ -484,7 +484,7 @@ export default function FAQ() {
                       exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.25 }}
                       className={cn(
-                        "rounded-2.5xl border transition-all duration-300 bg-white overflow-hidden shadow-sm hover:shadow-md",
+                        "rounded-[18px] md:rounded-[20px] border transition-all duration-300 bg-white overflow-hidden shadow-sm hover:shadow-md",
                         isExpanded ? "border-primary/40 ring-1 ring-primary/10" : "border-gray-100"
                       )}
                     >
@@ -537,7 +537,7 @@ export default function FAQ() {
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-white border border-gray-100 rounded-3xl p-12 text-center text-text-gray"
+                  className="bg-white border border-gray-100 rounded-[18px] md:rounded-[20px] overflow-hidden p-12 text-center text-text-gray"
                 >
                   <p className="text-lg font-medium mb-2">No matching questions found.</p>
                   <p className="text-sm text-text-gray/80">Try refining your keyword query or switching categories above.</p>
