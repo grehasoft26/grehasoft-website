@@ -309,7 +309,7 @@ const faqs = [
     id: 5,
     category: 'services',
     question: "Which areas does Grehasoft serve?",
-    answer: "Grehasoft serves businesses across Kerala, India, and international markets, including GCC countries. Based in Infopark, Kakkanad, Kochi, we provide website development, custom software, mobile app development, ERP, CRM, SEO, digital marketing, branding, and end-to-end technology solutions for startups, SMEs, and enterprises worldwide."
+    answer: "Grehasoft serves businesses across Kerala,India,and international markets, including GCC countries. Based in Infopark, Kakkanad, Kochi, we provide website development, custom software, mobile app development, ERP, CRM, SEO, digital marketing, branding, and end-to-end technology solutions for startups, SMEs, and enterprises worldwide."
   },
   {
     id: 6,
