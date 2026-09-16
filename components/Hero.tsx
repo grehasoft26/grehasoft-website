@@ -409,7 +409,7 @@ export default function Hero({ slides = [] }: HeroProps) {
                 autoPlay
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 poster={currentSlide?.thumbnail}
               className="w-full h-full object-contain lg:object-cover"
               >

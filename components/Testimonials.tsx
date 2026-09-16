@@ -314,7 +314,7 @@ export default function Testimonials() {
                   <button
                     key={test.id}
                     onClick={() => setActiveIdx(index)}
-                    className={`w-full text-left p-5 rounded-2.5xl border transition-all duration-300 flex items-center gap-4 relative group ${
+                    className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 flex items-center gap-4 relative group ${
                       isActive 
                         ? 'bg-white shadow-md border-primary ring-1 ring-primary/10' 
                         : 'bg-white/80 hover:bg-white border-gray-100 hover:shadow-sm'
@@ -388,7 +388,7 @@ export default function Testimonials() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.4 }}
-                className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-between h-full relative overflow-hidden"
+                className="bg-white rounded-[20px] p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-between h-full relative overflow-hidden"
               >
                 {/* Embedded dynamic quote icon blur */}
                 <Quote className="absolute -right-4 -top-4 w-40 h-40 text-primary/[0.03] select-none pointer-events-none" />
