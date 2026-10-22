@@ -96,12 +96,12 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
         </div>
 
         {/* LOGO MARQUEE */}
-        <div className="relative border-y border-white/10 py-12 overflow-hidden">
+        <div className="relative bg-white border-y border-white/10 py-12 overflow-hidden">
           {/* Left Fade */}
-          <div className="absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#02025c] to-transparent" />
+          <div className="absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#02025c]/40 via-[#02025c]/10 to-transparent" />
 
           {/* Right Fade */}
-          <div className="absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#02025c] to-transparent" />
+          <div className="absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#02025c]/40 via-[#02025c]/10 to-transparent" />
 
         <div className="clients-marquee-track flex items-center gap-24 w-max">
   {[...clients, ...clients].map((client, index) => {
@@ -174,23 +174,24 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
           "
         />
 
+        <div className="relative flex items-center justify-center w-[220px] h-[100px] shrink-0">
         <img
           src={logo}
           alt={name}
           className="
-            !w-[220px]
-            !h-[100px]
+            block
+            !w-full
+            !h-full
             object-contain
-            brightness-0
-            invert
-            opacity-80
-            group-hover:brightness-100
-            group-hover:invert-0
-            group-hover:opacity-100
+            object-center
+            
+            
+            opacity-100
             transition-all
             duration-500
           "
         />
+        </div>
       </a>
     );
   })}

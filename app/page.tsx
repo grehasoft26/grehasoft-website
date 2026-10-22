@@ -90,20 +90,21 @@ export default async function Home() {
      
 
       <StickyScrollServices initialServices={homeData.services || []} />
-     {/* <div className="relative"> */}
+       <Clients
+    initialClients={homeData.clients || []}
+  />
+      <div className="relative"> 
   <TrustedITSection />
 
-  {/* Divider 3: Trusted IT → Clients
+   
  <SectionDivider
-  type="waveReverse"
+  type="diagonal"
   color="#eef4ff"
   height={35}
 />
-</div> */}
+</div> 
       {/* <div className="relative"> */}
-  <Clients
-    initialClients={homeData.clients || []}
-  />
+ 
 
   {/* Divider 4: Clients → Why Choose Us
   <SectionDivider
