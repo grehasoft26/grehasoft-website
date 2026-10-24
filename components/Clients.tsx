@@ -124,7 +124,7 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
           items-center
           justify-center
           min-w-[260px]
-          h-[120px]
+          h-[140px]
           shrink-0
         "
       >
