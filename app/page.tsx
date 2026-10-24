@@ -78,7 +78,8 @@ export default async function Home() {
       </div>
       
      <div className="relative">
-  <EndToEndServicesIntro />
+      <Awards data={homeData.awards} />
+  {/* <EndToEndServicesIntro /> */}
 
   <SectionDivider
     type="curve"
@@ -86,13 +87,23 @@ export default async function Home() {
     height={30}
   />
 </div>
+<div className="relative">
+  {/* <Awards data={homeData.awards} /> */}
+<EndToEndServicesIntro />
+  {/* Divider 6: Awards → Portfolio */}
+  <SectionDivider
+    type="diagonalReverse"
+    color="#0753f6"
+    height={30}
+  />
+</div>
      
-     
-
-      <StickyScrollServices initialServices={homeData.services || []} />
-       <Clients
+      <Clients
     initialClients={homeData.clients || []}
   />
+
+      <StickyScrollServices initialServices={homeData.services || []} />
+      
       <div className="relative"> 
   <TrustedITSection />
 
@@ -123,16 +134,7 @@ export default async function Home() {
     height={30}
   />
 </div>
-    <div className="relative">
-  <Awards data={homeData.awards} />
-
-  {/* Divider 6: Awards → Portfolio */}
-  <SectionDivider
-    type="diagonalReverse"
-    color="#0753f6"
-    height={30}
-  />
-</div>
+    
       {/* <About data={homeData.about} /> */}
      <div className="relative">
   <Portfolio
