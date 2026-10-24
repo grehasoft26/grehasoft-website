@@ -68,12 +68,29 @@ function measureContentBox(src: string): Promise<ContentBox | null> {
   return contentBoxCache.get(src)!;
 }
 
-function ClientLogo({ src, alt }: { src: string; alt: string }) {
+function ClientLogo({
+  src,
+  alt,
+  boxClassName = 'w-[220px] h-[100px] shrink-0',
+  loading,
+  fallback,
+}: {
+  src: string;
+  alt: string;
+  // Must keep the LOGO_BOX_W:LOGO_BOX_H shape; the fit below is in percentages of it.
+  boxClassName?: string;
+  loading?: 'lazy' | 'eager';
+  // Shown instead of the image when there is no src or it fails to load.
+  fallback?: React.ReactNode;
+}) {
   const [box, setBox] = useState<ContentBox | null>(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     setBox(null);
+    setFailed(false);
+    if (!src) return;
     measureContentBox(src).then((result) => {
       if (!cancelled) setBox(result);
     });
@@ -81,6 +98,14 @@ function ClientLogo({ src, alt }: { src: string; alt: string }) {
       cancelled = true;
     };
   }, [src]);
+
+  if (fallback && (!src || failed)) {
+    return (
+      <div className={`relative flex items-center justify-center overflow-hidden ${boxClassName}`}>
+        {fallback}
+      </div>
+    );
+  }
 
   let fit: React.CSSProperties | undefined;
   if (box) {
@@ -98,23 +123,26 @@ function ClientLogo({ src, alt }: { src: string; alt: string }) {
     }
 
     // Scale the whole image so its content hits that size, then centre the content.
+    // Expressed as percentages of the box so it scales with responsive boxes.
     const imgH = contentH / box.h;
     const imgW = imgH * box.aspect;
     fit = {
       position: 'absolute',
-      left: (LOGO_BOX_W - contentW) / 2 - box.x * imgW,
-      top: (LOGO_BOX_H - contentH) / 2 - box.y * imgH,
-      width: imgW,
-      height: imgH,
+      left: `${(((LOGO_BOX_W - contentW) / 2 - box.x * imgW) / LOGO_BOX_W) * 100}%`,
+      top: `${(((LOGO_BOX_H - contentH) / 2 - box.y * imgH) / LOGO_BOX_H) * 100}%`,
+      width: `${(imgW / LOGO_BOX_W) * 100}%`,
+      height: `${(imgH / LOGO_BOX_H) * 100}%`,
       maxWidth: 'none',
     };
   }
 
   return (
-    <div className="relative flex items-center justify-center w-[220px] h-[100px] shrink-0 overflow-hidden">
+    <div className={`relative flex items-center justify-center overflow-hidden ${boxClassName}`}>
       <img
         src={src}
         alt={alt}
+        loading={loading}
+        onError={fallback ? () => setFailed(true) : undefined}
         style={fit}
         className={`
           block
@@ -130,8 +158,17 @@ function ClientLogo({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-export default function Clients({ initialClients = [] }: { initialClients?: any[] }) {
+const GRID_PAGE_SIZE = 15;
+
+export default function Clients({
+  initialClients = [],
+  variant = 'marquee',
+}: {
+  initialClients?: any[];
+  variant?: 'marquee' | 'grid';
+}) {
   const [clients, setClients] = useState<any[]>([]);
+  const [visibleCount, setVisibleCount] = useState(GRID_PAGE_SIZE);
 
   useEffect(() => {
     if (initialClients && initialClients.length > 0) {
@@ -218,6 +255,68 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
           </motion.div>
         </div>
 
+        {variant === 'grid' ? (
+          <>
+            {/* LOGO GRID */}
+            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+              {clients.slice(0, visibleCount).map((client, index) => {
+                const url = client.acf?.website_url;
+                const logo = (
+                  <ClientLogo
+                    src={client.featured_image_url || ''}
+                    alt={client.title.rendered}
+                    boxClassName="w-full aspect-[11/5]"
+                    loading="lazy"
+                    fallback={
+                      <span
+                        className="px-2 text-center text-sm sm:text-base font-bold text-[#02025c]/70 leading-tight"
+                        dangerouslySetInnerHTML={{ __html: client.title.rendered }}
+                      />
+                    }
+                  />
+                );
+                const cellClassName = 'flex items-center justify-center p-2 sm:p-3 rounded-xl transition-colors duration-300';
+
+                return url ? (
+                  <a
+                    key={client.id ?? index}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${cellClassName} hover:bg-[#02025c]/[0.04]`}
+                  >
+                    {logo}
+                  </a>
+                ) : (
+                  <div key={client.id ?? index} className={cellClassName}>
+                    {logo}
+                  </div>
+                );
+              })}
+            </div>
+
+            {visibleCount < clients.length && (
+              <div className="flex justify-center mt-12">
+                <button
+                  type="button"
+                  onClick={() => setVisibleCount((count) => count + GRID_PAGE_SIZE)}
+                  className="group relative px-10 py-5 rounded-full border border-white/10 overflow-hidden hover:border-green-400/50 transition-all duration-500"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-green-400/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+
+                  <div className="relative flex items-center gap-3">
+                    <span className="text-white uppercase tracking-wider font-bold">
+                      View More
+                    </span>
+
+                    <ArrowRight className="w-5 h-5 text-green-400 group-hover:translate-x-2 transition-transform duration-500" />
+                  </div>
+                </button>
+              </div>
+            )}
+          </>
+        ) : (
+        <>
         {/* LOGO MARQUEE */}
         <div className="relative bg-white border-y border-white/10 py-12 overflow-hidden">
           {/* Left Fade */}
@@ -303,6 +402,15 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
   })}
 </div>
         </div>
+
+        <div className="flex justify-center mt-12">
+          <Link href="/portfolio#clients" className="btn-primary inline-flex items-center gap-2 group">
+            View All Clients
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+        </>
+        )}
 
         {/* BUTTON */}
         {/* <motion.div

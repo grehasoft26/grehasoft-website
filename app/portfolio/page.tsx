@@ -35,7 +35,9 @@ export default async function PortfolioPage() {
       <ProjectGallery projects={projectGallery} />
       
       {/* Our Clients Section */}
-      <Clients initialClients={homeData.clients || []} />
+      <div id="clients">
+        <Clients initialClients={homeData.clients || []} variant="grid" />
+      </div>
       
       <CTA data={homeData.cta || null} />
       {/* <Footer /> is provided by RootLayout */}
