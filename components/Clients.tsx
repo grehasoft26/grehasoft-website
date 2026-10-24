@@ -226,7 +226,7 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
           {/* Right Fade */}
           <div className="absolute right-0 top-0 z-20 h-full w-32 bg-gradient-to-l from-[#02025c]/40 via-[#02025c]/10 to-transparent" />
 
-        <div className="clients-marquee-track flex items-center gap-24 w-max">
+        <div className="clients-marquee-track flex items-center gap-24 pr-24 w-max">
   {[...clients, ...clients].map((client, index) => {
     const logo = client.image;
     const name = client.title.rendered;
