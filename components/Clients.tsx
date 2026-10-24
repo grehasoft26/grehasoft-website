@@ -7,6 +7,129 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
+const LOGO_BOX_W = 220;
+const LOGO_BOX_H = 100;
+// Every logo gets roughly the same visible area, so wide and compact marks carry similar visual weight.
+const LOGO_TARGET_AREA = LOGO_BOX_W * LOGO_BOX_H * 0.45;
+
+// Visible content of an image, as fractions of its full size, plus its aspect ratio.
+type ContentBox = { x: number; y: number; w: number; h: number; aspect: number };
+
+const contentBoxCache = new Map<string, Promise<ContentBox | null>>();
+
+// Finds the bounding box of non-transparent, non-white pixels so padding baked into
+// a logo file doesn't shrink it. The image is read through the same-origin Next.js
+// optimizer because the WordPress media host doesn't send CORS headers.
+function measureContentBox(src: string): Promise<ContentBox | null> {
+  if (!contentBoxCache.has(src)) {
+    contentBoxCache.set(src, new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const width = img.naturalWidth;
+          const height = img.naturalHeight;
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          if (!ctx || !width || !height) return resolve(null);
+          ctx.drawImage(img, 0, 0);
+          const { data } = ctx.getImageData(0, 0, width, height);
+
+          let minX = width, minY = height, maxX = -1, maxY = -1;
+          for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+              const i = (y * width + x) * 4;
+              const isBackground = data[i + 3] < 16 || (data[i] > 235 && data[i + 1] > 235 && data[i + 2] > 235);
+              if (isBackground) continue;
+              if (x < minX) minX = x;
+              if (x > maxX) maxX = x;
+              if (y < minY) minY = y;
+              if (y > maxY) maxY = y;
+            }
+          }
+          if (maxX < 0) return resolve(null);
+
+          resolve({
+            x: minX / width,
+            y: minY / height,
+            w: (maxX - minX + 1) / width,
+            h: (maxY - minY + 1) / height,
+            aspect: width / height,
+          });
+        } catch {
+          resolve(null);
+        }
+      };
+      img.onerror = () => resolve(null);
+      img.src = `/_next/image?url=${encodeURIComponent(src)}&w=256&q=75`;
+    }));
+  }
+  return contentBoxCache.get(src)!;
+}
+
+function ClientLogo({ src, alt }: { src: string; alt: string }) {
+  const [box, setBox] = useState<ContentBox | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setBox(null);
+    measureContentBox(src).then((result) => {
+      if (!cancelled) setBox(result);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [src]);
+
+  let fit: React.CSSProperties | undefined;
+  if (box) {
+    // Size the visible content to the target area, capped by the logo box.
+    const ratio = (box.w * box.aspect) / box.h;
+    let contentH = Math.sqrt(LOGO_TARGET_AREA / ratio);
+    let contentW = contentH * ratio;
+    if (contentW > LOGO_BOX_W) {
+      contentW = LOGO_BOX_W;
+      contentH = contentW / ratio;
+    }
+    if (contentH > LOGO_BOX_H) {
+      contentH = LOGO_BOX_H;
+      contentW = contentH * ratio;
+    }
+
+    // Scale the whole image so its content hits that size, then centre the content.
+    const imgH = contentH / box.h;
+    const imgW = imgH * box.aspect;
+    fit = {
+      position: 'absolute',
+      left: (LOGO_BOX_W - contentW) / 2 - box.x * imgW,
+      top: (LOGO_BOX_H - contentH) / 2 - box.y * imgH,
+      width: imgW,
+      height: imgH,
+      maxWidth: 'none',
+    };
+  }
+
+  return (
+    <div className="relative flex items-center justify-center w-[220px] h-[100px] shrink-0 overflow-hidden">
+      <img
+        src={src}
+        alt={alt}
+        style={fit}
+        className={`
+          block
+          ${fit ? '' : '!w-full !h-full'}
+          object-contain
+          object-center
+          opacity-100
+          transition-all
+          duration-500
+        `}
+      />
+    </div>
+  );
+}
+
 export default function Clients({ initialClients = [] }: { initialClients?: any[] }) {
   const [clients, setClients] = useState<any[]>([]);
 
@@ -174,24 +297,7 @@ export default function Clients({ initialClients = [] }: { initialClients?: any[
           "
         />
 
-        <div className="relative flex items-center justify-center w-[220px] h-[100px] shrink-0">
-        <img
-          src={logo}
-          alt={name}
-          className="
-            block
-            !w-full
-            !h-full
-            object-contain
-            object-center
-            
-            
-            opacity-100
-            transition-all
-            duration-500
-          "
-        />
-        </div>
+        <ClientLogo src={logo} alt={name} />
       </a>
     );
   })}
