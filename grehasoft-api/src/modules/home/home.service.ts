@@ -53,7 +53,7 @@ export class HomeService {
         await this.applySpacerDelay();
 
         // 4. Clients CPT
-        const clientsData = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/clients?per_page=100');
+        const clientsData = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/clients?per_page=100&orderby=menu_order&order=asc');
         await this.applySpacerDelay();
 
         // 5. Portfolio CPT

@@ -198,7 +198,7 @@ export const getHomeData = cache(async (): Promise<HomeData> => {
     fetchWP<any[]>('/wp-json/wp/v2/pages?slug=home&_fields=acf,about_media,awards_media,pms_media'),
     fetchWP<any[]>('/wp-json/wp/v2/hero-slide'),
     fetchWP<any[]>('/wp-json/wp/v2/ourservices?_embed'),
-    fetchWP<any[]>('/wp-json/wp/v2/clients?per_page=100'),
+    fetchWP<any[]>('/wp-json/wp/v2/clients?per_page=100&orderby=menu_order&order=asc'),
     fetchWP<any[]>('/wp-json/wp/v2/portfolio?_embed'),
     fetchWP<any[]>('/wp-json/wp/v2/portfolio_category'),
     fetchWP<any[]>('/wp-json/wp/v2/contact'),
