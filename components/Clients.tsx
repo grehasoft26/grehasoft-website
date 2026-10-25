@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from '@/lib/axios';
 import { getClients } from '@/lib/backend-api';
 import { motion } from 'motion/react';
@@ -169,6 +169,28 @@ export default function Clients({
 }) {
   const [clients, setClients] = useState<any[]>([]);
   const [visibleCount, setVisibleCount] = useState(GRID_PAGE_SIZE);
+  const gridSentinelRef = useRef<HTMLDivElement>(null);
+  const hasMoreGridClients = variant === 'grid' && visibleCount < clients.length;
+
+  // Reveal the next batch when the sentinel below the grid nears the viewport.
+  // Each observer fires at most once, then a fresh one is attached after the new
+  // batch renders, so a single scroll can't skip batches.
+  useEffect(() => {
+    const sentinel = gridSentinelRef.current;
+    if (!hasMoreGridClients || !sentinel) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        setVisibleCount((count) => Math.min(count + GRID_PAGE_SIZE, clients.length));
+      },
+      { rootMargin: '0px 0px 200px 0px' }
+    );
+    observer.observe(sentinel);
+
+    return () => observer.disconnect();
+  }, [hasMoreGridClients, visibleCount, clients.length]);
 
   useEffect(() => {
     if (initialClients && initialClients.length > 0) {
@@ -256,6 +278,7 @@ export default function Clients({
         </div>
 
         {variant === 'grid' ? (
+          clients.length > 0 && (
           <>
             {/* LOGO GRID */}
             <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
@@ -295,26 +318,20 @@ export default function Clients({
               })}
             </div>
 
-            {visibleCount < clients.length && (
-              <div className="flex justify-center mt-12">
-                <button
-                  type="button"
-                  onClick={() => setVisibleCount((count) => count + GRID_PAGE_SIZE)}
-                  className="group relative px-10 py-5 rounded-full border border-white/10 overflow-hidden hover:border-green-400/50 transition-all duration-500"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-green-400/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-
-                  <div className="relative flex items-center gap-3">
-                    <span className="text-white uppercase tracking-wider font-bold">
-                      View More
-                    </span>
-
-                    <ArrowRight className="w-5 h-5 text-green-400 group-hover:translate-x-2 transition-transform duration-500" />
-                  </div>
-                </button>
+            {hasMoreGridClients && (
+              <div
+                ref={gridSentinelRef}
+                role="status"
+                aria-label="Loading more clients"
+                className="flex justify-center gap-2 mt-10"
+              >
+                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse [animation-delay:150ms]" />
+                <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse [animation-delay:300ms]" />
               </div>
             )}
           </>
+          )
         ) : (
         <>
         {/* LOGO MARQUEE */}
