@@ -52,8 +52,8 @@ export class HomeService {
         const servicesData = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/ourservices?_embed');
         await this.applySpacerDelay();
 
-        // 4. Clients CPT
-        const clientsData = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/clients?per_page=100&orderby=menu_order&order=asc');
+        // 4. Clients CPT (all pages; WordPress caps per_page at 100)
+        const clientsData = await this.wpClient.fetchAllPagesWP<any>('/wp-json/wp/v2/clients?per_page=100&orderby=menu_order&order=asc');
         await this.applySpacerDelay();
 
         // 5. Portfolio CPT

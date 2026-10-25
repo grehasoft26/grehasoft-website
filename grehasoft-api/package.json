@@ -12,7 +12,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "tsc -p tsconfig.spec.json && node --test \".spec-dist/**/*.spec.js\""
   },
   "dependencies": {
     "@nestjs/cli": "^11.0.5",

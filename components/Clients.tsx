@@ -335,7 +335,7 @@ export default function Clients({
         ) : (
         <>
         {/* LOGO MARQUEE */}
-        <div className="relative bg-white border-y border-white/10 py-7 overflow-hidden">
+        <div className="relative bg-white border-y border-white/10 py-2 overflow-hidden">
           {/* Left Fade */}
           <div className="absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#02025c]/40 via-[#02025c]/10 to-transparent" />
 
@@ -363,7 +363,7 @@ export default function Clients({
           items-center
           justify-center
           min-w-[260px]
-          h-[140px]
+          h-[108px]
           shrink-0
         "
       >

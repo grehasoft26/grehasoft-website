@@ -3,6 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { CacheService } from './cache.service';
 import { WordPressDiagnosticSummary, EndpointDiagnosticResult } from './interfaces/wordpress.interfaces';
 
+// Upper bound for fetchAllPagesWP so a bad X-WP-TotalPages header can't trigger unbounded requests.
+const MAX_WP_PAGES = 20;
+
 @Injectable()
 export class WordPressClientService {
   private readonly logger = new Logger(WordPressClientService.name);
@@ -350,6 +353,76 @@ export class WordPressClientService {
     } finally {
       this.releaseSlot();
     }
+  }
+
+  /**
+   * Fetches every page of a paginated WordPress collection (WordPress caps per_page at 100).
+   * - Page 1 is read with headers to learn X-WP-TotalPages
+   * - Remaining pages go through fetchWP sequentially (cache, dedup, retries, queuing)
+   * - Items are returned in page order, de-duplicated by id
+   * - A missing/invalid X-WP-TotalPages keeps page 1 only (logged); any failed page throws
+   * - The combined list is cached and de-duplicated in flight like fetchWP
+   */
+  async fetchAllPagesWP<T = any>(endpoint: string): Promise<T[]> {
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const cacheKey = `all-pages:${this.baseUrl}${cleanEndpoint}`;
+
+    const cachedData = this.cacheService.get<T[]>(cacheKey);
+    if (cachedData !== null) {
+      return cachedData;
+    }
+    if (this.inFlightRequests.has(cacheKey)) {
+      return this.inFlightRequests.get(cacheKey) as Promise<T[]>;
+    }
+
+    const fetchPromise = (async (): Promise<T[]> => {
+      try {
+        const { data: firstPage, headers } = await this.fetchWPWithRawResponse<T[]>(cleanEndpoint);
+        const items: T[] = Array.isArray(firstPage) ? [...firstPage] : [];
+
+        const totalPagesHeader = headers?.get('x-wp-totalpages');
+        let totalPages = Number(totalPagesHeader);
+        if (!Number.isInteger(totalPages) || totalPages < 1) {
+          this.logger.warn(
+            `Missing or invalid X-WP-TotalPages (${totalPagesHeader}) for ${cleanEndpoint}; using the first page only`,
+          );
+          totalPages = 1;
+        }
+        if (totalPages > MAX_WP_PAGES) {
+          this.logger.warn(`X-WP-TotalPages is ${totalPages} for ${cleanEndpoint}; fetching the first ${MAX_WP_PAGES} pages`);
+          totalPages = MAX_WP_PAGES;
+        }
+
+        const separator = cleanEndpoint.includes('?') ? '&' : '?';
+        for (let page = 2; page <= totalPages; page++) {
+          const pageData = await this.fetchWP<T[]>(`${cleanEndpoint}${separator}page=${page}`);
+          if (Array.isArray(pageData)) {
+            items.push(...pageData);
+          }
+        }
+
+        const seenIds = new Set<unknown>();
+        const uniqueItems = items.filter((item: any) => {
+          const id = item?.id;
+          if (id === undefined || id === null) return true;
+          if (seenIds.has(id)) return false;
+          seenIds.add(id);
+          return true;
+        });
+        if (uniqueItems.length !== items.length) {
+          this.logger.warn(`Removed ${items.length - uniqueItems.length} duplicate item(s) across pages of ${cleanEndpoint}`);
+        }
+
+        this.cacheService.set(cacheKey, uniqueItems, this.resolveTtl(cleanEndpoint));
+        this.logger.log(`Fetched ${uniqueItems.length} item(s) across ${totalPages} page(s): ${cleanEndpoint}`);
+        return uniqueItems;
+      } finally {
+        this.inFlightRequests.delete(cacheKey);
+      }
+    })();
+
+    this.inFlightRequests.set(cacheKey, fetchPromise);
+    return fetchPromise;
   }
 
 
