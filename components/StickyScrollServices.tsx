@@ -63,6 +63,9 @@ function ServiceText({ acf }: { acf: any }) {
 
           mb-8
           max-w-2xl
+          line-clamp-4
+          max-lg:[@media(max-height:680px)]:line-clamp-3
+          lg:line-clamp-none
         "
       >
         {acf?.description}
@@ -222,12 +225,12 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
       ) : (
         <>
           {/* Pinned panel, services crossfade with scroll progress.
-              Below lg the text and deck stack, and the deck takes the height left under the text. */}
+              Below lg the deck keeps its 3:2 size and the text takes the height left above it. */}
           <div className="flex sticky top-0 h-svh lg:h-screen items-stretch lg:items-center pt-20 pb-6 lg:py-8 bg-white overflow-hidden">
             <div className="container-custom relative z-10 w-full h-full lg:h-auto">
-              <div className="grid h-full lg:h-auto grid-cols-1 grid-rows-[auto_minmax(0,1fr)] lg:grid-rows-none lg:grid-cols-[5fr_6fr] gap-5 lg:gap-10 xl:gap-12 lg:items-center">
+              <div className="grid h-full lg:h-auto grid-cols-1 grid-rows-[minmax(0,1fr)_auto] lg:grid-rows-none lg:grid-cols-[5fr_6fr] gap-5 lg:gap-10 xl:gap-12 lg:items-center">
                 {/* LEFT: all text blocks share one grid cell so height never jumps */}
-                <div className="relative z-10 grid">
+                <div className="relative z-10 grid min-h-0">
                   {services.map((item, i) => {
                     const isActive = i === activeIndex;
                     return (
@@ -247,15 +250,16 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                   })}
                 </div>
 
-                {/* RIGHT: layered image deck; images stay mounted, avoiding reload flashes */}
-                <div className="relative z-10 grid grid-rows-[minmax(0,1fr)] lg:grid-rows-none w-full max-w-xl lg:max-w-none mx-auto min-h-0 pt-12">
+                {/* RIGHT: layered image deck; images stay mounted, avoiding reload flashes.
+                    On short phones the top edge is clipped so the peeking cards can't cover the CTA. */}
+                <div className="relative z-10 grid grid-rows-[minmax(0,1fr)] lg:grid-rows-none w-full max-w-xl lg:max-w-none mx-auto min-h-0 pt-8 lg:pt-12 max-lg:[@media(max-height:680px)]:pt-0 max-lg:[@media(max-height:680px)]:[clip-path:inset(0_-48px_-48px_-48px)]">
                   {services.map((item, i) => {
                     const depth = i - activeIndex;
                     const layer = getCardLayer(depth);
                     return (
                       <motion.div
                         key={item?.id ?? i}
-                        className="[grid-area:1/1] relative origin-top min-h-0"
+                        className="[grid-area:1/1] relative origin-top min-h-0 pointer-events-none"
                         style={{ zIndex: depth < 0 ? services.length + 1 : services.length - depth }}
                         initial={false}
                         animate={{ opacity: layer.opacity, y: layer.y, scale: layer.scale }}
@@ -269,9 +273,8 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                           className="
                             block
                             w-full
-                            h-full
-                            lg:h-auto
-                            lg:aspect-[3/2]
+                            h-auto
+                            aspect-[3/2]
                             max-h-[62vh]
                             object-cover
                             rounded-[20px]
