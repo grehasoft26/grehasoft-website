@@ -119,7 +119,7 @@ export async function getHome() {
       // Simple direct fallback for home page elements
       const pageDataArray = await fetchFallbackWP<any[]>('/wp-json/wp/v2/pages?slug=home&_fields=acf,about_media,awards_media,pms_media,yoast_head_json');
       const slidesData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/hero-slide');
-      const servicesData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/ourservices?_embed');
+      const servicesData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/ourservices?_embed&per_page=100&orderby=menu_order&order=asc');
       const clientsData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/clients?per_page=100&orderby=menu_order&order=asc');
       const portfolioProjects = await fetchFallbackWP<any[]>('/wp-json/wp/v2/portfolio?_embed');
       const portfolioCategories = await fetchFallbackWP<any[]>('/wp-json/wp/v2/portfolio_category');
@@ -474,7 +474,7 @@ export async function getOurServices(): Promise<any> {
   } catch (error: any) {
     if (ENABLE_FALLBACK) {
       console.warn('[Fallback Active] NestJS getOurServices failed. Falling back to direct WordPress REST...');
-      return await fetchFallbackWP<any>('/wp-json/wp/v2/ourservices?_embed');
+      return await fetchFallbackWP<any>('/wp-json/wp/v2/ourservices?_embed&per_page=100&orderby=menu_order&order=asc');
     }
     console.error('[NestJS Backend Failure] Direct WordPress fallback disabled in production.');
     return null;

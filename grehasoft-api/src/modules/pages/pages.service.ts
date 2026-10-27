@@ -147,7 +147,7 @@ export class PagesService {
 
     const promise = (async () => {
       try {
-        const data = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/ourservices?_embed');
+        const data = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/ourservices?_embed&per_page=100&orderby=menu_order&order=asc');
         if (data) {
           this.cacheService.set(cacheKey, data, 600); // 10 minutes cache
         }
