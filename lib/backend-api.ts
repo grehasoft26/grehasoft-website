@@ -118,7 +118,7 @@ export async function getHome() {
       console.warn('[Fallback Active] NestJS getHome failed. Falling back to direct WordPress REST...');
       // Simple direct fallback for home page elements
       const pageDataArray = await fetchFallbackWP<any[]>('/wp-json/wp/v2/pages?slug=home&_fields=acf,about_media,awards_media,pms_media,yoast_head_json');
-      const slidesData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/hero-slide');
+      const slidesData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/hero-slide?per_page=100&orderby=menu_order&order=asc');
       const servicesData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/ourservices?_embed&per_page=100&orderby=menu_order&order=asc');
       const clientsData = await fetchFallbackWP<any[]>('/wp-json/wp/v2/clients?per_page=100&orderby=menu_order&order=asc');
       const portfolioProjects = await fetchFallbackWP<any[]>('/wp-json/wp/v2/portfolio?_embed');

@@ -45,7 +45,7 @@ export class HomeService {
         await this.applySpacerDelay();
 
         // 2. Hero Slides CPT
-        const slidesData = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/hero-slide');
+        const slidesData = await this.wpClient.fetchWP<any[]>('/wp-json/wp/v2/hero-slide?per_page=100&orderby=menu_order&order=asc');
         await this.applySpacerDelay();
 
         // 3. Our Services CPT
