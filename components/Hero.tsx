@@ -371,7 +371,8 @@ export default function Hero({ slides = [] }: HeroProps) {
         items-start
         lg:items-center
         overflow-hidden
-        bg-dark
+        bg-[#0B1B3A]
+        lg:bg-dark
         pt-16
         lg:pt-0
       "
