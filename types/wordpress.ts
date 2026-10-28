@@ -18,6 +18,7 @@ export interface AboutData {
   feature6?: string;
   image_url?: {
     url: string;
+    sizes?: { large?: string };
   };
   video_url?: string;
   experience?: string;

@@ -187,10 +187,19 @@ interface HeroProps {
   slides?: Slide[];
 }
 
+// slide_thumbnail is an ACF field: a URL string, an image object, or false when unset
+const getPosterUrl = (slide?: Slide): string | undefined => {
+  const thumbnail: any = slide?.thumbnail;
+  if (typeof thumbnail === 'string') return thumbnail || undefined;
+  return thumbnail?.url || undefined;
+};
+
 export default function Hero({ slides = [] }: HeroProps) {
   const [heroSlides, setHeroSlides] = useState<Slide[]>(slides);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  // Index of the slide whose video is visibly playing (or can't play); the slide timer waits for it
+  const [readyIndex, setReadyIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
 
@@ -251,41 +260,51 @@ export default function Hero({ slides = [] }: HeroProps) {
   }, []);
 
   // --------------------------------------------------
-  // Start/restart video whenever slide changes
+  // Start the active video; mark the slide ready once it plays
   // --------------------------------------------------
+  const playVideo = async (video: HTMLVideoElement, index: number) => {
+    video.muted = true;
+    video.playsInline = true;
+
+    try {
+      await video.play();
+      setReadyIndex(index);
+    } catch (error: any) {
+      // Autoplay blocked or format unsupported: show the poster and keep the slider moving.
+      // AbortError only means the element was replaced, so it is ignored.
+      if (error?.name === 'NotAllowedError' || error?.name === 'NotSupportedError') {
+        console.warn('Hero video autoplay failed:', error);
+        setReadyIndex(index);
+      }
+    }
+  };
+
+  const goToSlide = (index: number) => {
+    // The same index keeps its mounted video, so its ready state carries over
+    if (index !== currentIndex) setReadyIndex(null);
+    setCurrentIndex(index);
+    setProgress(0);
+  };
+
+  // Image-only slides have nothing to wait for
+  useEffect(() => {
+    if (heroSlides.length && !heroSlides[currentIndex]?.video) {
+      setReadyIndex(currentIndex);
+    }
+  }, [currentIndex, heroSlides]);
+
+  // The first video is server-rendered and may start before hydration attaches its listeners
   useEffect(() => {
     const video = videoRef.current;
 
     if (!video) return;
 
-    //video.currentTime = 0;
-
-    video.muted = true;
-    video.playsInline = true;
-
-    const playVideo = async () => {
-      try {
-        await video.play();
-      } catch (error) {
-        console.warn('Hero video autoplay failed:', error);
-      }
-    };
-
-    // If video is already ready, play immediately
-    if (video.readyState >= 2) {
-      playVideo();
-      return;
+    if (!video.paused && video.readyState >= 3) {
+      setReadyIndex(0);
+    } else if (video.readyState >= 3) {
+      playVideo(video, 0);
     }
-
-    // Otherwise wait until enough data is available
-    video.addEventListener('canplay', playVideo, {
-      once: true,
-    });
-
-    return () => {
-      video.removeEventListener('canplay', playVideo);
-    };
-  }, [currentIndex]);
+  }, []);
 
   // --------------------------------------------------
   // Slide duration + progress
@@ -294,6 +313,9 @@ export default function Hero({ slides = [] }: HeroProps) {
     if (!heroSlides.length) return;
 
     setProgress(0);
+
+    // Don't count down until the active slide's video can be seen
+    if (readyIndex !== currentIndex) return;
 
     const slideDuration = heroSlides[currentIndex]?.slide_duration;
 
@@ -324,19 +346,14 @@ export default function Hero({ slides = [] }: HeroProps) {
     }, 50);
 
     const slideTimeout = setTimeout(() => {
-      setCurrentIndex(
-        (prev) =>
-          (prev + 1) % heroSlides.length
-      );
-
-      setProgress(0);
+      goToSlide((currentIndex + 1) % heroSlides.length);
     }, duration);
 
     return () => {
       clearInterval(progressInterval);
       clearTimeout(slideTimeout);
     };
-  }, [currentIndex, heroSlides]);
+  }, [currentIndex, heroSlides, readyIndex]);
 
   // --------------------------------------------------
   // Fallback if no slides
@@ -359,6 +376,12 @@ export default function Hero({ slides = [] }: HeroProps) {
   const currentSlide =
     heroSlides[currentIndex];
 
+  const slideIndex = currentIndex;
+  const posterUrl = getPosterUrl(currentSlide);
+
+  // The first poster is what shows while the hero video loads, so fetch it early
+  const firstPosterUrl = getPosterUrl(heroSlides[0]);
+
   return (
     <section
       className="
@@ -377,6 +400,16 @@ export default function Hero({ slides = [] }: HeroProps) {
         lg:pt-0
       "
     >
+      {/* React hoists this into <head> */}
+      {firstPosterUrl && (
+        <link
+          rel="preload"
+          as="image"
+          href={firstPosterUrl}
+          fetchPriority="high"
+        />
+      )}
+
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
@@ -411,12 +444,16 @@ export default function Hero({ slides = [] }: HeroProps) {
                 muted
                 playsInline
                 preload="metadata"
-                poster={currentSlide?.thumbnail}
+                poster={posterUrl}
+                onCanPlay={(e) => playVideo(e.currentTarget, slideIndex)}
+                onPlaying={() => setReadyIndex(slideIndex)}
               className="w-full h-full object-contain lg:object-cover"
               >
+                {/* Load errors fire on <source>, not <video>; skip ahead instead of stalling */}
                 <source
                   src={currentSlide.video}
                   type="video/mp4"
+                  onError={() => setReadyIndex(slideIndex)}
                 />
               </video>
             ) : (
@@ -451,10 +488,7 @@ export default function Hero({ slides = [] }: HeroProps) {
                 bg-white/20
                 cursor-pointer
               "
-              onClick={() => {
-                setCurrentIndex(index);
-                setProgress(0);
-              }}
+              onClick={() => goToSlide(index)}
             >
               {index === currentIndex && (
                 <motion.div

@@ -286,10 +286,15 @@ export default function Portfolio({
           }
         >
           {filteredProjects.map((item, index) => {
-            const image =
+            const media =
               item._embedded?.[
                 "wp:featuredmedia"
-              ]?.[0]?.source_url ||
+              ]?.[0];
+
+            // Cards render well under 1024px wide, so the "large" size is enough
+            const image =
+              media?.media_details?.sizes?.large?.source_url ||
+              media?.source_url ||
               "/images/fallback.jpg";
 
             const acf = item.acf || {};
@@ -324,6 +329,8 @@ export default function Portfolio({
                   <img
                     src={image}
                     alt={item.title.rendered}
+                    loading="lazy"
+                    decoding="async"
                     className="
                       absolute
                       inset-0

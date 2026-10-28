@@ -151,6 +151,8 @@ export default function Awards({
                         `https://picsum.photos/seed/award${index}/400/600`
                       }
                       alt={award.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     />
 
@@ -286,6 +288,8 @@ export default function Awards({
                       `https://picsum.photos/seed/award-featured/1000/700`
                     }
                     alt={awards[0].title}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
 
@@ -400,6 +404,8 @@ export default function Awards({
                           `https://picsum.photos/seed/award${index + 1}/800/600`
                         }
                         alt={award.title}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
 

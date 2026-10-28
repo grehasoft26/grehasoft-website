@@ -155,8 +155,10 @@ export default function About({ data }: AboutProps) {
               {/* IMAGE */}
              {acf.image_url?.url && (
   <img
-    src={acf.image_url.url}
+    src={acf.image_url.sizes?.large || acf.image_url.url}
                   alt="Grehasoft Team"
+                  loading="lazy"
+                  decoding="async"
                   className="
                     w-full h-full object-cover
                     transform group-hover:scale-105

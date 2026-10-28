@@ -61,8 +61,10 @@ export default function Products({ data }: ProductsProps) {
             className="relative"
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[16/10] group">
-             <img src={pms.pms_image_url} 
+             <img src={pms.pms_image_url}
                 alt="Grehasoft PMS"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
 

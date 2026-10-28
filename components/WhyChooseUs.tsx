@@ -157,6 +157,8 @@ export default function WhyChooseUs() {
                 <img
                   src="/images/footprint.png"
                   alt="Grehasoft Global IT Connectivity Network"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover opacity-80 group-hover/photo:opacity-100 group-hover/photo:scale-105 transition-all duration-700"
                   referrerPolicy="no-referrer"
                 />

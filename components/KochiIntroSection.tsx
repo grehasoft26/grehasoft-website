@@ -136,6 +136,8 @@ export default function KochiIntroSection() {
               <img
                 src="/images/IT-company1.webp"
                 alt="Best IT Company in Kochi, Kerala"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />
