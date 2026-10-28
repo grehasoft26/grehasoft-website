@@ -178,7 +178,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { getHome } from '@/lib/backend-api';
 
 import { Slide } from '@/types/wordpress';
@@ -194,16 +194,57 @@ const getPosterUrl = (slide?: Slide): string | undefined => {
   return thumbnail?.url || undefined;
 };
 
+// A detached <video> keeps downloading until its source is cleared, competing with the next slide
+const releaseVideo = (video: HTMLVideoElement) => {
+  video.pause();
+  video.querySelectorAll('source').forEach((source) => source.removeAttribute('src'));
+  video.removeAttribute('src');
+  video.load();
+};
+
 export default function Hero({ slides = [] }: HeroProps) {
   const [heroSlides, setHeroSlides] = useState<Slide[]>(slides);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   // Index of the slide whose video is visibly playing (or can't play); the slide timer waits for it
   const [readyIndex, setReadyIndex] = useState<number | null>(null);
+  // Index of the slide whose video is stalled for data; its countdown is paused meanwhile
+  const [bufferingIndex, setBufferingIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  // Countdown time already used by the current slide, kept across buffering pauses.
+  // visitRef changes on every slide change so a stale timer cleanup can't write into the next slide.
+  const elapsedRef = useRef(0);
+  const visitRef = useRef(0);
+  const currentIndexRef = useRef(currentIndex);
+  currentIndexRef.current = currentIndex;
+
+  // Video events can still arrive from an outgoing or released element; only the active slide counts
+  const markReady = (index: number) => {
+    if (index !== currentIndexRef.current) return;
+    setReadyIndex(index);
+    setBufferingIndex((buffering) => (buffering === index ? null : buffering));
+  };
+
+  const markBuffering = (index: number) => {
+    if (index === currentIndexRef.current) setBufferingIndex(index);
+  };
+
+  // AnimatePresence removes the outgoing video only after its exit fade, so this runs once it's gone.
+  // Strict Mode re-runs ref callbacks without detaching the element, hence the isConnected check.
+  const attachVideo = useCallback((video: HTMLVideoElement | null) => {
+    if (!video) return;
+    videoRef.current = video;
+
+    return () => {
+      if (videoRef.current === video) videoRef.current = null;
+      setTimeout(() => {
+        if (!video.isConnected) releaseVideo(video);
+      });
+    };
+  }, []);
 
   // --------------------------------------------------
   // Sync slides from server props
@@ -268,20 +309,24 @@ export default function Hero({ slides = [] }: HeroProps) {
 
     try {
       await video.play();
-      setReadyIndex(index);
+      markReady(index);
     } catch (error: any) {
       // Autoplay blocked or format unsupported: show the poster and keep the slider moving.
       // AbortError only means the element was replaced, so it is ignored.
       if (error?.name === 'NotAllowedError' || error?.name === 'NotSupportedError') {
         console.warn('Hero video autoplay failed:', error);
-        setReadyIndex(index);
+        markReady(index);
       }
     }
   };
 
   const goToSlide = (index: number) => {
-    // The same index keeps its mounted video, so its ready state carries over
-    if (index !== currentIndex) setReadyIndex(null);
+    // The same index keeps its mounted video and its countdown
+    if (index === currentIndex) return;
+    setReadyIndex(null);
+    setBufferingIndex(null);
+    visitRef.current += 1;
+    elapsedRef.current = 0;
     setCurrentIndex(index);
     setProgress(0);
   };
@@ -312,10 +357,9 @@ export default function Hero({ slides = [] }: HeroProps) {
   useEffect(() => {
     if (!heroSlides.length) return;
 
-    setProgress(0);
-
-    // Don't count down until the active slide's video can be seen
-    if (readyIndex !== currentIndex) return;
+    // Don't count down until the active slide's video can be seen,
+    // and hold the remaining time while it waits for more data
+    if (readyIndex !== currentIndex || bufferingIndex === currentIndex) return;
 
     const slideDuration = heroSlides[currentIndex]?.slide_duration;
 
@@ -332,7 +376,9 @@ export default function Hero({ slides = [] }: HeroProps) {
     const duration =
       (Number(slideDuration) || 11) * 1000;
 
-    const start = Date.now();
+    // Resume from where a buffering pause stopped the countdown
+    const visit = visitRef.current;
+    const start = Date.now() - elapsedRef.current;
 
     const progressInterval = setInterval(() => {
       const elapsed = Date.now() - start;
@@ -347,13 +393,16 @@ export default function Hero({ slides = [] }: HeroProps) {
 
     const slideTimeout = setTimeout(() => {
       goToSlide((currentIndex + 1) % heroSlides.length);
-    }, duration);
+    }, Math.max(duration - elapsedRef.current, 0));
 
     return () => {
       clearInterval(progressInterval);
       clearTimeout(slideTimeout);
+      if (visitRef.current === visit) {
+        elapsedRef.current = Math.min(Date.now() - start, duration);
+      }
     };
-  }, [currentIndex, heroSlides, readyIndex]);
+  }, [currentIndex, heroSlides, readyIndex, bufferingIndex]);
 
   // --------------------------------------------------
   // Fallback if no slides
@@ -438,7 +487,7 @@ export default function Hero({ slides = [] }: HeroProps) {
           >
             {currentSlide?.video ? (
               <video
-                ref={videoRef}
+                ref={attachVideo}
                 key={currentSlide.video}
                 autoPlay
                 muted
@@ -446,14 +495,17 @@ export default function Hero({ slides = [] }: HeroProps) {
                 preload="metadata"
                 poster={posterUrl}
                 onCanPlay={(e) => playVideo(e.currentTarget, slideIndex)}
-                onPlaying={() => setReadyIndex(slideIndex)}
+                onPlaying={() => markReady(slideIndex)}
+                onWaiting={() => markBuffering(slideIndex)}
+                // Mid-playback failures fire here; release the countdown rather than hold it forever
+                onError={() => markReady(slideIndex)}
               className="w-full h-full object-contain lg:object-cover"
               >
                 {/* Load errors fire on <source>, not <video>; skip ahead instead of stalling */}
                 <source
                   src={currentSlide.video}
                   type="video/mp4"
-                  onError={() => setReadyIndex(slideIndex)}
+                  onError={() => markReady(slideIndex)}
                 />
               </video>
             ) : (
