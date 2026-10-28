@@ -17,6 +17,10 @@ type ContentBox = { x: number; y: number; w: number; h: number; aspect: number }
 
 const contentBoxCache = new Map<string, Promise<ContentBox | null>>();
 
+// Same-origin Next.js optimizer URL. Widths must be in the default imageSizes/deviceSizes.
+const optimizedLogoUrl = (src: string, width: 256 | 640) =>
+  `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
+
 // Finds the bounding box of non-transparent, non-white pixels so padding baked into
 // a logo file doesn't shrink it. The image is read through the same-origin Next.js
 // optimizer because the WordPress media host doesn't send CORS headers.
@@ -62,7 +66,7 @@ function measureContentBox(src: string): Promise<ContentBox | null> {
         }
       };
       img.onerror = () => resolve(null);
-      img.src = `/_next/image?url=${encodeURIComponent(src)}&w=256&q=75`;
+      img.src = optimizedLogoUrl(src, 256);
     }));
   }
   return contentBoxCache.get(src)!;
@@ -74,6 +78,8 @@ function ClientLogo({
   boxClassName = 'w-[220px] h-[100px] shrink-0',
   loading,
   fallback,
+  deferred = false,
+  optimize = false,
 }: {
   src: string;
   alt: string;
@@ -82,22 +88,33 @@ function ClientLogo({
   loading?: 'lazy' | 'eager';
   // Shown instead of the image when there is no src or it fails to load.
   fallback?: React.ReactNode;
+  // Render only the empty box: no image request and no measurement yet.
+  deferred?: boolean;
+  // Display the optimizer's resized copy instead of the original upload.
+  optimize?: boolean;
 }) {
   const [box, setBox] = useState<ContentBox | null>(null);
   const [failed, setFailed] = useState(false);
+  // Set once the optimizer copy fails; the original upload is then tried a single time
+  const [useOriginal, setUseOriginal] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     setBox(null);
     setFailed(false);
-    if (!src) return;
+    setUseOriginal(false);
+    if (!src || deferred) return;
     measureContentBox(src).then((result) => {
       if (!cancelled) setBox(result);
     });
     return () => {
       cancelled = true;
     };
-  }, [src]);
+  }, [src, deferred]);
+
+  if (deferred) {
+    return <div className={`relative flex items-center justify-center overflow-hidden ${boxClassName}`} />;
+  }
 
   if (fallback && (!src || failed)) {
     return (
@@ -136,13 +153,27 @@ function ClientLogo({
     };
   }
 
+  const optimized = optimize && !!src && !useOriginal;
+
+  const handleError = () => {
+    // If the optimizer fails, retry with the original upload; a second failure is left as is
+    if (optimized) {
+      setUseOriginal(true);
+    } else if (fallback) {
+      setFailed(true);
+    }
+  };
+
   return (
     <div className={`relative flex items-center justify-center overflow-hidden ${boxClassName}`}>
       <img
-        src={src}
+        // The 256px copy is the one measureContentBox already fetched, so normal displays reuse it
+        src={optimized ? optimizedLogoUrl(src, 256) : src}
+        srcSet={optimized ? `${optimizedLogoUrl(src, 256)} 1x, ${optimizedLogoUrl(src, 640)} 2x` : undefined}
         alt={alt}
         loading={loading}
-        onError={fallback ? () => setFailed(true) : undefined}
+        decoding="async"
+        onError={optimized || fallback ? handleError : undefined}
         style={fit}
         className={`
           block
@@ -171,6 +202,32 @@ export default function Clients({
   const [visibleCount, setVisibleCount] = useState(GRID_PAGE_SIZE);
   const gridSentinelRef = useRef<HTMLDivElement>(null);
   const hasMoreGridClients = variant === 'grid' && visibleCount < clients.length;
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  // The marquee sits far below the hero; its logos wait until it nears the viewport
+  // so they don't compete with the hero video for bandwidth.
+  const [marqueeLogosReady, setMarqueeLogosReady] = useState(false);
+
+  useEffect(() => {
+    const marquee = marqueeRef.current;
+    if (variant !== 'marquee' || marqueeLogosReady || !marquee) return;
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setMarqueeLogosReady(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        setMarqueeLogosReady(true);
+      },
+      { rootMargin: '1200px 0px' }
+    );
+    observer.observe(marquee);
+
+    return () => observer.disconnect();
+  }, [variant, marqueeLogosReady]);
 
   // Reveal the next batch when the sentinel below the grid nears the viewport.
   // Each observer fires at most once, then a fresh one is attached after the new
@@ -335,7 +392,7 @@ export default function Clients({
         ) : (
         <>
         {/* LOGO MARQUEE */}
-        <div className="relative bg-white border-y border-white/10 py-2 overflow-hidden">
+        <div ref={marqueeRef} className="relative bg-white border-y border-white/10 py-2 overflow-hidden">
           {/* Left Fade */}
           <div className="absolute left-0 top-0 z-20 h-full w-32 bg-gradient-to-r from-[#02025c]/40 via-[#02025c]/10 to-transparent" />
 
@@ -413,7 +470,7 @@ export default function Clients({
           "
         />
 
-        <ClientLogo src={logo} alt={name} />
+        <ClientLogo src={logo} alt={name} deferred={!marqueeLogosReady} optimize />
       </a>
     );
   })}
