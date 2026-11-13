@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, ArrowUpRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules';
+import { Navigation, Autoplay, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import { ProjectGalleryItem } from '@/types/wordpress';
 import { commonSwiperConfig } from '@/lib/swiperConfig';
@@ -14,7 +14,6 @@ import { getProjectGallery } from '@/lib/backend-api';
 // Swiper Styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 interface ProjectGalleryProps {
   projects?: ProjectGalleryItem[];
@@ -166,15 +165,11 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
 
           {/* Slider Container */}
           <Swiper
-            modules={[Navigation, Pagination, Autoplay, Keyboard]}
+            modules={[Navigation, Autoplay, Keyboard]}
             {...commonSwiperConfig}
             navigation={{
               prevEl,
               nextEl,
-            }}
-            pagination={{
-              el: '.project-gallery-pagination-dots',
-              clickable: true,
             }}
             onInit={(swiper: SwiperClass) => {
               // Bind custom arrow refs to Swiper navigation safely
@@ -283,9 +278,6 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
           </button>
 
         </div>
-
-        {/* Clickable Pagination Dots below Swiper container */}
-        <div className="project-gallery-pagination-dots flex justify-center items-center gap-1.5 mt-8 [&_.swiper-pagination-bullet]:bg-gray-300 [&_.swiper-pagination-bullet]:opacity-100 [&_.swiper-pagination-bullet-active]:!bg-primary [&_.swiper-pagination-bullet-active]:w-6 [&_.swiper-pagination-bullet]:w-2.5 [&_.swiper-pagination-bullet]:h-2.5 [&_.swiper-pagination-bullet]:mx-1.5 [&_.swiper-pagination-bullet]:transition-all [&_.swiper-pagination-bullet]:duration-300 [&_.swiper-pagination-bullet]:rounded-full [&_.swiper-pagination-bullet]:cursor-pointer" />
       </div>
     </section>
   );
