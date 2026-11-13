@@ -152,10 +152,10 @@ if (!contact.contact_title) return null;
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-primary rounded-[3rem] p-10 text-white shadow-xl flex flex-col justify-center relative overflow-hidden"
+              className="bg-white rounded-[3rem] p-10 text-dark shadow-xl flex flex-col justify-center relative overflow-hidden"
             >
 
-              <div className="absolute -bottom-8 -right-8 opacity-10">
+              <div className="absolute -bottom-8 -right-8 text-primary opacity-10">
 
                 <BottomIcon className="w-40 h-40" />
 
@@ -168,7 +168,7 @@ if (!contact.contact_title) return null;
               )}
 
               {contact?.contact_bottom_card_description && (
-                <p className="text-white/90 text-sm leading-relaxed relative z-10">
+                <p className="text-gray-600 text-sm leading-relaxed relative z-10">
                   {contact.contact_bottom_card_description}
                 </p>
               )}
