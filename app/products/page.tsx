@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import ProductsSection from '@/components/Products';
 import CTA from '@/components/CTA';
@@ -223,9 +224,9 @@ export default async function ProductsPage() {
 
           <div className="h-px bg-white/20 mb-6 w-12" />
 
-          <button className="text-accent font-bold hover:gap-3 transition-all flex items-center gap-2 text-sm uppercase tracking-widest">
+          <Link href="/contact-us" className="text-accent font-bold hover:gap-3 transition-all flex items-center gap-2 text-sm uppercase tracking-widest">
             {software?.cta_button_text}
-          </button>
+          </Link>
 
         </div>
 
