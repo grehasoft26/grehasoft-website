@@ -1,0 +1,497 @@
+{
+  "acf": {
+    "hero": {
+      "title": "Lead Generation Agency in Kochi, Kerala – for Qualified Business Leads",
+      "lead": "Reach relevant prospects and turn interest into business enquiries.",
+      "body": "Grehasoft helps B2B and B2C businesses attract potential customers through targeted campaigns, landing pages and clear enquiry journeys. Based in Kochi, we build lead generation strategies around your audience, target market and sales goals.",
+      "primary_cta": {
+        "label": "Book a Lead Strategy Call",
+        "href": "#enquiry-form"
+      },
+      "secondary_cta": {
+        "label": "Explore Lead Generation Methods",
+        "href": "#solutions"
+      },
+      "phone": {
+        "label": "Contact now",
+        "href": "tel:+918921540183"
+      },
+      "whatsapp": {
+        "label": "Chat on WhatsApp",
+        "href": "https://wa.me/918921540183?text=Hi!%20I%20would%20like%20to%20discuss%20lead%20generation%20for%20my%20business."
+      }
+    },
+    "partner": {
+      "eyebrow": "Your lead generation partner",
+      "title": "Lead Generation Services Built Around Your Sales Goals",
+      "paragraph_1": "As a lead generation agency in Kochi, Kerala, Grehasoft helps businesses attract potential customers, capture relevant enquiries and identify prospects who match their products or services. Our approach considers your business objectives and creates a lead generation strategy with audience-focused planning, identification of relevant digital channels and marketing technology based on your target audience, offer and budget.",
+      "paragraph_2": "Your campaign may focus on local customers in Kochi, buyers across Kerala or a defined international market. We connect audience targeting, campaign messaging and enquiry capture so your sales team receives the information it needs to assess each opportunity.",
+      "card_1": {
+        "icon": "award",
+        "title": "10+ Years of Proven Industry Expertise",
+        "description": "A decade of experience across digital marketing, website development, and software technology services."
+      },
+      "card_2": {
+        "icon": "layers",
+        "title": "Multi-Channel Digital Marketing Capabilities",
+        "description": "SEO, AEO, GEO, GBP, Google Ads, Meta Ads, LinkedIn Ads, Social Media Marketing and Content marketing to aggressively accelerate your customer acquisition."
+      },
+      "card_3": {
+        "icon": "globe",
+        "title": "100+ Happy Clients around the world",
+        "description": "Trusted by businesses worldwide across India, Middle East, Europe, North America, Australia, New Zealand, and the Asia-Pacific."
+      }
+    },
+    "solutions": {
+      "anchor_id": "solutions",
+      "eyebrow": "Our lead generation solutions",
+      "title": "Lead Generation Solutions for B2B and B2C Businesses",
+      "intro": "Choose the support your business needs, from a focused paid campaign to a broader acquisition strategy. We recommend [digital marketing](/digital-marketing) channels and deliverables based on your goals, resources and sales process.",
+      "index_label": "Solutions on this page",
+      "solution_1": {
+        "anchor_id": "inbound-lead-generation",
+        "icon": "search",
+        "title": "Inbound Lead Generation (Organic Search & Content Marketing)",
+        "body": "Attract customers who are searching on Google and AI tools for the products or services you offer. Inbound lead generation brings ready-to-buy visitors to your website through helpful content, strong search rankings, and clear service pages—without relying on paid ads. We connect customer search intent directly to simple inquiry forms, phone calls, and WhatsApp leads, so visitors have a clear path to contact your business. Our organic marketing approach focuses on four proven pillars:",
+        "point_1": {
+          "title": "High-Intent Service Pages",
+          "description": "Website pages that answer customer questions about pricing, process, and benefits."
+        },
+        "point_2": {
+          "title": "Google & AI Search Visibility",
+          "description": "Optimizing your website to rank in Google search results, Featured Snippets, and AI recommendations (ChatGPT, Gemini, Perplexity)."
+        },
+        "point_3": {
+          "title": "Helpful Guides & Resources",
+          "description": "Blogs, FAQs, and case studies to build trust for customers."
+        },
+        "point_4": {
+          "title": "Clear Conversion Paths",
+          "description": "Enquiry forms, click-to-call buttons, and WhatsApp chat options where visitors are ready to take action."
+        },
+        "point_5": {
+          "title": "",
+          "description": ""
+        },
+        "point_6": {
+          "title": "",
+          "description": ""
+        },
+        "follow_up": "Want to bring more leads without paying for online advertising? Explore our [SEO Services](/seo) and AI Search Visibility Services.",
+        "schema_name": "Inbound Lead Generation (Organic Search and Content Marketing)",
+        "schema_description": "Attract potential customers through high-intent service pages, organic search visibility, helpful content, blogs, FAQs and clear enquiry paths."
+      },
+      "solution_2": {
+        "anchor_id": "paid-lead-generation",
+        "icon": "megaphone",
+        "title": "Paid Lead Generation Campaigns",
+        "body": "Get more customer inquiries, phone calls, and WhatsApp messages with targeted online paid campaigns built for measurable sales—not just website clicks. At Grehasoft, we set up, manage, and optimize paid lead generation advertisements on Google Search, Facebook, Instagram and LinkedIn focused on lowering your cost per lead (CPL) and increasing sales. Every campaign is built around six core steps:",
+        "point_1": {
+          "title": "Audience Targeting",
+          "description": "Reaching active buyers on your target market."
+        },
+        "point_2": {
+          "title": "Ad Copy & Offers",
+          "description": "Clear ads and promotional offers that attract genuine customer inquiries."
+        },
+        "point_3": {
+          "title": "High-Converting Landing Pages",
+          "description": "Sending ad traffic to fast, mobile-friendly pages designed to capture leads."
+        },
+        "point_4": {
+          "title": "Conversion Tracking",
+          "description": "Tracking every phone call, form submission, and WhatsApp messages."
+        },
+        "point_5": {
+          "title": "Lead Qualification",
+          "description": "Filtering out spam and low-intent clicks to lower your cost per lead (CPL)."
+        },
+        "point_6": {
+          "title": "ROI Reporting",
+          "description": "Measuring success by real business inquiries and sales pipeline growth rather than vanity impressions."
+        },
+        "follow_up": "Wish to grow your customer inquiries? Explore our [Google Ads services](/search-engine-marketing) and [social media marketing services](/social-media-marketing).",
+        "schema_name": "Paid Lead Generation Campaigns",
+        "schema_description": "Targeted paid advertising campaigns through Google Search, Facebook, Instagram and LinkedIn to generate phone calls, form submissions and customer enquiries."
+      },
+      "solution_3": {
+        "anchor_id": "b2b-lead-generation",
+        "icon": "briefcase",
+        "title": "B2B Lead Generation",
+        "body": "Reach business owners and corporate decision-makers who are looking for a trusted partner. We build targeted B2B lead generation campaigns across Google Search, LinkedIn and other social medias, tailored to your ideal industry, company size, and sales cycle.",
+        "point_1": {
+          "title": "",
+          "description": ""
+        },
+        "point_2": {
+          "title": "",
+          "description": ""
+        },
+        "point_3": {
+          "title": "",
+          "description": ""
+        },
+        "point_4": {
+          "title": "",
+          "description": ""
+        },
+        "point_5": {
+          "title": "",
+          "description": ""
+        },
+        "point_6": {
+          "title": "",
+          "description": ""
+        },
+        "follow_up": "Explore our [LinkedIn marketing services](/linkedin).",
+        "schema_name": "B2B Lead Generation",
+        "schema_description": "Targeted campaigns designed to reach business owners and corporate decision-makers based on industry, company size and sales requirements."
+      },
+      "solution_4": {
+        "anchor_id": "b2c-local-lead-generation",
+        "icon": "map-pin",
+        "title": "B2C and Local Lead Generation",
+        "body": "Reach everyday consumers and local customers who are searching for your products or services. We run targeted B2C and local lead generation campaigns across Google Search, Google Maps, Facebook, and Instagram—designed to drive phone calls, WhatsApp chats, and store visits. We focus on the exact cities and neighborhoods your business serve, and connecting local buyer intent with fast, mobile-friendly ways to contact your team.",
+        "point_1": {
+          "title": "",
+          "description": ""
+        },
+        "point_2": {
+          "title": "",
+          "description": ""
+        },
+        "point_3": {
+          "title": "",
+          "description": ""
+        },
+        "point_4": {
+          "title": "",
+          "description": ""
+        },
+        "point_5": {
+          "title": "",
+          "description": ""
+        },
+        "point_6": {
+          "title": "",
+          "description": ""
+        },
+        "follow_up": "",
+        "schema_name": "B2C and Local Lead Generation",
+        "schema_description": "Local and consumer-focused campaigns using Google Search, Google Maps, Facebook and Instagram to generate enquiries, calls and store visits."
+      },
+      "solution_5": {
+        "anchor_id": "landing-pages-conversion",
+        "icon": "layout",
+        "title": "Landing Pages and Conversion Optimisation",
+        "body": "Convert clicks into real customer inquiries with dedicated, fast-loading website landing pages. Rather than sending ad visitors to a general homepage, we build focused pages with clear offers, simple benefits, mobile-friendly layouts, and short inquiry forms—removing friction between customer interest and action.",
+        "point_1": {
+          "title": "",
+          "description": ""
+        },
+        "point_2": {
+          "title": "",
+          "description": ""
+        },
+        "point_3": {
+          "title": "",
+          "description": ""
+        },
+        "point_4": {
+          "title": "",
+          "description": ""
+        },
+        "point_5": {
+          "title": "",
+          "description": ""
+        },
+        "point_6": {
+          "title": "",
+          "description": ""
+        },
+        "follow_up": "Explore our [Website & Landing Page Design Services](/landing-page-design).",
+        "schema_name": "Landing Pages and Conversion Optimisation",
+        "schema_description": "Mobile-friendly landing pages, focused offers and enquiry forms designed to convert campaign visitors into customer enquiries."
+      },
+      "solution_6": {
+        "anchor_id": "lead-nurturing",
+        "icon": "workflow",
+        "title": "Lead Nurturing and Enquiry Management",
+        "body": "Never lose a potential customer to slow follow-ups or disorganized spreadsheets. We help you capture, track, and nurture incoming leads through CRM integration, instant sales team alerts, lead qualification forms, and automated email or WhatsApp follow-ups. Together with your team, we map out a simple workflow so every enquiry reaches the right person fast.",
+        "point_1": {
+          "title": "",
+          "description": ""
+        },
+        "point_2": {
+          "title": "",
+          "description": ""
+        },
+        "point_3": {
+          "title": "",
+          "description": ""
+        },
+        "point_4": {
+          "title": "",
+          "description": ""
+        },
+        "point_5": {
+          "title": "",
+          "description": ""
+        },
+        "point_6": {
+          "title": "",
+          "description": ""
+        },
+        "follow_up": "",
+        "schema_name": "Lead Nurturing and Enquiry Management",
+        "schema_description": "Lead qualification forms, CRM integration, instant sales team notifications and automated email or WhatsApp follow-ups."
+      },
+      "closing": "Not every business needs every marketing channel. Depending on your budget, target customers, and sales goals, these lead generation methods can be used individually or combined into a complete growth strategy. Grehasoft helps businesses in Kochi, Kerala, and beyond select the most effective channels—focusing on practical campaigns that deliver real inquiries and measurable ROI. [Get in touch with our team to plan your next lead generation campaign.](#enquiry-form)"
+    },
+    "process": {
+      "eyebrow": "Our process",
+      "title": "How Our Lead Generation Process Works",
+      "intro": "We follow a clear 7-step process to plan, launch, and optimize lead generation campaigns that bring consistent customer enquiries.",
+      "step_label": "Step",
+      "step_1": {
+        "title": "Business Discovery",
+        "description": "We review your services, target buyers, sales process, and growth goals to build a tailored campaign plan."
+      },
+      "step_2": {
+        "title": "Audience & Competitor Research",
+        "description": "We analyze customer search habits, buying triggers, and competitor strategies in your market."
+      },
+      "step_3": {
+        "title": "Channel & Offer Planning",
+        "description": "We select the best channels (Google Ads, SEO, Meta, or LinkedIn) and map out a clear path from first click to inquiry."
+      },
+      "step_4": {
+        "title": "Campaign & Landing Page Setup",
+        "description": "We build your ads, fast landing pages, enquiry forms, and call/WhatsApp conversion tracking."
+      },
+      "step_5": {
+        "title": "Lead Capture & Routing",
+        "description": "We configure lead qualification forms and instant alerts so enquiries reach your sales team quickly."
+      },
+      "step_6": {
+        "title": "Performance & CPL Review",
+        "description": "We measure lead volume, lead quality, conversion rates, and cost per lead (CPL) against your business targets."
+      },
+      "step_7": {
+        "title": "Ongoing Optimisation",
+        "description": "We use campaign results and sales team feedback to improve targeting, messaging, and landing page conversions over time."
+      }
+    },
+    "metrics": {
+      "eyebrow": "Lead generation agency",
+      "title": "How We Measure Lead Quality & Campaign ROI",
+      "intro": "We measure success by real business inquiries and sales opportunities. Our reports clearly separate your ad spend from service cost and track six core metrics.",
+      "stage_1": {
+        "stage_id": "visitors",
+        "label": "Visitors",
+        "description": "People who reach your website or landing page"
+      },
+      "stage_2": {
+        "stage_id": "enquiries",
+        "label": "Enquiries",
+        "description": "Calls, forms and WhatsApp messages"
+      },
+      "stage_3": {
+        "stage_id": "qualified",
+        "label": "Qualified leads",
+        "description": "Enquiries that match your target customer profile"
+      },
+      "stage_4": {
+        "stage_id": "opportunities",
+        "label": "Sales opportunities",
+        "description": "Leads your sales team is actively pursuing"
+      },
+      "metric_1": {
+        "title": "Lead Volume",
+        "description": "Total valid calls, forms, and WhatsApp inquiries.",
+        "stage": "enquiries"
+      },
+      "metric_2": {
+        "title": "Qualified Lead Rate",
+        "description": "Percentage of leads that match your target customer profile.",
+        "stage": "qualified"
+      },
+      "metric_3": {
+        "title": "Cost Per Lead (CPL)",
+        "description": "Total ad spend divided by total valid leads captured.",
+        "stage": "enquiries"
+      },
+      "metric_4": {
+        "title": "Cost Per Qualified Lead (CPQL)",
+        "description": "Ad spend divided by sales-qualified leads only.",
+        "stage": "qualified"
+      },
+      "metric_5": {
+        "title": "Enquiry Conversion Rate",
+        "description": "The percentage of website or landing page visitors who send an enquiry.",
+        "stage": "visitors"
+      },
+      "metric_6": {
+        "title": "Lead-to-Opportunity Rate",
+        "description": "Percentage of leads that convert into active sales opportunities.",
+        "stage": "opportunities"
+      }
+    },
+    "why_choose": {
+      "title": "Why Choose Grehasoft as Your Lead Generation Agency in Kerala?",
+      "intro": "Grehasoft brings digital marketing, web design, and lead management solutions together to turn online searches into paying customers.",
+      "point_1": {
+        "icon": "map-pin",
+        "title": "Kochi-Based Local Team",
+        "description": "Deep understanding of businesses and buyers across Kochi, Kerala, and international markets."
+      },
+      "point_2": {
+        "icon": "route",
+        "title": "Complete End-to-End Execution",
+        "description": "Ad campaigns backed by high-converting landing pages, tracking, and lead management."
+      },
+      "point_3": {
+        "icon": "handshake",
+        "title": "Tailored Channel Selection",
+        "description": "Strategies built around your actual budget, audience, and sales workflow."
+      },
+      "point_4": {
+        "icon": "eye",
+        "title": "Transparent Deliverables",
+        "description": "Clear separation of ad spend and service fees with full ownership of your data and leads."
+      }
+    },
+    "overseas": {
+      "title": "Work With a Kochi Based Lead Generation Team From Overseas",
+      "body": "If you run a business in the UAE, GCC, UK, Australia, Canada, or the USA and want a trusted lead generation agency in Kerala, Grehasoft makes cross-border collaboration simple. From our office in Infopark, Kochi, we manage end-to-end Google Ads, SEO, and social media lead generation for international and NRI-owned businesses. Your business location and target audience don't have to match—we run campaigns to your overseas business, or generate local leads in your international market. Before launching, we set clear agreements on time-zone communication, full ad account access, transparent reporting, and instant lead handover.",
+      "commitments_title": "Agreed before launch",
+      "commitments": "Time-zone communication\nFull ad account access\nTransparent reporting\nInstant lead handover"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions About Lead Generation Services",
+      "item_1": {
+        "question": "What does Grehasoft do as a lead generation agency?",
+        "answer": "Grehasoft, as a lead generation agency, helps your business attract potential customers and capture real sales enquiries. We provide lead generation and management using Google Ads, LinkedIn Ads, Meta (Facebook and Instagram) ads, SEO, and high-converting landing pages."
+      },
+      "item_2": {
+        "question": "Does Grehasoft provide lead generation services in Kochi and Kerala?",
+        "answer": "Yes. Grehasoft is based in Infopark, Kochi, and provides custom lead generation services for businesses across Kochi, Ernakulam, Trivandrum, Kozhikode, Thrissur, and all of Kerala. We tailor your campaign channels and local targeting to reach buyers in the exact cities and regions you serve."
+      },
+      "item_3": {
+        "question": "What is a qualified lead?",
+        "answer": "A qualified lead is a genuine customer enquiry that meets your specific sales criteria—such as the right location, budget, project need, and buying timeline. Not every website form submission is a qualified lead, so we use screening questions and call tracking to filter out spam and low-intent enquiries before your sales team follows up."
+      },
+      "item_4": {
+        "question": "Do you support both B2B and B2C lead generation?",
+        "answer": "Yes. For B2B lead generation, we target business owners, founders, and corporate decision-makers. For B2C and local lead generation, we target everyday consumers and families using Google Maps, local SEO, Facebook, and Instagram to drive immediate phone calls, WhatsApp chats, and store visits."
+      },
+      "item_5": {
+        "question": "Which channels should my business use to get more leads?",
+        "answer": "The best channels depend on where your customers search and how fast you want results. Most businesses see the strongest ROI from a combination of Google Search Ads (for high-intent buyers ready to inquire now), Meta Ads (for visual offers and local awareness), and SEO and content (for long-term organic leads), all connected to a fast landing page."
+      },
+      "item_6": {
+        "question": "Is lead generation different from SEO and Google Ads?",
+        "answer": "Yes. Lead generation is the complete system of attracting visitors, capturing their contact details, qualifying their interest, and handing them over to your sales team. SEO and Google Ads are individual traffic channels used inside that system—alongside landing page design, WhatsApp chat integration, and CRM follow-up."
+      },
+      "item_7": {
+        "question": "How much do lead generation services cost in Kerala?",
+        "answer": "The cost of lead generation depends on your target market, industry competition, chosen channels (Google Ads, Meta, or SEO), and whether you need landing page design or CRM setup. At Grehasoft, every proposal clearly separates your monthly ad spend (paid directly to Google or Meta) from our agency management fees, with zero hidden charges."
+      },
+      "item_8": {
+        "question": "How soon can we expect customer enquiries?",
+        "answer": "Paid advertising campaigns on Google Ads, Facebook, and Instagram usually start generating phone calls, form submissions, and WhatsApp leads within 2 to 7 days of launch. SEO and organic content take longer—typically 3 to 6 months—to build top search rankings, though they deliver lower-cost, long-term leads over time."
+      },
+      "item_9": {
+        "question": "Can you guarantee a fixed number of leads or sales?",
+        "answer": "No ethical digital marketing agency can guarantee an exact number of sales, because final conversions depend on market competition, your pricing, offer strength, and how fast your sales team responds to enquiries. Instead, we agree on clear targets for cost per lead (CPL) and lead quality, and continuously optimize your ads and landing pages to improve ROI."
+      },
+      "item_10": {
+        "question": "Who qualifies leads and follows up with prospects?",
+        "answer": "We define lead handover responsibilities with your team before launching any campaign. Grehasoft sets up automated qualification questions, instant email and WhatsApp notifications, and CRM routing so enquiries reach your staff immediately. Unless dedicated inside-sales support is included in your scope, your internal sales team calls and closes the prospects."
+      },
+      "item_11": {
+        "question": "Can overseas businesses work with Grehasoft?",
+        "answer": "Yes. Businesses based in the UAE, GCC, UK, Australia, Canada, and the USA can work with Grehasoft's Kochi team to attract customers in Kerala and India or manage lead generation campaigns targeting buyers in their overseas markets, with time-zone aligned communication and client ownership of advertising accounts."
+      },
+      "item_12": {
+        "question": "How do you measure campaign performance and ROI?",
+        "answer": "We track real business outcomes rather than vanity clicks. Your reports clearly measure Total Lead Volume, Qualified Lead Rate, Cost Per Lead (CPL), Cost Per Qualified Lead (CPQL), Landing Page Conversion Rate, and Lead-to-Opportunity Rate—always separating your advertising budget from service fees."
+      }
+    },
+    "enquiry": {
+      "anchor_id": "enquiry",
+      "form_anchor_id": "enquiry-form",
+      "eyebrow": "Let us discuss your next campaign",
+      "title": "Ready to Get More Qualified Leads for Your Business?",
+      "paragraph_1": "Whether you want to attract local customers in Kochi and Kerala, connect with high-value B2B buyers, or expand into international markets like the UAE, UK, USA, Canada, or Australia, every successful campaign starts with understanding your ideal customer and sales goals.",
+      "paragraph_2": "At Grehasoft, our Infopark Kochi team reviews your current marketing setup and builds a practical, custom lead generation strategy—combining Google Ads, Meta Ads, SEO, and high-converting landing pages to bring consistent customer inquiries, phone calls, and WhatsApp leads.",
+      "primary_cta": {
+        "label": "Get a Free Lead Generation Consultation",
+        "href": "#enquiry-form"
+      },
+      "secondary_cta": {
+        "label": "Explore All Digital Marketing Services",
+        "href": "/digital-marketing"
+      },
+      "form": {
+        "name_label": "Your Name",
+        "company_label": "Company / Business Name",
+        "phone_label": "Phone / WhatsApp Number",
+        "email_label": "Work Email Address",
+        "market": {
+          "label": "Target Location / Market",
+          "placeholder": "Select a market",
+          "options": "Kochi\nKerala\nAll India\nUAE & GCC\nUK, USA, Canada, Australia"
+        },
+        "goal": {
+          "label": "Main Goal",
+          "placeholder": "Select a goal",
+          "options": "More Local Inquiries & Calls\nB2B Corporate Leads\nGoogle & Meta Ads Management\nSEO & Organic Leads\nFull Lead Generation System"
+        },
+        "details_label": "Tell Us Briefly About Your Business & Goals",
+        "optional_label": "Optional",
+        "submit_label": "Send My Requirements",
+        "submitting_label": "Sending your requirements…",
+        "privacy": "We will use the details you provide to respond to your enquiry. Read our [Privacy Policy](/privacy).",
+        "success_message": "Thank you. Your enquiry has been submitted to Grehasoft. Our team will review your requirements and contact you using the details provided.",
+        "error_message": "Your enquiry could not be sent. Check your connection and try again, or contact us on WhatsApp.",
+        "validation": {
+          "name_required": "Enter your name.",
+          "phone_required": "Enter a phone or WhatsApp number.",
+          "phone_invalid": "Enter a phone number with at least 7 digits, including the country code if outside India.",
+          "email_required": "Enter your work email address.",
+          "email_invalid": "Enter an email address in the format name@company.com."
+        },
+        "subject_prefix": "Lead generation enquiry",
+        "source_label": "Lead generation services page"
+      }
+    },
+    "seo": {
+      "title": "Lead Generation Agency in Kochi, Kerala | Grehasoft",
+      "description": "Need a lead generation agency in Kochi? Grehasoft drives qualified leads through SEO, Google Ads & Social Media for businesses across Kerala & beyond. Get a free consultation.",
+      "canonical": "https://grehasoft.com/lead-generation-services",
+      "breadcrumb_label": "Lead Generation Services",
+      "service": {
+        "name": "Lead Generation Services in Kochi, Kerala",
+        "alternate_names": "Lead Generation Agency in Kochi\nLead Generation Company in Kerala\nB2B Lead Generation Services in Kochi",
+        "service_type": "Lead Generation and Digital Customer Acquisition",
+        "description": "Grehasoft helps B2B and B2C businesses attract and qualify customer enquiries through SEO, Google Ads, Meta Ads, audience targeting, landing pages, conversion tracking and lead management.",
+        "area_1": {
+          "type": "City",
+          "name": "Kochi"
+        },
+        "area_2": {
+          "type": "AdministrativeArea",
+          "name": "Kerala"
+        },
+        "area_3": {
+          "type": "Country",
+          "name": "India"
+        },
+        "provider_id": "https://grehasoft.com/#/schema/organization/1",
+        "provider_name": "Grehasoft",
+        "provider_url": "https://grehasoft.com"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+/*
+ * Funnel stage fill. Without scroll-driven animation support, or with reduced
+ * motion, the fill renders in its final state; text never depends on it.
+ *
+ * The fill finishes once the stage has fully entered the viewport, so a stage
+ * that is completely on screen never shows a part-width fill behind its text.
+ */
+.fill {
+  transform-origin: center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fill {
+      animation: funnel-fill linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes funnel-fill {
+  from {
+    opacity: 0;
+    transform: scaleX(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
