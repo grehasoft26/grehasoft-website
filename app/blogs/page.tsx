@@ -266,7 +266,7 @@ technology trends from our team in Kochi"
       {/* TRENDING */}
       <section className="section-padding bg-white">
          <div className="container-custom">
-         <div className="mb-24">
+         <div className="mb-16 md:mb-20">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
               {/* Left Side: Headline & Decorative Graphic */}
               <div className="lg:col-span-5 lg:sticky lg:top-32">
@@ -314,15 +314,13 @@ technology trends from our team in Kochi"
               </div>
 </div>
           </div>
-        </div>
-      </section>
 
-      {/* INSIDER */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom grid md:grid-cols-4 gap-6">
-          {insiderTips.map((tip, i) => (
-            <TipCard key={i} tip={tip} />
-          ))}
+          {/* INSIDER */}
+          <div className="grid md:grid-cols-4 gap-6 pb-2 md:pb-0">
+            {insiderTips.map((tip, i) => (
+              <TipCard key={i} tip={tip} />
+            ))}
+          </div>
         </div>
       </section>
 
