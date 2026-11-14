@@ -3,7 +3,7 @@ import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
 import PortfolioSection from '@/components/Portfolio';
 import ProjectGallery from '@/components/ProjectGallery';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Clients from '@/components/Clients';
 import { getPortfolio, getPortfolioCategories, getProjectGallery, getHome } from '@/lib/backend-api';
 
@@ -39,7 +39,7 @@ export default async function PortfolioPage() {
         <Clients initialClients={homeData.clients || []} variant="grid" />
       </div>
       
-      <CTA data={homeData.cta || null} />
+      <CTABottomSection data={homeData.cta || null} />
       {/* <Footer /> is provided by RootLayout */}
     </main>
   );

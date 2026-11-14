@@ -7,7 +7,7 @@ import About from '@/components/About';
 import Portfolio from '@/components/Portfolio';
 import Products from '@/components/Products';
 import Testimonials from '@/components/Testimonials';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import FAQ from '@/components/FAQ';
@@ -172,15 +172,8 @@ export default async function Home() {
 </div>
      <div className="relative">
   <Testimonials />
-
-  {/* Divider 9: Testimonials → CTA */}
-  <SectionDivider
-    type="diagonal"
-    color="#0753f6"
-    height={30}
-  />
 </div>
-      <CTA data={homeData.cta} />
+      <CTABottomSection data={homeData.cta} />
       <Contact initialData={homeData.contact} />
       {/* <Footer is provided by RootLayout */}
     </main>

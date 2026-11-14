@@ -1,7 +1,7 @@
 'use client';
 
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import { motion } from 'motion/react';
 import Footer from '@/components/Footer';
 
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
     
     </main>
   );

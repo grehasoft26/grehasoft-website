@@ -123,7 +123,7 @@ export default function CTABottomSection({ data }: CTABottomSectionProps) {
         initial="hidden"
         whileInView="shown"
         viewport={{ once: true, amount: 0.35 }}
-        className="relative isolate overflow-hidden bg-[#F3F6FE]"
+        className="relative isolate overflow-hidden border-t border-primary/10 bg-[#F3F6FE]"
       >
         {/* Plan: blueprint grid fading out from the text side */}
         <div

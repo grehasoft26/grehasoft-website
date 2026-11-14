@@ -23,7 +23,7 @@ import {
   Users
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 
 export default function BrandStoryPage() {
   const trustPoints = [
@@ -494,7 +494,7 @@ export default function BrandStoryPage() {
         </div>
       </section>
      
-      <CTA />
+      <CTABottomSection />
     
     </main>
   );

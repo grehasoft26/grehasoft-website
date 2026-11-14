@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import ProductsSection from '@/components/Products';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 
 import {
@@ -45,7 +45,7 @@ export default async function ProductsPage() {
           </div>
         </div>
         {productsData && <ProductsSection data={productsData} />}
-        <CTA />
+        <CTABottomSection />
       
       </main>
     );
@@ -367,7 +367,7 @@ export default async function ProductsPage() {
   </div>
 </section>
 
-      <CTA />
+      <CTABottomSection />
       
 
     </main>

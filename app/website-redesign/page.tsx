@@ -1,7 +1,7 @@
 'use client';
 
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import { RefreshCw, Layout, Smartphone, Palette, Zap, Shield, ArrowRight, CheckCircle2, MessageSquare, Search, BarChart, Users } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
@@ -258,7 +258,7 @@ export default function WebsiteRedesign() {
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
       <Footer/>
     </main>
   );

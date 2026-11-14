@@ -1,6 +1,6 @@
 import PageHeader from '@/components/PageHeader';
 import Awards from '@/components/Awards';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 import { getHome, getPage } from '@/lib/backend-api';
 import { Shield, Zap, Heart, Globe } from 'lucide-react';
@@ -104,7 +104,7 @@ export default async function AwardsPage() {
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
      
     </main>
   );

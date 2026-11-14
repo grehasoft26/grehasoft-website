@@ -5,7 +5,7 @@ import { getPost, getPosts } from '@/lib/backend-api';
 import Link from 'next/link';
 import { Clock, Eye } from 'lucide-react';
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 import { useParams } from 'next/navigation';
 import type { Metadata } from "next";
@@ -278,7 +278,7 @@ const prevCategory =
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
      
 
     </main>

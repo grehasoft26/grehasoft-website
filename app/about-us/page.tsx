@@ -33,7 +33,7 @@ import {
   ThumbsUp, 
   Wrench
 } from 'lucide-react';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 export default function AboutPage() {
   const customServices = [
@@ -726,7 +726,7 @@ export default function AboutPage() {
       </section>
 
      
-       <CTA />
+       <CTABottomSection />
             
            
     </main>

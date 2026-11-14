@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Search, ChevronDown, Check } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
-import CTA from "@/components/CTA";
+import CTABottomSection from "@/components/CTABottomSection";
 import Footer from "@/components/Footer";
 import { use } from "react";
 
@@ -326,7 +326,7 @@ const categorySlug =
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
     
     </main>
   );

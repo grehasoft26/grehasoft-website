@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import { getPage } from '@/lib/backend-api';
 
 const DEFAULT_CAREERS = {
@@ -162,7 +162,7 @@ export default async function CareersPage() {
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
      
     </main>
   );

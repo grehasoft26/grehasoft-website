@@ -1,7 +1,7 @@
 'use client';
 
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { 
@@ -224,7 +224,7 @@ export default function SitemapPage() {
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
       
     </main>
   );

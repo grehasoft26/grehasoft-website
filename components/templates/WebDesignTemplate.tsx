@@ -1,5 +1,5 @@
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 
 import HeroSection from '@/components/service/website_design&development/HeroSection';
@@ -328,7 +328,7 @@ export default function WebDesignTemplate({
         faqs={faqs}
       />
 
-      <CTA />
+      <CTABottomSection />
      
 
     </main>

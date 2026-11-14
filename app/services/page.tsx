@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Link from 'next/link';
 import { 
   Globe, 
@@ -723,7 +723,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
      
     </main>
   );

@@ -4,7 +4,7 @@ import { use, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, CheckCircle2 } from "lucide-react";
-import CTA from "@/components/CTA";
+import CTABottomSection from "@/components/CTABottomSection";
 import PageHeader from "@/components/PageHeader";
 import ConsultationPopup from "@/components/ConsultationPopup";
 import Footer from "@/components/Footer";
@@ -420,7 +420,7 @@ export default function CaseStudyDetail({
 
       </section>
 
-      <CTA />
+      <CTABottomSection />
       <ConsultationPopup />
      
     </main>

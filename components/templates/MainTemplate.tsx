@@ -1,5 +1,5 @@
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 
 import IntroSection from '@/components/service/digital-marketing/IntroSection';
@@ -86,7 +86,7 @@ export default function MainTemplate({
  
        <FAQSection acf={acf} /> 
 
-    <CTA />
+    <CTABottomSection />
      
 
     </main>

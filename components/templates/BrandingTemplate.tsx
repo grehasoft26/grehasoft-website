@@ -1,6 +1,6 @@
 
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 
 import IntroSection from '@/components/service/branding/IntroSection';
@@ -67,7 +67,7 @@ export default function BrandingTemplate({
 
       <FAQSection acf={acf} />
 
-      <CTA />
+      <CTABottomSection />
      
 
     </main>
