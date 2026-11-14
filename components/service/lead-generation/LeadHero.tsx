@@ -7,6 +7,9 @@ interface Props {
   breadcrumbLabel: string;
 }
 
+// Keep an en dash on the same line as the word before it, so it never starts a line.
+const keepDashWithPreviousWord = (text: string) => text.replace(/\s+–/g, '\u00A0–');
+
 export default function LeadHero({ hero, breadcrumbLabel }: Props) {
   return (
     <section className="relative overflow-hidden bg-dark pt-36 pb-20 md:pt-40 md:pb-24">
@@ -36,11 +39,11 @@ export default function LeadHero({ hero, breadcrumbLabel }: Props) {
           </ol>
         </nav>
 
-        <div className="max-w-4xl">
-          <h1 className="mb-6 text-4xl font-bold leading-tight text-white md:text-5xl lg:text-[3.5rem]">
-            {hero.title}
-          </h1>
+        <h1 className="mb-6 text-balance text-4xl font-bold leading-tight text-white md:text-5xl lg:text-[3.5rem]">
+          {keepDashWithPreviousWord(hero.title)}
+        </h1>
 
+        <div className="max-w-4xl">
           <p className="mb-5 text-xl font-medium leading-snug text-white md:text-2xl">{hero.lead}</p>
 
           <p className="mb-10 max-w-3xl text-lg leading-relaxed text-white/70">{hero.body}</p>
