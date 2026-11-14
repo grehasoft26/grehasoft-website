@@ -97,11 +97,16 @@ export default async function Home() {
     height={30}
   />
 </div>
-     
+     <div className="relative">
       <ClientsCarouselSection
-    initialClients={homeData.clients || []}
+    initialClients={homeData.clients || []}/>
+    <SectionDivider
+    type="curve"
+    color="#0753f6"
+    height={30}
   />
-
+  
+</div>
       <StickyScrollServices initialServices={homeData.services || []} />
       
       <div className="relative"> 
