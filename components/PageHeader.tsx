@@ -22,10 +22,9 @@ export default function PageHeader({ title, description, breadcrumb }: PageHeade
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-3xl"
         >
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 mb-6 text-sm font-medium text-white/60">
+          <nav className="flex items-center gap-2 mb-6 max-w-3xl text-sm font-medium text-white/60">
             <Link href="/" className="hover:text-accent transition-colors">Home</Link>
             {breadcrumb.map((item, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -40,10 +39,10 @@ export default function PageHeader({ title, description, breadcrumb }: PageHeade
             ))}
           </nav>
           
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-[3.5rem] font-bold text-white mb-6 leading-tight text-balance">
             {title}
           </h1>
-          <p className="text-xl text-white/70 leading-relaxed">
+          <p className="max-w-3xl text-xl text-white/70 leading-relaxed">
             {description}
           </p>
         </motion.div>
