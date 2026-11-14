@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { getPosts, getCategories } from '@/lib/backend-api';
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Settings, Box, Zap, Cloud } from 'lucide-react';
 
 import PageHeader from '@/components/PageHeader';
@@ -278,32 +279,15 @@ technology trends from our team in Kochi"
                   Stay Ahead of the Curve and Dive Deep into the Must-Read Trending Articles that Keep You Informed and Inspired.
                 </p>
                 
-                {/* Decorative Connectivity Graphic */}
-                <div className="relative w-full aspect-square max-w-[400px] mx-auto opacity-20 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  </div>
-                  {[0, 60, 120, 180, 240, 300].map((deg) => (
-                    <div 
-                      key={deg}
-                      className="absolute top-1/2 left-1/2 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent origin-left"
-                      style={{ transform: `rotate(${deg}deg) translateX(40px)` }}
-                    />
-                  ))}
-                  {[0, 60, 120, 180, 240, 300].map((deg) => (
-                    <div 
-                      key={deg}
-                      className="absolute top-1/2 left-1/2 w-4 h-4 rounded-full border-2 border-primary/20 origin-left"
-                      style={{ transform: `rotate(${deg}deg) translateX(180px) translateY(-8px)` }}
-                    />
-                  ))}
-                </div>
+                {/* Decorative Illustration */}
+                <Image
+                  src="/images/blogs-trending-illustration.webp"
+                  alt=""
+                  width={1254}
+                  height={1254}
+                  sizes="(min-width: 768px) 400px, 320px"
+                  className="w-full max-w-[320px] md:max-w-[400px] h-auto mx-auto object-contain"
+                />
               </div>
 
             {/* Right Side: Vertical List */}
@@ -338,32 +322,34 @@ function ArticleCard({ post, index }: any) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="group transition-all duration-500 hover:-translate-y-2"
+      className="group flex flex-col bg-white rounded-3xl shadow-[0_4px_20px_rgba(5,4,74,0.06)] transition-all duration-500 hover:-translate-y-2"
     >
-      <div className="aspect-[1.4] rounded-3xl overflow-hidden mb-6">
+      <div className="aspect-[1.4] rounded-3xl overflow-hidden">
         <img
           src={post.image}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
       </div>
 
-      <div className="flex justify-between mb-2">
-        <span className="text-primary font-bold text-sm">{post.author}</span>
-        <span className="text-text-gray text-sm">{post.date}</span>
+      <div className="flex flex-col flex-grow p-6">
+        <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 mb-2">
+          <span className="text-primary font-bold text-sm">{post.author}</span>
+          <span className="text-text-gray text-sm whitespace-nowrap">{post.date}</span>
+        </div>
+
+        <h3 className="text-xl font-bold mb-3 group-hover:text-primary">
+          {post.title}
+        </h3>
+
+        <p className="text-text-gray mb-4 line-clamp-3">{post.description}</p>
+
+        <Link
+          href={`/blogs/${post.categorySlug}/${post.slug}`}
+          className="mt-auto text-primary font-bold flex items-center gap-2"
+        >
+          Read More <ArrowRight size={16} />
+        </Link>
       </div>
-
-      <h3 className="text-xl font-bold mb-3 group-hover:text-primary">
-        {post.title}
-      </h3>
-
-      <p className="text-text-gray mb-4 line-clamp-3">{post.description}</p>
-
-     <Link
-  href={`/blogs/${post.categorySlug}/${post.slug}`}
-  className="text-primary font-bold flex items-center gap-2"
->
-  Read More <ArrowRight size={16} />
-</Link>
     </motion.div>
   );
 }
