@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Clients from '@/components/Clients';
+import ClientsCarouselSection from '@/components/ClientsCarouselSection';
 import StickyScrollServices from '@/components/StickyScrollServices';
 import Awards from '@/components/Awards';
 import About from '@/components/About';
@@ -98,7 +98,7 @@ export default async function Home() {
   />
 </div>
      
-      <Clients
+      <ClientsCarouselSection
     initialClients={homeData.clients || []}
   />
 
