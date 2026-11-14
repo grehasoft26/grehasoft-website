@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { ArrowRight, Settings, Box, Zap, Cloud } from 'lucide-react';
 
 import PageHeader from '@/components/PageHeader';
-import CTA from '@/components/CTA';
+import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 
 const DEFAULT_POSTS = [
@@ -308,7 +308,7 @@ technology trends from our team in Kochi"
         </div>
       </section>
 
-      <CTA />
+      <CTABottomSection />
      
     </main>
   );
