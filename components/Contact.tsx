@@ -202,10 +202,10 @@ export default function Contact({ initialData }: { initialData?: any }) {
               {contactInfo.map((item, i) => (
                 <div
                   key={i}
-                  className="flex gap-4 p-4 sm:p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition"
+                  className="flex gap-4 p-4 sm:p-6 bg-white rounded-box-lg border border-gray-100 shadow-sm hover:shadow-md transition"
                 >
                   <div
-                    className={`w-12 h-12 min-w-[48px] flex items-center justify-center rounded-xl ${item.color}`}
+                    className={`w-12 h-12 min-w-[48px] flex items-center justify-center rounded-box-sm ${item.color}`}
                   >
                     <item.icon className="w-5 h-5" />
                   </div>
@@ -224,7 +224,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
             </div>
 
             {/* SUPPORT BOX */}
-            <div className="mt-8 sm:mt-10 bg-blue-600 text-white p-5 sm:p-6 rounded-2xl flex items-start sm:items-center gap-4 shadow-lg">
+            <div className="mt-8 sm:mt-10 bg-blue-600 text-white p-5 sm:p-6 rounded-box-lg flex items-start sm:items-center gap-4 shadow-lg">
               <div className="w-12 h-12 min-w-[48px] rounded-full bg-white/20 flex items-center justify-center">
                 <MessageSquare className="w-6 h-6" />
               </div>
@@ -246,7 +246,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="bg-white p-5 sm:p-8 lg:p-10 rounded-3xl shadow-2xl border border-gray-100"
+            className="bg-white p-5 sm:p-8 lg:p-10 rounded-box-lg shadow-2xl border border-gray-100"
           >
             <h3 className="text-xl sm:text-2xl font-bold text-[#0b0b45] mb-6">
               {data?.form_title || "Send Us a Message"}
@@ -275,7 +275,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className={`w-full px-4 py-3.5 rounded-xl border ${
+                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
                     errors.name ? "border-red-500" : "border-gray-200"
                   } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
@@ -299,7 +299,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
-                  className={`w-full px-4 py-3.5 rounded-xl border ${
+                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
                     errors.email ? "border-red-500" : "border-gray-200"
                   } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
@@ -323,7 +323,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="+91 9876543210"
-                  className={`w-full px-4 py-3.5 rounded-xl border ${
+                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
                     errors.phone ? "border-red-500" : "border-gray-200"
                   } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
@@ -347,7 +347,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
                   value={form.subject}
                   onChange={handleChange}
                   placeholder="Project Inquiry"
-                  className={`w-full px-4 py-3.5 rounded-xl border ${
+                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
                     errors.subject ? "border-red-500" : "border-gray-200"
                   } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
@@ -371,7 +371,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
                   onChange={handleChange}
                   rows={5}
                   placeholder="Tell us about your project..."
-                  className={`w-full px-4 py-3.5 rounded-xl border ${
+                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
                     errors.message ? "border-red-500" : "border-gray-200"
                   } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none`}
                 />

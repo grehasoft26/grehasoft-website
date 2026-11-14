@@ -28,9 +28,9 @@ export default function FaqSection({ faq, cta }: Props) {
           {faq.items.map((item) => (
             <details
               key={item.question}
-              className="group rounded-2xl border border-gray-100 bg-gray-50 transition-colors open:border-primary/20 open:bg-white open:shadow-sm"
+              className="group rounded-box-sm border border-gray-100 bg-gray-50 transition-colors open:border-primary/20 open:bg-white open:shadow-sm"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-box-sm p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
                 <h3 className="text-base font-semibold leading-snug text-dark md:text-lg">
                   {item.question}
                 </h3>

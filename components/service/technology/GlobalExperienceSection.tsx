@@ -82,7 +82,7 @@ export default function GlobalExperienceSection({ acf }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col justify-between"
+              className="p-8 bg-gray-50 rounded-box-lg border border-gray-100 shadow-sm flex flex-col justify-between"
             >
               <div>
                 <span className="text-primary font-mono text-[10px] font-black tracking-widest uppercase block mb-3">

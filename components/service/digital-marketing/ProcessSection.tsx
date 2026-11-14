@@ -225,10 +225,10 @@ if (!processData?.process_title) return null;
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.6 }}
-                  className="group p-8 md:p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 hover:border-accent/40 hover:shadow-[0_20px_50px_-15px_rgba(26,183,40,0.08)] transition-all duration-500 flex flex-col gap-6 items-start h-full"
+                  className="group p-8 md:p-10 rounded-box-lg bg-gray-50 border border-gray-100 hover:border-accent/40 hover:shadow-[0_20px_50px_-15px_rgba(26,183,40,0.08)] transition-all duration-500 flex flex-col gap-6 items-start h-full"
                 >
 
-                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-accent flex-shrink-0 group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
+                  <div className="w-16 h-16 bg-white rounded-box-sm flex items-center justify-center text-accent flex-shrink-0 group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
 
                     <div className="scale-125">
                       <IconComponent className="w-6 h-6" />
@@ -241,7 +241,7 @@ if (!processData?.process_title) return null;
                     {step.phase && (
                       <div className="flex items-center gap-3 mb-2">
 
-                        <span className="text-[10px] font-black uppercase text-accent tracking-widest bg-accent/10 px-2 py-1 rounded">
+                        <span className="text-[10px] font-black uppercase text-accent tracking-widest bg-accent/10 px-2 py-1 rounded-box-xs">
                           {step.phase}
                         </span>
 
@@ -282,10 +282,10 @@ if (!processData?.process_title) return null;
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.6 }}
-                  className="group p-8 md:p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 hover:border-accent/40 hover:shadow-[0_20px_50px_-15px_rgba(26,183,40,0.08)] transition-all duration-500 flex flex-col gap-6 items-start h-full"
+                  className="group p-8 md:p-10 rounded-box-lg bg-gray-50 border border-gray-100 hover:border-accent/40 hover:shadow-[0_20px_50px_-15px_rgba(26,183,40,0.08)] transition-all duration-500 flex flex-col gap-6 items-start h-full"
                 >
 
-                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-accent flex-shrink-0 group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
+                  <div className="w-16 h-16 bg-white rounded-box-sm flex items-center justify-center text-accent flex-shrink-0 group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-sm border border-gray-100">
 
                     <div className="scale-125">
                       <IconComponent className="w-6 h-6" />
@@ -298,7 +298,7 @@ if (!processData?.process_title) return null;
                     {step.phase && (
                       <div className="flex items-center gap-3 mb-2">
 
-                        <span className="text-[10px] font-black uppercase text-accent tracking-widest bg-accent/10 px-2 py-1 rounded">
+                        <span className="text-[10px] font-black uppercase text-accent tracking-widest bg-accent/10 px-2 py-1 rounded-box-xs">
                           {step.phase}
                         </span>
 
@@ -327,7 +327,7 @@ if (!processData?.process_title) return null;
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-[3rem] border border-dashed border-primary/30"
+            className="mt-20 text-center max-w-3xl mx-auto p-10 bg-gray-50 rounded-box-lg border border-dashed border-primary/30"
           >
 
             <p className="text-gray-700 font-medium leading-relaxed italic text-lg">

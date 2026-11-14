@@ -293,7 +293,7 @@ export default function ServicesPage() {
             </p>
 
             {/* Interactive Search Tool */}
-            <div className="relative max-w-2xl mx-auto mb-8 shadow-xl rounded-2xl overflow-hidden bg-white border border-gray-200">
+            <div className="relative max-w-2xl mx-auto mb-8 shadow-xl rounded-box-sm overflow-hidden bg-white border border-gray-200">
               <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
                 <Search className="h-6 h-6 text-gray-400" />
               </div>
@@ -318,7 +318,7 @@ export default function ServicesPage() {
             <div className="flex flex-wrap justify-center gap-3.5 mt-8">
               <button
                 onClick={() => setActiveCategoryTab('all')}
-                className={`px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all border font-mono ${
+                className={`px-5 py-3 rounded-box-sm text-xs font-black uppercase tracking-wider transition-all border font-mono ${
                   activeCategoryTab === 'all' 
                     ? 'bg-dark text-white border-dark shadow-md' 
                     : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100 hover:text-dark'
@@ -330,7 +330,7 @@ export default function ServicesPage() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategoryTab(cat.id)}
-                  className={`px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all border font-mono ${
+                  className={`px-5 py-3 rounded-box-sm text-xs font-black uppercase tracking-wider transition-all border font-mono ${
                     activeCategoryTab === cat.id 
                       ? 'bg-primary text-white border-primary shadow-md animate-pulse-slow' 
                       : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100 hover:text-dark'
@@ -355,13 +355,13 @@ export default function ServicesPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.6 }}
-                    className={`bg-white rounded-[3rem] p-8 md:p-14 border border-gray-100 shadow-xl relative overflow-hidden`}
+                    className={`bg-white rounded-box-lg p-8 md:p-14 border border-gray-100 shadow-xl relative overflow-hidden`}
                   >
                     
                     {/* Category Top Banner */}
                     <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-12 pb-10 border-b border-gray-100">
                       <div className="flex items-center gap-5">
-                        <div className="p-4 rounded-3xl bg-gray-50 shadow-inner flex items-center justify-center flex-shrink-0 border border-gray-100">
+                        <div className="p-4 rounded-box-sm bg-gray-50 shadow-inner flex items-center justify-center flex-shrink-0 border border-gray-100">
                           {category.icon}
                         </div>
                         <div>
@@ -381,7 +381,7 @@ export default function ServicesPage() {
                       {category.items.map((sub, idx) => (
                         <div
                           key={idx}
-                          className="p-8 rounded-[2rem] bg-gray-50/50 border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg"
+                          className="p-8 rounded-box-lg bg-gray-50/50 border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg"
                         >
                           <div className="space-y-4">
                             <span className="w-8 h-8 rounded-full bg-white font-bold text-xs text-primary flex items-center justify-center border border-gray-100 shadow-inner">
@@ -414,7 +414,7 @@ export default function ServicesPage() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-white rounded-3xl p-16 text-center border border-gray-100 shadow-md max-w-xl mx-auto"
+                  className="bg-white rounded-box-lg p-16 text-center border border-gray-100 shadow-md max-w-xl mx-auto"
                 >
                   <Search className="w-16 h-16 text-gray-300 mx-auto mb-4 animate-bounce" />
                   <h4 className="text-xl font-bold text-dark mb-2">No matching services found</h4>
@@ -464,7 +464,7 @@ export default function ServicesPage() {
                 <button
                   key={opt.id}
                   onClick={() => setSelectedQuizGoal(opt.id)}
-                  className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 relative group cursor-pointer ${
+                  className={`w-full text-left p-6 rounded-box-lg border transition-all duration-300 relative group cursor-pointer ${
                     selectedQuizGoal === opt.id 
                       ? 'bg-primary border-primary text-white shadow-xl translate-x-2' 
                       : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/25'
@@ -498,7 +498,7 @@ export default function ServicesPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-white/[0.03] border border-white/10 rounded-[3rem] p-8 md:p-12 h-full flex flex-col justify-between"
+                  className="bg-white/[0.03] border border-white/10 rounded-box-lg p-8 md:p-12 h-full flex flex-col justify-between"
                 >
                   <div className="space-y-6">
                     <div className="flex items-center gap-3 border-b border-white/5 pb-6">
@@ -520,7 +520,7 @@ export default function ServicesPage() {
                           <Link
                             href={service.href}
                             key={sIdx}
-                            className="bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary/20 p-4 rounded-xl flex items-center justify-between group transition-all"
+                            className="bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary/20 p-4 rounded-box-sm flex items-center justify-between group transition-all"
                           >
                             <div>
                               <p className="font-bold text-white text-xs leading-tight">{service.name}</p>
@@ -534,11 +534,11 @@ export default function ServicesPage() {
 
                     {/* Operational metrics details */}
                     <div className="grid grid-cols-2 gap-4 pt-6 mt-6 border-t border-white/5">
-                      <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
+                      <div className="p-4 bg-white/[0.02] border border-white/5 rounded-box-sm">
                         <p className="text-xs text-white/30 font-bold uppercase tracking-widest font-mono mb-1">Target Timeline</p>
                         <p className="font-bold text-accent text-sm font-sans">{activeGoalDetails.timeline}</p>
                       </div>
-                      <div className="p-4 bg-white/[0.02] border border-white/5 rounded-xl">
+                      <div className="p-4 bg-white/[0.02] border border-white/5 rounded-box-sm">
                         <p className="text-xs text-white/30 font-bold uppercase tracking-widest font-mono mb-1">Expected Deliverables</p>
                         <p className="font-bold text-accent text-xs leading-normal font-sans">{activeGoalDetails.metrics}</p>
                       </div>
@@ -551,7 +551,7 @@ export default function ServicesPage() {
                     </p>
                     <Link
                       href="/contact"
-                      className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4.5 rounded-xl shadow-lg transition-all uppercase tracking-wider whitespace-nowrap inline-flex items-center gap-1.5"
+                      className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4.5 rounded-box-sm shadow-lg transition-all uppercase tracking-wider whitespace-nowrap inline-flex items-center gap-1.5"
                     >
                       <span>Inquire This Package</span>
                       <ArrowRight className="w-4 h-4" />
@@ -595,7 +595,7 @@ export default function ServicesPage() {
                   <span className="font-mono text-xs font-black">{step.step}</span>
                 </div>
 
-                <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300 shadow-sm shadow-indigo-500/[0.01]">
+                <div className="bg-gray-50 p-8 rounded-box-lg border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300 shadow-sm shadow-indigo-500/[0.01]">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-accent">{step.icon}</span>
                     <h3 className="font-extrabold text-lg text-dark group-hover:text-primary transition-colors">{step.title}</h3>
@@ -627,9 +627,9 @@ export default function ServicesPage() {
             {targetIndustries.map((ind, i) => (
               <div
                 key={i}
-                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center text-center gap-4 hover:border-primary/30 hover:shadow-md transition-all group"
+                className="bg-white p-8 rounded-box-lg border border-gray-100 shadow-sm flex flex-col items-center text-center gap-4 hover:border-primary/30 hover:shadow-md transition-all group"
               >
-                <div className="p-4 bg-gray-50 rounded-2xl group-hover:scale-110 transition-transform">
+                <div className="p-4 bg-gray-50 rounded-box-sm group-hover:scale-110 transition-transform">
                   {ind.icon}
                 </div>
                 <h4 className="font-extrabold text-dark text-xs sm:text-sm leading-tight leading-normal">
@@ -654,7 +654,7 @@ export default function ServicesPage() {
                 Get answers regarding platform staging, support packages, SEO timelines, and visual asset delivery workflows.
               </p>
               
-              <div className="p-8 bg-primary rounded-3xl text-white shadow-xl">
+              <div className="p-8 bg-primary rounded-box-lg text-white shadow-xl">
                 <span className="text-[10px] uppercase font-bold tracking-widest opacity-60 block mb-3 font-mono">Consultant Tip</span>
                 <p className="text-base italic leading-relaxed font-normal">
                   "Establishing custom design systems inside Figma prior to developers typing any code saves over 50% in development loop delays."
@@ -687,7 +687,7 @@ export default function ServicesPage() {
               ].map((faq, idx) => {
                 const isOpen = expandedFaq === idx;
                 return (
-                  <div key={idx} className="border border-gray-100 rounded-2xl bg-gray-50/50 overflow-hidden shadow-sm">
+                  <div key={idx} className="border border-gray-100 rounded-box-lg bg-gray-50/50 overflow-hidden shadow-sm">
                     <button
                       onClick={() => setExpandedFaq(isOpen ? null : idx)}
                       className="w-full text-left py-5 px-6 md:px-8 flex items-center justify-between gap-4 font-bold text-dark text-base"

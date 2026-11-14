@@ -194,7 +194,7 @@ if (!industry?.industry_title) return null;
               <motion.div
                 key={i}
                 whileHover={{ y: -5 }}
-                className="flex items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-primary/30 transition-all group"
+                className="flex items-center gap-4 bg-white p-6 rounded-box-lg border border-gray-100 shadow-sm hover:border-primary/30 transition-all group"
               >
 
                 <div className="text-primary group-hover:scale-110 transition-transform flex-shrink-0">

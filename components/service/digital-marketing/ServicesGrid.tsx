@@ -270,10 +270,10 @@ if (!data?.services_section_title) return null;
               <motion.div
                 key={i}
                 whileHover={{ y: -10 }}
-                className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 group transition-all"
+                className="bg-gray-50 p-10 rounded-box-lg border border-gray-100 group transition-all"
               >
 
-                <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center text-primary mb-8 shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
+                <div className="w-20 h-20 bg-white rounded-box-sm flex items-center justify-center text-primary mb-8 shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
 
                   {IconComponent && (
                     <IconComponent className="w-10 h-10" />

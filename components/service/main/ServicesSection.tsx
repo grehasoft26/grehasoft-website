@@ -204,11 +204,11 @@ export default function ServicesSection({ acf }: Props) {
                 transition={{
                   delay: index * 0.1,
                 }}
-                className="p-8 bg-white rounded-3xl border border-gray-100 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between"
+                className="p-8 bg-white rounded-box-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 group flex flex-col justify-between"
               >
                 <div>
 
-                  <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                  <div className="w-14 h-14 bg-primary/10 rounded-box-sm flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500">
                     <Icon className="w-7 h-7" />
                   </div>
 

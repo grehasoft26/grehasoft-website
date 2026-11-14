@@ -142,7 +142,7 @@ export default function SeoCaseStudiesSection({ acf }: Props) {
                 <div className="group flex flex-col justify-between w-full h-full">
                   <div>
                     {cs.image && (
-                      <div className="aspect-[4/4] rounded-[1.0rem] overflow-hidden mb-6 bg-gray-50 border border-gray-100 relative">
+                      <div className="aspect-[4/4] rounded-box-lg overflow-hidden mb-6 bg-gray-50 border border-gray-100 relative">
                         <img
                           src={cs.image}
                           alt={cs.title}

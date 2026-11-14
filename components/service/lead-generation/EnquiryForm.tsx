@@ -34,7 +34,7 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const REQUIRED_ORDER: RequiredField[] = ['name', 'phone', 'email'];
 
 const INPUT_CLASS =
-  'block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-dark placeholder:text-gray-400 transition-colors focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 aria-[invalid=true]:border-red-500';
+  'block w-full rounded-box-sm border border-gray-200 bg-white px-4 py-3 text-base text-dark placeholder:text-gray-400 transition-colors focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 aria-[invalid=true]:border-red-500';
 const LABEL_CLASS = 'mb-2 block self-end text-sm font-semibold text-dark';
 // Each paired field is a 3-row subgrid (label, control, error) sharing row tracks with
 // its neighbour, so controls line up even when one label wraps onto two lines.
@@ -302,7 +302,7 @@ export default function EnquiryForm({ content }: Props) {
       </div>
 
       {status === 'error' ? (
-        <p role="alert" className="rounded-xl bg-red-50 p-4 text-sm text-red-700">
+        <p role="alert" className="rounded-box-sm bg-red-50 p-4 text-sm text-red-700">
           {content.errorMessage}
         </p>
       ) : null}

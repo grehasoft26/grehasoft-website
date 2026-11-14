@@ -102,7 +102,7 @@ if (!localData?.local_title) return null;
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-[3rem] p-10 md:p-16 border border-gray-100 shadow-xl"
+            className="bg-white rounded-box-lg p-10 md:p-16 border border-gray-100 shadow-xl"
           >
 
             {localData?.local_right_title

@@ -31,7 +31,7 @@ export default function ProcessSection({ process }: Props) {
                 )}
                 <span
                   aria-hidden="true"
-                  className="absolute top-0 left-0 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-lg font-black text-white"
+                  className="absolute top-0 left-0 flex h-14 w-14 items-center justify-center rounded-box-sm bg-primary text-lg font-black text-white"
                 >
                   {String(number).padStart(2, '0')}
                 </span>

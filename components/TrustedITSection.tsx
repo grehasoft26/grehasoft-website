@@ -56,7 +56,7 @@ export default function TrustedITSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-          className="lg:col-span-6 flex flex-col bg-white rounded-[2.5rem] p-8 lg:p-10 xl:p-12 border border-gray-100 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] h-full"
+          className="lg:col-span-6 flex flex-col bg-white rounded-box-lg p-8 lg:p-10 xl:p-12 border border-gray-100 shadow-[0_15px_40px_-20px_rgba(5,4,74,0.06)] h-full"
           >
             <div>
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4">
@@ -116,7 +116,7 @@ flex
 flex-col
 bg-dark
 text-white
-rounded-[2.5rem]
+rounded-box-lg
 p-8
 lg:p-10
 xl:p-12
@@ -152,7 +152,7 @@ h-full
                 </h4>
             <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4">
                   {approachItems.map((item, index) => (
-                    <div key={index} className="flex gap-3 bg-white/5 border border-white/5 hover:border-white/10 p-4 rounded-2xl transition-all duration-300">
+                    <div key={index} className="flex gap-3 bg-white/5 border border-white/5 hover:border-white/10 p-4 rounded-box-sm transition-all duration-300">
                       <div className="p-1 rounded-lg bg-accent/15 h-fit text-accent">
                         {item.icon}
                       </div>

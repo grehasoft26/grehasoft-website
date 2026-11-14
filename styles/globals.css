@@ -16,6 +16,11 @@
   
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
+
+  /* Content box radius standard: large 18px, small 12px, tiny 8px. */
+  --radius-box-lg: 18px;
+  --radius-box-sm: 12px;
+  --radius-box-xs: 8px;
 }
 
 @layer base {

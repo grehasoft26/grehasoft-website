@@ -91,7 +91,7 @@ if (!faq?.faq_title) return null;
             )}
 
             {/* TIP BOX */}
-            <div className="p-8 bg-primary rounded-3xl text-white">
+            <div className="p-8 bg-primary rounded-box-lg text-white">
 
               {faq?.faq_tip_tag && (
                 <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">
@@ -116,7 +116,7 @@ if (!faq?.faq_title) return null;
 
               <details
                 key={i}
-                className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm"
+                className="group bg-white rounded-box-sm border border-gray-100 overflow-hidden shadow-sm"
               >
 
                 <summary className="p-6 flex items-center justify-between cursor-pointer list-none font-bold text-dark hover:text-primary transition-colors">

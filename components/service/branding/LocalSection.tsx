@@ -82,7 +82,7 @@ export default function LocalSection({ acf }: Props) {
 
                 <div
                   key={i}
-                  className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm"
+                  className="bg-white p-5 rounded-box-lg border border-gray-100 shadow-sm"
                 >
 
                   <div className="flex items-center gap-2 mb-2">
@@ -118,7 +118,7 @@ export default function LocalSection({ acf }: Props) {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white rounded-[3rem] p-10 md:p-16 border border-gray-100 shadow-xl"
+            className="bg-white rounded-box-lg p-10 md:p-16 border border-gray-100 shadow-xl"
           >
 
             {localData?.strategy_tag && (

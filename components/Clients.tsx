@@ -338,7 +338,7 @@ export default function Clients({
           clients.length > 0 && (
           <>
             {/* LOGO GRID */}
-            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+            <div className="bg-white rounded-box-lg p-4 sm:p-6 lg:p-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
               {clients.slice(0, visibleCount).map((client, index) => {
                 const url = client.acf?.website_url;
                 const logo = (
@@ -355,7 +355,7 @@ export default function Clients({
                     }
                   />
                 );
-                const cellClassName = 'flex items-center justify-center p-2 sm:p-3 rounded-xl transition-colors duration-300';
+                const cellClassName = 'flex items-center justify-center p-2 sm:p-3 rounded-box-sm transition-colors duration-300';
 
                 return url ? (
                   <a
@@ -464,7 +464,7 @@ export default function Clients({
             to-accent/0
             group-hover:from-primary/5
             group-hover:to-accent/5
-            rounded-xl
+            rounded-box-sm
             transition-all
             duration-500
           "

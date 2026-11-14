@@ -128,7 +128,7 @@ export default function ConsultationPopup() {
                     id="nda"
                     checked={form.nda}
                     onChange={handleChange}
-                    className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                    className="w-4 h-4 text-primary border-gray-300 rounded-box-xs focus:ring-primary"
                   />
                   <label htmlFor="nda" className="text-sm text-gray-600 cursor-pointer">
                     Include Copy of a Non-Disclosure Agreement
@@ -139,7 +139,7 @@ export default function ConsultationPopup() {
                 <div className="mt-auto pt-8">
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-[2rem] border-2 border-dark text-dark font-bold hover:bg-dark hover:text-white transition-all duration-300"
+                    className="w-full py-4 rounded-box-sm border-2 border-dark text-dark font-bold hover:bg-dark hover:text-white transition-all duration-300"
                   >
                     Request Proposal
                   </button>

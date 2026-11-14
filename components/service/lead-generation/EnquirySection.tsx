@@ -15,7 +15,7 @@ export default function EnquirySection({ enquiry }: Props) {
       className="section-padding scroll-mt-20 bg-gray-50"
     >
       <div className="container-custom">
-        <div className="relative grid gap-10 overflow-hidden rounded-[2.5rem] bg-dark p-4 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:rounded-[3rem] lg:p-14">
+        <div className="relative grid gap-10 overflow-hidden rounded-box-lg bg-dark p-4 sm:p-10 lg:grid-cols-2 lg:gap-14 lg:p-14">
           <div
             aria-hidden="true"
             className="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-primary/25 blur-3xl"
@@ -50,7 +50,7 @@ export default function EnquirySection({ enquiry }: Props) {
 
           <div
             id={enquiry.formId}
-            className="relative scroll-mt-28 rounded-[2rem] bg-white p-5 sm:p-8"
+            className="relative scroll-mt-28 rounded-box-lg bg-white p-5 sm:p-8"
           >
             <EnquiryForm content={enquiry.form} />
           </div>

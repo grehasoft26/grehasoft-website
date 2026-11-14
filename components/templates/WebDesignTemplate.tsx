@@ -249,7 +249,7 @@ export default function WebDesignTemplate({
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-              <div className="bg-dark rounded-[3rem] p-10 md:p-16 text-white">
+              <div className="bg-dark rounded-box-lg p-10 md:p-16 text-white">
 
                 <h2 className="text-3xl md:text-4xl font-black text-white mb-8 leading-tight">
                   {acf.planning_title}

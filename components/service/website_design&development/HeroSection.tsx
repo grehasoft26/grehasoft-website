@@ -81,7 +81,7 @@ export default function HeroSection({
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                   whileHover={{ y: -4 }}
-                  className="bg-primary/5 px-6 py-4 rounded-2xl border border-primary/10 transition-all duration-500 hover:shadow-lg"
+                  className="bg-primary/5 px-6 py-4 rounded-box-lg border border-primary/10 transition-all duration-500 hover:shadow-lg"
                 >
 
                   <p className="text-primary font-black text-2xl">
@@ -102,7 +102,7 @@ export default function HeroSection({
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
                   whileHover={{ y: -4 }}
-                  className="bg-accent/5 px-6 py-4 rounded-2xl border border-accent/10 transition-all duration-500 hover:shadow-lg"
+                  className="bg-accent/5 px-6 py-4 rounded-box-lg border border-accent/10 transition-all duration-500 hover:shadow-lg"
                 >
 
                   <p className="text-accent font-black text-2xl">
@@ -133,7 +133,7 @@ export default function HeroSection({
             <motion.div
               whileHover={{ rotate: 0, scale: 1.02 }}
               transition={{ duration: 0.5 }}
-              className="aspect-[4/5] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl"
+              className="aspect-[4/5] bg-gray-100 rounded-box-lg overflow-hidden rotate-2 shadow-2xl"
             >
 
               <img
@@ -151,7 +151,7 @@ export default function HeroSection({
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
               whileHover={{ y: -5 }}
-              className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-xl border border-gray-100 hidden md:block transition-all duration-500"
+              className="absolute -bottom-10 -left-10 bg-white p-8 rounded-box-lg shadow-xl border border-gray-100 hidden md:block transition-all duration-500"
             >
 
               <div className="flex items-center gap-4">

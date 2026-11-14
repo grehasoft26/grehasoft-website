@@ -276,11 +276,11 @@ export default function ServicesGrid({ acf }: Props) {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08 }}
                 whileHover={{ y: -10 }}
-                className="group relative bg-gray-50 rounded-[2.5rem] p-10 border border-gray-100 hover:border-primary/20 hover:shadow-[0_25px_60px_-15px_rgba(7,83,246,0.12)] transition-all duration-500"
+                className="group relative bg-gray-50 rounded-box-lg p-10 border border-gray-100 hover:border-primary/20 hover:shadow-[0_25px_60px_-15px_rgba(7,83,246,0.12)] transition-all duration-500"
               >
 
                 {/* ICON */}
-                <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center text-primary shadow-sm border border-gray-100 mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                <div className="w-20 h-20 bg-white rounded-box-sm flex items-center justify-center text-primary shadow-sm border border-gray-100 mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-500">
 
                   <IconComponent className="w-10 h-10" />
 

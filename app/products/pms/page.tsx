@@ -126,10 +126,10 @@ export default function PMSPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 py-4 px-8 rounded-xl font-bold transition-all shadow-md hover:shadow-lg">
+                <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 py-4 px-8 rounded-box-sm font-bold transition-all shadow-md hover:shadow-lg">
                   Schedule demo <ArrowRight className="w-5 h-5" />
                 </Link>
-                <a href="#features" className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-dark font-bold py-4 px-8 rounded-xl transition-all">
+                <a href="#features" className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-dark font-bold py-4 px-8 rounded-box-sm transition-all">
                   Explore Features
                 </a>
               </div>
@@ -142,7 +142,7 @@ export default function PMSPage() {
               transition={{ duration: 0.7 }}
               className="lg:col-span-5 relative"
             >
-              <div className="relative aspect-[4/3]  rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
+              <div className="relative aspect-[4/3]  rounded-box-lg overflow-hidden shadow-2xl border border-gray-100">
                 <Image
                   src="/images/pms7.png"
                   alt="Grehasoft PMS Smart Team Board"
@@ -152,8 +152,8 @@ export default function PMSPage() {
                 />
               </div>
               {/* Floating Stat element for design craft */}
-              <div className="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl flex items-center gap-4 border border-gray-50 max-w-xs md:max-w-sm">
-                <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center text-white font-extrabold shadow-md">
+              <div className="absolute -bottom-6 -left-6 bg-white p-5 rounded-box-lg shadow-xl flex items-center gap-4 border border-gray-50 max-w-xs md:max-w-sm">
+                <div className="w-12 h-12 bg-emerald-500 rounded-box-sm flex items-center justify-center text-white font-extrabold shadow-md">
                   <Activity className="w-6 h-6 animate-pulse" />
                 </div>
                 <div>
@@ -191,7 +191,7 @@ export default function PMSPage() {
                   className="bg-white p-8 rounded-2.5xl shadow-sm border border-gray-100 ring-1 ring-gray-900/5 hover:-translate-y-1.5 hover:shadow-xl hover:border-transparent transition-all duration-300 group flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-inner">
+                    <div className="w-14 h-14 rounded-box-sm bg-primary/5 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-inner">
                       <IconComponent className="w-6 h-6" />
                     </div>
                     <h3 className="text-lg font-bold text-dark mb-3 group-hover:text-primary transition-colors">
@@ -219,7 +219,7 @@ export default function PMSPage() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-5"
             >
-             <div className="relative h-[650px] w-full rounded-3xl overflow-hidden shadow-xl">
+             <div className="relative h-[650px] w-full rounded-box-lg overflow-hidden shadow-xl">
                 <Image
                   src="/images/pms5.png"
                   alt="Modern workplace productivity"
@@ -252,7 +252,7 @@ export default function PMSPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.05 }}
-                    className="flex items-start gap-3 bg-gray-50/50 p-4 rounded-xl border border-gray-100 hover:bg-gray-50 hover:border-gray-200 transition-all"
+                    className="flex items-start gap-3 bg-gray-50/50 p-4 rounded-box-sm border border-gray-100 hover:bg-gray-50 hover:border-gray-200 transition-all"
                   >
                     <div className="w-6 h-6 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Check className="w-3.5 h-3.5 font-bold" />
@@ -275,7 +275,7 @@ export default function PMSPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative rounded-3xl bg-dark p-8 md:p-14 lg:p-16 overflow-hidden shadow-2xl border border-white/10"
+            className="relative rounded-box-lg bg-dark p-8 md:p-14 lg:p-16 overflow-hidden shadow-2xl border border-white/10"
           >
             {/* Ambient Background Glows using brand colors */}
             <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-primary/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
@@ -291,7 +291,7 @@ export default function PMSPage() {
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 shadow-xl backdrop-blur-md relative"
+                  className="bg-white/[0.03] border border-white/10 rounded-box-lg p-6 shadow-xl backdrop-blur-md relative"
                 >
                   {/* Top Panel Actions */}
                   <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-4">
@@ -307,7 +307,7 @@ export default function PMSPage() {
                   {/* Operational Stats list */}
                   <div className="space-y-3.5">
                     {/* Stat Item 1 */}
-                    <div className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-xl">
+                    <div className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-box-sm">
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                           <Users className="w-4.5 h-4.5" />
@@ -321,7 +321,7 @@ export default function PMSPage() {
                     </div>
 
                     {/* Stat Item 2 */}
-                    <div className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-xl">
+                    <div className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-box-sm">
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
                           <Activity className="w-4.5 h-4.5" />
@@ -335,7 +335,7 @@ export default function PMSPage() {
                     </div>
 
                     {/* Stat Item 3 */}
-                    <div className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-xl">
+                    <div className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5 rounded-box-sm">
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                           <Layers className="w-4.5 h-4.5" />
@@ -350,7 +350,7 @@ export default function PMSPage() {
                   </div>
 
                   {/* Small floating activity radar snippet */}
-                  <div className="absolute -bottom-4 -right-4 bg-dark border border-white/10 p-3 rounded-xl shadow-lg flex items-center gap-2 font-mono text-[10px] text-slate-300">
+                  <div className="absolute -bottom-4 -right-4 bg-dark border border-white/10 p-3 rounded-box-sm shadow-lg flex items-center gap-2 font-mono text-[10px] text-slate-300">
                     <Clock className="w-3.5 h-3.5 text-accent animate-spin" style={{ animationDuration: '4s' }} />
                     <span>Real-time Syncing Now</span>
                   </div>
@@ -416,9 +416,9 @@ export default function PMSPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-all duration-300"
+                  className="bg-white p-6 rounded-box-lg shadow-sm border border-gray-100 flex items-center gap-4 hover:shadow-md transition-all duration-300"
                 >
-                  <div className={`w-12 h-12 rounded-xl ${useCase.color} flex items-center justify-center flex-shrink-0`}>
+                  <div className={`w-12 h-12 rounded-box-sm ${useCase.color} flex items-center justify-center flex-shrink-0`}>
                     <IconComponent className="w-5.5 h-5.5" />
                   </div>
                   <span className="font-bold text-dark text-sm tracking-tight leading-snug">

@@ -196,7 +196,7 @@ export default function WhyBrandingSection({ acf }: Props) {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-white/5 border-l-4 border-primary p-8 rounded-r-[3rem] mb-12 shadow-2xl backdrop-blur-sm"
+                className="bg-white/5 border-l-4 border-primary p-8 rounded-r-box-lg mb-12 shadow-2xl backdrop-blur-sm"
               >
 
                 <p className="text-white/90 text-lg md:text-xl font-medium italic leading-relaxed">
@@ -223,10 +223,10 @@ export default function WhyBrandingSection({ acf }: Props) {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="bg-white/5 border border-white/10 p-6 rounded-[2rem] flex flex-col gap-5 hover:bg-white/10 hover:border-primary/30 transition-all group animate-[fadeIn_0.5s_ease-out]"
+                    className="bg-white/5 border border-white/10 p-6 rounded-box-lg flex flex-col gap-5 hover:bg-white/10 hover:border-primary/30 transition-all group animate-[fadeIn_0.5s_ease-out]"
                   >
 
-                  <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary transition-all duration-300">
+                  <div className="w-12 h-12 bg-primary/10 rounded-box-sm flex items-center justify-center text-primary group-hover:bg-white group-hover:text-primary transition-all duration-300">
 
                       <IconComponent className="w-5 h-5" />
 

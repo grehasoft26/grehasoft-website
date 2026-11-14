@@ -124,7 +124,7 @@ return ( <section
         <motion.div
           key={i}
           whileHover={{ y: -10 }}
-          className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 flex flex-col justify-between hover:border-primary/30 hover:bg-white hover:shadow-xl transition-all duration-300"
+          className="bg-gray-50 p-10 rounded-box-lg border border-gray-100 flex flex-col justify-between hover:border-primary/30 hover:bg-white hover:shadow-xl transition-all duration-300"
         >
           <div className="space-y-6">
 
@@ -181,7 +181,7 @@ return ( <section
 
             <Link
               href={pkg.buttonUrl || '/contact'}
-              className="btn-primary w-full text-center text-xs py-3.5 block rounded-xl"
+              className="btn-primary w-full text-center text-xs py-3.5 block rounded-box-sm"
             >
               {pkg.buttonText ||
                 'Select Plan'}

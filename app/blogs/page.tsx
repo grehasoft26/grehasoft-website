@@ -213,7 +213,7 @@ technology trends from our team in Kochi"
 
             <img
               src={featuredPost._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png"}
-              className="rounded-2xl"
+              className="rounded-box-lg"
             />
 
             <div>
@@ -322,9 +322,9 @@ function ArticleCard({ post, index }: any) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="group flex flex-col bg-white rounded-3xl shadow-[0_4px_20px_rgba(5,4,74,0.06)] transition-all duration-500 hover:-translate-y-2"
+      className="group flex flex-col bg-white rounded-box-lg shadow-[0_4px_20px_rgba(5,4,74,0.06)] transition-all duration-500 hover:-translate-y-2"
     >
-      <div className="aspect-[1.4] rounded-3xl overflow-hidden">
+      <div className="aspect-[1.4] rounded-box-lg overflow-hidden">
         <img
           src={post.image}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -362,7 +362,7 @@ function TrendingArticleCard({ post, index }: { post: any; index: number }) {
       viewport={{ once: true }}
       className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center group cursor-pointer"
     >
-      <div className="md:col-span-5 aspect-[1.4] rounded-3xl overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-500">
+      <div className="md:col-span-5 aspect-[1.4] rounded-box-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-500">
         <img 
           src={post.image} 
           alt={post.title}
@@ -389,7 +389,7 @@ function TrendingArticleCard({ post, index }: { post: any; index: number }) {
 function TipCard({ tip }: any) {
   const Icon = tip.icon;
   return (
-    <div className="p-6 border rounded-xl hover:shadow-lg transition">
+    <div className="p-6 border rounded-box-lg hover:shadow-lg transition">
       <Icon className="mb-3" />
       <h3 className="font-bold mb-2">{tip.title}</h3>
       <p>{tip.description}</p>

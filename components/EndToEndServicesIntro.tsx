@@ -74,7 +74,7 @@ export default function EndToEndServicesIntro() {
             <div className="pt-2">
               <Link 
                 href="/services" 
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-primary text-white font-semibold text-sm shadow-sm shadow-primary/20 hover:bg-primary/95 hover:shadow-md hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-200 group"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-box-sm bg-primary text-white font-semibold text-sm shadow-sm shadow-primary/20 hover:bg-primary/95 hover:shadow-md hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-200 group"
               >
                 <span>Explore Our Services</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -90,7 +90,7 @@ export default function EndToEndServicesIntro() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="w-full"
           >
-            <div className="bg-white rounded-2xl border border-gray-200/90 shadow-sm p-6 sm:p-7 relative">
+            <div className="bg-white rounded-box-lg border border-gray-200/90 shadow-sm p-6 sm:p-7 relative">
               {/* Card Top Label */}
               <div className="flex items-center justify-between pb-5 mb-5 border-b border-gray-100">
                 <div className="flex items-center gap-2">
@@ -99,7 +99,7 @@ export default function EndToEndServicesIntro() {
                     Our End-to-End Lifecycle
                   </span>
                 </div>
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-gray-50 border border-gray-200/60 px-2.5 py-1 rounded-md">
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-gray-50 border border-gray-200/60 px-2.5 py-1 rounded-box-xs">
                   Phase 01 — 04
                 </span>
               </div>
@@ -121,7 +121,7 @@ export default function EndToEndServicesIntro() {
                     >
                       {/* Number Node + Connecting Line */}
                       <div className="relative flex flex-col items-center flex-shrink-0">
-                        <div className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-200/90 text-dark flex items-center justify-center font-bold text-xs group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary transition-colors duration-200 shadow-xs">
+                        <div className="w-9 h-9 rounded-box-xs bg-gray-50 border border-gray-200/90 text-dark flex items-center justify-center font-bold text-xs group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary transition-colors duration-200 shadow-xs">
                           {step.number}
                         </div>
                         {!isLast && (

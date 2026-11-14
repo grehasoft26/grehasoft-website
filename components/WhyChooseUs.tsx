@@ -96,7 +96,7 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-5 bg-dark text-white rounded-[3rem] p-10 md:p-12 shadow-2xl relative overflow-hidden flex flex-col justify-between border border-white/5"
+            className="lg:col-span-5 bg-dark text-white rounded-box-lg p-10 md:p-12 shadow-2xl relative overflow-hidden flex flex-col justify-between border border-white/5"
           >
             {/* Ambient Background Glows */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/30 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
@@ -128,7 +128,7 @@ export default function WhyChooseUs() {
               {/* Global Reach Row */}
               <div className="border-t border-white/10 pt-8 mt-8">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-accent flex-shrink-0 border border-white/10">
+                  <div className="w-12 h-12 rounded-box-sm bg-white/5 flex items-center justify-center text-accent flex-shrink-0 border border-white/10">
                     <Globe className="w-6 h-6 animate-spin-slow text-accent" />
                   </div>
                   <div>
@@ -153,7 +153,7 @@ export default function WhyChooseUs() {
 
             {/* Premium Network Connection Visual block */}
            <div className="relative z-10 mt-19 mb-6">
-              <div className="overflow-hidden rounded-2xl border border-white/10 aspect-[16/10] shadow-inner bg-black/40 group/photo">
+              <div className="overflow-hidden rounded-box-lg border border-white/10 aspect-[16/10] shadow-inner bg-black/40 group/photo">
                 <img
                   src="/images/footprint.png"
                   alt="Grehasoft Global IT Connectivity Network"
@@ -186,10 +186,10 @@ export default function WhyChooseUs() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: point.delay }}
                 whileHover={{ y: -6 }}
-                className="bg-white hover:bg-white  p-6 md:p-8 rounded-[2.5rem] border border-gray-100 hover:border-primary/20 hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 group flex flex-col justify-between"
+                className="bg-white hover:bg-white  p-6 md:p-8 rounded-box-lg border border-gray-100 hover:border-primary/20 hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-primary/5 group-hover:bg-primary group-hover:text-white flex items-center justify-center text-primary transition-all duration-300 mb-6 border border-primary/10">
+                  <div className="w-12 h-12 rounded-box-sm bg-primary/5 group-hover:bg-primary group-hover:text-white flex items-center justify-center text-primary transition-all duration-300 mb-6 border border-primary/10">
                     {point.icon}
                   </div>
                   <h3 className="text-lg font-black text-dark mb-3 tracking-tight group-hover:text-primary transition-colors">
@@ -214,14 +214,14 @@ export default function WhyChooseUs() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.5 }}
               whileHover={{ y: -6 }}
-              className="md:col-span-2 bg-primary/5 border border-primary/10 hover:border-primary/30 p-8 md:p-10 rounded-[2.5rem] hover:bg-white hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6"
+              className="md:col-span-2 bg-primary/5 border border-primary/10 hover:border-primary/30 p-8 md:p-10 rounded-box-lg hover:bg-white hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6"
             >
               <div className="flex items-start md:items-center gap-5">
-                <div className="w-14 h-14 rounded-2xl bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
+                <div className="w-14 h-14 rounded-box-sm bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
                   <HeartHandshake className="w-7 h-7" />
                 </div>
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-box-xs">
                     Continuous Partnership
                   </span>
                   <h3 className="text-lg md:text-xl font-black text-dark tracking-tight mt-1">
@@ -251,11 +251,11 @@ export default function WhyChooseUs() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="bg-white rounded-[3rem] border border-gray-100 p-8 md:p-14 text-center relative overflow-hidden shadow-xl shadow-gray-50/50"
+          className="bg-white rounded-box-lg border border-gray-100 p-8 md:p-14 text-center relative overflow-hidden shadow-xl shadow-gray-50/50"
         >
           {/* Symmetrical Quotation Graphic */}
           <div className="flex justify-center mb-6">
-            <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
+            <div className="w-12 h-12 rounded-box-sm bg-accent/10 flex items-center justify-center text-accent">
               <Quote className="w-6 h-6 fill-current" />
             </div>
           </div>

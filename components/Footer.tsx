@@ -172,7 +172,7 @@ menuArray.forEach((item) => {
         </div>
 
         {/* Contact Info */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 bg-white/5 rounded-3xl border border-white/10 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 bg-white/5 rounded-box-lg border border-white/10 mb-20">
           
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">

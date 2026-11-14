@@ -199,9 +199,9 @@ return ( <section className="section-padding bg-gray-55"> <div className="contai
         return (
           <div
             key={index}
-            className="flex flex-col bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:border-primary/30 hover:scale-105 transition-all group"
+            className="flex flex-col bg-white p-6 rounded-box-lg border border-gray-100 shadow-sm hover:border-primary/30 hover:scale-105 transition-all group"
           >
-            <div className="text-primary group-hover:scale-110 transition-transform flex-shrink-0 mb-4 bg-primary/5 w-10 h-10 rounded-xl flex items-center justify-center">
+            <div className="text-primary group-hover:scale-110 transition-transform flex-shrink-0 mb-4 bg-primary/5 w-10 h-10 rounded-box-sm flex items-center justify-center">
               <Icon className="w-5 h-5" />
             </div>
 

@@ -266,7 +266,7 @@ export default function CaseStudyDetail({
   }}
 />
 
-                <div className="rounded-3xl overflow-hidden shadow-2xl">
+                <div className="rounded-box-lg overflow-hidden shadow-2xl">
 
                   <img
                     src={image}
@@ -314,7 +314,7 @@ export default function CaseStudyDetail({
               </div>
 
               {/* RESULTS */}
-              <div className="bg-gray-50 rounded-[3rem] p-8 md:p-16">
+              <div className="bg-gray-50 rounded-box-lg p-8 md:p-16">
 
                 <h3 className="text-3xl font-bold text-center mb-10">
 
@@ -335,7 +335,7 @@ export default function CaseStudyDetail({
 
                       <div
                         key={i}
-                        className="flex gap-4 p-6 bg-white rounded-2xl"
+                        className="flex gap-4 p-6 bg-white rounded-box-lg"
                       >
 
                         <CheckCircle2 className="text-primary" />
@@ -391,7 +391,7 @@ export default function CaseStudyDetail({
                       <img
                         src={img}
                         alt={item.title?.rendered}
-                        className="rounded-3xl mb-6"
+                        className="rounded-box-lg mb-6"
                       />
 
                       <h3 className="text-2xl font-bold group-hover:text-primary">

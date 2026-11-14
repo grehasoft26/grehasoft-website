@@ -170,12 +170,12 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                   setPage(1);
                   setSearch(e.target.value);
                 }}
-                className="w-full pl-14 pr-6 py-4 rounded-xl bg-gray-50 border border-gray-100 focus:border-primary outline-none"
+                className="w-full pl-14 pr-6 py-4 rounded-box-sm bg-gray-50 border border-gray-100 focus:border-primary outline-none"
               />
             </div>
 
             <div className="min-w-[200px]">
-              <div className="px-6 py-4 rounded-xl bg-gray-50 border border-gray-100 flex justify-between">
+              <div className="px-6 py-4 rounded-box-sm bg-gray-50 border border-gray-100 flex justify-between">
                 Newest <ChevronDown />
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
                       onClick={() => toggleTag(cat.name)}
                       className="flex items-center gap-3 cursor-pointer"
                     >
-                      <div className={`w-5 h-5 rounded border flex items-center justify-center ${
+                      <div className={`w-5 h-5 rounded-box-xs border flex items-center justify-center ${
                         activeTags.includes(cat.name)
                           ? "bg-primary border-primary"
                           : "border-gray-300"
@@ -255,7 +255,7 @@ const categorySlug =
                     className="grid md:grid-cols-12 gap-8 group cursor-pointer"
                   >
 
-                    <div className="md:col-span-4 rounded-2xl overflow-hidden">
+                    <div className="md:col-span-4 rounded-box-lg overflow-hidden">
                       <img
                         src={image}
                         className="w-full h-full object-cover group-hover:scale-105 transition"
@@ -299,7 +299,7 @@ const categorySlug =
                   <button
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
-                    className="px-4 py-2 border rounded disabled:opacity-50"
+                    className="px-4 py-2 border rounded-box-sm disabled:opacity-50"
                   >
                     Prev
                   </button>
@@ -311,7 +311,7 @@ const categorySlug =
                   <button
                     disabled={page === totalPages}
                     onClick={() => setPage(page + 1)}
-                    className="px-4 py-2 border rounded disabled:opacity-50"
+                    className="px-4 py-2 border rounded-box-sm disabled:opacity-50"
                   >
                     Next
                   </button>

@@ -25,7 +25,7 @@ if (!data?.expert_left_title) return null;
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-dark rounded-[3rem] p-10 md:p-16 text-white"
+            className="bg-dark rounded-box-lg p-10 md:p-16 text-white"
           >
 
             {data?.expert_left_title && (

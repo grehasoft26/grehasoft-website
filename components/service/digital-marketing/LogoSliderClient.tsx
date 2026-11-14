@@ -100,7 +100,7 @@ export default function LogoSliderClient({ logos }: LogoSliderClientProps) {
        {duplicatedLogos.map((logo, index) => (
   <div
     key={`${logo.id}-${index}`}
-    className="group flex h-[150px] w-[260px] md:h-[160px] md:w-[280px] flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+    className="group flex h-[150px] w-[260px] md:h-[160px] md:w-[280px] flex-shrink-0 items-center justify-center rounded-box-lg border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
   >
     <Image
       src={logo.image}

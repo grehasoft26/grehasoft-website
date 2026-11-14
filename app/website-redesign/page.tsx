@@ -130,7 +130,7 @@ export default function WebsiteRedesign() {
             >
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-6">
-                  <div className="relative rounded-3xl overflow-hidden shadow-lg grayscale opacity-40 group">
+                  <div className="relative rounded-box-lg overflow-hidden shadow-lg grayscale opacity-40 group">
                     <img
                       src="https://picsum.photos/seed/old-web/600/800"
                       alt="Old Website Design"
@@ -142,7 +142,7 @@ export default function WebsiteRedesign() {
                   </div>
                 </div>
                 <div className="space-y-6 pt-12">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary group">
+                  <div className="relative rounded-box-lg overflow-hidden shadow-2xl border-4 border-primary group">
                     <img
                       src="https://picsum.photos/seed/new-web/600/800"
                       alt="New Website Redesign"
@@ -155,7 +155,7 @@ export default function WebsiteRedesign() {
                 </div>
               </div>
               {/* Floating Badge */}
-              <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-2xl shadow-xl hidden xl:block">
+              <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-box-lg shadow-xl hidden xl:block">
                 <p className="font-bold text-2xl">100%</p>
                 <p className="text-xs uppercase tracking-widest font-bold">Modernized</p>
               </div>
@@ -180,9 +180,9 @@ export default function WebsiteRedesign() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-8 bg-white rounded-3xl border border-gray-100 hover:shadow-xl transition-all duration-500"
+                className="p-8 bg-white rounded-box-lg border border-gray-100 hover:shadow-xl transition-all duration-500"
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                <div className="w-14 h-14 bg-primary/10 rounded-box-sm flex items-center justify-center text-primary mb-6">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-bold text-dark mb-3">{benefit.title}</h3>
@@ -213,9 +213,9 @@ export default function WebsiteRedesign() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative z-10 p-10 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 hover:bg-white/10 transition-all duration-500 group"
+                className="relative z-10 p-10 bg-white/5 backdrop-blur-sm rounded-box-lg border border-white/10 hover:bg-white/10 transition-all duration-500 group"
               >
-                <div className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white font-bold text-xl mb-8 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-primary rounded-box-sm flex items-center justify-center text-white font-bold text-xl mb-8 group-hover:scale-110 transition-transform">
                   {step.step}
                 </div>
                 <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
@@ -242,7 +242,7 @@ export default function WebsiteRedesign() {
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="p-8 bg-white rounded-2xl border border-gray-100"
+                  className="p-8 bg-white rounded-box-lg border border-gray-100"
                 >
                   <h3 className="text-xl font-bold text-dark mb-4 flex items-center gap-3">
                     <MessageSquare className="w-5 h-5 text-primary" />

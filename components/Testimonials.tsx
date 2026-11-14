@@ -314,7 +314,7 @@ export default function Testimonials() {
                   <button
                     key={test.id}
                     onClick={() => setActiveIdx(index)}
-                    className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 flex items-center gap-4 relative group ${
+                    className={`w-full text-left p-5 rounded-box-sm border transition-all duration-300 flex items-center gap-4 relative group ${
                       isActive 
                         ? 'bg-white shadow-md border-primary ring-1 ring-primary/10' 
                         : 'bg-white/80 hover:bg-white border-gray-100 hover:shadow-sm'
@@ -361,7 +361,7 @@ export default function Testimonials() {
   href="https://maps.app.goo.gl/CcVcPNMvPcXKQNjH7"
   target="_blank"
   rel="noopener noreferrer"
-  className="flex items-center justify-center gap-3 bg-white border border-primary/20 hover:border-primary rounded-2xl p-4 font-semibold text-primary hover:bg-primary hover:text-white transition-all duration-300"
+  className="flex items-center justify-center gap-3 bg-white border border-primary/20 hover:border-primary rounded-box-sm p-4 font-semibold text-primary hover:bg-primary hover:text-white transition-all duration-300"
 >
   ⭐ Read More Reviews on Google
   <ArrowUpRight className="w-4 h-4" />
@@ -369,7 +369,7 @@ export default function Testimonials() {
 
 
             {/* Custom brand statistics footer note */}
-            <div className="bg-primary/5 border border-primary/10 rounded-2xl p-5 mt-6 lg:mt-0">
+            <div className="bg-primary/5 border border-primary/10 rounded-box-lg p-5 mt-6 lg:mt-0">
               <div className="flex items-center gap-3">
                 <span className="w-3 h-3 rounded-full bg-accent animate-ping flex-shrink-0" />
                 <p className="text-xs font-bold text-dark leading-snug">
@@ -388,7 +388,7 @@ export default function Testimonials() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.4 }}
-                className="bg-white rounded-[20px] p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-between h-full relative overflow-hidden"
+                className="bg-white rounded-box-lg p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-between h-full relative overflow-hidden"
               >
                 {/* Embedded dynamic quote icon blur */}
                 <Quote className="absolute -right-4 -top-4 w-40 h-40 text-primary/[0.03] select-none pointer-events-none" />
@@ -428,7 +428,7 @@ export default function Testimonials() {
                   
                   <div className="flex flex-col gap-1 sm:items-end">
                     <span className="text-[10px] uppercase font-bold tracking-wider text-text-gray">IMPACT REALIZED</span>
-                    <div className="flex items-center gap-2 bg-primary/5 text-primary text-xs font-extrabold px-3 py-1.5 rounded-xl border border-primary/10">
+                    <div className="flex items-center gap-2 bg-primary/5 text-primary text-xs font-extrabold px-3 py-1.5 rounded-box-sm border border-primary/10">
                       <Shield className="w-3.5 h-3.5 fill-current text-primary" />
                       <span>{active.stats}</span>
                     </div>

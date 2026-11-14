@@ -113,7 +113,7 @@ export default function Awards({
                 viewport={{ once: true }}
                 className="hidden lg:block"
               >
-                <div className="flex items-center gap-4 p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div className="flex items-center gap-4 p-6 bg-white rounded-box-lg shadow-sm border border-gray-100">
                   <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
                     <Trophy className="w-6 h-6" />
                   </div>
@@ -138,7 +138,7 @@ export default function Awards({
                 return (
                   <motion.div
                     key={index}
-                    className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer shadow-lg"
+                    className="group relative h-[400px] rounded-box-lg overflow-hidden cursor-pointer shadow-lg"
                     onClick={() =>
                       setSelectedVideo(award.videoUrl || null)
                     }
@@ -159,7 +159,7 @@ export default function Awards({
                     <div className="absolute inset-0 z-20 p-8 flex flex-col justify-between">
 
                       <div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg ${award.color}`}
+                        className={`w-12 h-12 rounded-box-sm flex items-center justify-center text-white shadow-lg ${award.color}`}
                       >
                         <Icon className="w-6 h-6" />
                       </div>
@@ -246,7 +246,7 @@ export default function Awards({
               </p>
 
               <div className="flex items-center gap-4 shrink-0">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                <div className="w-14 h-14 rounded-box-sm bg-primary/10 flex items-center justify-center text-primary">
                   <Trophy className="w-7 h-7" />
                 </div>
 
@@ -273,7 +273,7 @@ export default function Awards({
               transition={{ duration: 0.8 }}
               className="relative mb-24"
             >
-              <div className="grid lg:grid-cols-[1.15fr_0.85fr] bg-dark rounded-[32px] overflow-hidden shadow-2xl">
+              <div className="grid lg:grid-cols-[1.15fr_0.85fr] bg-dark rounded-box-lg overflow-hidden shadow-2xl">
 
                 {/* IMAGE */}
                 <div
@@ -318,7 +318,7 @@ export default function Awards({
 
                   <div className="relative">
 
-                    <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-white mb-8">
+                    <div className="w-14 h-14 rounded-box-sm bg-primary flex items-center justify-center text-white mb-8">
                       {FeaturedIcon && <FeaturedIcon className="w-7 h-7" />}
                     </div>
 
@@ -392,7 +392,7 @@ export default function Awards({
                   >
 
                     <div
-                      className="relative aspect-[4/3] rounded-[24px] overflow-hidden cursor-pointer bg-gray-100"
+                      className="relative aspect-[4/3] rounded-box-lg overflow-hidden cursor-pointer bg-gray-100"
                       onClick={() =>
                         setSelectedVideo(award.videoUrl || null)
                       }
@@ -430,7 +430,7 @@ export default function Awards({
                     <div className="pt-6">
 
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                        <div className="w-10 h-10 rounded-box-sm bg-primary/10 flex items-center justify-center text-primary">
                           <Icon className="w-5 h-5" />
                         </div>
 
@@ -499,7 +499,7 @@ function VideoModal({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-5xl aspect-video bg-black rounded-box-lg overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button

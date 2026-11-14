@@ -192,7 +192,7 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
 
               return (
                 <SwiperSlide key={`${project.id}-${index}`} className="!h-auto flex">
-                  <div className="group bg-white border border-gray-100 rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full w-full">
+                  <div className="group bg-white border border-gray-100 rounded-box-lg overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full w-full">
                     {/* IMAGE CONTAINER */}
                     <div className="relative w-full h-56 sm:h-64 overflow-hidden bg-gray-50">
                       <Image

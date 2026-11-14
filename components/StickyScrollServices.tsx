@@ -277,13 +277,13 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                             aspect-[3/2]
                             max-h-[62vh]
                             object-cover
-                            rounded-[20px]
+                            rounded-box-lg
                             shadow-xl
                           "
                         />
                         <motion.div
                           aria-hidden="true"
-                          className="absolute inset-0 rounded-[20px] bg-white pointer-events-none"
+                          className="absolute inset-0 rounded-box-lg bg-white pointer-events-none"
                           initial={false}
                           animate={{ opacity: layer.shade }}
                           transition={cardSpring}

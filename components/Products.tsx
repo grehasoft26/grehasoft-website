@@ -60,7 +60,7 @@ export default function Products({ data }: ProductsProps) {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[16/10] group">
+            <div className="relative rounded-box-lg overflow-hidden shadow-2xl aspect-[16/10] group">
              <img src={pms.pms_image_url}
                 alt="Grehasoft PMS"
                 loading="lazy"
@@ -69,7 +69,7 @@ export default function Products({ data }: ProductsProps) {
               />
 
               {/* BADGE */}
-              <div className="absolute top-8 left-8 p-4 bg-accent rounded-2xl shadow-xl animate-bounce">
+              <div className="absolute top-8 left-8 p-4 bg-accent rounded-box-sm shadow-xl animate-bounce">
                 <p className="text-xs font-bold uppercase tracking-widest text-white mb-1">
                   {pms.pms_badge || 'New Version'}
                 </p>
@@ -118,7 +118,7 @@ export default function Products({ data }: ProductsProps) {
                 const Icon = feature.icon;
                 return (
                   <div key={index} className="flex gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-accent flex-shrink-0">
+                    <div className="w-12 h-12 rounded-box-sm bg-white/10 flex items-center justify-center text-accent flex-shrink-0">
                       <Icon className="w-6 h-6" />
                     </div>
                     <div>

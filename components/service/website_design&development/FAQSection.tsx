@@ -54,7 +54,7 @@ export default function FAQSection({
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
                 whileHover={{ y: -5 }}
-                className="p-8 bg-primary rounded-3xl text-white shadow-xl"
+                className="p-8 bg-primary rounded-box-lg text-white shadow-xl"
               >
 
                 <p className="text-sm font-bold opacity-80 mb-4 tracking-widest uppercase">
@@ -90,7 +90,7 @@ export default function FAQSection({
                       delay: i * 0.05,
                       duration: 0.5,
                     }}
-                    className="group bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
+                    className="group bg-gray-50 rounded-box-lg border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-500"
                   >
 
                     <summary className="p-6 flex items-center justify-between cursor-pointer list-none font-bold text-dark">

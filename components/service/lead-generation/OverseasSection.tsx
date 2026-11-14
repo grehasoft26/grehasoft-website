@@ -15,7 +15,7 @@ export default function OverseasSection({ overseas }: Props) {
           <p className="mt-6 max-w-[65ch] text-lg leading-relaxed text-gray-600">{overseas.body}</p>
         </div>
 
-        <div className="rounded-[2.5rem] border border-gray-100 bg-white p-8 md:p-10 lg:col-span-5">
+        <div className="rounded-box-lg border border-gray-100 bg-white p-8 md:p-10 lg:col-span-5">
           <h3 className="mb-6 text-lg font-bold text-dark">{overseas.commitmentsTitle}</h3>
           <ul className="space-y-4">
             {overseas.commitments.map((commitment) => (

@@ -147,7 +147,7 @@ export default function About({ data }: AboutProps) {
           >
             <div
               className="
-                relative rounded-3xl overflow-hidden
+                relative rounded-box-lg overflow-hidden
                 shadow-2xl aspect-[4/3] group
               "
             >
@@ -200,7 +200,7 @@ export default function About({ data }: AboutProps) {
                   className="
                     grid grid-cols-3 gap-4 p-6
                     bg-white/90 backdrop-blur-md
-                    rounded-2xl shadow-lg
+                    rounded-box-lg shadow-lg
                     border border-white/20
                   "
                 >

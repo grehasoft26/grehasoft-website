@@ -57,11 +57,11 @@ export default function ServicesSection({
                     duration: 0.6,
                   }}
                   whileHover={{ y: -10 }}
-                  className="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 group transition-all duration-500 hover:bg-white hover:shadow-xl relative z-10"
+                  className="bg-gray-50 p-10 rounded-box-lg border border-gray-100 group transition-all duration-500 hover:bg-white hover:shadow-xl relative z-10"
                 >
 
                   {/* ICON */}
-                  <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center text-primary mb-8 shadow-sm group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                  <div className="w-20 h-20 bg-white rounded-box-sm flex items-center justify-center text-primary mb-8 shadow-sm group-hover:bg-primary group-hover:text-white transition-all duration-500">
 
                     {serviceItem.icon}
 

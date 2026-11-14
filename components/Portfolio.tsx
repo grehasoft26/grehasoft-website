@@ -314,7 +314,7 @@ export default function Portfolio({
                   className={`
                     group
                     relative
-                    rounded-[2rem]
+                    rounded-box-lg
                     overflow-hidden
                     shadow-xl
                     ${isFullPage ? "h-full" : "h-[260px] sm:h-[300px] lg:h-[340px]"}

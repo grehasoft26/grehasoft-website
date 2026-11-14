@@ -86,7 +86,7 @@ export default function IntroSection({
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
 
               {acf.stat_1_number && (
-                <div className="bg-primary/5 px-6 py-4 rounded-2xl border border-primary/10">
+                <div className="bg-primary/5 px-6 py-4 rounded-box-lg border border-primary/10">
 
                   <p className="text-primary font-black text-2xl">
                     {acf.stat_1_number}
@@ -100,7 +100,7 @@ export default function IntroSection({
               )}
 
               {acf.stat_2_number && (
-                <div className="bg-accent/5 px-6 py-4 rounded-2xl border border-accent/10">
+                <div className="bg-accent/5 px-6 py-4 rounded-box-lg border border-accent/10">
 
                   <p className="text-accent font-black text-2xl">
                     {acf.stat_2_number}
@@ -128,7 +128,7 @@ export default function IntroSection({
 >
   {/* MAIN IMAGE CARD */}
   <motion.div
-    className="relative aspect-[4/5] w-full max-w-[500px] bg-gray-100 rounded-[3rem] overflow-hidden rotate-2 shadow-2xl "
+    className="relative aspect-[4/5] w-full max-w-[500px] bg-gray-100 rounded-box-lg overflow-hidden rotate-2 shadow-2xl "
     animate={{
       y: [0, -15, 0],
       rotate: [2, 3, 2],
@@ -175,7 +175,7 @@ export default function IntroSection({
 
   {/* BOTTOM LEFT FLOATING BADGE */}
   <motion.div
-    className="absolute bottom-16 -left-4 lg:-left-8 bg-white px-5 py-3 rounded-2xl shadow-xl border border-gray-100 hidden md:flex items-center gap-3"
+    className="absolute bottom-16 -left-4 lg:-left-8 bg-white px-5 py-3 rounded-box-sm shadow-xl border border-gray-100 hidden md:flex items-center gap-3"
     animate={{
       y: [0, 12, 0],
     }}
@@ -192,7 +192,7 @@ export default function IntroSection({
   {/* EXISTING STATS CARD */}
   {acf.stat_3_text && (
     <motion.div
-      className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-xl border border-gray-100 hidden md:block"
+      className="absolute -bottom-10 -left-10 bg-white p-8 rounded-box-lg shadow-xl border border-gray-100 hidden md:block"
       animate={{
         y: [0, -8, 0],
       }}

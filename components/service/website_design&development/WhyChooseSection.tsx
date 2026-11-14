@@ -65,11 +65,11 @@ export default function WhyChooseSection({
                     delay: i * 0.1,
                     duration: 0.6,
                   }}
-                  className="group p-8 md:p-10 rounded-[2.5rem] bg-white border border-gray-100 hover:border-accent/40 hover:shadow-[0_20px_50px_-15px_rgba(26,183,40,0.08)] transition-all duration-500 flex flex-col gap-6 items-start"
+                  className="group p-8 md:p-10 rounded-box-lg bg-white border border-gray-100 hover:border-accent/40 hover:shadow-[0_20px_50px_-15px_rgba(26,183,40,0.08)] transition-all duration-500 flex flex-col gap-6 items-start"
                 >
 
                   {/* ICON */}
-                  <div className="w-16 h-16 bg-accent/5 rounded-2xl flex items-center justify-center text-accent flex-shrink-0 group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-sm">
+                  <div className="w-16 h-16 bg-accent/5 rounded-box-sm flex items-center justify-center text-accent flex-shrink-0 group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-sm">
 
                     <div className="scale-125">
                       {reason.icon}

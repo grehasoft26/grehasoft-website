@@ -185,11 +185,11 @@ export default function SitemapPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05, duration: 0.5 }}
-                className="bg-white rounded-[2.5rem] p-8 md:p-10 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-lg transition-all"
+                className="bg-white rounded-box-lg p-8 md:p-10 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-lg transition-all"
               >
                 <div>
                   <div className="flex items-center gap-3.5 border-b border-gray-50 pb-5 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-box-sm bg-gray-50 border border-gray-100 flex items-center justify-center flex-shrink-0">
                       {section.icon}
                     </div>
                     <div>

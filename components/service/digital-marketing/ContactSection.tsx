@@ -54,7 +54,7 @@ if (!contact.contact_title) return null;
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 bg-dark rounded-[3rem] p-10 md:p-16 text-white relative overflow-hidden shadow-2xl flex flex-col justify-center"
+            className="lg:col-span-7 bg-dark rounded-box-lg p-10 md:p-16 text-white relative overflow-hidden shadow-2xl flex flex-col justify-center"
           >
 
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[100px] -mr-32 -mt-32" />
@@ -129,10 +129,10 @@ if (!contact.contact_title) return null;
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-[3rem] p-10 border border-gray-100 shadow-xl flex flex-col justify-center"
+              className="bg-white rounded-box-lg p-10 border border-gray-100 shadow-xl flex flex-col justify-center"
             >
 
-              <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+              <div className="w-12 h-12 bg-primary/10 rounded-box-sm flex items-center justify-center text-primary mb-6">
 
                 <TopIcon className="w-6 h-6" />
 
@@ -152,7 +152,7 @@ if (!contact.contact_title) return null;
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-white rounded-[3rem] p-10 text-dark shadow-xl flex flex-col justify-center relative overflow-hidden"
+              className="bg-white rounded-box-lg p-10 text-dark shadow-xl flex flex-col justify-center relative overflow-hidden"
             >
 
               <div className="absolute -bottom-8 -right-8 text-primary opacity-10">

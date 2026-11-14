@@ -77,7 +77,7 @@ export default async function CareersPage() {
             ].map((value, index) => (
               <div
                 key={index}
-                className="p-10 bg-gray-50 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500"
+                className="p-10 bg-gray-50 rounded-box-lg shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-500"
               >
                 <h3 className="text-2xl font-bold mb-4 text-dark">
                   {value.title}
@@ -137,7 +137,7 @@ export default async function CareersPage() {
               .map((position, index) => (
                 <div
                   key={index}
-                  className="p-10 bg-white rounded-3xl shadow-sm border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-8 hover:shadow-xl transition-all duration-500"
+                  className="p-10 bg-white rounded-box-lg shadow-sm border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-8 hover:shadow-xl transition-all duration-500"
                 >
                   <div>
                     <h3 className="text-2xl font-bold mb-2 text-dark">

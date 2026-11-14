@@ -79,7 +79,7 @@ return (
 
     </div>
 
-    <div className="overflow-x-auto rounded-[2rem] border border-gray-150 bg-white shadow-xl max-w-5xl mx-auto">
+    <div className="overflow-x-auto rounded-box-lg border border-gray-150 bg-white shadow-xl max-w-5xl mx-auto">
       <table className="w-full text-left border-collapse font-sans min-w-[700px]">
 
         <thead>

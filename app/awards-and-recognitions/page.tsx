@@ -84,9 +84,9 @@ export default async function AwardsPage() {
               return (
                 <div
                   key={index}
-                  className="p-8 rounded-3xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-500"
+                  className="p-8 rounded-box-lg border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-500"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-box-sm flex items-center justify-center text-primary mb-6">
                     <Icon className="w-6 h-6" />
                   </div>
 

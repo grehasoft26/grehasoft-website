@@ -190,11 +190,11 @@ export default async function ProductsPage() {
         { title: software?.product6_title, desc: software?.product6_desc, icon: ShoppingBag },
         { title: software?.product7_title, desc: software?.product7_desc, icon: Calendar },
       ].map((product, index) => (
-        <div key={index} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative group">
+        <div key={index} className="bg-white p-8 rounded-box-lg border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden relative group">
 
           <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 -mr-12 -mt-12 rounded-full group-hover:scale-150 transition-transform duration-700" />
 
-          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+          <div className="w-12 h-12 rounded-box-sm bg-primary/10 flex items-center justify-center text-primary mb-6">
             <product.icon className="w-6 h-6" />
           </div>
 
@@ -210,7 +210,7 @@ export default async function ProductsPage() {
       ))}
 
       {/* CTA CARD */}
-      <div className="bg-dark p-8 rounded-3xl overflow-hidden relative flex flex-col justify-center text-white">
+      <div className="bg-dark p-8 rounded-box-lg overflow-hidden relative flex flex-col justify-center text-white">
 
         <div className="relative z-10">
 
@@ -247,7 +247,7 @@ export default async function ProductsPage() {
 
       {/* LEFT SIDE */}
       <div className="relative">
-        <div className="relative rounded-[3rem] overflow-hidden shadow-2xl aspect-[4/5]">
+        <div className="relative rounded-box-lg overflow-hidden shadow-2xl aspect-[4/5]">
 
        {imageUrl && (
   <img
@@ -270,7 +270,7 @@ export default async function ProductsPage() {
 
         </div>
 
-        <div className="absolute -bottom-10 -right-10 p-10 bg-primary rounded-[2rem] shadow-2xl text-white hidden md:block">
+        <div className="absolute -bottom-10 -right-10 p-10 bg-primary rounded-box-lg shadow-2xl text-white hidden md:block">
           <p className="text-5xl font-black mb-2">
             {adv?.experience}
           </p>
@@ -302,7 +302,7 @@ export default async function ProductsPage() {
           ].map((reason, index) => (
             <div key={index}>
 
-              <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-primary mb-5">
+              <div className="w-12 h-12 rounded-box-sm bg-gray-50 flex items-center justify-center text-primary mb-5">
                 <reason.icon className="w-6 h-6" />
               </div>
 

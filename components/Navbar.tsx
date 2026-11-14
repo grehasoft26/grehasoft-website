@@ -192,7 +192,7 @@ const getSubMenu = (id: any) =>
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-lg border-t-2 border-primary"
+                      className="absolute top-full left-0 w-64 bg-white shadow-xl rounded-b-box-sm border-t-2 border-primary"
                     >
                       {subMenu.map((sub) => (
                         <Link
@@ -219,7 +219,7 @@ w-[92vw]
 max-w-[1120px]
 bg-white
 shadow-2xl
-rounded-b-2xl
+rounded-b-box-lg
 overflow-hidden
 border-t-4
 border-primary"
@@ -279,7 +279,7 @@ border-primary"
 <div className="mt-6">
   <Link
     href="/contact-us"
-    className="btn-primary w-full text-center block py-3 rounded-lg"
+    className="btn-primary w-full text-center block py-3 rounded-box-sm"
   >
     Get Started
   </Link>

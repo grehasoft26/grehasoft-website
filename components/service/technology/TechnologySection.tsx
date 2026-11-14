@@ -80,10 +80,10 @@ export default function TechnologySection({ acf }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col justify-between hover:border-primary/20 hover:shadow-md transition-all"
+              className="bg-white p-8 rounded-box-lg border border-gray-100 shadow-sm flex flex-col justify-between hover:border-primary/20 hover:shadow-md transition-all"
             >
               <div>
-                <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-10 h-10 bg-primary/5 rounded-box-sm flex items-center justify-center mb-6">
                   <Code2 className="w-5 h-5 text-primary" />
                 </div>
 

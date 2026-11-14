@@ -64,7 +64,7 @@ export default function IndustriesSection({
                 duration: 0.5,
               }}
               whileHover={{ y: -5 }}
-             className="flex items-center gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-primary/30 transition-all duration-500"
+             className="flex items-center gap-4 bg-white p-6 rounded-box-lg border border-gray-100 shadow-sm hover:border-primary/30 transition-all duration-500"
             >
 
               {/* ICON */}

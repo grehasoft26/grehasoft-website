@@ -30,7 +30,7 @@ export default function SolutionsSection({ solutions }: Props) {
           </div>
 
           <div className="lg:order-1 lg:col-span-4">
-            <div className="rounded-[2.5rem] bg-dark p-8 md:p-12 lg:sticky lg:top-28 lg:p-10">
+            <div className="rounded-box-lg bg-dark p-8 md:p-12 lg:sticky lg:top-28 lg:p-10">
               <p className="text-lg leading-relaxed text-white/80">
                 <RichText
                   value={solutions.closing}

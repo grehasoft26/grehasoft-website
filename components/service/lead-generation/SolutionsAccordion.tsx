@@ -91,7 +91,7 @@ export default function SolutionsAccordion({ items }: Props) {
             ref={(node) => {
               rowRefs.current[item.id] = node;
             }}
-            className={`scroll-mt-28 rounded-2xl border transition-[background-color,border-color,box-shadow] duration-300 motion-reduce:transition-none ${
+            className={`scroll-mt-28 rounded-box-lg border transition-[background-color,border-color,box-shadow] duration-300 motion-reduce:transition-none ${
               open ? 'border-primary/20 bg-white shadow-sm' : 'border-gray-200/70 bg-gray-100/70'
             }`}
           >
@@ -106,10 +106,10 @@ export default function SolutionsAccordion({ items }: Props) {
                 aria-controls={panelId}
                 onClick={() => toggle(item.id)}
                 onKeyDown={(event) => onKeyDown(event, index)}
-                className="flex w-full items-center gap-4 rounded-2xl p-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:gap-5 sm:p-5"
+                className="flex w-full items-center gap-4 rounded-box-lg p-4 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:gap-5 sm:p-5"
               >
                 <span
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-colors duration-300 motion-reduce:transition-none ${
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-box-sm transition-colors duration-300 motion-reduce:transition-none ${
                     open ? 'bg-primary text-white' : 'bg-primary/10 text-primary'
                   }`}
                 >

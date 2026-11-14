@@ -391,7 +391,7 @@ export default function FAQ() {
           <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-6">
             
             {/* Search Input Panel */}
-            <div className="bg-white p-5 rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm border border-gray-100 ring-1 ring-gray-900/5">
+            <div className="bg-white p-5 rounded-box-lg overflow-hidden shadow-sm border border-gray-100 ring-1 ring-gray-900/5">
               <span className="text-[10px] uppercase font-black text-text-gray tracking-widest block mb-3.5">
                 Search Questions
               </span>
@@ -401,14 +401,14 @@ export default function FAQ() {
                   placeholder="Type keywords (e.g. startup, cost)..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-gray-50 border border-gray-200 focus:border-primary/50 text-dark placeholder-text-gray/70 py-3.5 pl-11 pr-4 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all font-semibold"
+                  className="w-full bg-gray-50 border border-gray-200 focus:border-primary/50 text-dark placeholder-text-gray/70 py-3.5 pl-11 pr-4 rounded-box-sm text-sm focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all font-semibold"
                 />
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-text-gray/80" />
               </div>
             </div>
 
             {/* Interactive Tab Selector buttons */}
-            <div className="bg-white p-5 rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm border border-gray-100 ring-1 ring-gray-900/5 space-y-2">
+            <div className="bg-white p-5 rounded-box-lg overflow-hidden shadow-sm border border-gray-100 ring-1 ring-gray-900/5 space-y-2">
               <span className="text-[10px] uppercase font-black text-text-gray tracking-widest block mb-3.5 px-1">
                 Filter by Category
               </span>
@@ -425,7 +425,7 @@ export default function FAQ() {
                         setExpandedId(null);
                       }}
                       className={cn(
-                        "w-full text-left px-4 py-3 rounded-xl font-bold text-sm flex items-center gap-3 transition-all cursor-pointer",
+                        "w-full text-left px-4 py-3 rounded-box-sm font-bold text-sm flex items-center gap-3 transition-all cursor-pointer",
                         isActive 
                           ? "bg-primary text-white shadow-md shadow-primary/10" 
                           : "text-dark hover:bg-gray-50 bg-transparent border border-transparent hover:border-gray-100"
@@ -440,7 +440,7 @@ export default function FAQ() {
             </div>
 
             {/* Dynamic support promo card */}
-            <div className="bg-dark text-white rounded-[18px] md:rounded-[20px] p-6 relative overflow-hidden shadow-xl border border-white/5">
+            <div className="bg-dark text-white rounded-box-lg p-6 relative overflow-hidden shadow-xl border border-white/5">
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
               <h4 className="text-base font-extrabold mb-2 text-white">Still have questions?</h4>
               <p className="text-xs text-slate-300 leading-relaxed mb-5">
@@ -451,14 +451,14 @@ export default function FAQ() {
                   href="https://wa.me/918921540183" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-5 rounded-xl transition-all shadow-md hover:shadow-accent/20 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 text-white font-extrabold text-xs uppercase tracking-wider py-3.5 px-5 rounded-box-sm transition-all shadow-md hover:shadow-accent/20 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 fill-current text-white/95" />
                   <span>Chat on WhatsApp</span>
                 </a>
                 <a 
                   href="/contact-us"
-                  className="inline-flex items-center justify-center gap-2.5 border border-white/10 hover:bg-white/5 text-white font-bold text-xs py-3.5 px-5 rounded-xl transition-all"
+                  className="inline-flex items-center justify-center gap-2.5 border border-white/10 hover:bg-white/5 text-white font-bold text-xs py-3.5 px-5 rounded-box-sm transition-all"
                 >
                   <span>Go to Contact Page</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -484,7 +484,7 @@ export default function FAQ() {
                       exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.25 }}
                       className={cn(
-                        "rounded-[18px] md:rounded-[20px] border transition-all duration-300 bg-white overflow-hidden shadow-sm hover:shadow-md",
+                        "rounded-box-lg border transition-all duration-300 bg-white overflow-hidden shadow-sm hover:shadow-md",
                         isExpanded ? "border-primary/40 ring-1 ring-primary/10" : "border-gray-100"
                       )}
                     >
@@ -537,7 +537,7 @@ export default function FAQ() {
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-white border border-gray-100 rounded-[18px] md:rounded-[20px] overflow-hidden p-12 text-center text-text-gray"
+                  className="bg-white border border-gray-100 rounded-box-lg overflow-hidden p-12 text-center text-text-gray"
                 >
                   <p className="text-lg font-medium mb-2">No matching questions found.</p>
                   <p className="text-sm text-text-gray/80">Try refining your keyword query or switching categories above.</p>

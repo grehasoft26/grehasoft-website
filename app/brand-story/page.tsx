@@ -88,7 +88,7 @@ export default function BrandStoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white p-8 md:p-10 rounded-[2.5rem] border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
+              className="bg-white p-8 md:p-10 rounded-box-lg border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
             >
               <div>
                 <div className="flex justify-between items-center mb-6">
@@ -119,7 +119,7 @@ export default function BrandStoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="bg-white p-8 md:p-10 rounded-[2.5rem] border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
+              className="bg-white p-8 md:p-10 rounded-box-lg border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
             >
               <div>
                 <div className="flex justify-between items-center mb-6">
@@ -150,7 +150,7 @@ export default function BrandStoryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="bg-white p-8 md:p-10 rounded-[2.5rem] border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
+              className="bg-white p-8 md:p-10 rounded-box-lg border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
             >
               <div>
                 <div className="flex justify-between items-center mb-6">
@@ -202,7 +202,7 @@ export default function BrandStoryPage() {
               </p>
 
               {/* Special Quote Box */}
-              <div className="bg-primary/5 border-l-4 border-primary p-6 rounded-r-2xl">
+              <div className="bg-primary/5 border-l-4 border-primary p-6 rounded-r-box-lg">
                 <p className="text-dark font-bold text-base leading-relaxed italic">
                   &quot;What truly defines Grehasoft is simple: clients trust us to do honest work, and we deliver code that works flawlessly.&quot;
                 </p>
@@ -219,7 +219,7 @@ export default function BrandStoryPage() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: key * 0.05 }}
-                    className="p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300"
+                    className="p-5 rounded-box-lg bg-gray-50 border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300"
                   >
                     <div className="flex items-center gap-3 mb-1.5">
                       <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-dark text-[10px] font-bold">
@@ -269,14 +269,14 @@ export default function BrandStoryPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white p-8 rounded-[2.5rem] border border-gray-100 relative overflow-hidden group hover:shadow-lg transition-all"
+              className="bg-white p-8 rounded-box-lg border border-gray-100 relative overflow-hidden group hover:shadow-lg transition-all"
             >
-              <div className="absolute top-0 right-0 px-4 py-1.5 bg-gray-100 text-[10px] font-black uppercase text-gray-400 rounded-bl-2xl">
+              <div className="absolute top-0 right-0 px-4 py-1.5 bg-gray-100 text-[10px] font-black uppercase text-gray-400 rounded-bl-box-lg">
                 Archived Identity
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="w-44 h-28 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden border border-gray-100 mb-6 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
+                <div className="w-44 h-28 bg-gray-50 rounded-box-lg flex items-center justify-center overflow-hidden border border-gray-100 mb-6 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
                    <div
                   className="
                     w-40
@@ -317,14 +317,14 @@ export default function BrandStoryPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white p-8 rounded-[2.5rem] border border-primary/20 shadow-xl relative overflow-hidden group"
+              className="bg-white p-8 rounded-box-lg border border-primary/20 shadow-xl relative overflow-hidden group"
             >
-              <div className="absolute top-0 right-0 px-4 py-1.5 bg-primary text-[10px] font-black uppercase text-white rounded-bl-2xl">
+              <div className="absolute top-0 right-0 px-4 py-1.5 bg-primary text-[10px] font-black uppercase text-white rounded-bl-box-lg">
                 Current Standard
               </div>
 
               <div className="flex flex-col items-center">
-                <div className="w-44 h-28 bg-primary/5 rounded-2xl flex items-center justify-center overflow-hidden border border-primary/10 mb-6">
+                <div className="w-44 h-28 bg-primary/5 rounded-box-lg flex items-center justify-center overflow-hidden border border-primary/10 mb-6">
                   <div
                     className="
                       w-40
@@ -346,7 +346,7 @@ export default function BrandStoryPage() {
                   </div>
                 </div>
                 <h4 className="text-base font-black text-primary">Modern Global Emblem</h4>
-                <p className="text-xs text-accent mt-1 uppercase font-bold tracking-widest bg-accent/10 px-2 py-0.5 rounded border border-accent/10">Active Rebrand</p>
+                <p className="text-xs text-accent mt-1 uppercase font-bold tracking-widest bg-accent/10 px-2 py-0.5 rounded-box-xs border border-accent/10">Active Rebrand</p>
               </div>
             </motion.div>
 
@@ -356,7 +356,7 @@ export default function BrandStoryPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto items-stretch">
             
             {/* Left Narrative */}
-            <div className="lg:col-span-6 space-y-6 bg-white p-8 md:p-10 rounded-[2.5rem] border border-gray-100 flex flex-col justify-between">
+            <div className="lg:col-span-6 space-y-6 bg-white p-8 md:p-10 rounded-box-lg border border-gray-100 flex flex-col justify-between">
               <div>
                 <h3 className="text-2xl font-black text-dark mb-4 tracking-tight">
                   A New Look. A Stronger Vision.
@@ -382,7 +382,7 @@ export default function BrandStoryPage() {
 
               <div className="space-y-3">
                 {brandNewSymbols.map((item, key) => (
-                  <div key={key} className="bg-white px-6 py-4 rounded-2xl border border-gray-100 flex items-start gap-3.5 shadow-sm">
+                  <div key={key} className="bg-white px-6 py-4 rounded-box-lg border border-gray-100 flex items-start gap-3.5 shadow-sm">
                     <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-primary text-[10px] font-bold flex-shrink-0 mt-0.5 animate-pulse">
                       ★
                     </div>
@@ -420,10 +420,10 @@ export default function BrandStoryPage() {
             {permanentValues.map((ax, idx) => (
               <div 
                 key={idx}
-                className="bg-gray-50/50 hover:bg-white p-7 md:p-8 rounded-[2rem] border border-gray-100 hover:border-accent/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="bg-gray-50/50 hover:bg-white p-7 md:p-8 rounded-box-lg border border-gray-100 hover:border-accent/30 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-primary border border-gray-100 mb-5 text-[10px] font-mono font-black">
+                  <div className="w-10 h-10 rounded-box-sm bg-white shadow-sm flex items-center justify-center text-primary border border-gray-100 mb-5 text-[10px] font-mono font-black">
                     0{idx + 1}
                   </div>
                   <h3 className="text-base font-black text-dark mb-2.5 tracking-tight leading-snug">
@@ -464,7 +464,7 @@ export default function BrandStoryPage() {
 
               {/* Right Column: Clean Premium card with sign-off */}
               <div className="lg:col-span-7">
-                <div className="relative p-8 md:p-12 rounded-[2.5rem] bg-white border border-gray-150/80 shadow-md overflow-hidden group hover:shadow-xl transition-all duration-300">
+                <div className="relative p-8 md:p-12 rounded-box-lg bg-white border border-gray-150/80 shadow-md overflow-hidden group hover:shadow-xl transition-all duration-300">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl pointer-events-none" />
                   <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/5 rounded-full blur-2xl pointer-events-none" />
 

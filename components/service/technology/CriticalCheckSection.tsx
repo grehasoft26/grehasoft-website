@@ -87,7 +87,7 @@ export default function CriticalCheckSection({ acf }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:border-red-500/20 hover:shadow-md transition-all duration-300"
+              className="p-8 bg-white rounded-box-lg border border-gray-100 shadow-sm hover:border-red-500/20 hover:shadow-md transition-all duration-300"
             >
               <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 mb-6">
                 <span className="text-xs font-mono font-black">

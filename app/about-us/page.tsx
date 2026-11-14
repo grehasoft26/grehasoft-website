@@ -191,7 +191,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-primary/5 border-l-4 border-primary p-6 rounded-r-3xl relative overflow-hidden flex items-start gap-4"
+                className="bg-primary/5 border-l-4 border-primary p-6 rounded-r-box-lg relative overflow-hidden flex items-start gap-4"
               >
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
                   <Quote className="w-5 h-5 fill-current" />
@@ -215,7 +215,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               className="lg:col-span-5 relative"
             >
-              <div className="min-h-[460px] h-full rounded-[2.5rem] bg-dark text-white p-10 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden border border-white/5">
+              <div className="min-h-[460px] h-full rounded-box-lg bg-dark text-white p-10 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden border border-white/5">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/25 rounded-full blur-[80px] pointer-events-none" />
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/15 rounded-full blur-[80px] pointer-events-none" />
                 
@@ -239,7 +239,7 @@ export default function AboutPage() {
                 </div>
 
                 <div className="relative z-10 border-t border-white/10 pt-6 mt-6 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent">
+                  <div className="w-10 h-10 rounded-box-sm bg-white/5 border border-white/10 flex items-center justify-center text-accent">
                     <Globe className="w-5 h-5 animate-spin-slow" />
                   </div>
                   <div>
@@ -265,10 +265,10 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.15 }}
-                className="bg-white p-8 md:p-10 rounded-[2.5rem] border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
+                className="bg-white p-8 md:p-10 rounded-box-lg border border-gray-100 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-primary/10 transition-all duration-300"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-6 border border-primary/10">
+                  <div className="w-12 h-12 rounded-box-sm bg-primary/5 flex items-center justify-center text-primary mb-6 border border-primary/10">
                     {pillar.icon}
                   </div>
                   <h3 className="text-2xl font-black text-dark mb-4 tracking-tight">
@@ -322,11 +322,11 @@ export default function AboutPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: (index % 4) * 0.1 }}
                 whileHover={{ y: -6 }}
-                className="bg-white p-6 rounded-[2rem] border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                className="bg-white p-6 rounded-box-lg border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   <div className="items-center justify-between mb-5 flex">
-                    <div className="w-12 h-12 rounded-2xl bg-primary/5 group-hover:bg-primary group-hover:text-white flex items-center justify-center text-primary border border-primary/5 transition-colors">
+                    <div className="w-12 h-12 rounded-box-sm bg-primary/5 group-hover:bg-primary group-hover:text-white flex items-center justify-center text-primary border border-primary/5 transition-colors">
                       {service.icon}
                     </div>
                     <span className="text-[10px] font-black text-gray-300">
@@ -391,7 +391,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="bg-white p-6 md:p-8 rounded-[2rem] border border-gray-100 shadow-sm"
+                    className="bg-white p-6 md:p-8 rounded-box-lg border border-gray-100 shadow-sm"
                   >
                     <span className="text-accent font-black tracking-widest text-[10px] bg-accent/10 px-2.5 py-1 rounded-full uppercase inline-block mb-3">
                       Jan 2007
@@ -432,7 +432,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="bg-white p-6 md:p-8 rounded-[2rem] border border-gray-100 shadow-sm"
+                    className="bg-white p-6 md:p-8 rounded-box-lg border border-gray-100 shadow-sm"
                   >
                     <span className="text-primary font-black tracking-widest text-[10px] bg-primary/10 px-2.5 py-1 rounded-full uppercase inline-block mb-3">
                       Referral Foundation
@@ -457,7 +457,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="bg-white p-6 md:p-8 rounded-[2rem] border border-gray-100 shadow-sm"
+                    className="bg-white p-6 md:p-8 rounded-box-lg border border-gray-100 shadow-sm"
                   >
                     <span className="text-accent font-black tracking-widest text-[10px] bg-accent/10 px-2.5 py-1 rounded-full uppercase inline-block mb-3">
                       Year 2013
@@ -498,7 +498,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="bg-dark text-white p-6 md:p-8 rounded-[2rem] shadow-xl border border-white/5 relative overflow-hidden"
+                    className="bg-dark text-white p-6 md:p-8 rounded-box-lg shadow-xl border border-white/5 relative overflow-hidden"
                   >
                     <div className="absolute top-0 right-0 w-24 h-24 bg-primary/20 rounded-full blur-xl pointer-events-none" />
                     
@@ -547,8 +547,8 @@ export default function AboutPage() {
 
               {/* Core Commitment Pledges Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                <div className="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center text-primary flex-shrink-0 border border-primary/10">
+                <div className="flex gap-4 p-5 rounded-box-lg bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                  <div className="w-10 h-10 rounded-box-sm bg-primary/20 flex items-center justify-center text-primary flex-shrink-0 border border-primary/10">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
                   <div>
@@ -559,8 +559,8 @@ export default function AboutPage() {
                   </div>
                 </div>
                 
-                <div className="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                  <div className="w-10 h-10 rounded-xl bg-accent/25 flex items-center justify-center text-accent flex-shrink-0 border border-accent/10 animate-pulse">
+                <div className="flex gap-4 p-5 rounded-box-lg bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                  <div className="w-10 h-10 rounded-box-sm bg-accent/25 flex items-center justify-center text-accent flex-shrink-0 border border-accent/10 animate-pulse">
                     <Activity className="w-5 h-5" />
                   </div>
                   <div>
@@ -575,8 +575,8 @@ export default function AboutPage() {
 
             {/* Right Column: Premium Glowing Call-To-Action Card Block */}
             <div className="lg:col-span-5">
-              <div className="bg-gradient-to-br from-white/15 to-white/5 p-1 rounded-[2.5rem] shadow-2xl relative">
-                <div className="bg-dark rounded-[2.25rem] p-8 md:p-10 relative overflow-hidden">
+              <div className="bg-gradient-to-br from-white/15 to-white/5 p-1 rounded-box-lg shadow-2xl relative">
+                <div className="bg-dark rounded-box-sm p-8 md:p-10 relative overflow-hidden">
                   
                   {/* Internal ambient graphics */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/25 rounded-full blur-2xl pointer-events-none" />
@@ -584,7 +584,7 @@ export default function AboutPage() {
 
                   <div className="relative z-10 space-y-6">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center text-accent border border-accent/20">
+                      <div className="w-10 h-10 rounded-box-sm bg-accent/10 flex items-center justify-center text-accent border border-accent/20">
                         <Sparkles className="w-5 h-5" />
                       </div>
                       <div>
@@ -615,7 +615,7 @@ export default function AboutPage() {
                     <div className="pt-4 border-t border-white/10">
                       <Link 
                         href="/contact-us" 
-                        className="w-full text-center block bg-accent hover:bg-accent/90 text-dark py-4 px-6 rounded-xl font-black uppercase text-xs tracking-wider shadow-lg shadow-accent/20 transition-all duration-300"
+                        className="w-full text-center block bg-accent hover:bg-accent/90 text-dark py-4 px-6 rounded-box-sm font-black uppercase text-xs tracking-wider shadow-lg shadow-accent/20 transition-all duration-300"
                       >
                         Contact Grehasoft Now
                       </Link>
@@ -658,10 +658,10 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="bg-gray-50/50 hover:bg-white p-8 rounded-[2.5rem] border border-gray-100 hover:border-primary/10 hover:shadow-xl transition-all duration-300"
+                className="bg-gray-50/50 hover:bg-white p-8 rounded-box-lg border border-gray-100 hover:border-primary/10 hover:shadow-xl transition-all duration-300"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-box-sm bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
                     {str.icon}
                   </div>
                   <h3 className="text-lg font-black text-dark tracking-tight">
@@ -680,7 +680,7 @@ export default function AboutPage() {
           </div>
 
           {/* Social Proof Badges / Meta Points Row */}
-          <div className="bg-primary/5 rounded-[2.5rem] p-6 md:p-8 border border-primary/10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+          <div className="bg-primary/5 rounded-box-lg p-6 md:p-8 border border-primary/10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center text-accent">
                 <Star className="w-5 h-5 fill-current" />

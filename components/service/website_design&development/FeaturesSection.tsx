@@ -80,7 +80,7 @@ export default function FeaturesSection({
                   transition={{
                     delay: i * 0.05,
                   }}
-                  className={`group p-6 rounded-3xl border transition-all duration-500 flex flex-col justify-between h-full ${
+                  className={`group p-6 rounded-box-lg border transition-all duration-500 flex flex-col justify-between h-full ${
                     i % 3 === 0
                       ? 'bg-white/5 border-white/10 hover:bg-primary hover:border-primary'
                       : 'bg-white/5 border-white/10 hover:bg-accent hover:border-accent'
@@ -90,7 +90,7 @@ export default function FeaturesSection({
                   <div>
 
                     {/* ICON */}
-                    <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-white group-hover:text-dark transition-colors">
+                    <div className="w-12 h-12 bg-white/10 rounded-box-sm flex items-center justify-center mb-6 group-hover:bg-white group-hover:text-dark transition-colors">
 
                       {feature.icon}
 

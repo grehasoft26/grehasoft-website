@@ -112,7 +112,7 @@ export default function KochiIntroSection() {
               <Link href="/contact-us" className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2">
                 Launch Your Next Phase <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link href="/services" className="px-6 py-4 border border-gray-200 hover:border-primary hover:text-primary rounded-xl font-bold text-dark transition-all duration-300 w-full sm:w-auto text-center text-sm">
+              <Link href="/services" className="px-6 py-4 border border-gray-200 hover:border-primary hover:text-primary rounded-box-sm font-bold text-dark transition-all duration-300 w-full sm:w-auto text-center text-sm">
                 Explore Services Hub
               </Link>
             </div>
@@ -127,12 +127,12 @@ export default function KochiIntroSection() {
             className="lg:col-span-5 relative space-y-8"
           >
             {/* Embedded Location Badge */}
-            <div className="absolute top-4 left-4 z-20 bg-primary/85 backdrop-blur-md text-white py-2 px-4 rounded-2xl flex items-center gap-2 shadow-lg border border-white/10">
+            <div className="absolute top-4 left-4 z-20 bg-primary/85 backdrop-blur-md text-white py-2 px-4 rounded-box-sm flex items-center gap-2 shadow-lg border border-white/10">
               <MapPin className="w-4 h-4 text-accent" />
               <span className="text-xs font-extrabold tracking-wider uppercase">Infopark, Kochi</span>
             </div>
 
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-gray-50 aspect-[4/4] group bg-gray-50">
+            <div className="relative rounded-box-lg overflow-hidden shadow-2xl border-8 border-gray-50 aspect-[4/4] group bg-gray-50">
               <img
                 src="/images/IT-company1.webp"
                 alt="Best IT Company in Kochi, Kerala"
@@ -149,7 +149,7 @@ export default function KochiIntroSection() {
               {statCards.map((card, index) => (
                 <div 
                   key={index} 
-                  className={`p-4 rounded-2xl border ${card.color} flex flex-col items-center text-center space-y-2 shadow-sm bg-white hover:shadow-md transition-shadow duration-300`}
+                  className={`p-4 rounded-box-sm border ${card.color} flex flex-col items-center text-center space-y-2 shadow-sm bg-white hover:shadow-md transition-shadow duration-300`}
                 >
                   <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary shadow-sm border border-gray-100 flex-shrink-0">
                     <card.icon className="w-4 h-4 text-primary" />

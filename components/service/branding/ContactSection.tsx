@@ -71,9 +71,9 @@ export default function ContactSection({ acf }: Props) {
             </h2>
 
             {/* ASSET CARD */}
-            <div className="relative p-8 rounded-3xl bg-white/[0.02] border border-white/10 shadow-2xl text-left">
+            <div className="relative p-8 rounded-box-lg bg-white/[0.02] border border-white/10 shadow-2xl text-left">
 
-              <div className="absolute -top-5 -left-5 w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white shadow-lg">
+              <div className="absolute -top-5 -left-5 w-12 h-12 bg-primary rounded-box-sm flex items-center justify-center text-white shadow-lg">
 
                 <Award className="w-6 h-6" />
 
@@ -100,7 +100,7 @@ export default function ContactSection({ acf }: Props) {
             {/* STRATEGY CARD */}
             {contact?.strategy_card_text && (
 
-              <div className="flex gap-4 p-6 bg-white/[0.01] border border-white/5 rounded-2xl text-left">
+              <div className="flex gap-4 p-6 bg-white/[0.01] border border-white/5 rounded-box-lg text-left">
 
                 <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 flex-shrink-0 mt-0.5">
 
@@ -121,11 +121,11 @@ export default function ContactSection({ acf }: Props) {
           {/* RIGHT COLUMN */}
           <div className="lg:col-span-6 space-y-6">
 
-            <div className="bg-white/[0.03] border border-white/10 rounded-[2.5rem] p-8 md:p-10 space-y-6 text-left">
+            <div className="bg-white/[0.03] border border-white/10 rounded-box-lg p-8 md:p-10 space-y-6 text-left">
 
               <div className="flex items-center gap-3 border-b border-white/5 pb-5">
 
-                <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                <div className="w-10 h-10 bg-primary/10 rounded-box-sm flex items-center justify-center text-primary">
 
                   <Layers className="w-5 h-5" />
 
@@ -154,7 +154,7 @@ export default function ContactSection({ acf }: Props) {
               )}
 
               {/* EXPERIENCE BOX */}
-              <div className="grid grid-cols-12 gap-5 bg-white/[0.02] p-5 rounded-2xl border border-white/5 items-center">
+              <div className="grid grid-cols-12 gap-5 bg-white/[0.02] p-5 rounded-box-lg border border-white/5 items-center">
 
                 <div className="col-span-3 text-center border-r border-white/5">
 
@@ -189,7 +189,7 @@ export default function ContactSection({ acf }: Props) {
             </div>
 
             {/* CTA BOX */}
-            <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-3xl p-8 text-center md:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="relative overflow-hidden bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-box-lg p-8 text-center md:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
 
               <div className="space-y-1 z-10 text-left">
 

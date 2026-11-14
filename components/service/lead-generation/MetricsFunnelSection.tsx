@@ -55,11 +55,11 @@ export default function MetricsFunnelSection({ metrics }: Props) {
                 className="grid items-center gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10"
               >
                 <div className="flex justify-center">
-                  <div className="relative w-(--w-sm) rounded-[1.75rem] border border-[color-mix(in_srgb,var(--stage)_70%,white)] lg:w-(--w-lg)">
+                  <div className="relative w-(--w-sm) rounded-box-lg border border-[color-mix(in_srgb,var(--stage)_70%,white)] lg:w-(--w-lg)">
                     {/* 55% stage colour over navy (sRGB) keeps white text above 7:1 at both ends of the funnel. */}
                     <span
                       aria-hidden="true"
-                      className={`${styles.fill} absolute inset-0 rounded-[1.75rem] bg-[color-mix(in_srgb,var(--stage)_55%,var(--color-dark))]`}
+                      className={`${styles.fill} absolute inset-0 rounded-box-lg bg-[color-mix(in_srgb,var(--stage)_55%,var(--color-dark))]`}
                     />
                     <div className="relative flex flex-col items-center justify-center px-5 py-5 text-center sm:px-8">
                       <p className="max-w-full text-lg font-bold text-white">{stage.label}</p>
@@ -72,7 +72,7 @@ export default function MetricsFunnelSection({ metrics }: Props) {
                   {stageMetrics.map((metric) => (
                     <li
                       key={metric.title}
-                      className={`rounded-2xl border border-white/10 border-l-4 border-l-(--stage) bg-white/5 p-5 ${
+                      className={`rounded-box-lg border border-white/10 border-l-4 border-l-(--stage) bg-white/5 p-5 ${
                         stageMetrics.length === 1 ? 'sm:col-span-2' : ''
                       }`}
                     >

@@ -80,7 +80,7 @@ export default function GlobalExperienceSection({ acf }: Props) {
 
             {data?.quote_text && (
 
-              <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10">
+              <div className="p-6 bg-primary/5 rounded-box-lg border border-primary/10">
 
                 <p className="text-sm text-dark font-bold italic leading-relaxed">
                   "{data.quote_text}"
@@ -109,14 +109,14 @@ export default function GlobalExperienceSection({ acf }: Props) {
 
                 <motion.div
                   key={i}
-                  className="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100"
+                  className="flex gap-4 p-5 bg-gray-50 rounded-box-lg border border-gray-100"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05 }}
                 >
 
-                  <div className="w-10 h-10 bg-white shadow-sm flex items-center justify-center rounded-xl text-primary flex-shrink-0 font-bold text-sm">
+                  <div className="w-10 h-10 bg-white shadow-sm flex items-center justify-center rounded-box-sm text-primary flex-shrink-0 font-bold text-sm">
                     {i + 1}
                   </div>
 

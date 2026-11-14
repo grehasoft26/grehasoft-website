@@ -185,7 +185,7 @@ const prevCategory =
 
             {/* LEFT - CONTENTS */}
             <div className="lg:col-span-3">
-              <div className="sticky top-32 bg-gray-50 p-6 rounded-2xl">
+              <div className="sticky top-32 bg-gray-50 p-6 rounded-box-lg">
                 <h3 className="font-bold mb-4">Contents</h3>
 
                 {postData.contents?.map((item: any) => (
@@ -257,7 +257,7 @@ const prevCategory =
                         post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
                         '/fallback.jpg'
                       }
-                      className="rounded-xl mb-3"
+                      className="rounded-box-sm mb-3"
                     />
                     <p
                       className="font-semibold text-sm group-hover:text-primary"

@@ -68,7 +68,7 @@ export default function StandOutSection({ acf }: Props) {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-dark rounded-[3rem] p-10 md:p-16 text-white"
+            className="bg-dark rounded-box-lg p-10 md:p-16 text-white"
           >
 
             <h2 className="text-3xl md:text-4xl font-black text-white mb-8 leading-tight">
@@ -134,10 +134,10 @@ export default function StandOutSection({ acf }: Props) {
 
                 <div
                   key={i}
-                  className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+                  className="bg-white p-6 rounded-box-lg border border-gray-100 shadow-sm"
                 >
 
-                  <div className="w-8 h-8 bg-primary/10 text-primary rounded-xl flex items-center justify-center font-black text-xs mb-3">
+                  <div className="w-8 h-8 bg-primary/10 text-primary rounded-box-xs flex items-center justify-center font-black text-xs mb-3">
                     0{i + 1}
                   </div>
 

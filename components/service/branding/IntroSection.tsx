@@ -88,7 +88,7 @@ export default function IntroSection({
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
 
               {intro?.stat_1_number && (
-                <div className="bg-primary/5 px-6 py-4 rounded-2xl border border-primary/10">
+                <div className="bg-primary/5 px-6 py-4 rounded-box-lg border border-primary/10">
 
                   <p className="text-primary font-black text-2xl">
                     {intro.stat_1_number}
@@ -102,7 +102,7 @@ export default function IntroSection({
               )}
 
               {intro?.stat_2_number && (
-                <div className="bg-accent/5 px-6 py-4 rounded-2xl border border-accent/10">
+                <div className="bg-accent/5 px-6 py-4 rounded-box-lg border border-accent/10">
 
                   <p className="text-accent font-black text-2xl">
                     {intro.stat_2_number}
@@ -128,7 +128,7 @@ export default function IntroSection({
             className="relative"
           >
 
-            <div className="aspect-[4/5]  bg-gray-100 rounded-[3rem] overflow-hidden -rotate-2 shadow-2xl relative ">
+            <div className="aspect-[4/5]  bg-gray-100 rounded-box-lg overflow-hidden -rotate-2 shadow-2xl relative ">
 
               <Image
                  src={featuredImage || "/images/fallback.png"}
@@ -142,7 +142,7 @@ export default function IntroSection({
             {/* FLOATING CARD */}
             {(intro?.floating_title || intro?.floating_description) && (
 
-              <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-3xl shadow-xl border border-gray-100 hidden md:block">
+              <div className="absolute -bottom-10 -right-10 bg-white p-8 rounded-box-lg shadow-xl border border-gray-100 hidden md:block">
 
                 <div className="flex items-center gap-4">
 

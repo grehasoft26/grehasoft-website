@@ -27,7 +27,7 @@ export default function CtaSection({ acf }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto bg-dark backdrop-blur-md rounded-[3rem] p-10 md:p-16 border border-white/10 shadow-2xl relative overflow-hidden"
+          className="max-w-6xl mx-auto bg-dark backdrop-blur-md rounded-box-lg p-10 md:p-16 border border-white/10 shadow-2xl relative overflow-hidden"
         >
           {/* Glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -mr-32 -mt-32 pointer-events-none" />
