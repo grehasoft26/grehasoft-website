@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getService } from '@/lib/backend-api';
 
 import WebDesignTemplate from '@/components/templates/WebDesignTemplate';
@@ -62,19 +63,17 @@ export default async function Page({
   try {
     service = await getService(slug);
   } catch (error) {
+    // Backend/network failure: surface as a server error, not a 404.
     console.error(
       'Error loading service data for slug:',
       slug,
       error
     );
+    throw error;
   }
 
   if (!service) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-2xl font-bold">
-        Service Not Found
-      </div>
-    );
+    notFound();
   }
 
   const acf = service.acf || {};

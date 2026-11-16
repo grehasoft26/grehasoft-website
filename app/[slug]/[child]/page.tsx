@@ -4,6 +4,7 @@ import BrandingTemplate from '@/components/templates/BrandingTemplate';
 import MobileAppTemplate from '@/components/templates/MobileAppTemplate';
 
 import TechnologyTemplate from '@/components/templates/TechnologyTemplate';
+import { notFound } from 'next/navigation';
 import { getServiceChild } from '@/lib/backend-api';
 import MainTemplate from '@/components/templates/MainTemplate';
 
@@ -23,25 +24,21 @@ export default async function Page({
   try {
     service = await getServiceChild(slug, child);
   } catch (error) {
+    // Backend/network failure: surface as a server error, not a 404.
     console.error("Error loading services for child slug:", child, error);
+    throw error;
   }
 
   if (!service) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Service Not Found
-      </div>
-    );
+    notFound();
   }
   const acf = service.acf || {};
 
-  // Optional safety check
-  if (acf.parent_slug !== slug) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-2xl font-bold">
-        Invalid URL
-      </div>
-    );
+  // Child exists but under a different parent: this URL is not a real page.
+  // Normalized the same way the backend matches slugs (case, slashes).
+  const normalizeSlug = (s: string) => (s || '').replace(/^\/|\/$/g, '').toLowerCase().trim();
+  if (normalizeSlug(acf.parent_slug) !== normalizeSlug(slug)) {
+    notFound();
   }
 
   // HERO IMAGE (Pre-resolved by NestJS backend!)

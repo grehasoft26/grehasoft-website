@@ -9,6 +9,21 @@ const WP_API_BASE = (
 const ENABLE_FALLBACK = process.env.NEXT_PUBLIC_ENABLE_WORDPRESS_FALLBACK === 'true';
 
 /**
+ * Error thrown for non-2xx NestJS responses. Keeps the HTTP status so callers
+ * can tell a genuine 404 apart from outages and server errors.
+ */
+class BackendHttpError extends Error {
+  constructor(message: string, public readonly status: number) {
+    super(message);
+    this.name = 'BackendHttpError';
+  }
+}
+
+function isBackendNotFound(error: unknown): boolean {
+  return error instanceof BackendHttpError && error.status === 404;
+}
+
+/**
  * Robust fetcher wrapper for NestJS backend API.
  */
 async function fetchBackend<T = any>(endpoint: string, options?: RequestInit): Promise<T> {
@@ -25,7 +40,7 @@ async function fetchBackend<T = any>(endpoint: string, options?: RequestInit): P
     });
 
     if (!res.ok) {
-      throw new Error(`NestJS backend returned HTTP ${res.status}`);
+      throw new BackendHttpError(`NestJS backend returned HTTP ${res.status}`, res.status);
     }
 
     const envelope = await res.json();
@@ -349,16 +364,20 @@ export async function getServicesList(): Promise<any[]> {
 
 /**
  * Retrieves a single service CPT by slug.
+ * Returns null only when the service genuinely does not exist (backend 404);
+ * outages and server errors are re-thrown so they are not served as 404s.
  */
 export async function getService(slug: string): Promise<any | null> {
   try {
     const data = await fetchBackend<any | null>(`/services/${slug}`);
     return data;
   } catch (error: any) {
+    if (isBackendNotFound(error)) return null;
     if (ENABLE_FALLBACK) {
       console.warn(`[Fallback Active] NestJS getService failed for ${slug}. Falling back to direct WordPress REST...`);
       const fallback = await fetchFallbackWP<any[]>(`/wp-json/wp/v2/services?slug=${slug}&_embed`);
-      const service = Array.isArray(fallback) && fallback.length > 0 ? fallback[0] : null;
+      if (!Array.isArray(fallback)) throw error;
+      const service = fallback.length > 0 ? fallback[0] : null;
       if (service) {
         const heroImageId = service.acf?.hero_image;
         if (heroImageId && !isNaN(Number(heroImageId))) {
@@ -371,18 +390,20 @@ export async function getService(slug: string): Promise<any | null> {
       return service;
     }
     console.error('[NestJS Backend Failure] Direct WordPress fallback disabled in production.');
-    return null;
+    throw error;
   }
 }
 
 /**
  * Retrieves a single child service CPT by parent and child slugs.
+ * Same contract as getService: null means not found, other failures throw.
  */
 export async function getServiceChild(parentSlug: string, childSlug: string): Promise<any | null> {
   try {
     const data = await fetchBackend<any | null>(`/services/${parentSlug}/${childSlug}`);
     return data;
   } catch (error: any) {
+    if (isBackendNotFound(error)) return null;
     if (ENABLE_FALLBACK) {
       console.warn(`[Fallback Active] NestJS getServiceChild failed for ${parentSlug}/${childSlug}. Falling back to direct WordPress REST...`);
       const fallback = await fetchFallbackWP<any[]>('/wp-json/wp/v2/services?_embed&per_page=100');
@@ -401,12 +422,12 @@ export async function getServiceChild(parentSlug: string, childSlug: string): Pr
             service.heroImageUrl = '';
           }
         }
-        return service;
+        return service ?? null;
       }
-      return null;
+      throw error;
     }
     console.error('[NestJS Backend Failure] Direct WordPress fallback disabled in production.');
-    return null;
+    throw error;
   }
 }
 
