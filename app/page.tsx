@@ -16,6 +16,15 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 import SectionDivider from '@/components/SectionDivider';
 
 import { getHome } from '@/lib/backend-api';
+import {
+  trimAwards,
+  trimClients,
+  trimCta,
+  trimOurServices,
+  trimPortfolioCategories,
+  trimPortfolioProjects,
+  trimProducts,
+} from '@/lib/wp-props';
 import KochiIntroSection from '@/components/KochiIntroSection';
 import EndToEndServicesIntro from '@/components/EndToEndServicesIntro';
 import type { Metadata } from "next";
@@ -78,7 +87,7 @@ export default async function Home() {
       </div>
       
      <div className="relative">
-      <Awards data={homeData.awards} />
+      <Awards data={trimAwards(homeData.awards)} />
   {/* <EndToEndServicesIntro /> */}
 
   <SectionDivider
@@ -99,7 +108,7 @@ export default async function Home() {
 </div>
      <div className="relative">
       <ClientsCarouselSection
-    initialClients={homeData.clients || []}/>
+    initialClients={trimClients(homeData.clients)}/>
     <SectionDivider
     type="curve"
     color="#0753f6"
@@ -107,7 +116,7 @@ export default async function Home() {
   />
   
 </div>
-      <StickyScrollServices initialServices={homeData.services || []} />
+      <StickyScrollServices initialServices={trimOurServices(homeData.services)} />
       
       <div className="relative"> 
   <TrustedITSection />
@@ -144,8 +153,8 @@ export default async function Home() {
      <div className="relative">
   <Portfolio
     showFilters={false}
-    initialProjects={homeData.portfolioProjects || []}
-    initialCategories={homeData.portfolioCategories || []}
+    initialProjects={trimPortfolioProjects(homeData.portfolioProjects)}
+    initialCategories={trimPortfolioCategories(homeData.portfolioCategories)}
   />
 
   {/* Divider 7: Portfolio → Products / PMS */}
@@ -156,7 +165,7 @@ export default async function Home() {
 />
 </div>
       <div className="relative">
-  <Products data={homeData.products} />
+  <Products data={trimProducts(homeData.products)} />
 
   {/* Divider 8: Products / PMS → FAQ */}
   <SectionDivider
@@ -178,7 +187,7 @@ export default async function Home() {
      <div className="relative">
   <Testimonials />
 </div>
-      <CTABottomSection data={homeData.cta} />
+      <CTABottomSection data={trimCta(homeData.cta)} />
       <Contact initialData={homeData.contact} />
       {/* <Footer is provided by RootLayout */}
     </main>

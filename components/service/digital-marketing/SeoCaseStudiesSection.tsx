@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Image from 'next/image';
 import { Navigation, Pagination, Autoplay, Keyboard } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import { commonSwiperConfig } from '@/lib/swiperConfig';
@@ -143,9 +144,11 @@ export default function SeoCaseStudiesSection({ acf }: Props) {
                   <div>
                     {cs.image && (
                       <div className="aspect-[4/4] rounded-box-lg overflow-hidden mb-6 bg-gray-50 border border-gray-100 relative">
-                        <img
+                        <Image
                           src={cs.image}
                           alt={cs.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                         />
                       </div>

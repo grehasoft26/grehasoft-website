@@ -15,6 +15,15 @@ interface PageProps {
   }>;
 }
 
+// ISR, same as the parent service route: rendered on first request,
+// regenerated at most every 5 minutes, last good page kept if a
+// regeneration fails, and only a backend 404 produces notFound().
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function Page({
   params,
 }: PageProps) {

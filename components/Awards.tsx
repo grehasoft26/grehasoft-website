@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Play,
@@ -145,14 +146,14 @@ export default function Awards({
                   >
                     <div className="absolute inset-0 bg-dark/40 group-hover:bg-dark/20 transition-all duration-500 z-10" />
 
-                    <img
+                    <Image
                       src={
                         award.image ||
                         `https://picsum.photos/seed/award${index}/400/600`
                       }
-                      alt={award.title}
-                      loading="lazy"
-                      decoding="async"
+                      alt={award.title ?? ''}
+                      fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 300px"
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     />
 
@@ -282,14 +283,14 @@ export default function Awards({
                     setSelectedVideo(awards[0].videoUrl || null)
                   }
                 >
-                  <img
+                  <Image
                     src={
                       awards[0].image ||
                       `https://picsum.photos/seed/award-featured/1000/700`
                     }
-                    alt={awards[0].title}
-                    loading="lazy"
-                    decoding="async"
+                    alt={awards[0].title ?? ''}
+                    fill
+                    sizes="(max-width: 1023px) 100vw, 700px"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
 
@@ -398,14 +399,14 @@ export default function Awards({
                       }
                     >
 
-                      <img
+                      <Image
                         src={
                           award.image ||
                           `https://picsum.photos/seed/award${index + 1}/800/600`
                         }
-                        alt={award.title}
-                        loading="lazy"
-                        decoding="async"
+                        alt={award.title ?? ''}
+                        fill
+                        sizes="(max-width: 767px) 100vw, 400px"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
 

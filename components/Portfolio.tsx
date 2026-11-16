@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   ArrowRight,
   ArrowLeft,
@@ -326,11 +327,11 @@ export default function Portfolio({
                   `}
                 >
                   {/* IMAGE */}
-                  <img
+                  <Image
                     src={image}
                     alt={item.title.rendered}
-                    loading="lazy"
-                    decoding="async"
+                    fill
+                    sizes="(max-width: 767px) 100vw, (max-width: 1199px) 50vw, 400px"
                     className="
                       absolute
                       inset-0

@@ -49,6 +49,8 @@ import '../styles/globals.css';
 import FooterWrapper from '@/components/FooterWrapper';
 import Navbar from '@/components/Navbar';
 import { getMenu } from '@/lib/backend-api';
+import { getCtaData } from '@/lib/cta-data';
+import { CtaDataProvider } from '@/components/CtaDataProvider';
 
 import CustomCursor from '@/components/CustomCursor';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -77,7 +79,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const menu = await getMenu();
+  const [menu, cta] = await Promise.all([getMenu(), getCtaData()]);
 
   return (
     <html
@@ -93,7 +95,7 @@ export default async function RootLayout({
 
         <Navbar initialMenu={menu} />
 
-        {children}
+        <CtaDataProvider value={cta}>{children}</CtaDataProvider>
         <FooterWrapper />
         <ScrollToTop />
         <WhatsAppButton />

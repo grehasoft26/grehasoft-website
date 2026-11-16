@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
+import Image from 'next/image';
 import { 
   Users, 
   MessageSquare, 
@@ -154,11 +155,12 @@ export default function WhyChooseUs() {
             {/* Premium Network Connection Visual block */}
            <div className="relative z-10 mt-19 mb-6">
               <div className="overflow-hidden rounded-box-lg border border-white/10 aspect-[16/10] shadow-inner bg-black/40 group/photo">
-                <img
+                <Image
                   src="/images/footprint.png"
                   alt="Grehasoft Global IT Connectivity Network"
-                  loading="lazy"
-                  decoding="async"
+                  width={1080}
+                  height={1350}
+                  sizes="(max-width: 1023px) 100vw, 520px"
                   className="w-full h-full object-cover opacity-80 group-hover/photo:opacity-100 group-hover/photo:scale-105 transition-all duration-700"
                   referrerPolicy="no-referrer"
                 />

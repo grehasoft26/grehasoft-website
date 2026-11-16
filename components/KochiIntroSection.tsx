@@ -14,6 +14,7 @@ import {
   Users
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function KochiIntroSection() {
   const highlightPoints = [
@@ -133,11 +134,12 @@ export default function KochiIntroSection() {
             </div>
 
             <div className="relative rounded-box-lg overflow-hidden shadow-2xl border-8 border-gray-50 aspect-[4/4] group bg-gray-50">
-              <img
+              <Image
                 src="/images/IT-company1.webp"
                 alt="Best IT Company in Kochi, Kerala"
-                loading="lazy"
-                decoding="async"
+                width={1254}
+                height={1254}
+                sizes="(max-width: 1023px) 100vw, 500px"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />

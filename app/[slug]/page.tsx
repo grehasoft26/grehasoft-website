@@ -15,6 +15,16 @@ interface PageProps {
   }>;
 }
 
+// ISR: each service page is rendered on its first request (nothing is
+// prerendered at build) and regenerated at most every 5 minutes. A failed
+// regeneration keeps serving the last good page; backend errors are never
+// turned into a cached 404 because only a backend 404 calls notFound().
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  return [];
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {

@@ -3,8 +3,7 @@
 import { MotionConfig, motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { getHome } from '@/lib/backend-api';
+import { useCtaData } from '@/components/CtaDataProvider';
 import { toInternalHref } from '@/lib/internal-href';
 import { CTAData } from '@/types/wordpress';
 
@@ -67,29 +66,9 @@ function CTAActions({ primary, secondary, className = '' }: ActionsProps) {
 }
 
 export default function CTABottomSection({ data }: CTABottomSectionProps) {
-  const [ctaState, setCtaState] = useState<CTAData | null>(data || null);
-
-  useEffect(() => {
-    if (data) {
-      setCtaState(data);
-      return;
-    }
-
-    const fetchCTA = async () => {
-      try {
-        const res = await getHome();
-        if (res?.cta) {
-          setCtaState(res.cta);
-        }
-      } catch (err: any) {
-        console.warn('CTABottomSection fetch error:', err.message);
-      }
-    };
-
-    fetchCTA();
-  }, [data]);
-
-  const source = ctaState || {};
+  // Page-supplied data wins; otherwise use the CTA the root layout loaded server-side.
+  const sharedCta = useCtaData();
+  const source = data || sharedCta || {};
   const cta = {
     badge: pick(source.cta_badge, DEFAULT_CTA.cta_badge),
     titlePart1: pick(source.cta_title_part1, DEFAULT_CTA.cta_title_part1),

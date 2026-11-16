@@ -347,6 +347,7 @@ export default function Clients({
                     alt={client.title.rendered}
                     boxClassName="w-full aspect-[11/5]"
                     loading="lazy"
+                    optimize
                     fallback={
                       <span
                         className="px-2 text-center text-sm sm:text-base font-bold text-[#02025c]/70 leading-tight"

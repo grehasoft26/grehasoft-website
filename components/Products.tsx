@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Layers, Zap, Shield, BarChart, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { toInternalHref } from '@/lib/internal-href';
 import { useEffect, useState } from 'react';
 
@@ -62,12 +63,15 @@ export default function Products({ data }: ProductsProps) {
             className="relative"
           >
             <div className="relative rounded-box-lg overflow-hidden shadow-2xl aspect-[16/10] group">
-             <img src={pms.pms_image_url}
+             {pms.pms_image_url && (
+              <Image
+                src={pms.pms_image_url}
                 alt="Grehasoft PMS"
-                loading="lazy"
-                decoding="async"
+                fill
+                sizes="(max-width: 1023px) 100vw, 600px"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
+             )}
 
               {/* BADGE */}
               <div className="absolute top-8 left-8 p-4 bg-accent rounded-box-sm shadow-xl animate-bounce">

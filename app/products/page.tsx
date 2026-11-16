@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import PageHeader from '@/components/PageHeader';
 import ProductsSection from '@/components/Products';
 import CTABottomSection from '@/components/CTABottomSection';
@@ -250,9 +251,11 @@ export default async function ProductsPage() {
         <div className="relative rounded-box-lg overflow-hidden shadow-2xl aspect-[4/5]">
 
        {imageUrl && (
-  <img
+  <Image
     src={imageUrl}
     alt="Product Quality"
+    fill
+    sizes="(max-width: 1023px) 100vw, 600px"
     className="w-full h-full object-cover"
   />
 )}

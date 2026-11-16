@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { getOurServices } from "@/lib/backend-api";
 import { toInternalHref } from "@/lib/internal-href";
+import Image from "next/image";
 import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
 import SectionDivider from "./SectionDivider";
 
@@ -267,10 +268,12 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                         transition={cardSpring}
                         aria-hidden={depth !== 0}
                       >
-                        <img
-                          src={getImage(item)}
+                        <Image
+                          src={getImage(item) || "/images/fallback.jpg"}
                           alt={item?.acf?.hero_title || "Service"}
-                          loading="lazy"
+                          width={1536}
+                          height={1024}
+                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 576px, 680px"
                           className="
                             block
                             w-full

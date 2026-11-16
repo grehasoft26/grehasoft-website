@@ -6,6 +6,13 @@ import ProjectGallery from '@/components/ProjectGallery';
 import CTABottomSection from '@/components/CTABottomSection';
 import Clients from '@/components/Clients';
 import { getPortfolio, getPortfolioCategories, getProjectGallery, getHome } from '@/lib/backend-api';
+import {
+  trimClients,
+  trimCta,
+  trimPortfolioCategories,
+  trimPortfolioProjects,
+  trimProjectGallery,
+} from '@/lib/wp-props';
 
 export const revalidate = 60;
 
@@ -27,19 +34,19 @@ export default async function PortfolioPage() {
       />
       <PortfolioSection 
         isFullPage={true} 
-        initialProjects={projects} 
-        initialCategories={categories} 
+        initialProjects={trimPortfolioProjects(projects)}
+        initialCategories={trimPortfolioCategories(categories)}
       />
       
       {/* Project Gallery Section */}
-      <ProjectGallery projects={projectGallery} />
+      <ProjectGallery projects={trimProjectGallery(projectGallery)} />
       
       {/* Our Clients Section */}
       <div id="clients">
-        <Clients initialClients={homeData.clients || []} variant="grid" />
+        <Clients initialClients={trimClients(homeData.clients)} variant="grid" />
       </div>
       
-      <CTABottomSection data={homeData.cta || null} />
+      <CTABottomSection data={trimCta(homeData.cta) || null} />
       {/* <Footer /> is provided by RootLayout */}
     </main>
   );
