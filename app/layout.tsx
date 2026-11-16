@@ -51,6 +51,7 @@ import Navbar from '@/components/Navbar';
 import { getMenu } from '@/lib/backend-api';
 import { getCtaData } from '@/lib/cta-data';
 import { CtaDataProvider } from '@/components/CtaDataProvider';
+import { SITE_URL } from '@/lib/seo';
 
 import CustomCursor from '@/components/CustomCursor';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -63,6 +64,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  // Resolves relative metadata URLs; canonicals are set per page, never here,
+  // so 404 pages and unknown URLs never inherit one.
+  metadataBase: new URL(SITE_URL),
+
   icons: {
     icon: '/images/icon.png',
   },

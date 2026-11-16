@@ -1,146 +1,148 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { getPost, getPosts } from '@/lib/backend-api';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Clock, Eye } from 'lucide-react';
 import PageHeader from '@/components/PageHeader';
 import CTABottomSection from '@/components/CTABottomSection';
-import Footer from '@/components/Footer';
-import { useParams } from 'next/navigation';
-import type { Metadata } from "next";
+import { getAllPostsStrict, getPostStrict } from '@/lib/backend-api';
+import { postCategories, postPath } from '@/lib/internal-href';
+import { SITE_URL, absoluteUrl, buildPageMetadata, decodeEntities, plainTextExcerpt, serializeJsonLd } from '@/lib/seo';
 
+interface PageProps {
+  params: Promise<{
+    category: string;
+    slug: string;
+  }>;
+}
 
+// ISR, like the service routes: rendered on first request, regenerated at most
+// every 5 minutes. Only a post the backend reports as missing, or a category
+// the post does not belong to, produces notFound(); backend failures throw so
+// they are never cached as a 404.
+export const revalidate = 300;
 
-export default function BlogDetails() {
-  const params = useParams();
+export async function generateStaticParams() {
+  return [];
+}
 
-const slug = params.slug as string;
-const category = params.category as string;
+/** The post, when it exists and the URL category is one of its categories. */
+async function getPostForRoute(category: string, slug: string) {
+  const post = await getPostStrict(slug);
+  if (!post) return null;
+  const inCategory = postCategories(post).some((c) => c.slug === category.toLowerCase());
+  return inCategory ? post : null;
+}
 
-  const [postData, setPostData] = useState<any>(null);
-  const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
-  const [allPosts, setAllPosts] = useState<any[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { category, slug } = await params;
+  const post = await getPostForRoute(category, slug);
 
-  // 🔥 Extract headings for Contents
-  const extractHeadings = (html: string) => {
-    const div = document.createElement('div');
-    div.innerHTML = html;
+  if (!post) return {};
 
-    const headings = Array.from(div.querySelectorAll('h2, h3'));
+  return buildPageMetadata({
+    // A post listed in several categories is canonical under its first one.
+    path: postPath(post),
+    yoast: post.yoast_head_json,
+    fallbackTitle: decodeEntities(post.title?.rendered || ''),
+    fallbackDescription: plainTextExcerpt(post.excerpt?.rendered || ''),
+    type: 'article',
+    publishedTime: post.date_gmt ? `${post.date_gmt}Z` : undefined,
+    modifiedTime: post.modified_gmt ? `${post.modified_gmt}Z` : undefined,
+  });
+}
 
-    return headings.map((el, i) => ({
-      id: `section-${i}`,
-      text: el.textContent,
-    }));
+/** Adds section ids to h2/h3 headings and lists them for the Contents box. */
+function prepareContent(html: string) {
+  const contents: { id: string; text: string }[] = [];
+  const contentHtml = html.replace(/<(h[23])\b([^>]*)>([\s\S]*?)<\/\1>/gi, (_match, tag: string, attrs: string, inner: string) => {
+    const id = `section-${contents.length}`;
+    contents.push({ id, text: decodeEntities(inner.replace(/<[^>]*>/g, '')).trim() });
+    return `<${tag}${attrs.replace(/\s+id\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/i, '')} id="${id}">${inner}</${tag}>`;
+  });
+  return { contentHtml, contents };
+}
+
+/** The post's own ACF schema when it is valid JSON, otherwise BlogPosting built from the post. */
+function postSchema(post: any): string {
+  const acfSchema = post.acf?.schema_json;
+  if (typeof acfSchema === 'string' && acfSchema.trim()) {
+    try {
+      JSON.parse(acfSchema);
+      return acfSchema;
+    } catch {
+      console.warn(`[Blog] Invalid ACF schema_json on post ${post.slug}; using generated BlogPosting.`);
+    }
+  }
+
+  const url = absoluteUrl(postPath(post));
+  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+
+  return serializeJsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${url}#article`,
+    mainEntityOfPage: url,
+    url,
+    headline: decodeEntities(post.title?.rendered || ''),
+    ...(post.excerpt?.rendered ? { description: plainTextExcerpt(post.excerpt.rendered, 300) } : {}),
+    ...(image ? { image } : {}),
+    ...(post.date_gmt ? { datePublished: `${post.date_gmt}Z` } : {}),
+    ...(post.modified_gmt ? { dateModified: `${post.modified_gmt}Z` } : {}),
+    // Posts are published from the company's own WordPress account.
+    author: { '@type': 'Organization', name: 'Grehasoft', url: `${SITE_URL}/` },
+    publisher: { '@type': 'Organization', name: 'Grehasoft', url: `${SITE_URL}/` },
+  });
+}
+
+const featuredImage = (post: any) => post?._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+
+export default async function BlogDetails({ params }: PageProps) {
+  const { category, slug } = await params;
+
+  const post = await getPostForRoute(category, slug);
+  if (!post) {
+    notFound();
+  }
+
+  // Prev / Next and related posts are secondary: if the list cannot be loaded
+  // the article still renders without them.
+  let allPosts: any[] = [];
+  try {
+    allPosts = await getAllPostsStrict();
+  } catch (error) {
+    console.warn('Failed to fetch posts for navigation:', error);
+  }
+
+  const { contentHtml, contents } = prepareContent(post.content?.rendered || '');
+  const postData = {
+    title: post.title?.rendered || '',
+    contentHtml,
+    contents,
+    author: post._embedded?.author?.[0]?.name || 'Admin',
+    date: post.date ? new Date(post.date).toDateString() : '',
   };
-
-  const DEFAULT_POST_DETAIL = {
-    title: "Insights & Technology Strategies",
-    contentHtml: `
-      <h2>Streamlining Operational Workflows</h2>
-      <p>Operational efficiency is key to scaling any modern enterprise. By implementing standardized software pathways, API integrations, and robust database layers, organizations can eliminate latency, minimize operational friction, and support cross-functional collaboration.</p>
-      <h3>Hardened Data Synchronization</h3>
-      <p>Ensuring data integrity across distributed nodes requires transactional synchronization, safe retry layers, and cached state management. Utilizing caching tools like Redis alongside relational databases like MySQL represents a proven architecture for high-availability enterprise services.</p>
-    `,
-    contents: [
-      { id: "section-0", text: "Streamlining Operational Workflows" },
-      { id: "section-1", text: "Hardened Data Synchronization" }
-    ],
-    author: "Admin",
-    date: "June 2026"
-  };
-
-  useEffect(() => {
-    if (!slug) return;
-
-    // ✅ FETCH CURRENT POST
-    getPost(slug)
-      .then((data) => {
-        const post = data?.[0];
-        if (!post) {
-          setPostData(DEFAULT_POST_DETAIL);
-          return;
-        }
-
-        const div = document.createElement('div');
-        div.innerHTML = post.content?.rendered || '';
-
-        const headings = div.querySelectorAll('h2, h3');
-
-        headings.forEach((h, i) => {
-          h.setAttribute('id', `section-${i}`);
-        });
-
-        const updatedHtml = div.innerHTML;
-
-        setPostData({
-          title: post.title?.rendered || "Insights & Technology Strategies",
-          contentHtml: updatedHtml,
-          contents: extractHeadings(updatedHtml),
-          author: post._embedded?.author?.[0]?.name || 'Admin',
-          date: post.date ? new Date(post.date).toDateString() : "June 2026",
-        });
-      })
-      .catch((err) => {
-        console.warn("Failed to fetch current post details:", err?.message || err);
-        setPostData(DEFAULT_POST_DETAIL);
-      });
-
-    // ✅ FETCH ALL POSTS (for Prev / Next)
-    getPosts({ perPage: 50 })
-      .then(({ posts }) => {
-        setAllPosts(posts);
-        const index = posts.findIndex(
-          (p: any) => p.slug === slug
-        );
-        setCurrentIndex(index);
-      })
-      .catch((err) => {
-        console.warn("Failed to fetch all posts for navigation:", err?.message || err);
-      });
-
-    // ✅ RELATED POSTS
-    getPosts({ perPage: 3 })
-      .then(({ posts }) => {
-        setRelatedPosts(posts);
-      })
-      .catch((err) => {
-        console.warn("Failed to fetch related posts:", err?.message || err);
-      });
-
-  }, [slug]);
-
-  if (!postData) return <div className="p-10">Loading...</div>;
 
   // 🔥 PREV / NEXT LOGIC
+  const currentIndex = allPosts.findIndex((p: any) => p.slug === post.slug);
   const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
   const nextPost =
     currentIndex !== -1 && currentIndex < allPosts.length - 1
       ? allPosts[currentIndex + 1]
       : null;
-const prevCategory =
-  prevPost?._embedded?.["wp:term"]?.[0]
-    ?.find((t: any) => t.taxonomy === "category")
-    ?.slug || "uncategorized";
-
-
-    const nextCategory =
-  nextPost?._embedded?.["wp:term"]?.[0]
-    ?.find((t: any) => t.taxonomy === "category")
-    ?.slug || "uncategorized";
-
-    
-  
+  const relatedPosts = allPosts.slice(0, 3);
 
   return (
     <main className="min-h-screen bg-white">
-  
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: postSchema(post) }}
+      />
+
       {/* HEADER */}
       <PageHeader
         title="Blog Details"
         description="Explore insights and updates"
+        titleTag="p"
         breadcrumb={[
           { name: 'Blogs', href: '/blogs' },
           { name: 'Details', href: '#' },
@@ -188,7 +190,7 @@ const prevCategory =
               <div className="sticky top-32 bg-gray-50 p-6 rounded-box-lg">
                 <h3 className="font-bold mb-4">Contents</h3>
 
-                {postData.contents?.map((item: any) => (
+                {postData.contents.map((item) => (
                   <a
                     key={item.id}
                     href={`#${item.id}`}
@@ -212,7 +214,7 @@ const prevCategory =
 
                 {prevPost ? (
                   <Link
-  href={`/blogs/${prevCategory}/${prevPost.slug}`}
+  href={postPath(prevPost)}
   className="text-dark font-medium hover:text-primary"
 >
   ← Prev blog
@@ -223,7 +225,7 @@ const prevCategory =
 
                 {nextPost ? (
                   <Link
-                    href={`/blogs/${nextCategory}/${nextPost.slug}`}
+                    href={postPath(nextPost)}
                     className="text-dark font-medium hover:text-primary"
                   >
                     Next blog →
@@ -239,37 +241,27 @@ const prevCategory =
             <div className="lg:col-span-3">
               <h3 className="font-bold mb-6">Related Insights</h3>
 
-              {relatedPosts.map((post) => {
-
-  const relatedCategory =
-    post._embedded?.["wp:term"]?.[0]
-      ?.find((t: any) => t.taxonomy === "category")
-      ?.slug || "uncategorized";
-
-  return (
+              {relatedPosts.map((related) => (
     <Link
-      key={post.id}
-      href={`/blogs/${relatedCategory}/${post.slug}`}
+      key={related.id}
+      href={postPath(related)}
     >
                   <div className="mb-6 cursor-pointer group">
                     <img
-                      src={
-                        post._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
-                        '/fallback.jpg'
-                      }
+                      src={featuredImage(related) || '/fallback.jpg'}
+                      alt={decodeEntities(related.title?.rendered || '')}
                       className="rounded-box-sm mb-3"
                     />
                     <p
                       className="font-semibold text-sm group-hover:text-primary"
                       dangerouslySetInnerHTML={{
-                        __html: post.title.rendered,
+                        __html: related.title?.rendered || '',
                       }}
                     />
                     <span className="text-primary text-sm">Read More →</span>
                   </div>
                 </Link>
-  );
-})}
+              ))}
 
             </div>
 
@@ -279,7 +271,6 @@ const prevCategory =
       </section>
 
       <CTABottomSection />
-     
 
     </main>
   );

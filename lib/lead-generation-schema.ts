@@ -1,17 +1,27 @@
 import type { LeadGenerationContent } from '@/types/lead-generation';
+import { buildBreadcrumbJsonLd } from '@/lib/seo';
+
+export { serializeJsonLd } from '@/lib/seo';
 
 /**
- * Builds the Service + FAQPage JSON-LD graph from the same content the page renders,
- * so structured data always matches the visible copy word for word.
+ * Builds the Service + FAQPage + BreadcrumbList JSON-LD graph from the same content
+ * the page renders, so structured data always matches the visible copy word for word.
  */
 export function buildLeadGenerationJsonLd(content: LeadGenerationContent) {
   const { seo, solutions, faq } = content;
   const pageUrl = seo.canonical;
   const serviceId = `${pageUrl}#service`;
 
+  // Mirrors the visible LeadHero breadcrumb: Home > {breadcrumbLabel}.
+  const { '@context': _context, ...breadcrumb } = buildBreadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: seo.breadcrumbLabel, path: new URL(pageUrl).pathname },
+  ]);
+
   return {
     '@context': 'https://schema.org',
     '@graph': [
+      { ...breadcrumb, '@id': `${pageUrl}#breadcrumb` },
       {
         '@type': 'Service',
         '@id': serviceId,
@@ -60,9 +70,4 @@ export function buildLeadGenerationJsonLd(content: LeadGenerationContent) {
       },
     ],
   };
-}
-
-/** Serialises JSON-LD for a script tag, escaping `<` as recommended by the Next.js JSON-LD guide. */
-export function serializeJsonLd(data: unknown) {
-  return JSON.stringify(data).replace(/</g, '\\u003c');
 }

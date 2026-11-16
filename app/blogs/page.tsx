@@ -1,398 +1,63 @@
-'use client';
+import type { Metadata } from 'next';
+import { getCategoriesStrict, getLatestPostsStrict, getPage } from '@/lib/backend-api';
+import { buildPageMetadata } from '@/lib/seo';
+import { trimPostCards } from '@/lib/wp-props';
+import BlogIndex from '@/components/blog/BlogIndex';
 
-import { useEffect, useState, useRef } from 'react';
-import { getPosts, getCategories } from '@/lib/backend-api';
-import { motion } from 'motion/react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight, Settings, Box, Zap, Cloud } from 'lucide-react';
+// Real posts are rendered on the server so they are in the initial HTML.
+// A backend failure throws (ISR keeps the last good page) instead of
+// rendering an empty or placeholder blog.
+export const revalidate = 300;
 
-import PageHeader from '@/components/PageHeader';
-import CTABottomSection from '@/components/CTABottomSection';
-import Footer from '@/components/Footer';
+async function getBlogsPage() {
+  return await getPage('1276');
+}
 
-const DEFAULT_POSTS = [
-  {
-    id: 1,
-    slug: "efficiency-enhancements",
-    title: { rendered: "How to Boost Enterprise Operational Efficiency" },
-    excerpt: { rendered: "Discover key strategies and tools to streamline workflows, eliminate bottlenecks, and improve collaboration across teams." },
-    date: "2026-06-01",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Strategy" }]]
-    }
-  },
-  {
-    id: 2,
-    slug: "inventory-management",
-    title: { rendered: "Hardened Inventory and Warehousing Systems" },
-    excerpt: { rendered: "Learn how modern inventory tracking databases optimize stock levels, prevent loss, and streamline logistics operations." },
-    date: "2026-05-28",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Logistics" }]]
-    }
-  },
-  {
-    id: 3,
-    slug: "cloud-performance",
-    title: { rendered: "Cloud Scaling & Performance Tuning" },
-    excerpt: { rendered: "A deep dive into high-availability cloud setups, load balancing, and secure infrastructure deployment patterns." },
-    date: "2026-05-20",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Cloud" }]]
-    }
-  },
-  {
-    id: 4,
-    slug: "rpa-automation",
-    title: { rendered: "Robotic Process Automation for Small Businesses" },
-    excerpt: { rendered: "How small businesses can leverage RPA to automate repetitive tasks, reduce manual errors, and save administrative hours." },
-    date: "2026-05-15",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Automation" }]]
-    }
-  },
-  {
-    id: 5,
-    slug: "custom-api-sync",
-    title: { rendered: "Best Practices for Custom API Integrations" },
-    excerpt: { rendered: "A comprehensive guide to constructing safe, high-speed API synchronizations between distributed database environments." },
-    date: "2026-05-10",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "API Integration" }]]
-    }
-  },
-  {
-    id: 6,
-    slug: "enterprise-security",
-    title: { rendered: "Enterprise Cybersecurity Shield Patterns" },
-    excerpt: { rendered: "Essential security guidelines to protect corporate databases, user credentials, and communication channels." },
-    date: "2026-05-05",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Security" }]]
-    }
-  },
-  {
-    id: 7,
-    slug: "saas-architecture",
-    title: { rendered: "Constructing Multi-Tenant SaaS Platforms" },
-    excerpt: { rendered: "Architectural insights on designing database schemas, permission controls, and billing integrations for SaaS products." },
-    date: "2026-05-01",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "SaaS" }]]
-    }
-  }
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getBlogsPage();
 
-const DEFAULT_CATEGORIES = [
-  { id: 1, name: "Strategy", slug: "strategy" },
-  { id: 2, name: "Logistics", slug: "logistics" },
-  { id: 3, name: "Cloud", slug: "cloud" },
-  { id: 4, name: "Automation", slug: "automation" },
-  { id: 5, name: "Security", slug: "security" }
-];
+  if (!page) return {};
 
-export default function BlogPage() {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [categories, setCategories] = useState<any[]>([]);
+  return {
+    ...buildPageMetadata({
+      path: '/blogs',
+      yoast: page?.yoast_head_json,
+      fallbackTitle: page?.title?.rendered || 'Blogs | Grehasoft',
+      fallbackDescription:
+        'Latest insights, technology updates, web development, SEO, digital marketing and business growth articles.',
+    }),
 
-  /* 🔥 SCROLL REF */
-  const scrollRef = useRef<HTMLDivElement>(null);
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
-  useEffect(() => {
-    getPosts({ perPage: 10 })
-      .then(({ posts }) => {
-        setPosts(posts);
-      })
-      .catch((err) => console.warn("Failed to fetch posts:", err?.message || err));
+export default async function BlogPage() {
+  const [page, posts, categories] = await Promise.all([
+    getBlogsPage(),
+    getLatestPostsStrict(10),
+    getCategoriesStrict(),
+  ]);
 
-    getCategories()
-      .then((data) => {
-        setCategories(data);
-      })
-      .catch((err) => console.warn("Failed to fetch categories:", err?.message || err));
-  }, []);
+  const schemaJson = page?.acf?.schema_json;
 
-  /* 🔥 AUTO SCROLL */
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const interval = setInterval(() => {
-      container.scrollBy({ top: 250, behavior: 'smooth' });
-
-      if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
-        container.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const displayPosts = posts.length > 0 ? posts : DEFAULT_POSTS;
-  const displayCategories = categories.length > 0 ? categories : DEFAULT_CATEGORIES;
-
-  const featuredPost = displayPosts[0];
-
-  const industryUpdates = displayPosts.slice(1, 4).map((post: any) => ({
-  title: post.title?.rendered || "Untitled Article",
-  description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
-  author: post._embedded?.author?.[0]?.name || "Admin",
-  date: post.date
-    ? new Date(post.date).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      })
-    : "June 2026",
-  image:
-    post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-    "/images/logo.png",
-  slug: post.slug,
-  categorySlug:
-    post._embedded?.["wp:term"]?.[0]
-      ?.find((t: any) => t.taxonomy === "category")
-      ?.slug || "uncategorized",
-}));
-
-  const catchUpPosts = displayPosts.slice(4, 7).map((post: any) => ({
-  title: post.title?.rendered || "Untitled Article",
-  description: (post.excerpt?.rendered || "").replace(/<[^>]+>/g, ''),
-  image:
-    post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-    "/images/logo.png",
-  slug: post.slug,
-  category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog",
-  categorySlug:
-    post._embedded?.["wp:term"]?.[0]
-      ?.find((t: any) => t.taxonomy === "category")
-      ?.slug || "uncategorized",
-}));
-
-  const insiderTips = [
-    { title: "Efficiency Enhancements", description: "Automation tips", icon: Settings },
-    { title: "Inventory Management", description: "Better decisions", icon: Box },
-    { title: "Enterprise Security", description: "Security tips", icon: Zap },
-    { title: "Cloud Performance", description: "Cloud optimization", icon: Cloud }
-  ];
-const featuredCategory =
-  featuredPost?._embedded?.["wp:term"]?.[0]
-    ?.find((t: any) => t.taxonomy === "category")
-    ?.slug || "uncategorized";
-
-
-    
   return (
-    <main className="min-h-screen bg-white">
-
-      <PageHeader
-        title="Grehasoft Blog - IT & Digital Marketing Insights"
-        description="Stay updated with the latest SEO, web development, and 
-technology trends from our team in Kochi"
-        breadcrumb={[{ name: 'Blogs', href: '/blogs' }]}
-      />
-
-      {/* FEATURED */}
-      {featuredPost && (
-        <section className="section-padding">
-          <div className="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-            <img
-              src={featuredPost._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png"}
-              className="rounded-box-lg"
-            />
-
-            <div>
-              <h2
-                className="text-4xl font-bold mb-6"
-                dangerouslySetInnerHTML={{ __html: featuredPost.title?.rendered || "" }}
-              />
-              <p dangerouslySetInnerHTML={{ __html: featuredPost.excerpt?.rendered || "" }} />
-
-              <Link href={`/blogs/${featuredCategory}/${featuredPost.slug}`} className="text-primary font-bold">
-                Read More →
-              </Link>
-            </div>
-
-          </div>
-        </section>
+    <>
+      {schemaJson && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: schemaJson,
+          }}
+        />
       )}
 
-      {/* RECENT */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom">
-
-          <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-4">Our Recent Articles</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {industryUpdates.map((post, i) => (
-              <ArticleCard key={i} post={post} index={i} />
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* CATEGORY */}
-      {/* <section className="section-padding">
-        <div className="container-custom flex flex-wrap gap-3 justify-center">
-          {displayCategories.map((cat: any) => (
-            <Link
-              key={cat.id}
-              href={`/blogs/category/${cat.slug}`}
-              className="px-6 py-2.5 rounded-full border border-gray-200 hover:border-primary hover:text-primary transition"
-            >
-              {cat.name}
-            </Link>
-          ))}
-        </div>
-      </section> */}
-
-      {/* TRENDING */}
-      <section className="section-padding bg-white">
-         <div className="container-custom">
-         <div className="mb-16 md:mb-20">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-              {/* Left Side: Headline & Decorative Graphic */}
-              <div className="lg:col-span-5 lg:sticky lg:top-32">
-                <span className="text-secondary font-bold uppercase tracking-widest text-xs mb-4 block">Trending</span>
-                <h2 className="text-5xl font-bold text-dark mb-8 leading-tight">
-                  Trending Articles You Need To Read
-                </h2>
-                <p className="text-text-gray font-medium mb-12 leading-relaxed">
-                  Stay Ahead of the Curve and Dive Deep into the Must-Read Trending Articles that Keep You Informed and Inspired.
-                </p>
-                
-                {/* Decorative Illustration */}
-                <Image
-                  src="/images/blogs-trending-illustration.webp"
-                  alt=""
-                  width={1254}
-                  height={1254}
-                  sizes="(min-width: 768px) 400px, 320px"
-                  className="w-full max-w-[320px] md:max-w-[400px] h-auto mx-auto object-contain"
-                />
-              </div>
-
-            {/* Right Side: Vertical List */}
-             <div className="lg:col-span-7 flex flex-col gap-12">
-                {catchUpPosts.map((post, i) => (
-                  <TrendingArticleCard key={i} post={post} index={i} />
-                ))}
-              </div>
-</div>
-          </div>
-
-          {/* INSIDER */}
-          <div className="grid md:grid-cols-4 gap-6 pb-2 md:pb-0">
-            {insiderTips.map((tip, i) => (
-              <TipCard key={i} tip={tip} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CTABottomSection />
-     
-    </main>
-  );
-}
-
-/* ================= COMPONENTS ================= */
-
-function ArticleCard({ post, index }: any) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className="group flex flex-col bg-white rounded-box-lg shadow-[0_4px_20px_rgba(5,4,74,0.06)] transition-all duration-500 hover:-translate-y-2"
-    >
-      <div className="aspect-[1.4] rounded-box-lg overflow-hidden">
-        <img
-          src={post.image}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-      </div>
-
-      <div className="flex flex-col flex-grow p-6">
-        <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 mb-2">
-          <span className="text-primary font-bold text-sm">{post.author}</span>
-          <span className="text-text-gray text-sm whitespace-nowrap">{post.date}</span>
-        </div>
-
-        <h3 className="text-xl font-bold mb-3 group-hover:text-primary">
-          {post.title}
-        </h3>
-
-        <p className="text-text-gray mb-4 line-clamp-3">{post.description}</p>
-
-        <Link
-          href={`/blogs/${post.categorySlug}/${post.slug}`}
-          className="mt-auto text-primary font-bold flex items-center gap-2"
-        >
-          Read More <ArrowRight size={16} />
-        </Link>
-      </div>
-    </motion.div>
-  );
-}
-
-function TrendingArticleCard({ post, index }: { post: any; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center group cursor-pointer"
-    >
-      <div className="md:col-span-5 aspect-[1.4] rounded-box-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-500">
-        <img 
-          src={post.image} 
-          alt={post.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-        />
-      </div>
-      <div className="md:col-span-7">
-        <span className="inline-block px-4 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold mb-4 uppercase tracking-wider">
-          {post.category}
-        </span>
-        <h3 className="text-2xl font-bold text-dark mb-4 group-hover:text-primary transition-colors leading-tight">
-          {post.title}
-        </h3>
-        <p className="text-text-gray text-sm mb-6 line-clamp-2 leading-relaxed">
-          {post.description}
-        </p>
-        <Link   href={`/blogs/${post.categorySlug}/${post.slug}`} className="inline-flex items-center gap-2 text-primary font-bold group-hover:gap-3 transition-all">
-          Read More <ArrowRight className="w-4 h-4" />
-        </Link>
-      </div>
-    </motion.div>
-  );
-}
-function TipCard({ tip }: any) {
-  const Icon = tip.icon;
-  return (
-    <div className="p-6 border rounded-box-lg hover:shadow-lg transition">
-      <Icon className="mb-3" />
-      <h3 className="font-bold mb-2">{tip.title}</h3>
-      <p>{tip.description}</p>
-    </div>
+      <BlogIndex
+        posts={trimPostCards(posts)}
+        categories={categories.map((c: any) => ({ id: c.id, name: c.name, slug: c.slug }))}
+      />
+    </>
   );
 }

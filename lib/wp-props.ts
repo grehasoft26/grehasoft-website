@@ -67,6 +67,47 @@ export const trimPortfolioProjects = (projects: WPList) =>
     _embedded: { 'wp:featuredmedia': featuredMedia(project, true) },
   }));
 
+const PORTFOLIO_DETAIL_ACF = [
+  'subtitle', 'hero_subtitle', 'main_title', 'short_desc', 'challenge', 'solution',
+  'service_1', 'service_2', 'service_3', 'service_4', 'service_5',
+  'language', 'duration', 'system', 'live_site_url',
+  'result_1', 'result_2', 'result_3', 'result_4',
+] as const;
+
+/** Portfolio detail page: the ACF fields it renders and the featured image. */
+export const trimPortfolioDetail = (project: any) => ({
+  id: project?.id,
+  title: { rendered: project?.title?.rendered ?? '' },
+  acf: pick(project?.acf, PORTFOLIO_DETAIL_ACF),
+  _embedded: { 'wp:featuredmedia': featuredMedia(project) },
+});
+
+/** "Related works" cards on the portfolio detail page. */
+export const trimPortfolioRelated = (projects: WPList) =>
+  (projects || []).map((project) => ({
+    id: project?.id,
+    slug: project?.slug,
+    title: { rendered: project?.title?.rendered ?? '' },
+    _embedded: { 'wp:featuredmedia': featuredMedia(project) },
+  }));
+
+/** Blog cards: title, excerpt, date, author name, featured image and categories. */
+export const trimPostCards = (posts: WPList) =>
+  (posts || []).map((post) => ({
+    id: post?.id,
+    slug: post?.slug,
+    date: post?.date,
+    title: { rendered: post?.title?.rendered ?? '' },
+    excerpt: { rendered: post?.excerpt?.rendered ?? '' },
+    _embedded: {
+      author: (post?._embedded?.author || []).map((a: any) => ({ name: a?.name })),
+      'wp:featuredmedia': featuredMedia(post),
+      'wp:term': [
+        (post?._embedded?.['wp:term']?.[0] || []).map((t: any) => pick(t, ['id', 'name', 'slug', 'taxonomy'])),
+      ],
+    },
+  }));
+
 /** Portfolio category filter buttons. */
 export const trimPortfolioCategories = (categories: WPList) =>
   (categories || []).map((category) => ({ id: category?.id, name: category?.name }));

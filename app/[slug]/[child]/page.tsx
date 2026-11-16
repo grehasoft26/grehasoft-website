@@ -5,8 +5,13 @@ import MobileAppTemplate from '@/components/templates/MobileAppTemplate';
 
 import TechnologyTemplate from '@/components/templates/TechnologyTemplate';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { getServiceChild } from '@/lib/backend-api';
+import { buildPageMetadata } from '@/lib/seo';
 import MainTemplate from '@/components/templates/MainTemplate';
+
+// Normalized the same way the backend matches slugs (case, slashes).
+const normalizeSlug = (s: string) => (s || '').replace(/^\/|\/$/g, '').toLowerCase().trim();
 
 interface PageProps {
   params: Promise<{
@@ -22,6 +27,26 @@ export const revalidate = 300;
 
 export async function generateStaticParams() {
   return [];
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug, child } = await params;
+
+  try {
+    const service = await getServiceChild(slug, child);
+    if (!service || normalizeSlug(service.acf?.parent_slug) !== normalizeSlug(slug)) return {};
+
+    return buildPageMetadata({
+      path: `/${slug}/${child}`,
+      yoast: service.yoast_head_json,
+      fallbackTitle: service.title?.rendered,
+    });
+  } catch (error) {
+    console.error('Metadata Error:', error);
+    return {};
+  }
 }
 
 export default async function Page({
@@ -44,8 +69,6 @@ export default async function Page({
   const acf = service.acf || {};
 
   // Child exists but under a different parent: this URL is not a real page.
-  // Normalized the same way the backend matches slugs (case, slashes).
-  const normalizeSlug = (s: string) => (s || '').replace(/^\/|\/$/g, '').toLowerCase().trim();
   if (normalizeSlug(acf.parent_slug) !== normalizeSlug(slug)) {
     notFound();
   }

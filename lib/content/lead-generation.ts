@@ -1,4 +1,5 @@
 import type { LeadGenerationContent } from '@/types/lead-generation';
+import { SITE_URL, absoluteUrl } from '@/lib/seo';
 
 /**
  * Phase 1 content source for /lead-generation-services.
@@ -6,8 +7,7 @@ import type { LeadGenerationContent } from '@/types/lead-generation';
  * Labels marked "UI label" are interface text not present in the document.
  */
 
-const SITE_URL = 'https://grehasoft.com';
-const PAGE_URL = `${SITE_URL}/lead-generation-services`;
+const PAGE_URL = absoluteUrl('/lead-generation-services');
 
 const PHONE = '+918921540183';
 

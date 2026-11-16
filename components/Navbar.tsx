@@ -156,8 +156,8 @@ const getSubMenu = (id: any) =>
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <img src="/images/logo.png" className="h-10" />
-          
+          <img src="/images/logo.png" alt="Grehasoft" className="h-10" />
+
         </Link>
 
         {/* Desktop Menu */}
@@ -335,7 +335,7 @@ border-primary"
     >
       {/* Top Bar */}
       <div className="flex items-center justify-between px-6 py-5 ">
-        <img src="/images/logo.png" className="h-10" />
+        <img src="/images/logo.png" alt="Grehasoft" className="h-10" />
         <button onClick={() => setIsMobileMenuOpen(false)}>
           <X className="w-7 h-7 text-dark" />
         </button>

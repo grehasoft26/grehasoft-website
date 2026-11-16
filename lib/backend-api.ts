@@ -344,6 +344,74 @@ export async function getPost(slug: string): Promise<any[]> {
   }
 }
 
+// Strict variants for server-rendered SEO content (blog, portfolio, sitemap).
+// Unlike the helpers above they never turn an outage into an empty result:
+// a single item is null only when the backend reports it does not exist, and
+// every other failure throws, so ISR keeps the last good page instead of
+// caching a false 404, an empty list or a truncated sitemap.
+
+/** All published posts, newest first (follows pagination). */
+export async function getAllPostsStrict(): Promise<any[]> {
+  const posts: any[] = [];
+  for (let page = 1; ; page++) {
+    const data = await fetchBackend<{ posts: any[]; totalPages: number }>(`/posts?page=${page}&per_page=100`);
+    if (!Array.isArray(data?.posts)) throw new Error('Invalid posts response from NestJS backend');
+    posts.push(...data.posts);
+    if (page >= (Number(data.totalPages) || 1)) return posts;
+  }
+}
+
+/** Newest published posts, one page. */
+export async function getLatestPostsStrict(perPage: number): Promise<any[]> {
+  const data = await fetchBackend<{ posts: any[] }>(`/posts?page=1&per_page=${perPage}`);
+  if (!Array.isArray(data?.posts)) throw new Error('Invalid posts response from NestJS backend');
+  return data.posts;
+}
+
+/** A published post by slug; null only when the backend reports no such post. */
+export async function getPostStrict(slug: string): Promise<any | null> {
+  try {
+    const post = await fetchBackend<any | null>(`/posts/${encodeURIComponent(slug)}`);
+    return post || null;
+  } catch (error) {
+    if (isBackendNotFound(error)) return null;
+    throw error;
+  }
+}
+
+/** Blog categories. */
+export async function getCategoriesStrict(): Promise<any[]> {
+  const data = await fetchBackend<any[]>('/categories');
+  if (!Array.isArray(data)) throw new Error('Invalid categories response from NestJS backend');
+  return data;
+}
+
+/** All portfolio projects. */
+export async function getPortfolioStrict(): Promise<any[]> {
+  const data = await fetchBackend<any[]>('/portfolio');
+  if (!Array.isArray(data)) throw new Error('Invalid portfolio response from NestJS backend');
+  return data;
+}
+
+/** A portfolio project by slug; null only when the backend reports no such project. */
+export async function getPortfolioProjectStrict(slug: string): Promise<any | null> {
+  try {
+    const data = await fetchBackend<any[]>(`/portfolio/${encodeURIComponent(slug)}`);
+    if (!Array.isArray(data)) throw new Error('Invalid portfolio response from NestJS backend');
+    return data[0] || null;
+  } catch (error) {
+    if (isBackendNotFound(error)) return null;
+    throw error;
+  }
+}
+
+/** All services. */
+export async function getServicesListStrict(): Promise<any[]> {
+  const data = await fetchBackend<any[]>('/services');
+  if (!Array.isArray(data)) throw new Error('Invalid services response from NestJS backend');
+  return data;
+}
+
 /**
  * Retrieves the services CPT list.
  */

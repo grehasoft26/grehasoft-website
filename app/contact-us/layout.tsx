@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPage } from "@/lib/backend-api";
+import { buildPageMetadata } from "@/lib/seo";
 import React from "react";
 
 async function getPageData() {
@@ -16,27 +17,11 @@ export async function generateMetadata(): Promise<Metadata> {
     };
   }
 
-  const yoast = page?.yoast_head_json;
-
-  return {
-    title: yoast?.title || "Contact Us | Grehasoft",
-    description: yoast?.description || "",
-
-    alternates: {
-      canonical: yoast?.canonical,
-    },
-
-    openGraph: {
-      title: yoast?.og_title || yoast?.title,
-      description:
-        yoast?.og_description || yoast?.description,
-      url: yoast?.og_url,
-      images:
-        yoast?.og_image?.map(
-          (img: { url: string }) => img.url
-        ) || [],
-    },
-  };
+  return buildPageMetadata({
+    path: "/contact-us",
+    yoast: page?.yoast_head_json,
+    fallbackTitle: "Contact Us | Grehasoft",
+  });
 }
 
 export default async function Layout({

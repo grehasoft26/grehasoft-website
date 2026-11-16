@@ -62,7 +62,7 @@ const serviceCategories = [
       { name: "WooCommerce Stores", desc: "Convert standard WordPress platforms into fully functional online supermarkets with payment logic.", href: "/woocommerce-development" },
       { name: "Shopify Stores", desc: "Establish pre-configured storefronts, optimized templates, and clean product collections with speed.", href: "/shopify-development" },
       { name: "Landing Page Design", desc: "High-level visual triggers and clean sales copy designed to capture immediate sign-ups and leads.", href: "/landing-page-design" },
-      { name: "Website Redesign", desc: "Breathe new vigor into legacy websites with updated structural wireframes, clean code, and fast assets.", href: "/website-redesign" },
+      { name: "Website Redesign", desc: "Breathe new vigor into legacy websites with updated structural wireframes, clean code, and fast assets.", href: "/website-redesign-services" },
     ]
   },
   {

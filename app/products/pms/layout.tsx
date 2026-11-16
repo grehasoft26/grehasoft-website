@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPage } from "@/lib/backend-api";
+import { buildPageMetadata } from "@/lib/seo";
 import React from "react";
 
 async function getPageData() {
@@ -13,26 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
     if (!page) return {};
 
-    const yoast = page?.yoast_head_json;
-
-    return {
-      title: yoast?.title,
-      description: yoast?.description,
-
-      alternates: {
-        canonical: yoast?.canonical,
-      },
-
-      openGraph: {
-        title: yoast?.og_title,
-        description: yoast?.og_description,
-        url: yoast?.og_url,
-        images:
-          yoast?.og_image?.map(
-            (img: any) => img.url
-          ) || [],
-      },
-    };
+    return buildPageMetadata({
+      path: "/products/pms",
+      yoast: page?.yoast_head_json,
+    });
   } catch {
     return {};
   }

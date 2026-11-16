@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getService } from '@/lib/backend-api';
+import { buildPageMetadata } from '@/lib/seo';
 
 import WebDesignTemplate from '@/components/templates/WebDesignTemplate';
 import DigitalMarketingTemplate from '@/components/templates/DigitalMarketingTemplate';
@@ -35,28 +36,11 @@ export async function generateMetadata({
 
     if (!service) return {};
 
-    const yoast = service?.yoast_head_json;
-
-    return {
-      title: yoast?.title || service?.title?.rendered,
-      description: yoast?.description || '',
-      alternates: {
-        canonical: yoast?.canonical,
-      },
-      openGraph: {
-        title: yoast?.og_title,
-        description: yoast?.og_description,
-        url: yoast?.og_url,
-        images:
-          yoast?.og_image?.map((img: { url: string }) => img.url) || [],
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: yoast?.twitter_title || yoast?.title,
-        description:
-          yoast?.twitter_description || yoast?.description,
-      },
-    };
+    return buildPageMetadata({
+      path: `/${slug}`,
+      yoast: service?.yoast_head_json,
+      fallbackTitle: service?.title?.rendered,
+    });
   } catch (error) {
     console.error('Metadata Error:', error);
     return {};

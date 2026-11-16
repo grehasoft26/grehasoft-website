@@ -10,53 +10,6 @@ import CTABottomSection from "@/components/CTABottomSection";
 import Footer from "@/components/Footer";
 import { use } from "react";
 
-const DEFAULT_POSTS = [
-  {
-    id: 1,
-    slug: "efficiency-enhancements",
-    title: { rendered: "How to Boost Enterprise Operational Efficiency" },
-    excerpt: { rendered: "Discover key strategies and tools to streamline workflows, eliminate bottlenecks, and improve collaboration across teams." },
-    date: "2026-06-01",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Strategy" }]]
-    }
-  },
-  {
-    id: 2,
-    slug: "inventory-management",
-    title: { rendered: "Hardened Inventory and Warehousing Systems" },
-    excerpt: { rendered: "Learn how modern inventory tracking databases optimize stock levels, prevent loss, and streamline logistics operations." },
-    date: "2026-05-28",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Logistics" }]]
-    }
-  },
-  {
-    id: 3,
-    slug: "cloud-performance",
-    title: { rendered: "Cloud Scaling & Performance Tuning" },
-    excerpt: { rendered: "A deep dive into high-availability cloud setups, load balancing, and secure infrastructure deployment patterns." },
-    date: "2026-05-20",
-    _embedded: {
-      author: [{ name: "Admin" }],
-      "wp:featuredmedia": [{ source_url: "/images/logo.png" }],
-      "wp:term": [[{ name: "Cloud" }]]
-    }
-  }
-];
-
-const DEFAULT_CATEGORIES = [
-  { id: 1, name: "Strategy", slug: "strategy" },
-  { id: 2, name: "Logistics", slug: "logistics" },
-  { id: 3, name: "Cloud", slug: "cloud" },
-  { id: 4, name: "Automation", slug: "automation" },
-  { id: 5, name: "Security", slug: "security" }
-];
-
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
 
   const { slug } = use(params);
@@ -85,8 +38,6 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           setCategories(allCats);
         } catch (catErr: any) {
           console.warn("Failed to fetch categories client-side:", catErr.message);
-          allCats = DEFAULT_CATEGORIES;
-          setCategories(DEFAULT_CATEGORIES);
         }
 
         const currentCategory = allCats.find((c: any) => c.slug === slug);
@@ -116,7 +67,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           setTotalPages(pagesCount);
         } catch (postErr: any) {
           console.warn("Failed to fetch posts client-side:", postErr.message);
-          setPosts(DEFAULT_POSTS);
+          setPosts([]);
           setTotalPages(1);
         }
 
@@ -149,6 +100,7 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
       <PageHeader
         title={pageTitle}
         description={`Explore the latest insights in ${pageTitle}`}
+        breadcrumbSchema={false}
         breadcrumb={[
           { name: "Blogs", href: "/blogs" },
           { name: pageTitle, href: "#" }

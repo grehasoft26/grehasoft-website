@@ -31,7 +31,8 @@ export default function IntroSection({
               </div>
             )}
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-dark mb-8 leading-tight">
+            {/* h2: the page's h1 is the PageHeader title above this section. */}
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-dark mb-8 leading-tight">
 
               {intro.hero_title}
 
@@ -44,7 +45,7 @@ export default function IntroSection({
                 </>
               )}
 
-            </h1>
+            </h2>
         <div className="grid lg:grid-cols-2 gap-16 items-start">
 
           {/* LEFT CONTENT */}

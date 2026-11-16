@@ -299,14 +299,14 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
               </div>
             </div>
 
-            {/* BACKGROUND TEXT */}
-            <motion.h1
+            {/* BACKGROUND TEXT (decorative, so not a heading) */}
+            <motion.div
               aria-hidden="true"
               style={{ opacity: bgOpacity }}
               className={backgroundTextClasses}
             >
               <BackgroundText text={acf?.background_text} />
-            </motion.h1>
+            </motion.div>
           </div>
         </>
       )}

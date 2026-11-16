@@ -28,6 +28,7 @@ import {
 import KochiIntroSection from '@/components/KochiIntroSection';
 import EndToEndServicesIntro from '@/components/EndToEndServicesIntro';
 import type { Metadata } from "next";
+import { buildPageMetadata } from '@/lib/seo';
 
 export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,23 +37,9 @@ export async function generateMetadata(): Promise<Metadata> {
     const yoast = homeData?.yoastMeta;
 
     return {
-      title: yoast?.title || "GrehaSoft",
-      description: yoast?.description || "",
+      ...buildPageMetadata({ path: "/", yoast, fallbackTitle: "Grehasoft" }),
 
-      alternates: {
-        canonical: yoast?.og_url || "",
-      },
-
-      openGraph: {
-        title: yoast?.og_title || "",
-        description: yoast?.og_description || "",
-        url: yoast?.og_url || "",
-        images:
-          yoast?.og_image?.map(
-            (img: { url: string }) => img.url
-          ) || [],
-      },
-
+      // Homepage robots still follow Yoast (see the Phase 4 go-live robots plan).
       robots: {
         index: yoast?.robots?.index === 'noindex' ? false : true,
         follow: yoast?.robots?.follow === 'nofollow' ? false : true,
