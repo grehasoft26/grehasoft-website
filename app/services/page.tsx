@@ -56,7 +56,7 @@ const serviceCategories = [
     items: [
       { name: "Website Design", desc: "Breathtaking layouts matching brand goals, designed in Figma with absolute layout precision.", href: "/website-design" },
       { name: "Website Development", desc: "Robust backend API integration, swift load-times, and pixel-precise desktop and mobile experiences.", href: "/website-development" },
-      { name: "Static HTML Websites", desc: "Ultra-fast, highly secure static sites built to deliver extreme loading speeds and search optimization.", href: "/website-development/static-website" },
+      { name: "Static HTML Websites", desc: "Ultra-fast, highly secure static sites built to deliver extreme loading speeds and search optimization.", href: "/static-html-websites" },
       { name: "WordPress Websites", desc: "Customized content-management hubs matching visual brand identity with full administrative independence.", href: "/wordpress-development" },
       { name: "eCommerce Development", desc: "Pristine digital store frameworks designed with robust cart security and seamless transaction steps.", href: "/ecommerce-development" },
       { name: "WooCommerce Stores", desc: "Convert standard WordPress platforms into fully functional online supermarkets with payment logic.", href: "/woocommerce-development" },
@@ -79,7 +79,7 @@ const serviceCategories = [
       { name: "Social Media Marketing", desc: "Nurture brand loyalty with daily creative updates, custom graphics, and customer interaction on major socials.", href: "/social-media-marketing" },
       { name: "Facebook Marketing", desc: "Micro-target user demographics, craft viral video campaigns, and manage organic business groups with ease.", href: "/facebook" },
       { name: "Instagram Marketing", desc: "Eye-catching visual reels, interactive stories, and influencer synergies optimized for high-impact brand retention.", href: "/instagram" },
-      { name: "YouTube Marketing", desc: "Construct cinematic brand video content, high-performing video ads, and SEO-optimized channels.", href: "/youtube" },
+      { name: "YouTube Marketing", desc: "Construct cinematic brand video content, high-performing video ads, and SEO-optimized channels.", href: "/youtube-marketing" },
       { name: "LinkedIn Marketing", desc: "B2B client acquisition pipelines, enterprise leadership campaigns, and executive recruitment networks.", href: "/linkedin" },
       { name: "Pinterest Marketing", desc: "Aesthetic pin boards that generate consistent referral traffic for design, lifestyle, and commerce brands.", href: "/pinterest" },
       { name: "Twitter (X) Marketing", desc: "Real-time industry comments, viral threads, and interactive brand conversations designed to engage power users.", href: "/twitter" },
@@ -163,10 +163,10 @@ const quizOptions = [
     label: "Kickstart Brand Identity",
     summary: "Establish complete brand assets (logo, font rules, visual guidelines) designed to command industry authority.",
     recommended: [
-      { name: "Logo Design", category: "Branding", href: "/branding/logo-design" },
-      { name: "Branding Packages", category: "Branding", href: "/branding/packages" },
-      { name: "Business Cards & Letterheads", category: "Branding", href: "/branding/business-cards" },
-      { name: "UI/UX Design Services", category: "Branding", href: "/branding/ui-ux" }
+      { name: "Logo Design", category: "Branding", href: "/logo-design" },
+      { name: "Branding Packages", category: "Branding", href: "/branding-packages" },
+      { name: "Business Cards & Letterheads", category: "Branding", href: "/business-card-design" },
+      { name: "UI/UX Design Services", category: "Branding", href: "/ui-ux-design" }
     ],
     timeline: "2-4 Weeks",
     metrics: "100% Vector native Figma assets ready for immediate trade-marking."
@@ -550,7 +550,7 @@ export default function ServicesPage() {
                       Connect with a Grehasoft solution consultant to tailor this customized bundle package.
                     </p>
                     <Link
-                      href="/contact"
+                      href="/contact-us"
                       className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4.5 rounded-box-sm shadow-lg transition-all uppercase tracking-wider whitespace-nowrap inline-flex items-center gap-1.5"
                     >
                       <span>Inquire This Package</span>

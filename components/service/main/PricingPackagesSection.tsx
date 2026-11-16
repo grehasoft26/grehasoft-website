@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 import { Check } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -180,7 +181,7 @@ return ( <section
           <div className="pt-8">
 
             <Link
-              href={pkg.buttonUrl || '/contact'}
+              href={toInternalHref(pkg.buttonUrl || '/contact-us')}
               className="btn-primary w-full text-center text-xs py-3.5 block rounded-box-sm"
             >
               {pkg.buttonText ||

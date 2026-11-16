@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 import { motion } from 'motion/react';
 
 import {
@@ -206,7 +207,7 @@ export default function ContactSection({ acf }: Props) {
               <div className="z-10 flex-shrink-0">
 
                 <Link
-                  href={contact?.cta_button_link || '/contact'}
+                  href={toInternalHref(contact?.cta_button_link || '/contact-us')}
                   className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-sm px-8 py-4 rounded-full shadow-lg hover:scale-105 transition-all inline-flex items-center gap-2 uppercase tracking-wider"
                 >
 

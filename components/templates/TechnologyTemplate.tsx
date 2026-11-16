@@ -14,6 +14,7 @@ import LocalSection from '@/components/service/digital-marketing/LocalSection';
 import TechnologySection from '@/components/service/technology/TechnologySection';
 import GlobalExperienceSection from '@/components/service/technology/GlobalExperienceSection';
 import CriticalCheckSection from '@/components/service/technology/CriticalCheckSection';
+import { servicePath } from '@/lib/internal-href';
 
 
 interface Props {
@@ -43,7 +44,7 @@ export default function DigitalMarketingTemplate({
   
     {
       name: service.title?.rendered,
-      href: `/${acf.parent_slug}/${acf.custom_slug}`,
+      href: servicePath(acf.parent_slug, acf.custom_slug, service.slug),
     },
   ]}
 />

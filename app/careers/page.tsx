@@ -30,6 +30,15 @@ const DEFAULT_CAREERS = {
   job2_link: "mailto:careers@grehasoft.com",
 };
 
+// Apply links come from WordPress (jobN_apply_link). Until one is set, send
+// applicants to the contact form instead of rendering a dead link.
+const applyLinkProps = (link?: string) => {
+  const href = link?.trim() || '/contact-us';
+  return /^https?:\/\//.test(href)
+    ? { href, target: '_blank', rel: 'noopener noreferrer' }
+    : { href };
+};
+
 export default async function CareersPage() {
   const page = await getPage('careers');
   const data = page?.acf || DEFAULT_CAREERS;
@@ -112,25 +121,25 @@ export default async function CareersPage() {
                 title: data.job1_title,
                 type: data.job1_type,
                 location: data.job1_location,
-                link: data.job1_link,
+                link: data.job1_apply_link || data.job1_link,
               },
               {
                 title: data.job2_title,
                 type: data.job2_type,
                 location: data.job2_location,
-                link: data.job2_link,
+                link: data.job2_apply_link || data.job2_link,
               },
               {
                 title: data.job3_title,
                 type: data.job3_type,
                 location: data.job3_location,
-                link: data.job3_link,
+                link: data.job3_apply_link || data.job3_link,
               },
               {
                 title: data.job4_title,
                 type: data.job4_type,
                 location: data.job4_location,
-                link: data.job4_link,
+                link: data.job4_apply_link || data.job4_link,
               },
             ]
               .filter(job => job.title) // remove empty jobs
@@ -150,8 +159,8 @@ export default async function CareersPage() {
 
                   {/* APPLY BUTTON (DYNAMIC LINK) */}
                   <a
-                    href={position.link}
-                    target="_blank"
+                    {...applyLinkProps(position.link)}
+                    aria-label={`Apply for ${position.title}`}
                     className="btn-primary"
                   >
                     Apply Now

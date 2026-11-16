@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 import {
   ArrowRight,
   Globe,
@@ -223,7 +224,7 @@ export default function ServicesSection({ acf }: Props) {
                 </div>
 
                 <Link
-                  href={service.href || '#'}
+                  href={toInternalHref(service.href || '#')}
                   className="text-primary font-bold inline-flex items-center gap-2 hover:gap-3 transition-all text-sm"
                 >
                   Explore Tech

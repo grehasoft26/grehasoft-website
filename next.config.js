@@ -37,6 +37,17 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // Legacy page URLs that were linked from the site but never existed.
+      // Keep in sync with LEGACY_PATHS in lib/internal-href.ts.
+      { source: '/contact', destination: '/contact-us', permanent: true },
+      { source: '/branding', destination: '/branding-and-graphic-design', permanent: true },
+      { source: '/branding/logo-design', destination: '/logo-design', permanent: true },
+      { source: '/branding/packages', destination: '/branding-packages', permanent: true },
+      { source: '/branding/business-cards', destination: '/business-card-design', permanent: true },
+      { source: '/branding/ui-ux', destination: '/ui-ux-design', permanent: true },
+      { source: '/youtube', destination: '/youtube-marketing', permanent: true },
+      { source: '/about-us/awards-and-recognitions', destination: '/awards-and-recognitions', permanent: true },
+      { source: '/website-development/static-website', destination: '/static-html-websites', permanent: true },
       {
         source: '/website-design/:slug',
         destination: '/blogs/website-design/:slug',
@@ -53,7 +64,9 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/website-development/:slug',
+        // Old blog URLs only: these two slugs are service URLs, not posts
+        // (static-website is redirected above; dynamic-website has no page).
+        source: '/website-development/:slug((?!(?:static-website|dynamic-website)$)[^/]+)',
         destination: '/blogs/website-development/:slug',
         permanent: true,
       },

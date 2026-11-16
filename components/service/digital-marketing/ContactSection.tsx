@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 import { motion } from 'motion/react';
 
 import {
@@ -104,7 +105,7 @@ if (!contact.contact_title) return null;
                 <div className="flex flex-wrap gap-4">
 
                   <Link
-                    href={contact?.contact_button_link || '/contact-us'}
+                    href={toInternalHref(contact?.contact_button_link || '/contact-us')}
                     className="bg-primary text-white px-10 py-5 rounded-full text-lg font-bold shadow-2xl hover:scale-105 transition-transform flex items-center gap-2 group"
                   >
 

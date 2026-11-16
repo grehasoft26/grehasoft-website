@@ -31,7 +31,7 @@ export default async function AwardsPage() {
         description={data.description}
         breadcrumb={[
           { name: 'About', href: '/about-us' },
-          { name: data.breadcrumb, href: '/about-us/awards-and-recognitions' },
+          { name: data.breadcrumb, href: '/awards-and-recognitions' },
         ]}
       />
 

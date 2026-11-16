@@ -118,7 +118,7 @@ export default function WebsiteRedesign() {
                   </div>
                 ))}
               </div>
-              <Link href="/contact" className="btn-primary inline-flex items-center gap-2">
+              <Link href="/contact-us" className="btn-primary inline-flex items-center gap-2">
                 Get a Free Audit <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>

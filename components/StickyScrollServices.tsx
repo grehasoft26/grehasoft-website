@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { getOurServices } from "@/lib/backend-api";
+import { toInternalHref } from "@/lib/internal-href";
 import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
 import SectionDivider from "./SectionDivider";
 
@@ -72,7 +73,7 @@ function ServiceText({ acf }: { acf: any }) {
       </p>
 
       <a
-        href={acf?.button_link || "#"}
+        href={toInternalHref(acf?.button_link || "#")}
         className="
           inline-flex items-center gap-2
 

@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Layers, Zap, Shield, BarChart, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 import { useEffect, useState } from 'react';
 
 // ICON MAP (important)
@@ -136,12 +137,12 @@ export default function Products({ data }: ProductsProps) {
 
             {/* BUTTONS */}
             <div className="flex flex-col sm:flex-row items-center gap-6">
-              <Link href={pms.pms_btn1_link || '#'} className="btn-accent w-full sm:w-auto">
+              <Link href={toInternalHref(pms.pms_btn1_link || '#')} className="btn-accent w-full sm:w-auto">
                 {pms.pms_btn1_text}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
 
-              <Link href={pms.pms_btn2_link || '/contact-us'} className="text-white font-semibold hover:text-accent transition-colors flex items-center gap-2">
+              <Link href={toInternalHref(pms.pms_btn2_link || '/contact-us')} className="text-white font-semibold hover:text-accent transition-colors flex items-center gap-2">
                 {pms.pms_btn2_text}
                 <ArrowRight className="w-4 h-4" />
               </Link>

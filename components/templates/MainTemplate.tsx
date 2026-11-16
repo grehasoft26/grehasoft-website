@@ -19,6 +19,7 @@ import ResultsTimelineSection1 from '@/components/service/main/ResultsTimelineSe
 import SeoCaseStudiesSection from '@/components/service/digital-marketing/SeoCaseStudiesSection';
 import TechnologySection from '@/components/service/technology/TechnologySection';
 import CtaSection from '@/components/service/main/CtaSection';
+import { servicePath } from '@/lib/internal-href';
 
 interface Props {
   service: any;
@@ -47,7 +48,7 @@ export default function MainTemplate({
   
     {
       name: service.title?.rendered,
-      href: `/${acf.parent_slug}/${acf.custom_slug}`,
+      href: servicePath(acf.parent_slug, acf.custom_slug, service.slug),
     },
   ]}
 />

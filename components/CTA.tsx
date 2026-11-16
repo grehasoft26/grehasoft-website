@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 import { useEffect, useState } from 'react';
 import { getHome } from '@/lib/backend-api';
 import { CTAData } from '@/types/wordpress';
@@ -88,7 +89,7 @@ export default function CTA({ data }: CTAProps) {
             <div className="flex flex-col sm:flex-row items-center gap-6 w-full lg:w-auto">
               
               <Link
-                href={cta.cta_btn_link || '#'}
+                href={toInternalHref(cta.cta_btn_link || '#')}
                 className="btn-accent w-full sm:w-auto text-lg py-4 px-10 whitespace-nowrap"
               >
                 {cta.cta_btn_text}
@@ -96,7 +97,7 @@ export default function CTA({ data }: CTAProps) {
               </Link>
 
               <Link
-                href={cta.cta_btn2_link || '#'}
+                href={toInternalHref(cta.cta_btn2_link || '#')}
                 className="text-white font-bold hover:text-accent transition-colors flex items-center gap-2 text-lg whitespace-nowrap"
               >
                 {cta.cta_btn2_text}

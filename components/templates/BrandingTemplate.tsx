@@ -14,6 +14,7 @@ import ContactSection from '@/components/service/branding/ContactSection';
 import FAQSection from '@/components/service/digital-marketing/FAQSection';
 import GlobalExperienceSection from '@/components/service/branding/GlobalExperienceSection';
 import TechnologySection from '@/components/service/technology/TechnologySection';
+import { servicePath } from '@/lib/internal-href';
 interface Props {
   service: any;
   heroImageUrl?: string;
@@ -37,7 +38,7 @@ export default function BrandingTemplate({
         breadcrumb={[
           {
             name: service.title?.rendered,
-            href: `/${acf.parent_slug}/${acf.custom_slug}`,
+            href: servicePath(acf.parent_slug, acf.custom_slug, service.slug),
           },
         ]}
       />

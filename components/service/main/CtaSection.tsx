@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 import { MessageSquare, Rocket } from 'lucide-react';
 
 interface Props {
@@ -65,7 +66,7 @@ export default function CtaSection({ acf }: Props) {
 
                 {cta?.primary_button_text && (
                   <Link
-                    href={cta?.primary_button_url?.url || '/contact'}
+                    href={toInternalHref(cta?.primary_button_urlurl || cta?.primary_button_url?.url || '/contact-us')}
                     className="bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-full text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.03]"
                   >
                     {cta.primary_button_text}
@@ -76,7 +77,7 @@ export default function CtaSection({ acf }: Props) {
 
                 {cta?.secondary_button_text && (
                   <Link
-                    href={cta?.secondary_button_url?.url || '/contact'}
+                    href={toInternalHref(cta?.secondary_button_urlurl || cta?.secondary_button_url?.url || '/contact-us')}
                     className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 px-8 py-4 rounded-full text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.03]"
                   >
                     {cta.secondary_button_text}

@@ -40,7 +40,7 @@ export default function AboutPage() {
     {
       title: 'Online Branding & Creative Graphic Design',
       desc: 'Logos, Flyers, Brochures, Brand identity systems, and Corporate materials that tell your story.',
-      href: '/branding',
+      href: '/branding-and-graphic-design',
       icon: <Palette className="w-6 h-6" />
     },
     {

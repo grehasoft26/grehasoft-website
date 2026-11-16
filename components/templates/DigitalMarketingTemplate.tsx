@@ -13,6 +13,7 @@ import FAQSection from '@/components/service/digital-marketing/FAQSection';
 import LocalSection from '@/components/service/digital-marketing/LocalSection';
 import SeoCaseStudiesSection from '@/components/service/digital-marketing/SeoCaseStudiesSection';
 import LogoGallery from '@/components/service/digital-marketing/LogoGallery';
+import { servicePath } from '@/lib/internal-href';
 interface Props {
   service: any;
   heroImageUrl?: string;
@@ -40,7 +41,7 @@ export default function DigitalMarketingTemplate({
   
     {
       name: service.title?.rendered,
-      href: `/${acf.parent_slug}/${acf.custom_slug}`,
+      href: servicePath(acf.parent_slug, acf.custom_slug, service.slug),
     },
   ]}
 />

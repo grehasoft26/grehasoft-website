@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { toInternalHref } from '@/lib/internal-href';
 
 interface Props {
   acf: any;
@@ -103,7 +104,7 @@ export default function IntroSection({
             {/* BUTTON */}
             {intro?.button_text && (
               <Link
-                href={intro.button_url || '/contact'}
+                href={toInternalHref(intro.button_url || '/contact-us')}
                 className="btn-primary inline-flex items-center gap-2"
               >
                 {intro.button_text}

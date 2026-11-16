@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getHome } from '@/lib/backend-api';
+import { toInternalHref } from '@/lib/internal-href';
 import { CTAData } from '@/types/wordpress';
 
 interface CTABottomSectionProps {
@@ -26,17 +27,6 @@ const DEFAULT_CTA: CTAData = {
 
 // WordPress values sometimes carry trailing spaces; fall back field by field when one is empty.
 const pick = (value: string | undefined, fallback: string | undefined) => value?.trim() || fallback || '';
-
-// WordPress stores links as absolute production URLs; keep them on the current site.
-const SITE_HOSTS = new Set(['grehasoft.com', 'www.grehasoft.com']);
-const toInternal = (href: string) => {
-  try {
-    const url = new URL(href);
-    return SITE_HOSTS.has(url.hostname) ? `${url.pathname}${url.search}${url.hash}` || '/' : href;
-  } catch {
-    return href;
-  }
-};
 
 // Blueprint grid: the "plan" on the light canvas, repeated in white on the blue "build" plane.
 const gridLines = (color: string) => ({
@@ -107,9 +97,9 @@ export default function CTABottomSection({ data }: CTABottomSectionProps) {
     titlePart2: pick(source.cta_title_part2, DEFAULT_CTA.cta_title_part2),
     description: pick(source.cta_description, DEFAULT_CTA.cta_description),
     btnText: pick(source.cta_btn_text, DEFAULT_CTA.cta_btn_text),
-    btnLink: toInternal(pick(source.cta_btn_link, DEFAULT_CTA.cta_btn_link)),
+    btnLink: toInternalHref(pick(source.cta_btn_link, DEFAULT_CTA.cta_btn_link)),
     btn2Text: pick(source.cta_btn2_text, DEFAULT_CTA.cta_btn2_text),
-    btn2Link: toInternal(pick(source.cta_btn2_link, DEFAULT_CTA.cta_btn2_link)),
+    btn2Link: toInternalHref(pick(source.cta_btn2_link, DEFAULT_CTA.cta_btn2_link)),
   };
 
   const actions = {

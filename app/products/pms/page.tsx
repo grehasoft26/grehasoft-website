@@ -126,7 +126,7 @@ export default function PMSPage() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2 py-4 px-8 rounded-box-sm font-bold transition-all shadow-md hover:shadow-lg">
+                <Link href="/contact-us" className="btn-primary inline-flex items-center justify-center gap-2 py-4 px-8 rounded-box-sm font-bold transition-all shadow-md hover:shadow-lg">
                   Schedule demo <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a href="#features" className="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-dark font-bold py-4 px-8 rounded-box-sm transition-all">
@@ -374,7 +374,7 @@ export default function PMSPage() {
 
                 <div className="flex flex-col sm:flex-row items-center justify-center xl:justify-start gap-4">
                   <Link 
-                    href="/contact" 
+                    href="/contact-us"
                     className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2.5 py-4 px-10 rounded-full bg-accent text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md hover:shadow-xl hover:shadow-accent/20 hover:bg-accent/90 hover:translate-y-[-1px]"
                   >
                     Get Started Today
