@@ -20,6 +20,7 @@ const STATIC_PATHS = [
   '/contact-us',
   '/services',
   '/lead-generation-services',
+  '/ai-marketing-service-agency',
   '/portfolio',
   '/products',
   '/products/pms',

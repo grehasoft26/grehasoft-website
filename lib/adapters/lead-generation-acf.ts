@@ -21,7 +21,7 @@ import type {
  * field, so the page can fall back to its local content.
  */
 
-type AcfRecord = Record<string, unknown>;
+export type AcfRecord = Record<string, unknown>;
 type AreaServed = LeadGenerationContent['seo']['service']['areaServed'][number];
 
 class AcfMappingError extends Error {}
@@ -51,36 +51,36 @@ const SAFE_HREF = /^(\/(?!\/)|#[\w-]+$|https?:\/\/|tel:|mailto:)/;
 const ANCHOR_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const LINK_SYNTAX = /\[([^\]]+)\]\(([^)\s]+)\)/g;
 
-function isRecord(value: unknown): value is AcfRecord {
+export function isRecord(value: unknown): value is AcfRecord {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-function fail(path: string, problem: string): never {
+export function fail(path: string, problem: string): never {
   throw new AcfMappingError(`${path} ${problem}`);
 }
 
 /* ---------------------------- field readers ---------------------------- */
 
-function group(parent: AcfRecord, name: string, path: string): AcfRecord {
+export function group(parent: AcfRecord, name: string, path: string): AcfRecord {
   const value = parent[name];
   if (!isRecord(value)) fail(`${path}.${name}`, 'is missing');
   return value;
 }
 
-function optionalText(parent: AcfRecord, name: string, path: string): string {
+export function optionalText(parent: AcfRecord, name: string, path: string): string {
   const value = parent[name];
   if (value === undefined || value === null || value === false) return '';
   if (typeof value !== 'string') fail(`${path}.${name}`, 'is not text');
   return value.trim();
 }
 
-function text(parent: AcfRecord, name: string, path: string): string {
+export function text(parent: AcfRecord, name: string, path: string): string {
   const value = optionalText(parent, name, path);
   if (!value) fail(`${path}.${name}`, 'is required');
   return value;
 }
 
-function choice<T extends string>(parent: AcfRecord, name: string, allowed: readonly T[], path: string): T {
+export function choice<T extends string>(parent: AcfRecord, name: string, allowed: readonly T[], path: string): T {
   const value = text(parent, name, path);
   const match = allowed.find((option) => option === value);
   if (!match) fail(`${path}.${name}`, `has unsupported value "${value}"`);
@@ -93,13 +93,13 @@ function anchorId(parent: AcfRecord, name: string, path: string): string {
   return value;
 }
 
-function href(value: string, path: string): string {
+export function href(value: string, path: string): string {
   if (!SAFE_HREF.test(value)) fail(path, `has an unsupported link "${value}"`);
   return value;
 }
 
 /** "One entry per line" textareas; WordPress stores these with \r\n line endings. */
-function lines(parent: AcfRecord, name: string, path: string): string[] {
+export function lines(parent: AcfRecord, name: string, path: string): string[] {
   const items = text(parent, name, path)
     .split(/\r?\n/)
     .map((line) => line.trim())
@@ -109,7 +109,7 @@ function lines(parent: AcfRecord, name: string, path: string): string[] {
 }
 
 /** Textareas using the documented [link text](/url) syntax. */
-function parseRichText(value: string, path: string): RichText {
+export function parseRichText(value: string, path: string): RichText {
   const segments: Array<string | { text: string; href: string }> = [];
   let last = 0;
 
@@ -124,7 +124,7 @@ function parseRichText(value: string, path: string): RichText {
   return segments;
 }
 
-function richText(parent: AcfRecord, name: string, path: string): RichText {
+export function richText(parent: AcfRecord, name: string, path: string): RichText {
   return parseRichText(text(parent, name, path), `${path}.${name}`);
 }
 
@@ -133,13 +133,13 @@ function optionalRichText(parent: AcfRecord, name: string, path: string): RichTe
   return value ? parseRichText(value, `${path}.${name}`) : undefined;
 }
 
-function cta(parent: AcfRecord, name: string, path: string): CtaLink {
+export function cta(parent: AcfRecord, name: string, path: string): CtaLink {
   const link = group(parent, name, path);
   const linkPath = `${path}.${name}`;
   return { label: text(link, 'label', linkPath), href: href(text(link, 'href', linkPath), `${linkPath}.href`) };
 }
 
-function paragraphs(parent: AcfRecord, path: string): string[] {
+export function paragraphs(parent: AcfRecord, path: string): string[] {
   const second = optionalText(parent, 'paragraph_2', path);
   return second ? [text(parent, 'paragraph_1', path), second] : [text(parent, 'paragraph_1', path)];
 }
@@ -156,7 +156,7 @@ function isEmptySlot(slot: AcfRecord): boolean {
  * Numbered sub-groups (step_1, step_2, …) in numeric order. Unused slots are
  * skipped; partly filled slots fail validation in their own mapper.
  */
-function slots<T>(
+export function slots<T>(
   parent: AcfRecord,
   prefix: string,
   path: string,
