@@ -220,7 +220,10 @@ max-w-[1120px]
 bg-white
 shadow-2xl
 rounded-b-box-lg
-overflow-hidden
+max-h-[calc(100dvh-5rem)]
+overflow-x-hidden
+overflow-y-auto
+overscroll-contain
 border-t-4
 border-primary"
                     >
