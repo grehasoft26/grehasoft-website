@@ -27,11 +27,13 @@ const ogImages = (yoast: any): YoastHeadJson | undefined =>
     ? { og_image: yoast.og_image.map((img: any) => pick(img, ['width', 'height', 'url', 'type'])) }
     : undefined;
 
-const featuredMedia = (item: any, withSizes = false) => {
+// withAlt keeps the Media Library alt text (always a string, '' when unset).
+const featuredMedia = (item: any, withSizes = false, withAlt = false) => {
   const media = item?._embedded?.['wp:featuredmedia'];
   if (!Array.isArray(media)) return undefined;
   return media.map((m: any) => ({
     source_url: m?.source_url,
+    ...(withAlt ? { alt_text: typeof m?.alt_text === 'string' ? m.alt_text.trim() : '' } : {}),
     ...(withSizes && m?.media_details?.sizes?.large?.source_url
       ? { media_details: { sizes: { large: { source_url: m.media_details.sizes.large.source_url } } } }
       : {}),
@@ -91,7 +93,7 @@ export const trimPortfolioRelated = (projects: WPList) =>
     _embedded: { 'wp:featuredmedia': featuredMedia(project) },
   }));
 
-/** Blog cards: title, excerpt, date, author name, featured image and categories. */
+/** Blog cards: title, excerpt, date, author name, featured image (with alt text) and categories. */
 export const trimPostCards = (posts: WPList) =>
   (posts || []).map((post) => ({
     id: post?.id,
@@ -101,7 +103,7 @@ export const trimPostCards = (posts: WPList) =>
     excerpt: { rendered: post?.excerpt?.rendered ?? '' },
     _embedded: {
       author: (post?._embedded?.author || []).map((a: any) => ({ name: a?.name })),
-      'wp:featuredmedia': featuredMedia(post),
+      'wp:featuredmedia': featuredMedia(post, false, true),
       'wp:term': [
         (post?._embedded?.['wp:term']?.[0] || []).map((t: any) => pick(t, ['id', 'name', 'slug', 'taxonomy'])),
       ],

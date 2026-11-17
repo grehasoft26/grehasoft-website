@@ -10,6 +10,10 @@ import PageHeader from '@/components/PageHeader';
 import CTABottomSection from '@/components/CTABottomSection';
 import Footer from '@/components/Footer';
 
+/** Featured image alt text from the WordPress Media Library; '' (decorative) when unset. */
+const featuredImageAlt = (post: any): string =>
+  post?._embedded?.["wp:featuredmedia"]?.[0]?.alt_text || "";
+
 // Posts are fetched on the server (app/blogs/page.tsx) so they are in the initial HTML.
 export default function BlogIndex({ posts, categories }: { posts: any[]; categories: any[] }) {
 
@@ -51,6 +55,7 @@ export default function BlogIndex({ posts, categories }: { posts: any[]; categor
   image:
     post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
     "/images/logo.png",
+  imageAlt: featuredImageAlt(post),
   slug: post.slug,
   categorySlug:
     post._embedded?.["wp:term"]?.[0]
@@ -64,6 +69,7 @@ export default function BlogIndex({ posts, categories }: { posts: any[]; categor
   image:
     post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
     "/images/logo.png",
+  imageAlt: featuredImageAlt(post),
   slug: post.slug,
   category: post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Blog",
   categorySlug:
@@ -102,6 +108,7 @@ technology trends from our team in Kochi"
 
             <img
               src={featuredPost._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/logo.png"}
+              alt={featuredImageAlt(featuredPost)}
               className="rounded-box-lg"
             />
 
@@ -217,6 +224,7 @@ function ArticleCard({ post, index }: any) {
       <div className="aspect-[1.4] rounded-box-lg overflow-hidden">
         <img
           src={post.image}
+          alt={post.imageAlt}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
       </div>
@@ -254,8 +262,8 @@ function TrendingArticleCard({ post, index }: { post: any; index: number }) {
     >
       <div className="md:col-span-5 aspect-[1.4] rounded-box-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-500">
         <img 
-          src={post.image} 
-          alt={post.title}
+          src={post.image}
+          alt={post.imageAlt}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
       </div>
