@@ -89,9 +89,12 @@ const TICKS = Array.from({ length: 30 }, (_, i) => {
 });
 
 const easeOutCubic = [0.33, 1, 0.68, 1] as const;
+/** Share of the artwork that must be on screen for its entrance to play (phones load it below the fold). */
+const ART_REVEAL_RATIO = 0.35;
 
 export default function ServicesHero({ categories, serviceCount, directoryId }: ServicesHeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const artRef = useRef<HTMLDivElement>(null);
 
   // Pointer position in [-1, 1], spring-smoothed. Stays at 0 unless parallax is enabled.
   const pointerX = useMotionValue(0);
@@ -116,10 +119,50 @@ export default function ServicesHero({ categories, serviceCount, directoryId }: 
     observer.observe(section);
 
     let stopCount: (() => void) | undefined;
-    if (!reduceMotion) {
+    const startCount = () => {
       count.set(0);
       const controls = animate(count, serviceCount, { duration: 1.4, ease: easeOutCubic, delay: 1.1 });
       stopCount = () => controls.stop();
+    };
+
+    // Artwork entrance: plays on load when the artwork is already on screen (desktop). When it starts
+    // below the fold (phones), hold it from the first frame until it scrolls into view, then play it
+    // once. The hold is only applied after the observer is running, so a failure leaves it playing.
+    let artObserver: IntersectionObserver | undefined;
+    const art = artRef.current;
+    if (!reduceMotion) {
+      let held = false;
+      if (art && 'IntersectionObserver' in window) {
+        const rect = art.getBoundingClientRect();
+        const visible = Math.max(0, Math.min(window.innerHeight, rect.bottom) - Math.max(0, rect.top));
+        // Never ask for more of the artwork than the viewport can show.
+        const needed = Math.min(ART_REVEAL_RATIO, (window.innerHeight / Math.max(rect.height, 1)) * 0.9);
+        if (rect.height > 0 && visible / rect.height < needed) {
+          try {
+            artObserver = new IntersectionObserver(
+              (entries) => {
+                if (!entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= needed)) return;
+                artObserver?.disconnect();
+                artObserver = undefined;
+                delete section.dataset.artPending;
+                startCount();
+              },
+              { threshold: needed },
+            );
+            artObserver.observe(art);
+            section.dataset.artPending = '';
+            // Rewind anything that already started before hydration; the CSS hold keeps it at frame 0.
+            for (const animation of art.getAnimations({ subtree: true })) animation.currentTime = 0;
+            count.set(0);
+            held = true;
+          } catch {
+            artObserver?.disconnect();
+            artObserver = undefined;
+            delete section.dataset.artPending;
+          }
+        }
+      }
+      if (!held) startCount();
     }
 
     // Pointer parallax: desktop mice only, never on touch or with reduced motion.
@@ -146,6 +189,8 @@ export default function ServicesHero({ categories, serviceCount, directoryId }: 
 
     return () => {
       observer.disconnect();
+      artObserver?.disconnect();
+      delete section.dataset.artPending;
       stopCount?.();
       removePointer?.();
       count.set(serviceCount);
@@ -257,7 +302,7 @@ export default function ServicesHero({ categories, serviceCount, directoryId }: 
           </div>
 
           {/* ------------------------------ ecosystem ------------------------------ */}
-          <div className="relative mx-auto w-full max-w-[560px] lg:max-w-[640px]" aria-hidden="true">
+          <div ref={artRef} className="relative mx-auto w-full max-w-[560px] lg:max-w-[640px]" aria-hidden="true">
             <div className={`${styles.stage} ${styles.stageIn}`}>
               <Layer x={springX} y={springY} depth={-4} className="absolute inset-0">
                 <Orbits categories={placedCategories} />

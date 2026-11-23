@@ -1,7 +1,8 @@
 /*
  * Services hero: keyframes and the few styles Tailwind utilities can't express cleanly.
  * Entrance motion is CSS-only, so all content renders without JavaScript.
- * Loops pause off-screen ([data-offscreen]) and everything stops for reduced motion.
+ * Loops pause off-screen ([data-offscreen]); the artwork entrance waits for the artwork to scroll
+ * into view ([data-art-pending], phones); everything stops for reduced motion.
  */
 
 .hero {
@@ -197,20 +198,19 @@
   .pulse {
     animation: pulse 2.4s ease-in-out infinite;
   }
+}
 
-  /* Phones and small tablets: entrance only, no continuous loops. */
-  @media (max-width: 639px) {
-    .float {
-      animation: pop 0.8s var(--ease-out) var(--d, 0.6s) both;
-    }
-
-    .spin,
-    .spinReverse,
-    .flow,
-    .pulse {
-      animation: none;
-    }
-  }
+/*
+ * Artwork below the fold on load (phones): hold its entrance, from the first frame, until it scrolls
+ * into view. Only JavaScript sets [data-art-pending], so without it everything plays on load as usual.
+ */
+.hero[data-art-pending] .stageIn,
+.hero[data-art-pending] .pop,
+.hero[data-art-pending] .float,
+.hero[data-art-pending] .grow,
+.hero[data-art-pending] .tick,
+.hero[data-art-pending] .draw {
+  animation-play-state: paused;
 }
 
 /* Pause continuous loops while the hero is off-screen. */

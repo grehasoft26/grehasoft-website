@@ -343,7 +343,7 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Operational metrics details */}
-                    <div className="grid grid-cols-2 gap-4 pt-6 mt-6 border-t border-[#E3E8F2]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 mt-6 border-t border-[#E3E8F2]">
                       <div className="p-4 bg-[#F5F8FF] border border-[#E3E8F2] rounded-box-sm">
                         <p className="text-xs text-[#626783] font-bold uppercase tracking-widest font-mono mb-1">Target Timeline</p>
                         <p className="font-bold text-[#127A1C] text-sm font-sans">{activeGoalDetails.timeline}</p>
@@ -368,7 +368,7 @@ export default function ServicesPage() {
           
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Focused Sectors</span>
-            <h2 className="text-4xl font-black text-dark mb-6">
+            <h2 className="text-4xl font-black text-dark mb-6 max-sm:text-[32px] max-sm:leading-[1.15]">
               Industries We Drive <span className="text-primary italic">Innovation In</span>
             </h2>
             <p className="text-gray-600">
