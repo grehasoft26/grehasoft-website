@@ -1,0 +1,58 @@
+/*
+ * Radial orbital timeline: slow ambient loops (orb pulse, ring drift).
+ * Paused off-screen ([data-paused]) and disabled for reduced motion.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .orbPulse {
+    animation: orbPulse 4.8s ease-in-out infinite;
+  }
+
+  .ring {
+    animation: ring 4.8s ease-out infinite;
+  }
+
+  .ringDelayed {
+    animation: ring 4.8s ease-out 2.4s infinite;
+  }
+
+  .drift {
+    animation: drift 90s linear infinite;
+  }
+}
+
+.root[data-paused] .orbPulse,
+.root[data-paused] .ring,
+.root[data-paused] .ringDelayed,
+.root[data-paused] .drift {
+  animation-play-state: paused;
+}
+
+@keyframes orbPulse {
+  0%,
+  100% {
+    scale: 1;
+    opacity: 0.85;
+  }
+  50% {
+    scale: 1.06;
+    opacity: 1;
+  }
+}
+
+@keyframes ring {
+  0% {
+    scale: 0.85;
+    opacity: 0.55;
+  }
+  100% {
+    scale: 1.7;
+    opacity: 0;
+  }
+}
+
+@keyframes drift {
+  to {
+    rotate: -360deg;
+  }
+}

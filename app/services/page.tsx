@@ -1,35 +1,25 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import PageHeader from '@/components/PageHeader';
+import ServicesHero from '@/components/services/ServicesHero';
+import ServiceExplorer from '@/components/services/ServiceExplorer';
+import DeliveryMethodology from '@/components/services/DeliveryMethodology';
 import CTABottomSection from '@/components/CTABottomSection';
 import Link from 'next/link';
-import { 
-  Globe, 
-  Megaphone, 
-  Palette, 
-  Smartphone, 
-  Code, 
-  Cpu, 
-  Search, 
-  ArrowRight, 
-  ArrowUpRight, 
-  CheckCircle2, 
-  ChevronRight, 
-  Sparkles, 
-  Layout, 
-  Workflow, 
-  Clock, 
-  MessageSquare, 
-  Database, 
-  Server, 
-  Sliders, 
-  Monitor, 
-  Zap, 
-  Code2, 
-  Cloud, 
-  Settings, 
-  Lightbulb, 
+import {
+  Globe,
+  Megaphone,
+  Palette,
+  Smartphone,
+  Code,
+  Cpu,
+  ArrowRight,
+  ArrowUpRight,
+  Workflow,
+  Database,
+  Server,
+  Zap,
+  Cloud,
   Award,
   ChevronDown,
   Building2,
@@ -37,7 +27,6 @@ import {
   Shield,
   Layers,
   Heart,
-  TrendingUp,
   Target
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -83,6 +72,8 @@ const serviceCategories = [
       { name: "LinkedIn Marketing", desc: "B2B client acquisition pipelines, enterprise leadership campaigns, and executive recruitment networks.", href: "/linkedin" },
       { name: "Pinterest Marketing", desc: "Aesthetic pin boards that generate consistent referral traffic for design, lifestyle, and commerce brands.", href: "/pinterest" },
       { name: "Twitter (X) Marketing", desc: "Real-time industry comments, viral threads, and interactive brand conversations designed to engage power users.", href: "/twitter" },
+      { name: "Lead Generation Services", desc: "Attract and convert qualified prospects with targeted campaigns, optimized landing funnels, and lead nurturing that fills your sales pipeline.", href: "/lead-generation-services" },
+      { name: "AI Marketing Services", desc: "Harness AI-driven audience insights, predictive targeting, and automated campaign optimization to scale results with less guesswork.", href: "/ai-marketing-service-agency" },
     ]
   },
   {
@@ -213,52 +204,12 @@ const quizOptions = [
 ];
 
 export default function ServicesPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategoryTab, setActiveCategoryTab] = useState('all');
   const [selectedQuizGoal, setSelectedQuizGoal] = useState('brand');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
-
-  // Filter Sub-services based on search filter input
-  const filteredCategories = useMemo(() => {
-    return serviceCategories.map(category => {
-      // Find matching sub-services
-      const matchedItems = category.items.filter(item => 
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.desc.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-
-      // Category matches if name matches, or if items match
-      const isCatMatched = category.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          category.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-      return {
-        ...category,
-        items: matchedItems,
-        isDirectMatch: isCatMatched,
-        hasMatchingItems: matchedItems.length > 0
-      };
-    }).filter(cat => {
-      // Only keep categories that matching tab choice
-      if (activeCategoryTab !== 'all' && cat.id !== activeCategoryTab) {
-        return false;
-      }
-      return cat.isDirectMatch || cat.hasMatchingItems;
-    });
-  }, [searchTerm, activeCategoryTab]);
 
   const activeGoalDetails = useMemo(() => {
     return quizOptions.find(opt => opt.id === selectedQuizGoal) || quizOptions[0];
   }, [selectedQuizGoal]);
-
-  const designProcessSteps = [
-    { step: '01', title: 'Consult & Discover', desc: 'We start with an exhaustive inquiry of your functional operations, tech limits, and audience targets to set core deliverables.', icon: <Search className="w-5 h-5 text-accent" /> },
-    { step: '02', title: 'UX Strategy', desc: 'Our layout team maps information architectures, screen hierarchies, and click sequences in digital wireframes.', icon: <Target className="w-5 h-5 text-accent" /> },
-    { step: '03', title: 'Visual UI Design', desc: 'We deliver distinctive High-Fidelity prototypes inside Figma matching standard typographic palettes and consistent brand logic.', icon: <Palette className="w-5 h-5 text-accent" /> },
-    { step: '04', title: 'Coding & Architecture', desc: 'Qualified engineers translate vectors into responsive client-side frameworks synced securely with solid server systems.', icon: <Code className="w-5 h-5 text-accent" /> },
-    { step: '05', title: 'Thorough SQA', desc: 'Our dedicated quality unit enforces stringent regression checks, cross-viewport layout rendering tests, and stress reviews.', icon: <Shield className="w-5 h-5 text-accent" /> },
-    { step: '06', title: 'Launch & CDN Deploy', desc: 'We deploy final codebases into hardened Cloud containers connected with CDN caches to drive extreme international speeds.', icon: <Clock className="w-5 h-5 text-accent" /> },
-    { step: '07', title: 'Ongoing 24/7 Support', desc: 'Once live, we monitor host metrics regularly, maintain server dependencies, and optimize performance based on real-world telemetry.', icon: <Sliders className="w-5 h-5 text-accent" /> }
-  ];
 
   const targetIndustries = [
     { name: "IT & Software Platforms", icon: <Cpu className="w-6 h-6 text-primary" /> },
@@ -273,184 +224,36 @@ export default function ServicesPage() {
 
   return (
     <main className="bg-white min-h-screen">
-      <PageHeader
-        title="Comprehensive IT & Creative Solutions"
-        description="We combine precision-engineered custom software, high-converting digital marketing, and beautiful visual branding packages to expand your corporate potential."
-        breadcrumb={[{ name: 'Our Services', href: '/services' }]}
+      <ServicesHero
+        categories={serviceCategories.map(({ id, name }) => ({ id, name }))}
+        serviceCount={serviceCategories.reduce((total, category) => total + category.items.length, 0)}
+        directoryId="service-directory"
       />
 
-      {/* Dynamic Search & Interactive Sector Catalog Tab Panel */}
-      <section className="py-24 bg-gray-50 border-b border-gray-100">
-        <div className="container-custom">
-          
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Service Hub Directory</span>
-            <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Explore Our Absolute <span className="text-primary italic">Service Landscape</span>
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed mb-10">
-              Type custom keywords below to instantly highlight targeted layouts, SEO campaigns, Shopify stores, ERP dashboards, database parameters, or brand cards.
-            </p>
+      {/* Service directory: category explorer and 3D flick-card deck */}
+      <ServiceExplorer
+        id="service-directory"
+        categories={serviceCategories.map(({ id, name, description, items }) => ({ id, name, description, items }))}
+      />
 
-            {/* Interactive Search Tool */}
-            <div className="relative max-w-2xl mx-auto mb-8 shadow-xl rounded-box-sm overflow-hidden bg-white border border-gray-200">
-              <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
-                <Search className="h-6 h-6 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search database, SEO, Shopify, logo layout, hybrid apps, custom tools..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full pl-16 pr-24 py-6 text-dark font-sans text-base placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm('')}
-                  className="absolute inset-y-0 right-16 pr-4 flex items-center text-xs font-bold text-gray-400 hover:text-dark uppercase font-mono tracking-widest"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-
-            {/* Tab Choices */}
-            <div className="flex flex-wrap justify-center gap-3.5 mt-8">
-              <button
-                onClick={() => setActiveCategoryTab('all')}
-                className={`px-5 py-3 rounded-box-sm text-xs font-black uppercase tracking-wider transition-all border font-mono ${
-                  activeCategoryTab === 'all' 
-                    ? 'bg-dark text-white border-dark shadow-md' 
-                    : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100 hover:text-dark'
-                }`}
-              >
-                All Categories (6)
-              </button>
-              {serviceCategories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategoryTab(cat.id)}
-                  className={`px-5 py-3 rounded-box-sm text-xs font-black uppercase tracking-wider transition-all border font-mono ${
-                    activeCategoryTab === cat.id 
-                      ? 'bg-primary text-white border-primary shadow-md animate-pulse-slow' 
-                      : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100 hover:text-dark'
-                  }`}
-                >
-                  {cat.name.split('&')[0]}
-                </button>
-              ))}
-            </div>
-
-          </div>
-
-          {/* Directory Output Grid */}
-          <div className="space-y-16">
-            <AnimatePresence mode="popLayout">
-              {filteredCategories.length > 0 ? (
-                filteredCategories.map((category) => (
-                  <motion.div
-                    key={category.id}
-                    layout
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.6 }}
-                    className={`bg-white rounded-box-lg p-8 md:p-14 border border-gray-100 shadow-xl relative overflow-hidden`}
-                  >
-                    
-                    {/* Category Top Banner */}
-                    <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-12 pb-10 border-b border-gray-100">
-                      <div className="flex items-center gap-5">
-                        <div className="p-4 rounded-box-sm bg-gray-50 shadow-inner flex items-center justify-center flex-shrink-0 border border-gray-100">
-                          {category.icon}
-                        </div>
-                        <div>
-                          <span className={`text-[10px] font-black tracking-widest uppercase mb-1.5 block font-mono ${category.textAccent}`}>
-                            Strategic Segment
-                          </span>
-                          <h3 className="text-2xl md:text-3xl font-black text-dark leading-none">{category.name}</h3>
-                        </div>
-                      </div>
-                      <div className="max-w-xl">
-                        <p className="text-gray-500 text-sm leading-relaxed">{category.description}</p>
-                      </div>
-                    </div>
-
-                    {/* Sub-services Grid */}
-                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                      {category.items.map((sub, idx) => (
-                        <div
-                          key={idx}
-                          className="p-8 rounded-box-lg bg-gray-50/50 border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300 flex flex-col justify-between group shadow-sm hover:shadow-lg"
-                        >
-                          <div className="space-y-4">
-                            <span className="w-8 h-8 rounded-full bg-white font-bold text-xs text-primary flex items-center justify-center border border-gray-100 shadow-inner">
-                              0{idx + 1}
-                            </span>
-                            <h4 className="font-extrabold text-dark text-base leading-snug group-hover:text-primary transition-colors">
-                              {sub.name}
-                            </h4>
-                            <p className="text-gray-500 text-sm leading-relaxed">{sub.desc}</p>
-                          </div>
-
-                          <div className="mt-8 pt-6 border-t border-gray-200/50 flex justify-end">
-                            <Link
-                              href={sub.href}
-                              className="inline-flex items-center gap-1.5 text-xs font-black uppercase text-gray-400 group-hover:text-primary transition-colors tracking-widest font-mono"
-                            >
-                              <span>Explore Service Detail</span>
-                              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform" />
-                            </Link>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Background glows */}
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br opacity-[0.03] blur-[100px] pointer-events-none rounded-full" />
-                  </motion.div>
-                ))
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="bg-white rounded-box-lg p-16 text-center border border-gray-100 shadow-md max-w-xl mx-auto"
-                >
-                  <Search className="w-16 h-16 text-gray-300 mx-auto mb-4 animate-bounce" />
-                  <h4 className="text-xl font-bold text-dark mb-2">No matching services found</h4>
-                  <p className="text-gray-500 text-sm mb-6">
-                    We couldn't find matches for "{searchTerm}". Explore another term or browse our main categories.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSearchTerm('');
-                      setActiveCategoryTab('all');
-                    }}
-                    className="btn-primary"
-                  >
-                    Reset Directory Search
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-        </div>
-      </section>
+      {/* Delivery methodology: radial orbital timeline */}
+      <DeliveryMethodology />
 
       {/* Goal Recommendation Interactive Engine Widget */}
-      <section className="py-24 bg-dark text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none" />
-        <div className="absolute -top-40 -left-40 w-120 h-120 bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute -bottom-40 -right-40 w-120 h-120 bg-accent/5 rounded-full blur-[140px] pointer-events-none" />
+      <section className="py-24 bg-[linear-gradient(180deg,#FFFFFF_0%,#F5F7FC_100%)] text-dark relative overflow-hidden">
+        {/* Soft hand-off from the dark section above */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(5,4,74,0.07),transparent)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(5,4,74,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(5,4,74,0.035)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000_20%,transparent_75%)] pointer-events-none" />
+        <div className="absolute -top-40 -left-40 w-120 h-120 bg-primary/[0.06] rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute -bottom-40 -right-40 w-120 h-120 bg-accent/[0.06] rounded-full blur-[140px] pointer-events-none" />
 
         <div className="container-custom relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Interactive Recommendation Tool</span>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-black text-dark mb-6">
               Match Grehasoft <span className="text-primary italic">To Your Business Goal</span>
             </h2>
-            <p className="text-white/60 text-base leading-relaxed">
+            <p className="text-[#626783] text-base leading-relaxed">
               Choose your direct growth objective below. Our smart layout selector instantly bundles the exact tech and design programs necessary to accelerate your targets.
             </p>
           </div>
@@ -459,34 +262,41 @@ export default function ServicesPage() {
             
             {/* Choose Goal column (Left) */}
             <div className="lg:col-span-5 flex flex-col gap-4">
-              <span className="text-accent/60 text-[10px] font-black uppercase tracking-widest mb-2 block font-mono">Step 1: Choose Your Direct Purpose</span>
+              <span className="text-accent text-[10px] font-black uppercase tracking-widest mb-2 block font-mono">Step 1: Choose Your Direct Purpose</span>
               {quizOptions.map((opt) => (
                 <button
                   key={opt.id}
                   onClick={() => setSelectedQuizGoal(opt.id)}
                   className={`w-full text-left p-6 rounded-box-lg border transition-all duration-300 relative group cursor-pointer ${
-                    selectedQuizGoal === opt.id 
-                      ? 'bg-primary border-primary text-white shadow-xl translate-x-2' 
-                      : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:border-white/25'
+                    selectedQuizGoal === opt.id
+                      ? 'bg-[#EEF3FF] border-primary text-dark shadow-[0_16px_34px_-20px_rgba(7,83,246,0.55)] translate-x-2'
+                      : 'bg-white border-[#E3E8F2] text-dark shadow-[0_8px_22px_-18px_rgba(5,4,74,0.35)] hover:border-primary/40 hover:shadow-[0_12px_28px_-18px_rgba(5,4,74,0.4)]'
                   }`}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-14 h-9 rounded-lg flex items-center justify-center font-bold text-xs ${
-                      selectedQuizGoal === opt.id ? 'bg-white text-primary' : 'bg-white/10 text-white'
+                  <div className="min-w-0">
+                    <h4 className={`font-extrabold text-sm md:text-base leading-tight ${selectedQuizGoal === opt.id ? 'text-[#127A1C]' : 'text-dark'}`}>{opt.label}</h4>
+                    <p className={`text-[14px] mt-1 line-clamp-1 leading-snug ${
+                      selectedQuizGoal === opt.id ? 'text-[#4b5076]' : 'text-[#626783]'
                     }`}>
-                      {opt.id === 'brand' ? '01' : opt.id === 'ecommerce' ? '02' : opt.id === 'saas' ? '03' : '04'}
-                    </div>
-                    <div>
-                      <h4 className="font-extrabold text-sm md:text-base leading-tight text-accent">{opt.label}</h4>
-                      <p className={`text-[14px] mt-1 line-clamp-1 leading-snug ${
-                        selectedQuizGoal === opt.id ? 'text-white/80' : 'text-white/40'
-                      }`}>
-                        {opt.summary}
-                      </p>
-                    </div>
+                      {opt.summary}
+                    </p>
                   </div>
                 </button>
               ))}
+
+              {/* Consultant CTA, pinned to the column bottom so it lines up with the panel */}
+              <div className="mt-2 lg:mt-auto rounded-box-lg border border-primary/15 bg-[linear-gradient(135deg,#F3F7FF_0%,#FFFFFF_100%)] p-5 md:p-6 shadow-[0_12px_30px_-22px_rgba(7,83,246,0.45)] flex flex-col gap-4">
+                <p className="text-left text-[#4b5076] text-[13px] leading-relaxed">
+                  Connect with a Grehasoft solution consultant to tailor this customized bundle package.
+                </p>
+                <Link
+                  href="/contact-us"
+                  className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4.5 rounded-box-sm shadow-lg transition-all uppercase tracking-wider whitespace-nowrap flex w-full items-center justify-center gap-1.5"
+                >
+                  <span>Inquire This Package</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
 
             {/* Recommendation column (Right) */}
@@ -498,114 +308,57 @@ export default function ServicesPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-white/[0.03] border border-white/10 rounded-box-lg p-8 md:p-12 h-full flex flex-col justify-between"
+                  className="bg-[linear-gradient(160deg,#FFFFFF_0%,#F6F9FF_100%)] border border-[#E3E8F2] shadow-[0_24px_60px_-34px_rgba(5,4,74,0.35)] rounded-box-lg p-8 md:p-12 h-full flex flex-col justify-between"
                 >
                   <div className="space-y-6">
-                    <div className="flex items-center gap-3 border-b border-white/5 pb-6">
+                    <div className="flex items-center gap-3 border-b border-[#E3E8F2] pb-6">
                       <Zap className="text-primary w-5 h-5 animate-pulse" />
                       <div>
                         <span className="text-accent text-[9px] font-black tracking-widest uppercase block font-mono">Expert Recommended Strategy Bundle</span>
-                        <h4 className="text-xl font-bold text-white font-sans">
+                        <h4 className="text-xl font-bold text-dark font-sans">
                           Grehasoft Solution Package
                         </h4>
                       </div>
                     </div>
 
-                    <p className="text-white/75 text-sm leading-relaxed">{activeGoalDetails.summary}</p>
+                    <p className="text-[#626783] text-sm leading-relaxed">{activeGoalDetails.summary}</p>
 
                     <div className="space-y-3 pt-4">
-                      <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest block font-mono">Recommended Services included:</span>
+                      <span className="text-[#626783] text-[10px] font-bold uppercase tracking-widest block font-mono">Recommended Services included:</span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {activeGoalDetails.recommended.map((service, sIdx) => (
                           <Link
                             href={service.href}
                             key={sIdx}
-                            className="bg-white/5 hover:bg-white/10 border border-white/5 hover:border-primary/20 p-4 rounded-box-sm flex items-center justify-between group transition-all"
+                            className="bg-white hover:bg-[#F3F7FF] border border-[#E3E8F2] hover:border-primary/40 shadow-[0_6px_16px_-12px_rgba(5,4,74,0.3)] p-4 rounded-box-sm flex items-center justify-between group transition-all"
                           >
                             <div>
-                              <p className="font-bold text-white text-xs leading-tight">{service.name}</p>
-                              <span className="text-[14px] text-white/30 font-bold block mt-1 uppercase tracking-widest font-mono">{service.category}</span>
+                              <p className="font-bold text-dark text-xs leading-tight">{service.name}</p>
+                              <span className="text-[14px] text-[#626783] font-bold block mt-1 uppercase tracking-widest font-mono">{service.category}</span>
                             </div>
-                            <ArrowUpRight className="w-4 h-4 text-white/30 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                            <ArrowUpRight className="w-4 h-4 text-[#8a90ad] group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                           </Link>
                         ))}
                       </div>
                     </div>
 
                     {/* Operational metrics details */}
-                    <div className="grid grid-cols-2 gap-4 pt-6 mt-6 border-t border-white/5">
-                      <div className="p-4 bg-white/[0.02] border border-white/5 rounded-box-sm">
-                        <p className="text-xs text-white/30 font-bold uppercase tracking-widest font-mono mb-1">Target Timeline</p>
-                        <p className="font-bold text-accent text-sm font-sans">{activeGoalDetails.timeline}</p>
+                    <div className="grid grid-cols-2 gap-4 pt-6 mt-6 border-t border-[#E3E8F2]">
+                      <div className="p-4 bg-[#F5F8FF] border border-[#E3E8F2] rounded-box-sm">
+                        <p className="text-xs text-[#626783] font-bold uppercase tracking-widest font-mono mb-1">Target Timeline</p>
+                        <p className="font-bold text-[#127A1C] text-sm font-sans">{activeGoalDetails.timeline}</p>
                       </div>
-                      <div className="p-4 bg-white/[0.02] border border-white/5 rounded-box-sm">
-                        <p className="text-xs text-white/30 font-bold uppercase tracking-widest font-mono mb-1">Expected Deliverables</p>
-                        <p className="font-bold text-accent text-xs leading-normal font-sans">{activeGoalDetails.metrics}</p>
+                      <div className="p-4 bg-[#F5F8FF] border border-[#E3E8F2] rounded-box-sm">
+                        <p className="text-xs text-[#626783] font-bold uppercase tracking-widest font-mono mb-1">Expected Deliverables</p>
+                        <p className="font-bold text-[#127A1C] text-xs leading-normal font-sans">{activeGoalDetails.metrics}</p>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="pt-8 mt-8 border-t border-white/5 text-center md:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
-                    <p className="text-white/50 text-[11px] leading-relaxed font-mono">
-                      Connect with a Grehasoft solution consultant to tailor this customized bundle package.
-                    </p>
-                    <Link
-                      href="/contact-us"
-                      className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4.5 rounded-box-sm shadow-lg transition-all uppercase tracking-wider whitespace-nowrap inline-flex items-center gap-1.5"
-                    >
-                      <span>Inquire This Package</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
 
           </div>
-        </div>
-      </section>
-
-      {/* Engineering Process Steps Timeline */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="container-custom">
-          
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Deployment Strategy</span>
-            <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
-              Our End-to-End <span className="text-primary italic">Delivery Methodology</span>
-            </h2>
-            <p className="text-gray-600">
-              We leverage strict agile workflow constraints and rigorous visual standards to ensure every asset scales impeccably from scratch to production launch.
-            </p>
-          </div>
-
-          <div className="relative border-l border-gray-100 max-w-4xl mx-auto pl-8 sm:pl-16 space-y-12">
-            {designProcessSteps.map((step, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.05 }}
-                className="relative group page-process-item"
-              >
-                
-                {/* Step Counter Indicator Bubble */}
-                <div className="absolute -left-[53px] sm:-left-[85px] top-0 w-12 h-12 bg-white rounded-full flex items-center justify-center border border-gray-100 shadow-lg group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 z-10 text-primary">
-                  <span className="font-mono text-xs font-black">{step.step}</span>
-                </div>
-
-                <div className="bg-gray-50 p-8 rounded-box-lg border border-gray-100 hover:border-primary/20 hover:bg-white transition-all duration-300 shadow-sm shadow-indigo-500/[0.01]">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-accent">{step.icon}</span>
-                    <h3 className="font-extrabold text-lg text-dark group-hover:text-primary transition-colors">{step.title}</h3>
-                  </div>
-                  <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
         </div>
       </section>
 

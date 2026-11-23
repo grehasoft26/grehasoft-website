@@ -1,0 +1,325 @@
+/*
+ * Services hero: keyframes and the few styles Tailwind utilities can't express cleanly.
+ * Entrance motion is CSS-only, so all content renders without JavaScript.
+ * Loops pause off-screen ([data-offscreen]) and everything stops for reduced motion.
+ */
+
+.hero {
+  --navy: #05044a;
+  --blue: #0753f6;
+  --green: #1ab728;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ------------------------------ background ------------------------------ */
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(55% 60% at 74% 46%, rgba(7, 83, 246, 0.34), transparent 70%),
+    radial-gradient(30% 32% at 90% 86%, rgba(26, 183, 40, 0.12), transparent 70%),
+    radial-gradient(45% 55% at 6% 0%, rgba(7, 83, 246, 0.16), transparent 70%),
+    linear-gradient(180deg, #05044a 0%, #040339 100%);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(65% 60% at 72% 46%, #000 15%, transparent 72%);
+}
+
+/* Soft hand-off into the light directory section below. */
+.bottomEdge {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+}
+
+/* ------------------------------ typography ------------------------------ */
+
+.line {
+  display: block;
+  overflow: hidden;
+  /* One visual line each, even while the fallback font is showing (prevents a layout shift on font swap). */
+  white-space: nowrap;
+  /* Room for descenders inside the mask without changing the line box. */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.lineInner {
+  display: block;
+}
+
+.outline {
+  color: rgba(255, 255, 255, 0.04);
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.72);
+}
+
+@supports not (-webkit-text-stroke: 1px) {
+  .outline {
+    color: #9db9ff;
+  }
+}
+
+/* ------------------------------ glass ------------------------------ */
+
+.glass {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 24px 48px -24px rgba(1, 0, 30, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.glassDark {
+  background: linear-gradient(160deg, rgba(14, 18, 92, 0.92), rgba(5, 4, 60, 0.94));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 40px 80px -30px rgba(0, 0, 20, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* ------------------------------ stage ------------------------------ */
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  container-type: inline-size;
+}
+
+/* Absolutely placed layer: top-left corner and width in stage percent. */
+.place {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * 1%);
+}
+
+/* Phones: category cards collapse to small icon orbs. */
+@media (max-width: 639px) {
+  .categoryPlace {
+    width: 12%;
+  }
+}
+
+.tilt {
+  transform: perspective(1200px) rotateY(var(--ry, -9deg)) rotateX(var(--rx, 5deg));
+}
+
+.cardName {
+  font-size: clamp(10px, 2cqw, 13px);
+  line-height: 1.25;
+}
+
+.micro {
+  font-size: clamp(7px, 1.45cqw, 10px);
+  line-height: 1.2;
+}
+
+.gaugeValue {
+  font-size: clamp(18px, 5.4cqw, 34px);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------ entrance ------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .lineInner {
+    animation: rise 0.95s cubic-bezier(0.2, 0.75, 0.1, 1) both;
+    animation-delay: calc(var(--i) * 90ms + 60ms);
+  }
+
+  /* Text below the headline slides only; it never starts transparent. */
+  .slide {
+    animation: slide 0.9s var(--ease-out) both;
+    animation-delay: var(--d, 0.4s);
+  }
+
+  .stageIn {
+    animation: stageIn 1.2s var(--ease-out) 0.15s both;
+  }
+
+  .pop {
+    animation: pop 0.8s var(--ease-out) both;
+    animation-delay: var(--d, 0.6s);
+  }
+
+  /* Pop in, then drift: two animations on separate properties (opacity/scale vs translate). */
+  .float {
+    animation:
+      pop 0.8s var(--ease-out) var(--d, 0.6s) both,
+      drift var(--fd, 6s) ease-in-out calc(var(--d, 0.6s) + 0.8s) infinite alternate;
+  }
+
+  .spin {
+    transform-origin: 50px 50px;
+    animation: spin var(--sd, 48s) linear infinite;
+  }
+
+  .spinReverse {
+    transform-origin: 50px 50px;
+    animation: spin var(--sd, 64s) linear infinite reverse;
+  }
+
+  .flow {
+    animation: flow 2.8s linear infinite;
+  }
+
+  .tick {
+    animation: tickOn 0.35s ease-out both;
+    animation-delay: calc(1s + var(--i) * 32ms);
+  }
+
+  .draw {
+    stroke-dasharray: 1;
+    animation: draw 1.6s cubic-bezier(0.45, 0, 0.2, 1) 1.1s both;
+  }
+
+  .grow {
+    transform-origin: bottom;
+    animation: grow 0.9s var(--ease-out) both;
+    animation-delay: calc(0.9s + var(--i) * 70ms);
+  }
+
+  .pulse {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  /* Phones and small tablets: entrance only, no continuous loops. */
+  @media (max-width: 639px) {
+    .float {
+      animation: pop 0.8s var(--ease-out) var(--d, 0.6s) both;
+    }
+
+    .spin,
+    .spinReverse,
+    .flow,
+    .pulse {
+      animation: none;
+    }
+  }
+}
+
+/* Pause continuous loops while the hero is off-screen. */
+.hero[data-offscreen] .float,
+.hero[data-offscreen] .spin,
+.hero[data-offscreen] .spinReverse,
+.hero[data-offscreen] .flow,
+.hero[data-offscreen] .pulse {
+  animation-play-state: paused;
+}
+
+.tick {
+  stroke: var(--c);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes stageIn {
+  from {
+    opacity: 0;
+    scale: 0.94;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes drift {
+  from {
+    translate: 0 calc(var(--amp, 6px) * -1);
+  }
+  to {
+    translate: 0 var(--amp, 6px);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -7;
+  }
+}
+
+@keyframes tickOn {
+  from {
+    stroke: rgba(255, 255, 255, 0.14);
+  }
+  to {
+    stroke: var(--c);
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scaleY(0.15);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
