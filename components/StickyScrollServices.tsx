@@ -1,74 +1,57 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, type ReactNode } from "react";
 import { getOurServices } from "@/lib/backend-api";
 import { toInternalHref } from "@/lib/internal-href";
 import Image from "next/image";
-import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
+import { motion, useScroll, useTransform, MotionConfig } from "motion/react";
 import SectionDivider from "./SectionDivider";
+import ServiceThumbnailRail from "./home/ServiceThumbnailRail";
+
+/*
+ * Home "Our Services" showcase.
+ *  - md and up: the panel is pinned while the page scrolls through it; scroll progress picks the
+ *    active service (image, text and thumbnail change together). lg+: image | divider rail | text;
+ *    md: image, horizontal rail, text.
+ *  - Below md: no pinning, the six services are stacked and fade in as they enter the viewport.
+ * Both layouts are rendered and switched with CSS, so server and client markup always match.
+ */
 
 // Scroll distance given to each service while the panel is pinned
 const SCROLL_PER_SERVICE_VH = 30;
-const transition = { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const };
+const textTransition = { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const };
+const imageTransition = { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const };
 const offsetY = 16;
-
-// Image deck: springs keep card movement smooth when scrolling reverses mid-transition
-const cardSpring = { type: "spring" as const, stiffness: 220, damping: 30, mass: 0.9 };
-
-// Position of an image card relative to the active one (0 = front, 1-2 = peeking behind)
-const getCardLayer = (depth: number) => {
-  if (depth < 0) return { opacity: 0, y: 48, scale: 1.02, shade: 0 };
-  if (depth === 0) return { opacity: 1, y: 0, scale: 1, shade: 0 };
-  if (depth === 1) return { opacity: 1, y: -24, scale: 0.92, shade: 0.35 };
-  if (depth === 2) return { opacity: 1, y: -44, scale: 0.84, shade: 0.55 };
-  return { opacity: 0, y: -60, scale: 0.78, shade: 0.7 };
-};
 
 const getImage = (service: any) =>
   service?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
   service?.yoast_head_json?.og_image?.[0]?.url ||
   "";
 
-function ServiceText({ acf }: { acf: any }) {
+function ServiceTitle({ title }: { title?: string }) {
+  return (
+    <h3 className="mb-4 break-words text-[28px] font-bold leading-[1.08] text-[#0b0b45] sm:text-[34px] lg:text-[36px] xl:text-[44px]">
+      <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-primary text-transparent">{title}</span>
+    </h3>
+  );
+}
+
+function ServiceText({ acf, clampOnShortTablets = false }: { acf: any; clampOnShortTablets?: boolean }) {
   return (
     <>
-      <span className="inline-block px-4 py-2 rounded-full bg-blue-100 text-accent text-xs sm:text-sm mb-4">
-        SERVICE {acf?.service_tag}
-      </span>
+      {/* The tag badge only shows once a tag is set in WordPress (all are empty today). */}
+      {acf?.service_tag && (
+        <span className="mb-4 inline-block rounded-full bg-blue-100 px-4 py-2 text-xs text-accent sm:text-sm">
+          SERVICE {acf.service_tag}
+        </span>
+      )}
 
-      <h3
-        className="
-          text-[22px]
-          sm:text-[32px]
-          md:text-[42px]
-          lg:text-[48px]
-
-          font-bold
-          text-[#0b0b45]
-
-          mb-5
-          leading-[1.05]
-
-          break-words
-        "
-      >
-        <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent"> {acf?.hero_title}</span>
-      </h3>
+      <ServiceTitle title={acf?.hero_title} />
 
       <p
-        className="
-          text-gray-600
-          text-base
-          sm:text-lg
-
-          leading-relaxed
-
-          mb-8
-          max-w-2xl
-          line-clamp-4
-          max-lg:[@media(max-height:680px)]:line-clamp-3
-          lg:line-clamp-none
-        "
+        className={`mb-7 text-base leading-relaxed text-[#444444] xl:text-[17px] ${
+          clampOnShortTablets ? "max-lg:[@media(max-height:700px)]:line-clamp-5" : ""
+        }`}
       >
         {acf?.description}
       </p>
@@ -101,45 +84,49 @@ function ServiceText({ acf }: { acf: any }) {
   );
 }
 
-function BackgroundText({ text }: { text?: string }) {
+/** Fades a mobile service in once it scrolls into view. Only items below the fold on load are
+ *  held, and only when JavaScript runs with motion allowed, so content is never left hidden. */
+function RevealOnScroll({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [held, setHeld] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Hidden (desktop) or already on screen: show as is.
+    const rect = el.getBoundingClientRect();
+    if (rect.height === 0 || rect.top < window.innerHeight) return;
+
+    let observer: IntersectionObserver | undefined;
+    try {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          setHeld(false);
+          observer?.disconnect();
+        },
+        { rootMargin: "0px 0px -8% 0px" },
+      );
+      observer.observe(el);
+      setHeld(true);
+    } catch {
+      setHeld(false);
+    }
+    return () => observer?.disconnect();
+  }, []);
+
   return (
-    <>
-      <span>{text?.split(" ")[0]}</span>
-
-      <br className="md:block xl:hidden" />
-
-      <span>{text?.split(" ").slice(1).join(" ")}</span>
-    </>
+    <div
+      ref={ref}
+      className={`transition-[opacity,translate] duration-700 ease-out motion-reduce:transition-none ${
+        held ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
+      }`}
+    >
+      {children}
+    </div>
   );
 }
-
-const backgroundTextClasses = `
-  absolute
-  top-1/2
-  left-1/2
-  -translate-x-1/2
-  -translate-y-1/2
-
-  text-[20px]
-  sm:text-[50px]
-  md:text-[70px]
-  lg:text-[90px]
-  xl:text-[130px]
-
-  font-bold
-  text-[#0b0b45]
-
-  tracking-[2px]
-  sm:tracking-[6px]
-  md:tracking-[10px]
-
-  blur-[1px]
-  pointer-events-none
-  select-none
-  z-0
-  text-center
-  leading-none
-`;
 
 export default function StickyScrollServices({ initialServices = [] }: { initialServices?: any[] }) {
   const [services, setServices] = useState<any[]>(initialServices);
@@ -147,17 +134,18 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(initialServices.length === 0);
 
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const bgOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.06, 0.1, 0]
+  // Rail progress: reaches thumbnail i exactly when service i becomes the midpoint of its scroll
+  // segment, so the fill and the active thumbnail agree. Bound to the DOM, no React re-render.
+  const count = services.length;
+  const railFill = useTransform(scrollYProgress, (v) =>
+    Math.min(1, Math.max(0, (v * count - 0.5) / Math.max(count - 1, 1))),
   );
 
   useEffect(() => {
@@ -198,19 +186,35 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
     });
   }, [scrollYProgress, services]);
 
-  const hasServices = !loading && !error && services.length > 0;
-  const acf = services[activeIndex]?.acf || {};
+  // Thumbnail navigation: scroll the page to the middle of that service's scroll segment.
+  const goToService = (index: number) => {
+    const container = containerRef.current;
+    if (!container || services.length === 0) return;
+    const top = container.getBoundingClientRect().top + window.scrollY;
+    const travel = container.offsetHeight - window.innerHeight;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // "instant", not "auto": <html> has scroll-smooth, which "auto" would inherit.
+    window.scrollTo({ top: top + ((index + 0.5) / services.length) * travel, behavior: reduce ? "instant" : "smooth" });
+  };
 
-  // Pinned scroll length scales with the number of services
+  const hasServices = !loading && !error && services.length > 0;
+
+  // Pinned scroll length scales with the number of services (md and up only)
   const pinHeight = `calc(100vh + ${services.length * SCROLL_PER_SERVICE_VH}vh)`;
 
+  const railServices = services.map((item, i) => ({
+    key: item?.id ?? i,
+    title: item?.acf?.hero_title || "Service",
+    image: getImage(item),
+  }));
+
   return (
-    // reducedMotion="user" drops the slide for reduced-motion users at animation time,
+    // reducedMotion="user" drops the slide/scale for reduced-motion users at animation time,
     // so server and client render identical markup
     <MotionConfig reducedMotion="user">
     <div
       ref={containerRef}
-      className="relative h-[var(--pin-height)]"
+      className="relative md:h-[var(--pin-height)]"
       style={hasServices ? ({ "--pin-height": pinHeight } as React.CSSProperties) : undefined}
     >
       {loading ? (
@@ -226,87 +230,83 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
         </div>
       ) : (
         <>
-          {/* Pinned panel, services crossfade with scroll progress.
-              Below lg the deck keeps its 3:2 size and the text takes the height left above it. */}
-          <div className="flex sticky top-0 h-svh lg:h-screen items-stretch lg:items-center pt-20 pb-6 lg:py-8 bg-white overflow-hidden">
-            <div className="container-custom relative z-10 w-full h-full lg:h-auto">
-              <div className="grid h-full lg:h-auto grid-cols-1 grid-rows-[minmax(0,1fr)_auto] lg:grid-rows-none lg:grid-cols-[5fr_6fr] gap-5 lg:gap-10 xl:gap-12 lg:items-center">
-                {/* LEFT: all text blocks share one grid cell so height never jumps */}
+          {/* ---------- md and up: pinned split showcase ---------- */}
+          <div className="sticky top-0 flex h-svh items-stretch overflow-hidden bg-white pt-20 pb-6 max-md:hidden lg:h-screen lg:items-center lg:py-8">
+            <div className="container-custom relative z-10 h-full w-full lg:h-auto">
+              <div className="grid h-full grid-rows-[auto_auto_minmax(0,1fr)] gap-6 lg:h-auto lg:grid-cols-[minmax(0,1.3fr)_44px_minmax(0,1fr)] lg:grid-rows-none lg:items-center lg:gap-10 xl:gap-14">
+                {/* Image stage: every image stays mounted and crossfades (no reload flashes). */}
+                <div className="relative h-[38svh] w-full overflow-hidden rounded-[28px] bg-[#EEF1F8] shadow-[0_30px_60px_-36px_rgba(5,4,74,0.45)] ring-1 ring-[#05044A]/[0.06] lg:h-[clamp(320px,70vh,660px)]">
+                  {services.map((item, i) => {
+                    const isActive = i === activeIndex;
+                    return (
+                      <motion.div
+                        key={item?.id ?? i}
+                        className="absolute inset-0"
+                        initial={false}
+                        animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 1.04 }}
+                        transition={imageTransition}
+                        style={{ zIndex: isActive ? 2 : 1 }}
+                        aria-hidden={!isActive}
+                      >
+                        <Image
+                          src={getImage(item) || "/images/fallback.jpg"}
+                          alt={item?.acf?.hero_title || "Service"}
+                          fill
+                          sizes="(max-width: 1023px) 92vw, 50vw"
+                          className="object-cover"
+                        />
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Divider rail with thumbnails: vertical on lg+, horizontal row on tablets */}
+                <div className="lg:h-[clamp(320px,70vh,660px)] lg:py-2">
+                  <ServiceThumbnailRail services={railServices} activeIndex={activeIndex} fill={railFill} onSelect={goToService} />
+                </div>
+
+                {/* Text: all blocks share one grid cell so height never jumps */}
                 <div className="relative z-10 grid min-h-0">
                   {services.map((item, i) => {
                     const isActive = i === activeIndex;
                     return (
                       <motion.div
                         key={item?.id ?? i}
-                        className="[grid-area:1/1] self-center"
+                        className="[grid-area:1/1] self-start lg:self-center"
                         initial={false}
                         animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : offsetY }}
-                        transition={transition}
+                        transition={textTransition}
                         style={{ pointerEvents: isActive ? "auto" : "none" }}
                         aria-hidden={!isActive}
                         inert={!isActive}
                       >
-                        <ServiceText acf={item?.acf || {}} />
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {/* RIGHT: layered image deck; images stay mounted, avoiding reload flashes.
-                    On short phones the top edge is clipped so the peeking cards can't cover the CTA. */}
-                <div className="relative z-10 grid grid-rows-[minmax(0,1fr)] lg:grid-rows-none w-full max-w-xl lg:max-w-none mx-auto min-h-0 pt-8 lg:pt-12 max-lg:[@media(max-height:680px)]:pt-0 max-lg:[@media(max-height:680px)]:[clip-path:inset(0_-48px_-48px_-48px)]">
-                  {services.map((item, i) => {
-                    const depth = i - activeIndex;
-                    const layer = getCardLayer(depth);
-                    return (
-                      <motion.div
-                        key={item?.id ?? i}
-                        className="[grid-area:1/1] relative origin-top min-h-0 pointer-events-none"
-                        style={{ zIndex: depth < 0 ? services.length + 1 : services.length - depth }}
-                        initial={false}
-                        animate={{ opacity: layer.opacity, y: layer.y, scale: layer.scale }}
-                        transition={cardSpring}
-                        aria-hidden={depth !== 0}
-                      >
-                        <Image
-                          src={getImage(item) || "/images/fallback.jpg"}
-                          alt={item?.acf?.hero_title || "Service"}
-                          width={1536}
-                          height={1024}
-                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 576px, 680px"
-                          className="
-                            block
-                            w-full
-                            h-auto
-                            aspect-[3/2]
-                            max-h-[62vh]
-                            object-cover
-                            rounded-box-lg
-                            shadow-xl
-                          "
-                        />
-                        <motion.div
-                          aria-hidden="true"
-                          className="absolute inset-0 rounded-box-lg bg-white pointer-events-none"
-                          initial={false}
-                          animate={{ opacity: layer.shade }}
-                          transition={cardSpring}
-                        />
+                        <ServiceText acf={item?.acf || {}} clampOnShortTablets />
                       </motion.div>
                     );
                   })}
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* BACKGROUND TEXT (decorative, so not a heading) */}
-            <motion.div
-              aria-hidden="true"
-              style={{ opacity: bgOpacity }}
-              className={backgroundTextClasses}
-            >
-              <BackgroundText text={acf?.background_text} />
-            </motion.div>
+          {/* ---------- below md: stacked services, no pinning ---------- */}
+          <div className="container-custom space-y-14 bg-white py-14 md:hidden">
+            {services.map((item, i) => (
+              <RevealOnScroll key={item?.id ?? i}>
+                <article>
+                  <div className="relative mb-6 aspect-[3/2] w-full overflow-hidden rounded-[22px] bg-[#EEF1F8] shadow-[0_24px_48px_-30px_rgba(5,4,74,0.45)] ring-1 ring-[#05044A]/[0.06]">
+                    <Image
+                      src={getImage(item) || "/images/fallback.jpg"}
+                      alt={item?.acf?.hero_title || "Service"}
+                      fill
+                      sizes="92vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <ServiceText acf={item?.acf || {}} />
+                </article>
+              </RevealOnScroll>
+            ))}
           </div>
         </>
       )}
