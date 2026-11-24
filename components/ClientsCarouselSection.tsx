@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { getClients } from '@/lib/backend-api';
+import styles from './KochiIntroSection.module.css';
 
 interface Client {
   id?: number;
@@ -125,20 +126,18 @@ export default function ClientsCarouselSection({ initialClients = [] }: Props) {
   return (
     <section aria-labelledby="clients-carousel-title" className="relative bg-white py-16 md:py-20 border-b border-gray-100">
       <div className="container-custom">
-        <div className="mb-10 flex flex-col gap-6 md:mb-12 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1">
-              <Sparkles aria-hidden="true" className="h-4 w-4 text-primary" />
-              <span className="text-xs font-bold uppercase tracking-widest text-accent">Trusted By Industry Leaders</span>
-            </div>
-            <h2
-              id="clients-carousel-title"
-              className="text-5xl font-black leading-none tracking-[-2px] text-dark sm:text-6xl lg:text-[70px] lg:tracking-[-4px]"
-            >
-              Clients
-            </h2>
+        <div className="mb-10 md:mb-12 flex flex-col items-center text-center">
+          <div className="mb-4 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1">
+            <Sparkles aria-hidden="true" className="h-4 w-4 text-primary" />
+            <span className="text-xs font-bold uppercase tracking-widest text-accent">Trusted By Industry Leaders</span>
           </div>
-          <p className="max-w-xl text-xl font-semibold leading-snug text-text-gray md:text-2xl">
+          <h2
+            id="clients-carousel-title"
+            className="text-5xl font-black leading-none tracking-[-2px] sm:text-6xl lg:text-[70px] lg:tracking-[-4px] text-center"
+          >
+            <span className={styles.gradientText}>Clients</span>
+          </h2>
+          <p className="mt-4 sm:mt-5 text-base sm:text-lg md:text-xl lg:text-2xl font-normal leading-relaxed text-text-gray max-w-2xl text-center mx-auto">
             Our clients are everything to us; so are we to them.
           </p>
         </div>
