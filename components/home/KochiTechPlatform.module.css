@@ -1,0 +1,403 @@
+/*
+ * Kochi tech platform: layout, cards, hint, entrance and ambient loops.
+ * The plates, cards and connectors are positioned by the shared `progress` value (KochiTechPlatform.tsx);
+ * nothing here animates their geometry. Loops pause off screen / in hidden tabs ([data-paused]) and
+ * stop for reduced motion. The entrance only runs when JavaScript armed it ([data-enter]).
+ */
+
+.root {
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --blue: #3d7dff;
+  --green: #2bd13d;
+  /* Frameless: the visual sits on its section's own light, with a soft halo behind the core. */
+  background: radial-gradient(closest-side at 50% 52%, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0));
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  container-type: inline-size;
+  perspective: 1400px;
+}
+
+/* Full-size stacked layers never take the pointer; the core button and open cards do. */
+.layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.core {
+  z-index: 2;
+}
+
+/* Layers whose opacity follows the reveal are promoted from load, so opening never has to create and
+   rasterise a new compositing layer on its first frame. */
+.orbitLayer {
+  will-change: opacity;
+}
+
+/* The core's hit area, under the card layer so open cards receive hover. */
+.coreButton {
+  position: absolute;
+  z-index: 1;
+  left: 19%;
+  top: 28%;
+  width: 62%;
+  height: 52%;
+  border-radius: 3rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.coreButton:focus-visible {
+  outline: 2px solid #0753f6;
+  outline-offset: 4px;
+}
+
+/* ------------------------------ service cards ------------------------------ */
+
+.cards {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.cardSlot {
+  position: absolute;
+  transform: translateY(-50%);
+}
+
+.card {
+  --c: var(--blue);
+  --glow: rgba(7, 83, 246, 0.5);
+  --glow-strong: rgba(61, 125, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 1.3cqw;
+  padding: 1.3cqw 1.2cqw;
+  border: max(1px, 0.3cqw) solid var(--c);
+  border-radius: 2.2cqw;
+  background: linear-gradient(160deg, rgba(16, 24, 116, 0.97) 0%, rgba(5, 4, 74, 0.98) 70%);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 2cqw -0.4cqw var(--glow),
+    0 1.4cqw 2.4cqw -1.4cqw rgba(5, 4, 74, 0.55);
+  transition: box-shadow 0.3s var(--ease-out);
+  will-change: transform, opacity;
+}
+
+.root[data-open] .card {
+  pointer-events: auto;
+}
+
+/* Cards grow from the side facing the core, so they read as emerging from their plate. */
+.fromRight {
+  transform-origin: 100% 50%;
+}
+
+.fromLeft {
+  transform-origin: 0% 50%;
+}
+
+.blue {
+  --c: var(--blue);
+  --glow: rgba(7, 83, 246, 0.5);
+  --glow-strong: rgba(61, 125, 255, 0.95);
+}
+
+.green {
+  --c: var(--green);
+  --glow: rgba(26, 183, 40, 0.45);
+  --glow-strong: rgba(43, 209, 61, 0.9);
+}
+
+.cardIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 5.4cqw;
+  height: 5.4cqw;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.5cqw;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.icon {
+  width: 3.3cqw;
+  height: 3.3cqw;
+  color: var(--c);
+}
+
+.cloudServer {
+  position: relative;
+  display: block;
+  width: 3.4cqw;
+  height: 3.4cqw;
+  color: var(--c);
+}
+
+.cloudPart {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 80%;
+  height: 80%;
+  transform: translateX(-50%);
+}
+
+.serverPart {
+  position: absolute;
+  left: 50%;
+  bottom: -10%;
+  width: 52%;
+  height: 52%;
+  transform: translateX(-50%);
+}
+
+.cardLabel {
+  min-width: 0;
+  font-size: clamp(9px, 2.15cqw, 12.5px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 0 3cqw 0 var(--glow-strong),
+      0 1.8cqw 2.8cqw -1.4cqw rgba(5, 4, 74, 0.6);
+  }
+}
+
+/* ------------------------------ phones: services as a grid below the visual ------------------------------ */
+/* Breakpoint must match PHONE_QUERY in KochiTechPlatform.tsx. Below it the visual is too narrow for
+   readable cards beside the plates (Syntra hides them there too), so the core alone unfolds on tap and
+   the six services are listed underneath. The visual bleeds a little past the column (Syntra does the
+   same) so the plates stay prominent; the section clips horizontally. */
+
+.mobileList {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .root {
+    width: 116%;
+    margin-left: -8%;
+  }
+
+  .cards,
+  .connectors {
+    display: none;
+  }
+
+  .mobileList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.mobileCard {
+  --c: var(--blue);
+  --glow: rgba(7, 83, 246, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--c);
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(16, 24, 116, 0.97) 0%, rgba(5, 4, 74, 0.98) 70%);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 14px -6px var(--glow),
+    0 10px 20px -14px rgba(5, 4, 74, 0.55);
+}
+
+.mobileIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mobileIcon .icon,
+.mobileIcon .cloudServer {
+  width: 18px;
+  height: 18px;
+}
+
+.mobileLabel {
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------ hint and caption ------------------------------ */
+
+.hint {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 84.5%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  transform: translateX(-50%);
+  color: #444444;
+  font-size: clamp(9px, 2cqw, 12px);
+  white-space: nowrap;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.hintIcon {
+  width: max(12px, 2.6cqw);
+  height: max(12px, 2.6cqw);
+  color: #0753f6;
+}
+
+.hintTouch,
+.hintPhone {
+  display: none;
+}
+
+@media (hover: none) {
+  .hintHover {
+    display: none;
+  }
+
+  .hintTouch {
+    display: inline;
+  }
+}
+
+/* Phones show the services below the visual, so a tap only unfolds the platform. */
+@media (max-width: 639px) {
+  .hintHover,
+  .hintTouch {
+    display: none;
+  }
+
+  .hintPhone {
+    display: inline;
+  }
+}
+
+.caption {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 3.2%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2cqw;
+  margin: 0;
+  padding: 1.1cqw 2.6cqw;
+  border: 1px solid rgba(7, 83, 246, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0.8cqw 2cqw -1.2cqw rgba(5, 4, 74, 0.35);
+  color: #05044a;
+  font-size: clamp(9px, 2.05cqw, 12px);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.captionIcon {
+  width: max(12px, 2.8cqw);
+  height: max(12px, 2.8cqw);
+  flex: none;
+  color: #0753f6;
+}
+
+/* ------------------------------ ambient loops ------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The core floats as one object (plates, connectors and cards together). Composited. */
+  .float {
+    animation: float 3.5s ease-in-out infinite alternate;
+    will-change: translate;
+  }
+
+  .ringDrift {
+    animation: ringDrift 40s linear infinite;
+  }
+}
+
+/* Phones: platform float and one orbit only. */
+@media (max-width: 767px) {
+  .ringDrift {
+    animation: none;
+  }
+
+  .dotSecondary {
+    display: none;
+  }
+}
+
+.root[data-paused] .float,
+.root[data-paused] .ringDrift {
+  animation-play-state: paused;
+}
+
+/* ------------------------------ entrance (armed by JavaScript only) ------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .root[data-enter] .enterStack {
+    animation: rise 1s var(--ease-out) both;
+  }
+
+  .root[data-enter='armed'] .enterStack {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes float {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -6px;
+  }
+}
+
+@keyframes ringDrift {
+  to {
+    stroke-dashoffset: -220;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

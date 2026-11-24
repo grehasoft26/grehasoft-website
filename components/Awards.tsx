@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 
 import { AwardsData } from '@/types/wordpress';
+import styles from './KochiIntroSection.module.css';
 
 interface AwardsProps {
   data?: AwardsData | null;
@@ -77,59 +78,32 @@ export default function Awards({
           <div className="container-custom">
 
             {/* HEADER */}
-            <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
-
-              <div className="max-w-2xl">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="mb-4"
-                >
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
-                    <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-
-                    <span className="text-xs font-bold text-accent uppercase tracking-widest">
-                      {data.section_tag}
-                    </span>
-                  </div>
-                </motion.div>
-
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-4xl md:text-5xl font-bold text-dark"
-                >
-                  {data.section_title}{' '}
-                  <span className="text-primary">
-                    {data.highlight_text}
-                  </span>
-                </motion.h2>
-              </div>
-
+            <div className="mb-16 text-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="hidden lg:block"
+                className="mb-4 flex justify-center"
               >
-                <div className="flex items-center gap-4 p-6 bg-white rounded-box-lg shadow-sm border border-gray-100">
-                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-accent">
-                    <Trophy className="w-6 h-6" />
-                  </div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
+                  <Sparkles className="w-4 h-4 text-primary animate-pulse" />
 
-                  <div>
-                    <p className="text-2xl font-bold text-dark">
-                      {data.awards_count}
-                    </p>
-
-                    <p className="text-sm text-text-gray">
-                      {data.awards_label}
-                    </p>
-                  </div>
+                  <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                    {data.section_tag}
+                  </span>
                 </div>
               </motion.div>
+
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="w-full text-center text-4xl md:text-5xl font-semibold tracking-[-0.032em] leading-tight text-balance text-dark"
+              >
+                <span className={styles.gradientText}>
+                  {[data.section_title, data.highlight_text].filter(Boolean).join(' ')}
+                </span>
+              </motion.h2>
             </div>
 
             {/* CARDS */}
