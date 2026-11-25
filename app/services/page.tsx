@@ -240,7 +240,7 @@ export default function ServicesPage() {
       <DeliveryMethodology />
 
       {/* Goal Recommendation Interactive Engine Widget */}
-      <section className="py-24 bg-[linear-gradient(180deg,#FFFFFF_0%,#F5F7FC_100%)] text-dark relative overflow-hidden">
+      <section className="py-14 sm:py-16 lg:py-16 bg-[linear-gradient(180deg,#FFFFFF_0%,#F5F7FC_100%)] text-dark relative overflow-hidden">
         {/* Soft hand-off from the dark section above */}
         <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(5,4,74,0.07),transparent)] pointer-events-none" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(5,4,74,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(5,4,74,0.035)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(70%_60%_at_50%_40%,#000_20%,transparent_75%)] pointer-events-none" />
@@ -248,26 +248,35 @@ export default function ServicesPage() {
         <div className="absolute -bottom-40 -right-40 w-120 h-120 bg-accent/[0.06] rounded-full blur-[140px] pointer-events-none" />
 
         <div className="container-custom relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Interactive Recommendation Tool</span>
-            <h2 className="text-4xl md:text-5xl font-black text-dark mb-6">
-              Match Grehasoft <span className="text-primary italic">To Your Business Goal</span>
+          <div className="text-center mx-auto mb-8 lg:mb-10">
+            <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-2.5 block font-mono">Interactive Recommendation Tool</span>
+            <h2
+              className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.85rem] font-black leading-[1.12] tracking-[-0.02em] text-transparent sm:text-4xl lg:whitespace-nowrap lg:text-[clamp(2.25rem,3.6vw,3rem)]"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Match Grehasoft To Your Business Goal
             </h2>
-            <p className="text-[#626783] text-base leading-relaxed">
+            <p className="mx-auto mt-2.5 max-w-2xl text-[#626783] text-base leading-relaxed">
               Choose your direct growth objective below. Our smart layout selector instantly bundles the exact tech and design programs necessary to accelerate your targets.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
             
             {/* Choose Goal column (Left) */}
-            <div className="lg:col-span-5 flex flex-col gap-4">
-              <span className="text-accent text-[10px] font-black uppercase tracking-widest mb-2 block font-mono">Step 1: Choose Your Direct Purpose</span>
+            <div className="lg:col-span-5 flex flex-col gap-3">
+              <span className="text-accent text-[10px] font-black uppercase tracking-widest mb-1 block font-mono">Step 1: Choose Your Direct Purpose</span>
               {quizOptions.map((opt) => (
                 <button
                   key={opt.id}
                   onClick={() => setSelectedQuizGoal(opt.id)}
-                  className={`w-full text-left p-6 rounded-box-lg border transition-all duration-300 relative group cursor-pointer ${
+                  className={`w-full text-left p-4 sm:p-5 rounded-box-lg border transition-all duration-300 relative group cursor-pointer ${
                     selectedQuizGoal === opt.id
                       ? 'bg-[#EEF3FF] border-primary text-dark shadow-[0_16px_34px_-20px_rgba(7,83,246,0.55)] translate-x-2'
                       : 'bg-white border-[#E3E8F2] text-dark shadow-[0_8px_22px_-18px_rgba(5,4,74,0.35)] hover:border-primary/40 hover:shadow-[0_12px_28px_-18px_rgba(5,4,74,0.4)]'
@@ -285,13 +294,13 @@ export default function ServicesPage() {
               ))}
 
               {/* Consultant CTA, pinned to the column bottom so it lines up with the panel */}
-              <div className="mt-2 lg:mt-auto rounded-box-lg border border-primary/15 bg-[linear-gradient(135deg,#F3F7FF_0%,#FFFFFF_100%)] p-5 md:p-6 shadow-[0_12px_30px_-22px_rgba(7,83,246,0.45)] flex flex-col gap-4">
+              <div className="mt-1 lg:mt-auto rounded-box-lg border border-primary/15 bg-[linear-gradient(135deg,#F3F7FF_0%,#FFFFFF_100%)] p-4 md:p-5 shadow-[0_12px_30px_-22px_rgba(7,83,246,0.45)] flex flex-col gap-3">
                 <p className="text-left text-[#4b5076] text-[13px] leading-relaxed">
                   Connect with a Grehasoft solution consultant to tailor this customized bundle package.
                 </p>
                 <Link
                   href="/contact-us"
-                  className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4.5 rounded-box-sm shadow-lg transition-all uppercase tracking-wider whitespace-nowrap flex w-full items-center justify-center gap-1.5"
+                  className="bg-primary hover:bg-emerald-500 text-white font-extrabold text-xs px-8 py-4 rounded-box-sm shadow-lg transition-all uppercase tracking-wider whitespace-nowrap flex w-full items-center justify-center gap-1.5"
                 >
                   <span>Inquire This Package</span>
                   <ArrowRight className="w-4 h-4" />
@@ -308,10 +317,10 @@ export default function ServicesPage() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-[linear-gradient(160deg,#FFFFFF_0%,#F6F9FF_100%)] border border-[#E3E8F2] shadow-[0_24px_60px_-34px_rgba(5,4,74,0.35)] rounded-box-lg p-8 md:p-12 h-full flex flex-col justify-between"
+                  className="bg-[linear-gradient(160deg,#FFFFFF_0%,#F6F9FF_100%)] border border-[#E3E8F2] shadow-[0_24px_60px_-34px_rgba(5,4,74,0.35)] rounded-box-lg p-6 md:p-8 h-full flex flex-col justify-between"
                 >
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-3 border-b border-[#E3E8F2] pb-6">
+                  <div className="space-y-5">
+                    <div className="flex items-center gap-3 border-b border-[#E3E8F2] pb-4">
                       <Zap className="text-primary w-5 h-5 animate-pulse" />
                       <div>
                         <span className="text-accent text-[9px] font-black tracking-widest uppercase block font-mono">Expert Recommended Strategy Bundle</span>
@@ -323,7 +332,7 @@ export default function ServicesPage() {
 
                     <p className="text-[#626783] text-sm leading-relaxed">{activeGoalDetails.summary}</p>
 
-                    <div className="space-y-3 pt-4">
+                    <div className="space-y-2.5 pt-1">
                       <span className="text-[#626783] text-[10px] font-bold uppercase tracking-widest block font-mono">Recommended Services included:</span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {activeGoalDetails.recommended.map((service, sIdx) => (
@@ -343,7 +352,7 @@ export default function ServicesPage() {
                     </div>
 
                     {/* Operational metrics details */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 mt-6 border-t border-[#E3E8F2]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-5 mt-5 border-t border-[#E3E8F2]">
                       <div className="p-4 bg-[#F5F8FF] border border-[#E3E8F2] rounded-box-sm">
                         <p className="text-xs text-[#626783] font-bold uppercase tracking-widest font-mono mb-1">Target Timeline</p>
                         <p className="font-bold text-[#127A1C] text-sm font-sans">{activeGoalDetails.timeline}</p>
