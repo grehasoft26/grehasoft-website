@@ -103,7 +103,7 @@ export default function Testimonials() {
           </div>
 
           {/* Complete Unclipped Review Text */}
-          <blockquote className="text-dark/90 text-[15px] sm:text-lg md:text-[19px] leading-[1.55]">
+          <blockquote className="text-dark/90 text-base lg:text-lg leading-[1.55]">
             &ldquo;{test.content}&rdquo;
           </blockquote>
         </div>
