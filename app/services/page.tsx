@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Footer from '@/components/Footer';
+import styles from '@/components/KochiIntroSection.module.css';
 
 // Sub-services and Categories Metadata definitions
 const serviceCategories = [
@@ -372,29 +373,26 @@ export default function ServicesPage() {
       </section>
 
       {/* Target Sectors we specialize in */}
-      <section className="py-24 bg-gray-50 border-t border-b border-gray-100">
+      <section className="py-14 sm:py-16 bg-gray-50 border-t border-b border-gray-100">
         <div className="container-custom">
           
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Focused Sectors</span>
-            <h2 className="text-4xl font-black text-dark mb-6 max-sm:text-[32px] max-sm:leading-[1.15]">
-              Industries We Drive <span className="text-primary italic">Innovation In</span>
+          <div className="text-center max-w-3xl mx-auto mb-8 lg:mb-10">
+            <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-2.5 block font-mono">Focused Sectors</span>
+            <h2 className="text-4xl font-black mb-3 max-sm:text-[32px] max-sm:leading-[1.15]">
+              <span className={styles.gradientText}>Industries We Drive Innovation In</span>
             </h2>
             <p className="text-gray-600">
               We customize interactive behaviors, server queries, and layout structures according to the distinct habits and regulatory metrics of each industry.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
             {targetIndustries.map((ind, i) => (
               <div
                 key={i}
-                className="bg-white p-8 rounded-box-lg border border-gray-100 shadow-sm flex flex-col items-center text-center gap-4 hover:border-primary/30 hover:shadow-md transition-all group"
+                className="bg-white px-4 py-5 min-h-[76px] sm:min-h-[84px] rounded-box-lg border border-gray-100 shadow-sm flex items-center justify-center text-center hover:border-primary/30 hover:shadow-md transition-all group"
               >
-                <div className="p-4 bg-gray-50 rounded-box-sm group-hover:scale-110 transition-transform">
-                  {ind.icon}
-                </div>
-                <h4 className="font-extrabold text-dark text-xs sm:text-sm leading-tight leading-normal">
+                <h4 className="font-extrabold text-dark text-xs sm:text-sm leading-snug text-balance">
                   {ind.name}
                 </h4>
               </div>
