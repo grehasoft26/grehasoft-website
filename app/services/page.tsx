@@ -409,7 +409,7 @@ export default function ServicesPage() {
             
             <div className="lg:col-span-1 text-center md:text-left">
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Faq Desk</span>
-              <h2 className="text-4xl font-black text-dark mb-6 leading-tight">Frequently Asked Questions</h2>
+              <h2 className="text-4xl font-black text-dark mb-6 leading-tight"><span className={styles.gradientText}>Frequently Asked Questions</span></h2>
               <p className="text-gray-500 mb-8 text-sm">
                 Get answers regarding platform staging, support packages, SEO timelines, and visual asset delivery workflows.
               </p>
