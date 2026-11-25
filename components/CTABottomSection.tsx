@@ -122,18 +122,29 @@ export default function CTABottomSection({ data }: CTABottomSectionProps) {
               {cta.badge}
             </p>
 
-            <h2 className="mb-6 text-[2.125rem] font-bold leading-[1.1] tracking-tight text-dark sm:text-5xl lg:text-[3.5rem] lg:leading-[1.06]">
-              {cta.titlePart1}{' '}
-              <span className="relative isolate inline-block whitespace-nowrap text-[color-mix(in_oklab,var(--color-accent),black_28%)]">
-                <motion.span
-                  aria-hidden="true"
-                  variants={{ hidden: { scaleX: 0 }, shown: { scaleX: 1 } }}
-                  transition={{ duration: 0.8, delay: 0.45, ease: EASE }}
-                  className="absolute inset-x-[-0.06em] bottom-[0.08em] -z-10 h-[0.32em] origin-left rounded-sm bg-accent/30"
-                />
-                {cta.titleHighlight}
-              </span>{' '}
-              {cta.titlePart2}
+            <h2
+              className="relative isolate w-fit max-w-full mb-6 pb-1.5 text-[2.125rem] font-bold leading-[1.1] tracking-tight sm:text-[2.75rem] lg:text-[2.25rem] xl:text-[2.75rem] lg:leading-[1.12] bg-clip-text text-transparent"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              <span className="block">{cta.titlePart1}</span>
+              <span className="block sm:whitespace-nowrap">
+                <span className="relative inline whitespace-nowrap">
+                  <motion.span
+                    aria-hidden="true"
+                    variants={{ hidden: { scaleX: 0 }, shown: { scaleX: 1 } }}
+                    transition={{ duration: 0.8, delay: 0.45, ease: EASE }}
+                    className="absolute inset-x-[-0.06em] bottom-[0.08em] -z-10 h-[0.32em] origin-left rounded-sm bg-accent/30"
+                  />
+                  {cta.titleHighlight}
+                </span>{' '}
+                {cta.titlePart2}
+              </span>
             </h2>
 
             <p className="max-w-[34rem] text-base leading-relaxed text-text-gray md:text-lg">
