@@ -1,24 +1,28 @@
 "use client";
 
-import { useEffect, useState, useRef, type ReactNode } from "react";
+import { useEffect, useState, useRef, type TouchEvent } from "react";
 import { getOurServices } from "@/lib/backend-api";
 import { toInternalHref } from "@/lib/internal-href";
 import Image from "next/image";
-import { motion, useScroll, useTransform, MotionConfig } from "motion/react";
+import { motion, MotionConfig } from "motion/react";
 import SectionDivider from "./SectionDivider";
 import ServiceThumbnailRail from "./home/ServiceThumbnailRail";
+import styles from "./KochiIntroSection.module.css";
 
 /*
  * Home "Our Services" showcase.
- *  - md and up: the panel is pinned while the page scrolls through it; scroll progress picks the
- *    active service (image, text and thumbnail change together). lg+: image | divider rail | text;
- *    md: image, horizontal rail, text.
- *  - Below md: no pinning, the six services are stacked and fade in as they enter the viewport.
- * Both layouts are rendered and switched with CSS, so server and client markup always match.
+ *  - Natural-height responsive slider shared across desktop, tablet, and mobile.
+ *  - Desktop (lg+): centered horizontal thumbnail navigation at the top, followed by a two-column
+ *    layout (image left, service content right).
+ *  - Tablet (md): centered horizontal thumbnail navigation at the top, followed by image and text.
+ *  - Mobile (< md): compact single-service slider (image → heading → description → CTA
+ *    → horizontal circular thumbnail navigation) with left/right touch swipe support.
+ *  - Shared 4000ms autoplay pauses outside viewport, on thumbnail rail hover, on keyboard focus
+ *    within the rail (:focus-visible), and when prefers-reduced-motion is enabled.
  */
 
-// Scroll distance given to each service while the panel is pinned
-const SCROLL_PER_SERVICE_VH = 30;
+const AUTOPLAY_INTERVAL_MS = 4000;
+const SWIPE_THRESHOLD_PX = 40;
 const textTransition = { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const };
 const imageTransition = { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const };
 const offsetY = 16;
@@ -30,29 +34,25 @@ const getImage = (service: any) =>
 
 function ServiceTitle({ title }: { title?: string }) {
   return (
-    <h3 className="mb-4 break-words text-[28px] font-bold leading-[1.08] text-[#0b0b45] sm:text-[34px] lg:text-[36px] xl:text-[44px]">
-      <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-primary text-transparent">{title}</span>
+    <h3 className="mb-3 break-words text-[26px] font-bold leading-[1.1] sm:mb-4 sm:text-[34px] lg:text-[36px] xl:text-[44px]">
+      <span className={styles.gradientText}>{title}</span>
     </h3>
   );
 }
 
-function ServiceText({ acf, clampOnShortTablets = false }: { acf: any; clampOnShortTablets?: boolean }) {
+function ServiceText({ acf }: { acf: any }) {
   return (
     <>
       {/* The tag badge only shows once a tag is set in WordPress (all are empty today). */}
       {acf?.service_tag && (
-        <span className="mb-4 inline-block rounded-full bg-blue-100 px-4 py-2 text-xs text-accent sm:text-sm">
+        <span className="mb-3 inline-block rounded-full bg-blue-100 px-4 py-1.5 text-xs text-accent sm:mb-4 sm:py-2 sm:text-sm">
           SERVICE {acf.service_tag}
         </span>
       )}
 
       <ServiceTitle title={acf?.hero_title} />
 
-      <p
-        className={`mb-7 text-base leading-relaxed text-[#444444] xl:text-[17px] ${
-          clampOnShortTablets ? "max-lg:[@media(max-height:700px)]:line-clamp-5" : ""
-        }`}
-      >
+      <p className="mb-5 text-[15px] leading-relaxed text-[#444444] sm:mb-6 sm:text-base xl:mb-7 xl:text-[17px]">
         {acf?.description}
       </p>
 
@@ -84,69 +84,20 @@ function ServiceText({ acf, clampOnShortTablets = false }: { acf: any; clampOnSh
   );
 }
 
-/** Fades a mobile service in once it scrolls into view. Only items below the fold on load are
- *  held, and only when JavaScript runs with motion allowed, so content is never left hidden. */
-function RevealOnScroll({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [held, setHeld] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || !("IntersectionObserver" in window)) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // Hidden (desktop) or already on screen: show as is.
-    const rect = el.getBoundingClientRect();
-    if (rect.height === 0 || rect.top < window.innerHeight) return;
-
-    let observer: IntersectionObserver | undefined;
-    try {
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry.isIntersecting) return;
-          setHeld(false);
-          observer?.disconnect();
-        },
-        { rootMargin: "0px 0px -8% 0px" },
-      );
-      observer.observe(el);
-      setHeld(true);
-    } catch {
-      setHeld(false);
-    }
-    return () => observer?.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-[opacity,translate] duration-700 ease-out motion-reduce:transition-none ${
-        held ? "translate-y-4 opacity-0" : "translate-y-0 opacity-100"
-      }`}
-    >
-      {children}
-    </div>
-  );
-}
-
 export default function StickyScrollServices({ initialServices = [] }: { initialServices?: any[] }) {
   const [services, setServices] = useState<any[]>(initialServices);
   const [activeIndex, setActiveIndex] = useState(0);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(initialServices.length === 0);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [timerResetKey, setTimerResetKey] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Rail progress: reaches thumbnail i exactly when service i becomes the midpoint of its scroll
-  // segment, so the fill and the active thumbnail agree. Bound to the DOM, no React re-render.
-  const count = services.length;
-  const railFill = useTransform(scrollYProgress, (v) =>
-    Math.min(1, Math.max(0, (v * count - 0.5) / Math.max(count - 1, 1))),
-  );
+  const sectionRef = useRef<HTMLElement>(null);
+  const touchRef = useRef<{ startX: number; startY: number; lastX: number; lastY: number } | null>(null);
 
   useEffect(() => {
     if (initialServices && initialServices.length > 0) {
@@ -174,33 +125,92 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
     fetchServices();
   }, [initialServices]);
 
-  // Map scroll progress to a service; also syncs the index on load / scroll restoration
+  // Keep activeIndex within bounds if service count changes
   useEffect(() => {
-    if (!services || services.length === 0) return;
-    const toIndex = (progress: number) =>
-      Math.max(0, Math.min(services.length - 1, Math.floor(progress * services.length)));
+    if (services.length > 0 && activeIndex >= services.length) {
+      setActiveIndex(0);
+    }
+  }, [services.length, activeIndex]);
 
-    setActiveIndex(toIndex(scrollYProgress.get()));
-    return scrollYProgress.on("change", (latest) => {
-      setActiveIndex(toIndex(latest));
-    });
-  }, [scrollYProgress, services]);
+  // Respect prefers-reduced-motion and disable autoplay when enabled
+  useEffect(() => {
+    if (typeof window === "undefined" || !("matchMedia" in window)) return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+    const onChange = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
-  // Thumbnail navigation: scroll the page to the middle of that service's scroll segment.
-  const goToService = (index: number) => {
-    const container = containerRef.current;
-    if (!container || services.length === 0) return;
-    const top = container.getBoundingClientRect().top + window.scrollY;
-    const travel = container.offsetHeight - window.innerHeight;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // "instant", not "auto": <html> has scroll-smooth, which "auto" would inherit.
-    window.scrollTo({ top: top + ((index + 0.5) / services.length) * travel, behavior: reduce ? "instant" : "smooth" });
-  };
+  // Pause autoplay when the showcase is outside the viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.15 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const hasServices = !loading && !error && services.length > 0;
+  const shouldAutoplay =
+    hasServices &&
+    services.length > 1 &&
+    isInView &&
+    !isHovered &&
+    !isFocused &&
+    !prefersReducedMotion;
 
-  // Pinned scroll length scales with the number of services (md and up only)
-  const pinHeight = `calc(100vh + ${services.length * SCROLL_PER_SERVICE_VH}vh)`;
+  // Single shared autoplay interval across desktop, tablet, and mobile
+  useEffect(() => {
+    if (!shouldAutoplay) return;
+    const id = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % services.length);
+    }, AUTOPLAY_INTERVAL_MS);
+    return () => window.clearInterval(id);
+  }, [shouldAutoplay, services.length, timerResetKey]);
+
+  const handleSelect = (index: number) => {
+    if (services.length === 0) return;
+    const clamped = ((index % services.length) + services.length) % services.length;
+    setActiveIndex(clamped);
+    setTimerResetKey((k) => k + 1);
+  };
+
+  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    touchRef.current = {
+      startX: touch.clientX,
+      startY: touch.clientY,
+      lastX: touch.clientX,
+      lastY: touch.clientY,
+    };
+  };
+
+  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
+    if (!touchRef.current || e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    touchRef.current.lastX = touch.clientX;
+    touchRef.current.lastY = touch.clientY;
+  };
+
+  const handleTouchEnd = () => {
+    const state = touchRef.current;
+    touchRef.current = null;
+    if (!state || services.length <= 1) return;
+    const deltaX = state.lastX - state.startX;
+    const deltaY = state.lastY - state.startY;
+    if (Math.abs(deltaX) >= SWIPE_THRESHOLD_PX && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      handleSelect(deltaX < 0 ? activeIndex + 1 : activeIndex - 1);
+    }
+  };
+
+  const handleTouchCancel = () => {
+    touchRef.current = null;
+  };
 
   const railServices = services.map((item, i) => ({
     key: item?.id ?? i,
@@ -212,30 +222,55 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
     // reducedMotion="user" drops the slide/scale for reduced-motion users at animation time,
     // so server and client render identical markup
     <MotionConfig reducedMotion="user">
-    <div
-      ref={containerRef}
-      className="relative md:h-[var(--pin-height)]"
-      style={hasServices ? ({ "--pin-height": pinHeight } as React.CSSProperties) : undefined}
-    >
-      {loading ? (
-        <div className="container-custom relative z-10 w-full flex items-center justify-center min-h-[400px] py-12">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4" />
-            <p className="text-gray-500 font-semibold">Loading Services...</p>
+      <section ref={sectionRef} aria-label="Our Services" className="relative bg-white">
+        {loading ? (
+          <div className="container-custom relative z-10 flex min-h-[400px] w-full items-center justify-center py-12">
+            <div className="text-center">
+              <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-primary" />
+              <p className="font-semibold text-gray-500">Loading Services...</p>
+            </div>
           </div>
-        </div>
-      ) : !hasServices ? (
-        <div className="container-custom relative z-10 w-full flex items-center justify-center min-h-[400px] py-12">
-          <p className="text-text-gray font-semibold">Services currently unavailable</p>
-        </div>
-      ) : (
-        <>
-          {/* ---------- md and up: pinned split showcase ---------- */}
-          <div className="sticky top-0 flex h-svh items-stretch overflow-hidden bg-white pt-20 pb-6 max-md:hidden lg:h-screen lg:items-center lg:py-8">
-            <div className="container-custom relative z-10 h-full w-full lg:h-auto">
-              <div className="grid h-full grid-rows-[auto_auto_minmax(0,1fr)] gap-6 lg:h-auto lg:grid-cols-[minmax(0,1.3fr)_44px_minmax(0,1fr)] lg:grid-rows-none lg:items-center lg:gap-10 xl:gap-14">
+        ) : !hasServices ? (
+          <div className="container-custom relative z-10 flex min-h-[400px] w-full items-center justify-center py-12">
+            <p className="font-semibold text-text-gray">Services currently unavailable</p>
+          </div>
+        ) : (
+          <div className="py-12 sm:py-16 md:pt-8 md:pb-16 lg:pt-8 lg:pb-20">
+            <div
+              className="container-custom relative z-10 w-full touch-pan-y"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onTouchCancel={handleTouchCancel}
+            >
+              <div className="grid grid-cols-1 gap-6 sm:gap-7 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center lg:gap-x-12 lg:gap-y-7 xl:gap-x-16 xl:gap-y-8">
+                {/* Horizontal thumbnail navigation: top on tablet/desktop (md+), bottom on mobile (< md) */}
+                <div className="order-3 px-2 py-3 md:order-1 lg:col-span-2 lg:mb-1">
+                  <div
+                    className="mx-auto w-full max-w-xl lg:max-w-2xl"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onFocusCapture={(e) => {
+                      if ((e.target as HTMLElement)?.matches?.(":focus-visible")) {
+                        setIsFocused(true);
+                      }
+                    }}
+                    onBlurCapture={(e) => {
+                      if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                        setIsFocused(false);
+                      }
+                    }}
+                  >
+                    <ServiceThumbnailRail
+                      services={railServices}
+                      activeIndex={activeIndex}
+                      onSelect={handleSelect}
+                    />
+                  </div>
+                </div>
+
                 {/* Image stage: every image stays mounted and crossfades (no reload flashes). */}
-                <div className="relative h-[38svh] w-full overflow-hidden rounded-[28px] bg-[#EEF1F8] shadow-[0_30px_60px_-36px_rgba(5,4,74,0.45)] ring-1 ring-[#05044A]/[0.06] lg:h-[clamp(320px,70vh,660px)]">
+                <div className="order-1 relative aspect-[3/2] w-full overflow-hidden rounded-[22px] bg-[#EEF1F8] shadow-[0_24px_48px_-30px_rgba(5,4,74,0.45)] ring-1 ring-[#05044A]/[0.06] sm:aspect-[16/10] sm:rounded-[28px] md:order-2 lg:aspect-auto lg:h-[clamp(320px,70vh,660px)] lg:shadow-[0_30px_60px_-36px_rgba(5,4,74,0.45)]">
                   {services.map((item, i) => {
                     const isActive = i === activeIndex;
                     return (
@@ -260,13 +295,8 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                   })}
                 </div>
 
-                {/* Divider rail with thumbnails: vertical on lg+, horizontal row on tablets */}
-                <div className="lg:h-[clamp(320px,70vh,660px)] lg:py-2">
-                  <ServiceThumbnailRail services={railServices} activeIndex={activeIndex} fill={railFill} onSelect={goToService} />
-                </div>
-
-                {/* Text: all blocks share one grid cell so height never jumps */}
-                <div className="relative z-10 grid min-h-0">
+                {/* Text: all blocks share one grid cell so height never jumps between services */}
+                <div className="order-2 relative z-10 grid min-h-0 md:order-3">
                   {services.map((item, i) => {
                     const isActive = i === activeIndex;
                     return (
@@ -280,7 +310,7 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                         aria-hidden={!isActive}
                         inert={!isActive}
                       >
-                        <ServiceText acf={item?.acf || {}} clampOnShortTablets />
+                        <ServiceText acf={item?.acf || {}} />
                       </motion.div>
                     );
                   })}
@@ -288,35 +318,14 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
               </div>
             </div>
           </div>
+        )}
 
-          {/* ---------- below md: stacked services, no pinning ---------- */}
-          <div className="container-custom space-y-14 bg-white py-14 md:hidden">
-            {services.map((item, i) => (
-              <RevealOnScroll key={item?.id ?? i}>
-                <article>
-                  <div className="relative mb-6 aspect-[3/2] w-full overflow-hidden rounded-[22px] bg-[#EEF1F8] shadow-[0_24px_48px_-30px_rgba(5,4,74,0.45)] ring-1 ring-[#05044A]/[0.06]">
-                    <Image
-                      src={getImage(item) || "/images/fallback.jpg"}
-                      alt={item?.acf?.hero_title || "Service"}
-                      fill
-                      sizes="92vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <ServiceText acf={item?.acf || {}} />
-                </article>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </>
-      )}
-
-      <SectionDivider
-        type="diagonal"
-        color="#0753f6"
-        height={30}
-      />
-    </div>
+        <SectionDivider
+          type="diagonal"
+          color="#0753f6"
+          height={30}
+        />
+      </section>
     </MotionConfig>
   );
 }
