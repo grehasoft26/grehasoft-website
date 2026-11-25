@@ -2,18 +2,12 @@
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import { 
-  Users, 
-  MessageSquare, 
-  DollarSign, 
-  FolderCheck, 
-  HeartHandshake, 
-  Award, 
+import {
+  HeartHandshake,
+  Award,
   Globe,
-  CheckCircle2, 
   Sparkles,
   ArrowUpRight,
-  ShieldAlert,
   Quote
 } from 'lucide-react';
 
@@ -22,26 +16,22 @@ export default function WhyChooseUs() {
     {
       title: 'Professional Team',
       desc: 'Expert developers, creative designers, and digital marketing specialists dedicated to absolute quality.',
-      icon: <Users className="w-6 h-6" />,
       delay: 0.1
     },
     {
       title: 'Transparent Communication',
       desc: 'Clear, honest updates and absolute clarity with our clients at every step of development.',
-      icon: <MessageSquare className="w-6 h-6" />,
-      delay: 0.2
+      delay: 0.18
     },
     {
       title: 'Affordable Pricing',
       desc: 'Smart and accessible digital solutions crafted to align with your business goals without sacrificing premium performance.',
-      icon: <DollarSign className="w-6 h-6" />,
-      delay: 0.3
+      delay: 0.26
     },
     {
       title: 'Strong Project Management',
       desc: 'Punctual milestones, transparent planning, and rigorous scheduling to ensure flawless execution.',
-      icon: <FolderCheck className="w-6 h-6" />,
-      delay: 0.4
+      delay: 0.34
     }
   ];
 
@@ -52,97 +42,110 @@ export default function WhyChooseUs() {
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-accent/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="container-custom relative z-10">
-        
+
         {/* Header Block Section */}
-        <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24">
+        <div className="max-w-4xl mx-auto text-center mb-8 lg:mb-10">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-primary/5 border border-primary/10 rounded-full px-4 py-1.5 mb-6"
+            className="inline-flex items-center gap-2 bg-primary/5 border border-primary/10 rounded-full px-4 py-1.5 mb-4"
           >
-            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-accent font-black uppercase tracking-wider text-[10px]">
+            <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
+            <span className="text-accent font-black uppercase tracking-wider text-[11px]">
               Why Choose Grehasoft?
             </span>
           </motion.div>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl lg:text-[56px] font-black text-dark mb-6 tracking-tight leading-none"
+            transition={{ duration: 0.7 }}
+            className="w-fit max-w-full mx-auto text-3xl sm:text-4xl lg:text-[44px] font-black mb-3.5 tracking-tight leading-[1.15] text-balance bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              WebkitTextFillColor: 'transparent',
+            }}
           >
-            Why <span className="text-primary"> Grehasoft </span> Is Kochi's Most Trusted IT Partner
+            Why Grehasoft Is Kochi&apos;s{' '}
+            <br className="hidden sm:block" />
+            Most Trusted IT Partner
           </motion.h2>
-          
+
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="text-gray-500 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed border-l-4 border-accent pl-4 md:pl-0 md:border-none"
+            transition={{ duration: 0.7, delay: 0.12 }}
+            className="text-gray-500 text-base sm:text-lg font-medium max-w-2xl mx-auto leading-relaxed"
           >
             A dependable IT company that focuses on delivering real value.
           </motion.p>
         </div>
 
         {/* Premium Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-16">
-          
-          {/* Main Bento Column: The Epic Trust Center (lg:col-span-5) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
+
+          {/* Main Bento Column: Trust & Global Reach Center (lg:col-span-5) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-5 bg-dark text-white rounded-box-lg p-10 md:p-12 shadow-2xl relative overflow-hidden flex flex-col justify-between border border-white/5"
+            transition={{ duration: 0.7 }}
+            className="group lg:col-span-5 bg-dark text-white rounded-box-lg p-6 lg:p-7 shadow-2xl relative flex flex-col border border-white/5"
           >
-            {/* Ambient Background Glows */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/30 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/15 rounded-full blur-[80px] -ml-32 -mb-32 pointer-events-none" />
+            {/* Isolated Ambient Background Glows */}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/30 rounded-full blur-[80px] -mr-32 -mt-32" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/15 rounded-full blur-[80px] -ml-32 -mb-32" />
+            </div>
 
-            {/* Top Brand Tag */}
-            <div className="relative z-10">
-              <span className="text-accent font-bold uppercase tracking-widest text-[9px] bg-accent/20 px-3 py-1.5 rounded-full inline-block mb-8">
-                We Stand Out Because:
-              </span>
-              
-              {/* Massive 100+ Counter Block */}
-              <div className="mb-8">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-accent">
-                    100+
+            {/* Main Dark Card Content */}
+            <div className="relative z-10 space-y-4 lg:space-y-5">
+              <div>
+                <span className="text-accent font-bold uppercase tracking-widest text-[11px] bg-accent/15 border border-accent/20 px-3 py-1 rounded-full inline-block mb-3.5">
+                  We Stand Out Because:
+                </span>
+
+                {/* 100+ Counter Block */}
+                <div className="flex items-baseline gap-0.5">
+                  <span className="text-5xl sm:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-accent">
+                    100
                   </span>
-                  <span className="text-primary font-black text-3xl md:text-4xl">+</span>
+                  <span className="text-accent font-black text-4xl sm:text-5xl">+</span>
                 </div>
-                <p className="text-sm font-bold text-white/90 tracking-wide uppercase mt-2 flex items-center gap-2">
-                  <Award className="w-4 h-4 text-accent" />
+                <p className="text-sm font-bold text-white/95 tracking-wide uppercase mt-1.5 flex items-center gap-2">
+                  <Award className="w-4 h-4 text-accent flex-shrink-0" />
                   Successfully Delivered IT Projects
                 </p>
-                <p className="text-sm text-white/50 mt-1 leading-relaxed">
+                <p className="text-sm text-white/65 mt-1 leading-relaxed">
                   Proven experience in delivering custom software, corporate websites, and enterprise integrations.
                 </p>
               </div>
 
               {/* Global Reach Row */}
-              <div className="border-t border-white/10 pt-8 mt-8">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-box-sm bg-white/5 flex items-center justify-center text-accent flex-shrink-0 border border-white/10">
-                    <Globe className="w-6 h-6 animate-spin-slow text-accent" />
+              <div className="border-t border-white/10 pt-4 lg:pt-5">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-box-sm bg-white/5 flex items-center justify-center text-accent flex-shrink-0 border border-white/10">
+                    <Globe className="w-5 h-5 animate-spin-slow text-accent" />
                   </div>
-                  <div>
-                    <h4 className="font-extrabold text-sm text-white tracking-wide uppercase">
+                  <div className="min-w-0">
+                    <h3 className="font-extrabold text-sm text-white tracking-wide uppercase">
                       Global Footprint
-                    </h4>
-                    <p className="text-sm text-white/60 leading-normal mt-1 mb-3">
+                    </h3>
+                    <p className="text-sm text-white/65 leading-relaxed mt-1 mb-2.5">
                       Serving a diverse, world-class clientele across multiple strategic global zones:
                     </p>
-                    {/* Region Pill Badges */}
-                    <div className="flex flex-wrap gap-2">
-                      {['India', 'Middle East', 'Europe', 'USA'].map((region, key) => (
-                        <span key={key} className="text-[10px] font-black bg-white/10 text-white/90 px-3 py-1 rounded-full border border-white/10 hover:border-primary/50 transition-colors">
+                    <div className="flex flex-wrap gap-1.5">
+                      {['India', 'Middle East', 'Europe', 'USA'].map((region) => (
+                        <span
+                          key={region}
+                          className="text-[11px] font-bold bg-white/10 text-white/90 px-2.5 py-0.5 rounded-full border border-white/10 hover:border-primary/50 transition-colors"
+                        >
                           {region}
                         </span>
                       ))}
@@ -150,95 +153,85 @@ export default function WhyChooseUs() {
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Premium Network Connection Visual block */}
-           <div className="relative z-10 mt-19 mb-6">
-              <div className="overflow-hidden rounded-box-lg border border-white/10 aspect-[16/10] shadow-inner bg-black/40 group/photo">
-                <Image
-                  src="/images/footprint.png"
-                  alt="Grehasoft Global IT Connectivity Network"
-                  width={1080}
-                  height={1350}
-                  sizes="(max-width: 1023px) 100vw, 520px"
-                  className="w-full h-full object-cover opacity-80 group-hover/photo:opacity-100 group-hover/photo:scale-105 transition-all duration-700"
-                  referrerPolicy="no-referrer"
-                />
+              {/* Network Connection Visual Block */}
+              <div>
+                <div className="overflow-hidden rounded-box-sm border border-white/10 aspect-[16/9] max-h-[195px] w-full shadow-inner bg-black/40 group/photo">
+                  <Image
+                    src="/images/footprint.png"
+                    alt="Grehasoft Global IT Connectivity Network"
+                    width={1080}
+                    height={1350}
+                    sizes="(max-width: 1023px) 100vw, 480px"
+                    className="w-full h-full object-cover opacity-85 group-hover/photo:opacity-100 group-hover/photo:scale-105 transition-all duration-700"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Bottom Status Tag */}
-            <div className="relative z-10 border-t border-white/10 pt-8 mt-12 flex items-center justify-between">
-              <p className="text-[10px] text-white/40 uppercase tracking-widest font-black">
+            <div className="relative z-10 border-t border-white/10 mt-auto pt-4 flex items-center justify-between">
+              <p className="text-[11px] text-white/55 uppercase tracking-widest font-bold">
                 Performance Verified
               </p>
-              <ArrowUpRight className="text-accent w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" />
+              <ArrowUpRight className="text-accent w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
             </div>
           </motion.div>
 
           {/* Right Bento Segment: Differentiators (lg:col-span-7) */}
-          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            {/* Map standard 4 core differentiators */}
-            {points.map((point, index) => (
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 md:grid-rows-[1fr_1fr_auto] gap-4 lg:gap-5">
+
+            {/* 4 Core Differentiators */}
+            {points.map((point) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
+                key={point.title}
+                initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: point.delay }}
-                whileHover={{ y: -6 }}
-                className="bg-white hover:bg-white  p-6 md:p-8 rounded-box-lg border border-gray-100 hover:border-primary/20 hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 group flex flex-col justify-between"
+                transition={{ duration: 0.55, delay: point.delay }}
+                whileHover={{ y: -4 }}
+                className="bg-white p-5 rounded-box-lg border border-gray-100 hover:border-primary/25 shadow-[0_8px_30px_-20px_rgba(5,4,74,0.1)] hover:shadow-[0_20px_45px_-25px_rgba(5,4,74,0.14)] transition-all duration-300 group flex flex-col justify-center"
               >
-                <div>
-                  <div className="w-12 h-12 rounded-box-sm bg-primary/5 group-hover:bg-primary group-hover:text-white flex items-center justify-center text-primary transition-all duration-300 mb-6 border border-primary/10">
-                    {point.icon}
-                  </div>
-                  <h3 className="text-lg font-black text-dark mb-3 tracking-tight group-hover:text-primary transition-colors">
-                    {point.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    {point.desc}
-                  </p>
-                </div>
-                
-                <div className="flex justify-between items-center border-t border-gray-50 pt-5 mt-6 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <span className="text-[9px] font-black uppercase text-primary tracking-widest">Enterprise Ready</span>
-                  <CheckCircle2 className="w-4 h-4 text-primary" />
-                </div>
+                <h3 className="text-base sm:text-[17px] font-black text-dark mb-1.5 tracking-tight group-hover:text-primary transition-colors">
+                  {point.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {point.desc}
+                </p>
               </motion.div>
             ))}
 
-            {/* Support card: Spans 2 Columns dynamically highlighting Post-Delivery care */}
+            {/* Support Card: Spans 2 Columns highlighting Post-Delivery Care */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-              whileHover={{ y: -6 }}
-              className="md:col-span-2 bg-primary/5 border border-primary/10 hover:border-primary/30 p-8 md:p-10 rounded-box-lg hover:bg-white hover:shadow-[0_20px_50px_-25px_rgba(5,4,74,0.08)] transition-all duration-300 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6"
+              transition={{ duration: 0.65, delay: 0.4 }}
+              whileHover={{ y: -4 }}
+              className="md:col-span-2 bg-primary/5 border border-primary/15 hover:border-primary/30 p-5 md:p-6 rounded-box-lg hover:bg-white hover:shadow-[0_20px_45px_-25px_rgba(5,4,74,0.12)] transition-all duration-300 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4"
             >
-              <div className="flex items-start md:items-center gap-5">
-                <div className="w-14 h-14 rounded-box-sm bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
-                  <HeartHandshake className="w-7 h-7" />
+              <div className="flex items-start md:items-center gap-4">
+                <div className="w-12 h-12 rounded-box-sm bg-primary text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
+                  <HeartHandshake className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-box-xs">
+                  <span className="text-[11px] font-black uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded-box-xs inline-block">
                     Continuous Partnership
                   </span>
-                  <h3 className="text-lg md:text-xl font-black text-dark tracking-tight mt-1">
+                  <h3 className="text-lg font-black text-dark tracking-tight mt-1">
                     Reliable Support After Delivery
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed max-w-xl mt-1">
-                    Quality care doesn't stop after deployment. We offer continuous digital maintenance, robust server troubleshooting, and continuous security optimizations post-launch.
+                  <p className="text-gray-600 text-sm leading-relaxed max-w-xl mt-1">
+                    Quality care doesn&apos;t stop after deployment. We offer continuous digital maintenance, robust server troubleshooting, and continuous security optimizations post-launch.
                   </p>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-primary/10 pt-4 md:pt-0 md:pl-8 flex-shrink-0 justify-between md:justify-start">
+
+              <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-primary/15 pt-3.5 md:pt-0 md:pl-6 flex-shrink-0 justify-between md:justify-start">
                 <div>
-                  <p className="text-sm font-black text-primary uppercase">Guaranteed</p>
-                  <p className="text-[10px] text-gray-400">Response Window</p>
+                  <p className="text-sm font-black text-primary uppercase tracking-wide">Guaranteed</p>
+                  <p className="text-xs text-gray-500">Response Window</p>
                 </div>
                 <div className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
               </div>
@@ -249,28 +242,28 @@ export default function WhyChooseUs() {
 
         {/* Editorial Goal / Motivation Quote Block */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="bg-white rounded-box-lg border border-gray-100 p-8 md:p-14 text-center relative overflow-hidden shadow-xl shadow-gray-50/50"
+          transition={{ duration: 0.7 }}
+          className="mt-4 lg:mt-5 bg-white rounded-box-lg border border-gray-100 p-5 md:p-7 text-center relative shadow-[0_8px_30px_-20px_rgba(5,4,74,0.08)]"
         >
-          {/* Symmetrical Quotation Graphic */}
-          <div className="flex justify-center mb-6">
-            <div className="w-12 h-12 rounded-box-sm bg-accent/10 flex items-center justify-center text-accent">
-              <Quote className="w-6 h-6 fill-current" />
+          <div className="flex justify-center mb-3.5">
+            <div className="w-10 h-10 rounded-box-sm bg-accent/10 flex items-center justify-center text-accent">
+              <Quote className="w-5 h-5 fill-current" />
             </div>
           </div>
-          
-          <p className="text-dark font-extrabold text-lg md:text-2xl leading-relaxed max-w-4xl mx-auto relative z-10 italic">
-            "With every project, our goal is simple — deliver IT services that make your business smarter, stronger, and more efficient."
+
+          <p className="text-dark font-extrabold text-base sm:text-lg md:text-xl leading-relaxed max-w-4xl mx-auto italic">
+            &ldquo;With every project, our goal is simple — deliver IT services that make your business smarter, stronger, and more efficient.&rdquo;
           </p>
-          
-          {/* Bottom subtle design lines */}
-          <div className="mt-8 flex justify-center items-center gap-3">
-             <div className="w-8 h-0.5 bg-primary/20" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-primary">Our Pledge of Professionalism</span>
-             <div className="w-8 h-0.5 bg-primary/20" />
+
+          <div className="mt-4 flex justify-center items-center gap-3">
+            <div className="w-8 h-0.5 bg-primary/20" />
+            <span className="text-[11px] font-black uppercase tracking-widest text-primary">
+              Our Pledge of Professionalism
+            </span>
+            <div className="w-8 h-0.5 bg-primary/20" />
           </div>
         </motion.div>
 
