@@ -310,7 +310,7 @@ export default function ServiceDeck({ deckKey, services, tone, label, reducedMot
           setHovered(false);
         }}
         onPointerDownCapture={onPointerDownCapture}
-        className="relative -mx-4 h-[calc(min(310px,74vw)*1.36+56px)] rounded-[28px] outline-none sm:mx-0 [overflow-x:clip] [perspective:1400px] focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F8FC] lg:h-[540px]"
+        className="relative -mx-4 h-[calc(min(310px,74vw)*1.36+56px)] rounded-[28px] outline-none sm:mx-0 [overflow-x:clip] [perspective:1400px] focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F8FC] lg:h-[456px]"
       >
         {/* Ambient light behind the deck, crossfading with the category tone (subtle on the light section) */}
         <AnimatePresence initial={false}>

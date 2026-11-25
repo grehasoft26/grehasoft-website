@@ -102,7 +102,7 @@ export default function ServiceExplorer({ id, categories }: ServiceExplorerProps
 
   return (
     <MotionConfig reducedMotion="user">
-      <section id={id} aria-labelledby={`${baseId}-title`} className="relative isolate overflow-hidden py-24 text-[#05044a] lg:py-28">
+      <section id={id} aria-labelledby={`${baseId}-title`} className="relative isolate scroll-mt-16 overflow-hidden py-14 text-[#05044a] sm:py-16 lg:py-16">
         {/* Light editorial backdrop: white to cool grey, with soft blue light behind the deck */}
         <div
           aria-hidden="true"
@@ -116,53 +116,62 @@ export default function ServiceExplorer({ id, categories }: ServiceExplorerProps
         <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-[linear-gradient(180deg,rgba(5,4,74,0.10)_0%,rgba(5,4,74,0.03)_45%,transparent_100%)]" />
 
         <div className="container-custom">
-          <header className="mx-auto mb-14 max-w-3xl text-center lg:mb-16">
-            <span className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#13861f]">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-              Service Hub Directory
-            </span>
-            <h2 id={`${baseId}-title`} className="text-4xl font-bold leading-[1.08] tracking-[-0.02em] text-[#05044a] md:text-5xl">
-              Explore Our Absolute <span className="text-primary">Service Landscape</span>
-            </h2>
-            <p className="mt-6 text-base leading-relaxed text-[#05044a]/65 md:text-lg">
-              Type custom keywords below to instantly highlight targeted layouts, SEO campaigns, Shopify stores, ERP dashboards, database parameters, or brand cards.
-            </p>
-          </header>
+          <div className="mx-auto w-full lg:w-fit lg:max-w-full">
+            <header className="text-center">
+              <span className="mb-2.5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#13861f]">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+                Service Hub Directory
+              </span>
+              <h2
+                id={`${baseId}-title`}
+                className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.85rem] font-bold leading-[1.12] tracking-[-0.02em] text-transparent sm:text-4xl lg:whitespace-nowrap lg:text-[clamp(2.25rem,3.6vw,3rem)]"
+                style={{
+                  backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Explore Our Absolute Service Landscape
+              </h2>
+            </header>
 
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14">
+            <div role="search" className="relative mt-5 w-full lg:mt-6">
+              <label htmlFor={`${baseId}-search`} className="sr-only">
+                Search services
+              </label>
+              <Search className="pointer-events-none absolute top-1/2 left-5 h-5 w-5 -translate-y-1/2 text-[#05044a]/40" aria-hidden="true" />
+              <input
+                id={`${baseId}-search`}
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search services, technologies, or solutions..."
+                autoComplete="off"
+                className="h-14 w-full rounded-full border border-[#05044a]/10 bg-white pr-14 pl-13 text-[15px] text-[#05044a] shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35)] placeholder:text-[#05044a]/45 transition-[border-color,box-shadow] focus:border-primary/50 focus:shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35),0_0_0_4px_rgba(7,83,246,0.12)] focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={clearSearch}
+                  aria-label="Clear search"
+                  className="absolute top-1/2 right-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-[#05044a]/55 transition-colors hover:bg-[#05044a]/[0.06] hover:text-[#05044a] focus-visible:outline-2 focus-visible:outline-primary"
+                >
+                  <X className="h-4 w-4" aria-hidden="true" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-7 grid gap-7 lg:mt-8 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-14">
             {/* ------------------------------ explorer panel ------------------------------ */}
             <div className="min-w-0">
-              <div role="search" className="relative">
-                <label htmlFor={`${baseId}-search`} className="sr-only">
-                  Search services
-                </label>
-                <Search className="pointer-events-none absolute top-1/2 left-5 h-5 w-5 -translate-y-1/2 text-[#05044a]/40" aria-hidden="true" />
-                <input
-                  id={`${baseId}-search`}
-                  type="search"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search services…"
-                  autoComplete="off"
-                  className="h-14 w-full rounded-full border border-[#05044a]/10 bg-white pr-14 pl-13 text-[15px] text-[#05044a] shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35)] placeholder:text-[#05044a]/45 transition-[border-color,box-shadow] focus:border-primary/50 focus:shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35),0_0_0_4px_rgba(7,83,246,0.12)] focus:outline-none [&::-webkit-search-cancel-button]:hidden"
-                />
-                {query && (
-                  <button
-                    type="button"
-                    onClick={clearSearch}
-                    aria-label="Clear search"
-                    className="absolute top-1/2 right-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-[#05044a]/55 transition-colors hover:bg-[#05044a]/[0.06] hover:text-[#05044a] focus-visible:outline-2 focus-visible:outline-primary"
-                  >
-                    <X className="h-4 w-4" aria-hidden="true" />
-                  </button>
-                )}
-              </div>
-
               <div
                 role="tablist"
                 aria-label="Service categories"
                 onKeyDown={onTabKeyDown}
-                className="-mx-4 mt-6 flex snap-x gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+                className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-col lg:gap-6 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
               >
                 {categories.map((category) => {
                   const { icon: Icon, tone } = themeFor(category.id);
@@ -208,6 +217,42 @@ export default function ServiceExplorer({ id, categories }: ServiceExplorerProps
 
             {/* ------------------------------ deck ------------------------------ */}
             <div id={panelId} role="tabpanel" aria-labelledby={`${baseId}-tab-${activeCategory.id}`} className="min-w-0">
+              {/* Active category description, or search summary: directly above the active service card */}
+              <div className="mx-auto mb-2 flex min-h-[4.25rem] max-w-2xl items-start justify-center text-center" aria-live="off">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={results ? 'search' : activeCategory.id}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: reducedMotion ? 0 : 0.25 }}
+                  >
+                    {results ? (
+                      <>
+                        <p className="text-base font-bold text-[#05044a] md:text-lg">
+                          {results.length} {results.length === 1 ? 'result' : 'results'} for “{deckQuery}”
+                        </p>
+                        <p className="mt-1.5 text-sm leading-relaxed text-[#05044a]/70 md:text-[15px]">
+                          Matching services from every category, shown in one deck.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={clearSearch}
+                          className="mt-2 text-sm font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-none"
+                        >
+                          Clear search
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-base font-bold text-[#05044a] md:text-lg">{activeCategory.name}</p>
+                        <p className="mt-1.5 text-sm leading-relaxed text-[#05044a]/70 md:text-[15px]">{activeCategory.description}</p>
+                      </>
+                    )}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
               <ServiceDeck
                 deckKey={deckKey}
                 services={deckServices}
@@ -226,39 +271,6 @@ export default function ServiceExplorer({ id, categories }: ServiceExplorerProps
                 }
               />
             </div>
-          </div>
-
-          {/* Active category description, or the search summary: centred under both columns */}
-          <div
-            className="mx-auto mt-12 flex min-h-[7.5rem] max-w-[850px] items-center justify-center rounded-2xl border border-[#05044a]/[0.08] bg-white px-6 py-6 text-center shadow-[0_14px_40px_-28px_rgba(5,4,74,0.4)] sm:px-10 sm:py-7 lg:mt-14"
-            aria-live="off"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={results ? 'search' : activeCategory.id}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: reducedMotion ? 0 : 0.3 }}
-              >
-                {results ? (
-                  <>
-                    <p className="text-base font-semibold text-[#05044a]">
-                      {results.length} {results.length === 1 ? 'result' : 'results'} for “{deckQuery}”
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-[#05044a]/65 md:text-[15px]">Matching services from every category, shown in one deck.</p>
-                    <button type="button" onClick={clearSearch} className="mt-3 text-sm font-semibold text-primary underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-none">
-                      Clear search
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-base font-semibold text-[#05044a]">{activeCategory.name}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-[#05044a]/65 md:text-[15px]">{activeCategory.description}</p>
-                  </>
-                )}
-              </motion.div>
-            </AnimatePresence>
           </div>
         </div>
 
