@@ -53,12 +53,9 @@ interface ServicesHeroProps {
 const HEADING = 'Comprehensive IT & Creative Solutions';
 const DESCRIPTION =
   'From powerful websites to intelligent digital solutions, we transform ideas into meaningful digital experiences that help businesses grow.';
-const HEADLINE: { text: string; outline?: boolean; accentStop?: boolean }[] = [
-  { text: 'We build' },
-  { text: 'digital', outline: true },
-  { text: 'experiences' },
-  { text: 'that matter', accentStop: true },
-];
+const WHATSAPP_URL = `https://wa.me/918921540183?text=${encodeURIComponent(
+  "Hi Grehasoft, I'm interested in discussing a project. Could you please assist me?",
+)}`;
 const BREADCRUMB = [
   { name: 'Home', path: '/' },
   { name: 'Our Services', path: '/services' },
@@ -215,94 +212,98 @@ export default function ServicesHero({ categories, serviceCount, directoryId }: 
           <div className={styles.grid} />
         </div>
 
-        <div className="container-custom relative grid items-center gap-12 pt-32 pb-16 sm:pt-36 lg:min-h-[min(100svh,940px)] lg:grid-cols-[minmax(0,1.04fr)_minmax(0,1fr)] lg:gap-8 lg:pt-32 lg:pb-20">
-          {/* ------------------------------ copy ------------------------------ */}
-          <div className="relative z-10 min-w-0">
-            <nav aria-label="Breadcrumb" className={`${styles.slide} mb-7 text-sm font-medium text-white/60`} style={{ '--d': '0s' } as CSSProperties}>
-              <ol className="flex items-center gap-2">
-                <li>
-                  <Link href="/" className="transition-colors hover:text-accent">
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden="true">
-                  <ChevronRight className="h-4 w-4" />
-                </li>
-                <li>
-                  <Link href="/services" aria-current="page" className="text-accent">
-                    Our Services
-                  </Link>
-                </li>
-              </ol>
-            </nav>
+        <div className="relative mx-auto w-full max-w-[1380px] px-4 pt-28 pb-14 sm:px-6 sm:pt-32 lg:px-8 lg:pt-28 lg:pb-16">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] lg:items-center lg:gap-6 xl:grid-cols-[minmax(0,1.26fr)_minmax(0,1fr)] xl:gap-8">
+            {/* ------------------------------ left column: breadcrumb, badge, heading, copy, CTAs ------------------------------ */}
+            <div className="relative z-10 flex min-w-0 flex-col">
+              <nav aria-label="Breadcrumb" className={`${styles.slide} text-sm font-medium text-white/60`} style={{ '--d': '0s' } as CSSProperties}>
+                <ol className="flex items-center gap-2">
+                  <li>
+                    <Link href="/" className="transition-colors hover:text-accent">
+                      Home
+                    </Link>
+                  </li>
+                  <li aria-hidden="true">
+                    <ChevronRight className="h-4 w-4" />
+                  </li>
+                  <li>
+                    <Link href="/services" aria-current="page" className="text-accent">
+                      Our Services
+                    </Link>
+                  </li>
+                </ol>
+              </nav>
 
-            <h1
-              id="services-hero-title"
-              className={`${styles.slide} inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/[0.06] py-2 pr-4 pl-3 text-[12px] font-semibold uppercase tracking-[0.1em] text-white/85 sm:text-[13px] sm:tracking-[0.16em]`}
-              style={{ '--d': '0.05s' } as CSSProperties}
-            >
-              <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
-                <span className={`${styles.pulse} absolute inset-0 rounded-full bg-accent/60`} />
-                <span className="relative h-2 w-2 rounded-full bg-accent" />
-              </span>
-              {HEADING}
-            </h1>
+              <h1
+                id="services-hero-title"
+                className={`${styles.slide} mt-5 inline-flex self-start items-center gap-3 rounded-full border border-white/12 bg-white/[0.06] py-2 pr-4 pl-3 text-[12px] font-semibold uppercase tracking-[0.1em] text-white/85 sm:mt-6 sm:text-[13px] sm:tracking-[0.16em] lg:mt-7 xl:mt-8`}
+                style={{ '--d': '0.05s' } as CSSProperties}
+              >
+                <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+                  <span className={`${styles.pulse} absolute inset-0 rounded-full bg-accent/60`} />
+                  <span className="relative h-2 w-2 rounded-full bg-accent" />
+                </span>
+                {HEADING}
+              </h1>
 
-            <p className="mt-6 text-[clamp(2.5rem,11vw,4.75rem)] font-bold uppercase leading-[0.92] tracking-[-0.04em] lg:text-[clamp(3.4rem,5.9vw,5.75rem)]">
-              {HEADLINE.map((line, index) => (
-                <span key={line.text} className={styles.line}>
-                  <span
-                    className={`${styles.lineInner} ${line.outline ? styles.outline : ''}`}
-                    style={{ '--i': index } as CSSProperties}
-                  >
-                    {line.text}
-                    {line.accentStop && <span className="text-accent">.</span>}
+              <p className="mt-5 text-[2.02rem] font-bold uppercase leading-[1.06] tracking-[-0.035em] text-white sm:mt-6 sm:text-[2.56rem] lg:mt-8 lg:text-[clamp(1.98rem,3.12vw,2.84rem)] lg:leading-[1.05]">
+                <span className={styles.line}>
+                  <span className={styles.lineInner} style={{ '--i': 0 } as CSSProperties}>
+                    <span className={styles.outline}>We build</span>{' '}
+                    <span className="text-white">digital experiences</span>
                   </span>
                 </span>
-              ))}
-            </p>
-
-            <p
-              className={`${styles.slide} mt-7 max-w-[34rem] text-base leading-relaxed text-white/70 sm:text-lg`}
-              style={{ '--d': '0.45s' } as CSSProperties}
-            >
-              {DESCRIPTION}
-            </p>
-
-            <div
-              className={`${styles.slide} mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4`}
-              style={{ '--d': '0.55s' } as CSSProperties}
-            >
-              {/* Glossy brand-blue pill; same size as before (the gleam border's 1px is taken from the padding). */}
-              <ShinyButton
-                href={`#${directoryId}`}
-                fillBackground="linear-gradient(180deg, #2A6CFB 0%, #185EF8 46%, #0753F6 54%, #0546D6 100%)"
-                insetColor="rgba(255,255,255,0.16)"
-                // Effects tuned so the white label keeps ≥4.5:1 against the fill while the sheen moves.
-                accentColor="#5B8CFF"
-                accentSoftColor="#DCE8FF"
-                sheenOpacity={0.35}
-                speckleOpacity={0.15}
-                className="group inline-flex h-14 items-center justify-center rounded-full py-0 pr-[7px] pl-[27px] text-base font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-10px_18px_rgba(5,4,74,0.28),inset_0_0_0_1px_rgba(255,255,255,0.14),0_18px_40px_-16px_rgba(7,83,246,0.9),0_0_26px_-8px_rgba(7,83,246,0.6)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.55),inset_0_-10px_18px_rgba(5,4,74,0.22),inset_0_0_0_1px_rgba(255,255,255,0.2),0_22px_46px_-14px_rgba(7,83,246,1),0_0_38px_-6px_rgba(61,126,255,0.8)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-                contentClassName="inline-flex items-center gap-3 [text-shadow:0_1px_1px_rgba(5,4,74,0.35)]"
-              >
-                Explore Services
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#8FB2FF]/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true">
-                  <ArrowDown className="h-4 w-4" />
+                <span className={styles.line}>
+                  <span className={styles.lineInner} style={{ '--i': 1 } as CSSProperties}>
+                    <span className={styles.outline}>that matter</span>
+                  </span>
                 </span>
-              </ShinyButton>
-              <Link
-                href="/contact-us"
-                className={`${styles.glass} group inline-flex h-14 items-center justify-center gap-2 rounded-full px-7 text-base font-semibold text-white transition-colors duration-300 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
-              >
-                Let&apos;s Talk
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
+              </p>
 
-          {/* ------------------------------ ecosystem ------------------------------ */}
-          <div ref={artRef} className="relative mx-auto w-full max-w-[560px] lg:max-w-[640px]" aria-hidden="true">
+              <p
+                className={`${styles.slide} mt-5 max-w-[34rem] text-base leading-relaxed text-white/70 sm:mt-6 sm:text-lg lg:mt-7 xl:mt-8`}
+                style={{ '--d': '0.35s' } as CSSProperties}
+              >
+                {DESCRIPTION}
+              </p>
+
+              <div
+                className={`${styles.slide} mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center sm:gap-4 lg:mt-9 xl:mt-10`}
+                style={{ '--d': '0.45s' } as CSSProperties}
+              >
+                {/* Glossy brand-blue pill; same size as before (the gleam border's 1px is taken from the padding). */}
+                <ShinyButton
+                  href={`#${directoryId}`}
+                  fillBackground="linear-gradient(180deg, #2A6CFB 0%, #185EF8 46%, #0753F6 54%, #0546D6 100%)"
+                  insetColor="rgba(255,255,255,0.16)"
+                  // Effects tuned so the white label keeps ≥4.5:1 against the fill while the sheen moves.
+                  accentColor="#5B8CFF"
+                  accentSoftColor="#DCE8FF"
+                  sheenOpacity={0.35}
+                  speckleOpacity={0.15}
+                  className="group inline-flex h-14 items-center justify-center rounded-full py-0 pr-[7px] pl-[27px] text-base font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-10px_18px_rgba(5,4,74,0.28),inset_0_0_0_1px_rgba(255,255,255,0.14),0_18px_40px_-16px_rgba(7,83,246,0.9),0_0_26px_-8px_rgba(7,83,246,0.6)] hover:-translate-y-0.5 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.55),inset_0_-10px_18px_rgba(5,4,74,0.22),inset_0_0_0_1px_rgba(255,255,255,0.2),0_22px_46px_-14px_rgba(7,83,246,1),0_0_38px_-6px_rgba(61,126,255,0.8)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                  contentClassName="inline-flex items-center gap-3 [text-shadow:0_1px_1px_rgba(5,4,74,0.35)]"
+                >
+                  Explore Services
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#8FB2FF]/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] ring-1 ring-white/25 transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true">
+                    <ArrowDown className="h-4 w-4" />
+                  </span>
+                </ShinyButton>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${styles.glass} group inline-flex h-14 items-center justify-center gap-2 rounded-full px-7 text-base font-semibold text-white transition-colors duration-300 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
+                >
+                  Let&apos;s Talk
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
+
+            {/* ------------------------------ right column: ecosystem ------------------------------ */}
+            <div className="min-w-0">
+              <div ref={artRef} className="relative mx-auto w-full max-w-[358px] sm:max-w-[540px] lg:max-w-[560px]" aria-hidden="true">
             <div className={`${styles.stage} ${styles.stageIn}`}>
               <Layer x={springX} y={springY} depth={-4} className="absolute inset-0">
                 <Orbits categories={placedCategories} />
@@ -374,6 +375,8 @@ export default function ServicesHero({ categories, serviceCount, directoryId }: 
                   </Layer>
                 );
               })}
+            </div>
+          </div>
             </div>
           </div>
         </div>
