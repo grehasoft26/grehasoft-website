@@ -37,6 +37,7 @@ function usePrefersReducedMotion() {
 export default function ServiceExplorer({ id, categories }: ServiceExplorerProps) {
   const baseId = useId();
   const panelId = `${baseId}-deck`;
+  const searchGradientId = `${baseId.replace(/:/g, '')}-search-gradient`;
   const [activeId, setActiveId] = useState(categories[0]?.id ?? '');
   const [query, setQuery] = useState('');
   const [deckQuery, setDeckQuery] = useState('');
@@ -141,7 +142,22 @@ export default function ServiceExplorer({ id, categories }: ServiceExplorerProps
               <label htmlFor={`${baseId}-search`} className="sr-only">
                 Search services
               </label>
-              <Search className="pointer-events-none absolute top-1/2 left-5 h-5 w-5 -translate-y-1/2 text-[#05044a]/40" aria-hidden="true" />
+              {/* Same navy → blue → green as the border; userSpaceOnUse makes it flow across the whole icon. */}
+              <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id={searchGradientId} gradientUnits="userSpaceOnUse" x1="2" y1="0" x2="22" y2="0">
+                    <stop offset="0%" stopColor="#05044a" />
+                    <stop offset="50%" stopColor="#0753f6" />
+                    <stop offset="100%" stopColor="#1ab728" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <Search
+                className="pointer-events-none absolute top-1/2 left-5 h-5 w-5 -translate-y-1/2"
+                stroke={`url(#${searchGradientId})`}
+                fill="none"
+                aria-hidden="true"
+              />
               <input
                 id={`${baseId}-search`}
                 type="search"
@@ -149,7 +165,7 @@ export default function ServiceExplorer({ id, categories }: ServiceExplorerProps
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search services, technologies, or solutions..."
                 autoComplete="off"
-                className="h-14 w-full rounded-full border border-[#05044a]/10 bg-white pr-14 pl-13 text-[15px] text-[#05044a] shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35)] placeholder:text-[#05044a]/45 transition-[border-color,box-shadow] focus:border-primary/50 focus:shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35),0_0_0_4px_rgba(7,83,246,0.12)] focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+                className="h-14 w-full rounded-full border-2 border-transparent [background:linear-gradient(#fff,#fff)_padding-box,linear-gradient(90deg,#05044a_0%,#0753f6_50%,#1ab728_100%)_border-box] pr-14 pl-13 text-[15px] text-[#05044a] shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35)] placeholder:text-[#05044a]/45 transition-[border-color,box-shadow] focus:shadow-[0_10px_30px_-18px_rgba(5,4,74,0.35),0_0_0_4px_rgba(7,83,246,0.12),0_0_0_7px_rgba(26,183,40,0.08)] focus:outline-none [&::-webkit-search-cancel-button]:hidden"
               />
               {query && (
                 <button
