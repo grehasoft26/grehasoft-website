@@ -59,7 +59,7 @@ const STAGES: OrbitalStage[] = [
 
 export default function DeliveryMethodology() {
   return (
-    <section aria-labelledby="delivery-methodology-title" className="relative isolate overflow-hidden py-16 text-white lg:py-20">
+    <section aria-labelledby="delivery-methodology-title" className="relative isolate overflow-hidden py-10 text-white sm:py-12 lg:py-12">
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10"
@@ -74,15 +74,25 @@ export default function DeliveryMethodology() {
       />
 
       <div className="container-custom">
-        <header className="mx-auto mb-8 max-w-3xl text-center lg:mb-10">
-          <span className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
+        <header className="mx-auto mb-2 text-center lg:mb-3">
+          <span className="mb-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
             Our Process
           </span>
-          <h2 id="delivery-methodology-title" className="text-4xl font-bold leading-[1.1] tracking-[-0.02em] text-white md:text-5xl">
-            Our End-to-End <span className="text-primary italic">Delivery Methodology</span>
+          <h2
+            id="delivery-methodology-title"
+            className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.85rem] font-bold leading-[1.12] tracking-[-0.02em] text-transparent sm:text-4xl lg:whitespace-nowrap lg:text-[clamp(2.25rem,3.6vw,3rem)]"
+            style={{
+              backgroundImage: 'linear-gradient(90deg, #5B9BFF 0%, #0753F6 45%, #1AB728 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Our End-to-End Delivery Methodology
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-white/65 md:text-lg">
+          <p className="mx-auto mt-2 max-w-2xl text-[15px] leading-relaxed text-white/65 lg:max-w-none lg:whitespace-nowrap lg:text-base xl:text-[17px]">
             From strategy to launch, every stage is carefully planned to deliver reliable digital solutions.
           </p>
         </header>
