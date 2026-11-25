@@ -10,6 +10,7 @@ import {
   Send,
   MessageSquare,
   Clock,
+  Sparkles,
 } from "lucide-react";
 
 const DEFAULT_CONTACT = {
@@ -41,19 +42,20 @@ export default function Contact({ initialData }: { initialData?: any }) {
 
   const [errors, setErrors] = useState<any>({});
   const [success, setSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // HANDLE CHANGE
   const handleChange = (e: any) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // AUTO HIDE SUCCESS
+  // AUTO HIDE SUCCESS (with cleanup)
   useEffect(() => {
-    if (success) {
-      setTimeout(() => {
-        setSuccess(false);
-      }, 3000);
-    }
+    if (!success) return;
+    const timer = setTimeout(() => {
+      setSuccess(false);
+    }, 3000);
+    return () => clearTimeout(timer);
   }, [success]);
 
   // FETCH DATA
@@ -64,19 +66,25 @@ export default function Contact({ initialData }: { initialData?: any }) {
       return;
     }
 
+    let isMounted = true;
     const fetchData = async () => {
       try {
         const res = await getContact();
+        if (!isMounted) return;
         setFetchedData(res?.[0]?.acf || null);
         setError(false);
       } catch (err) {
         console.error("Error loading contact data:", err);
+        if (!isMounted) return;
         setFetchedData(null);
         setError(true);
       }
     };
 
     fetchData();
+    return () => {
+      isMounted = false;
+    };
   }, [initialData]);
 
   if (!fetchedData && !error) return null;
@@ -87,32 +95,36 @@ export default function Contact({ initialData }: { initialData?: any }) {
     {
       title: "EMAIL US",
       value: data.email,
+      href: data.email ? `mailto:${String(data.email).trim()}` : undefined,
       icon: Mail,
-      color: "bg-blue-50 text-blue-600",
+      color: "bg-primary/10 text-primary border border-primary/15",
     },
     {
       title: "CALL US",
       value: data.phone,
+      href: data.phone
+        ? `tel:${String(data.phone).replace(/[^\d+]/g, "")}`
+        : undefined,
       icon: Phone,
-      color: "bg-green-50 text-green-600",
+      color: "bg-accent/10 text-accent border border-accent/15",
     },
     {
       title: "VISIT US",
       value: data.address,
       icon: MapPin,
-      color: "bg-purple-50 text-purple-600",
+      color: "bg-primary/10 text-primary border border-primary/15",
     },
     {
       title: "WORKING HOURS",
       value: data.working_hours,
       icon: Clock,
-      color: "bg-orange-50 text-orange-600",
+      color: "bg-accent/10 text-accent border border-accent/15",
     },
   ];
 
   // VALIDATION
   const validate = () => {
-    let newErrors: any = {};
+    const newErrors: any = {};
 
     if (!form.name.trim()) {
       newErrors.name = "Full Name is required";
@@ -149,8 +161,10 @@ export default function Contact({ initialData }: { initialData?: any }) {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    if (isSubmitting) return;
     if (!validate()) return;
 
+    setIsSubmitting(true);
     try {
       const res = await submitContactForm(form);
 
@@ -167,230 +181,288 @@ export default function Contact({ initialData }: { initialData?: any }) {
 
         setErrors({});
       }
-    } catch (error) {
-      console.error("Error sending message:", error);
+    } catch (err) {
+      console.error("Error sending message:", err);
       alert("Failed to send message");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
+  const fullHeading = [data.title, data.highlight].filter(Boolean).join(" ");
+
   return (
-    <section className="py-16 md:py-24 bg-gray-50 overflow-hidden">
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-start">
-          
-          {/* LEFT */}
+    <section
+      id="contact"
+      className="section-padding !py-12 md:!py-16 bg-gray-50 relative overflow-hidden"
+    >
+      <div className="container-custom relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-12 items-stretch">
+          {/* LEFT COLUMN */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+            className="flex flex-col h-full"
           >
-            <span className="text-accent font-semibold uppercase text-xs sm:text-sm mb-4 block tracking-wider">
-              {data.subtitle}
-            </span>
-
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0b0b45] leading-tight mb-6">
-              {data.title}{" "}
-              <span className="text-blue-600">{data.highlight}</span>
-            </h2>
-
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-10 max-w-xl">
-              {data.description}
-            </p>
-
-            {/* CONTACT CARDS */}
-            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-              {contactInfo.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex gap-4 p-4 sm:p-6 bg-white rounded-box-lg border border-gray-100 shadow-sm hover:shadow-md transition"
-                >
-                  <div
-                    className={`w-12 h-12 min-w-[48px] flex items-center justify-center rounded-box-sm ${item.color}`}
-                  >
-                    <item.icon className="w-5 h-5" />
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">
-                      {item.title}
-                    </p>
-
-                    <p className="text-[#0b0b45] text-sm sm:text-base font-semibold leading-snug break-words whitespace-pre-line">
-  {item.value}
-</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* SUPPORT BOX */}
-            <div className="mt-8 sm:mt-10 bg-blue-600 text-white p-5 sm:p-6 rounded-box-lg flex items-start sm:items-center gap-4 shadow-lg">
-              <div className="w-12 h-12 min-w-[48px] rounded-full bg-white/20 flex items-center justify-center">
-                <MessageSquare className="w-6 h-6" />
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4">
+                <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
+                <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                  {data.subtitle}
+                </span>
               </div>
 
-              <div>
-                <p className="font-bold text-base sm:text-lg">
-                  {data.support_title}
-                </p>
+              <h2
+                className="w-fit max-w-full text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-[1.15] pb-1.5 mb-4 tracking-tight text-balance bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                {fullHeading}
+              </h2>
 
-                <p className="text-white/80 text-sm leading-relaxed">
-                  {data.support_description}
-                </p>
+              <p className="text-gray-600 text-base leading-relaxed mb-6 max-w-xl">
+                {data.description}
+              </p>
+
+              {/* COMPACT 2x2 CONTACT CARDS */}
+              <div className="grid sm:grid-cols-2 gap-3.5 sm:gap-4">
+                {contactInfo.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3.5 p-4 bg-white rounded-box-lg border border-gray-100 shadow-xs hover:shadow-md hover:border-primary/20 transition-all"
+                  >
+                    <div
+                      className={`w-10 h-10 flex items-center justify-center rounded-box-sm flex-shrink-0 ${item.color}`}
+                    >
+                      <item.icon className="w-4.5 h-4.5" />
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1">
+                        {item.title}
+                      </p>
+
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          className="text-dark hover:text-primary text-sm font-semibold leading-snug break-words block transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xs"
+                        >
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-dark text-sm font-semibold leading-snug break-words whitespace-pre-line">
+                          {item.value}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* QUICK SUPPORT NAVY/BLUE GRADIENT CARD */}
+            <div className="mt-5 lg:mt-auto lg:pt-5">
+              <div
+                className="text-white p-4 sm:p-5 rounded-box-lg flex items-start sm:items-center gap-4 shadow-lg border border-white/10 relative overflow-hidden"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(135deg, #05044A 0%, #05044A 55%, #0753F6 100%)",
+                }}
+              >
+                <div className="pointer-events-none absolute -right-10 -bottom-10 w-36 h-36 rounded-full bg-accent/20 blur-2xl" />
+
+                <div className="w-11 h-11 rounded-full bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 text-accent relative z-10">
+                  <MessageSquare className="w-5 h-5" />
+                </div>
+
+                <div className="min-w-0 relative z-10">
+                  <p className="font-bold text-base text-white leading-snug">
+                    {data.support_title}
+                  </p>
+                  <p className="text-white/80 text-sm leading-relaxed mt-0.5">
+                    {data.support_description}
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* RIGHT FORM */}
+          {/* RIGHT FORM CARD */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white p-5 sm:p-8 lg:p-10 rounded-box-lg shadow-2xl border border-gray-100"
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+            className="bg-white px-6 pt-5 pb-6 sm:px-7 sm:pt-6 sm:pb-7 lg:px-8 lg:pt-12 lg:pb-8 rounded-box-lg shadow-[0_15px_45px_-25px_rgba(5,4,74,0.14)] border border-gray-100 flex flex-col h-full"
           >
-            <h3 className="text-xl sm:text-2xl font-bold text-[#0b0b45] mb-6">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-dark mb-4 tracking-tight">
               {data?.form_title || "Send Us a Message"}
             </h3>
 
             {/* SUCCESS */}
             {success && (
-              <p className="mb-4 text-green-600 font-medium">
+              <p
+                role="status"
+                className="mb-4 px-4 py-2.5 rounded-box-sm bg-accent/10 border border-accent/20 text-accent text-sm font-semibold"
+              >
                 Message sent successfully!
               </p>
             )}
 
             <form
               onSubmit={handleSubmit}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+              className="flex flex-col flex-1 gap-5 sm:gap-6"
             >
-              {/* NAME */}
-              <div>
-                <label className="text-sm text-gray-600 mb-2 block">
-                  Full Name
-                </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-5 sm:gap-y-6">
+                {/* NAME */}
+                <div>
+                  <label
+                    htmlFor="contact-name"
+                    className="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Full Name
+                  </label>
 
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
-                    errors.name ? "border-red-500" : "border-gray-200"
-                  } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    className={`w-full px-3.5 py-3 rounded-box-sm border text-sm text-dark placeholder:text-gray-400 ${
+                      errors.name ? "border-red-500" : "border-gray-200"
+                    } bg-gray-50/80 focus:bg-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all`}
+                  />
 
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.name}
-                  </p>
-                )}
-              </div>
+                  {errors.name && (
+                    <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                  )}
+                </div>
 
-              {/* EMAIL */}
-              <div>
-                <label className="text-sm text-gray-600 mb-2 block">
-                  Email
-                </label>
+                {/* EMAIL */}
+                <div>
+                  <label
+                    htmlFor="contact-email"
+                    className="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Email
+                  </label>
 
-                <input
-                  type="text"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
-                    errors.email ? "border-red-500" : "border-gray-200"
-                  } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
+                  <input
+                    id="contact-email"
+                    type="text"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    className={`w-full px-3.5 py-3 rounded-box-sm border text-sm text-dark placeholder:text-gray-400 ${
+                      errors.email ? "border-red-500" : "border-gray-200"
+                    } bg-gray-50/80 focus:bg-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all`}
+                  />
 
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.email}
-                  </p>
-                )}
-              </div>
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
+                </div>
 
-              {/* PHONE */}
-              <div>
-                <label className="text-sm text-gray-600 mb-2 block">
-                  Phone
-                </label>
+                {/* PHONE */}
+                <div>
+                  <label
+                    htmlFor="contact-phone"
+                    className="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Phone
+                  </label>
 
-                <input
-                  type="text"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  placeholder="+91 9876543210"
-                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
-                    errors.phone ? "border-red-500" : "border-gray-200"
-                  } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
+                  <input
+                    id="contact-phone"
+                    type="text"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="+91 9876543210"
+                    className={`w-full px-3.5 py-3 rounded-box-sm border text-sm text-dark placeholder:text-gray-400 ${
+                      errors.phone ? "border-red-500" : "border-gray-200"
+                    } bg-gray-50/80 focus:bg-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all`}
+                  />
 
-                {errors.phone && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.phone}
-                  </p>
-                )}
-              </div>
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                  )}
+                </div>
 
-              {/* SUBJECT */}
-              <div>
-                <label className="text-sm text-gray-600 mb-2 block">
-                  Subject
-                </label>
+                {/* SUBJECT */}
+                <div>
+                  <label
+                    htmlFor="contact-subject"
+                    className="text-xs font-semibold text-gray-600 mb-1.5 block"
+                  >
+                    Subject
+                  </label>
 
-                <input
-                  type="text"
-                  name="subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  placeholder="Project Inquiry"
-                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
-                    errors.subject ? "border-red-500" : "border-gray-200"
-                  } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                />
+                  <input
+                    id="contact-subject"
+                    type="text"
+                    name="subject"
+                    value={form.subject}
+                    onChange={handleChange}
+                    placeholder="Project Inquiry"
+                    className={`w-full px-3.5 py-3 rounded-box-sm border text-sm text-dark placeholder:text-gray-400 ${
+                      errors.subject ? "border-red-500" : "border-gray-200"
+                    } bg-gray-50/80 focus:bg-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all`}
+                  />
 
-                {errors.subject && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.subject}
-                  </p>
-                )}
+                  {errors.subject && (
+                    <p className="text-red-500 text-xs mt-1">{errors.subject}</p>
+                  )}
+                </div>
               </div>
 
               {/* MESSAGE */}
-              <div className="sm:col-span-2">
-                <label className="text-sm text-gray-600 mb-2 block">
+              <div className="flex flex-col flex-1">
+                <label
+                  htmlFor="contact-message"
+                  className="text-xs font-semibold text-gray-600 mb-1.5 block"
+                >
                   Your Message
                 </label>
 
                 <textarea
+                  id="contact-message"
                   name="message"
                   value={form.message}
                   onChange={handleChange}
-                  rows={5}
+                  rows={4}
                   placeholder="Tell us about your project..."
-                  className={`w-full px-4 py-3.5 rounded-box-sm border ${
+                  className={`w-full flex-1 min-h-[120px] px-3.5 py-3 rounded-box-sm border text-sm text-dark placeholder:text-gray-400 ${
                     errors.message ? "border-red-500" : "border-gray-200"
-                  } bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none`}
+                  } bg-gray-50/80 focus:bg-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none`}
                 />
 
                 {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.message}
-                  </p>
+                  <p className="text-red-500 text-xs mt-1">{errors.message}</p>
                 )}
               </div>
 
-              {/* BUTTON */}
-              <div className="sm:col-span-2">
+              {/* SUBMIT BUTTON */}
+              <div>
                 <button
                   type="submit"
-                  className="w-full py-3.5 sm:py-4 rounded-full bg-blue-600 text-white text-sm sm:text-base font-semibold flex justify-center items-center gap-2 hover:bg-blue-700 transition"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 rounded-full bg-primary text-white text-sm sm:text-base font-semibold flex justify-center items-center gap-2 hover:bg-primary/90 shadow-md shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
-                  {data?.button_text || "Send Message"}
-
+                  {isSubmitting
+                    ? "Sending..."
+                    : data?.button_text || "Send Message"}
                   <Send className="w-4 h-4" />
                 </button>
               </div>
