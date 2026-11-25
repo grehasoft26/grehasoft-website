@@ -65,8 +65,20 @@ export default function EndToEndServicesIntro() {
               </div>
 
               {/* Heading */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-black tracking-tight leading-[1.2]">
-                <span className={styles.gradientText}>End-to-End IT Services in Kochi</span>
+              <h2
+                className="w-fit max-w-full text-3xl sm:text-4xl lg:text-[38px] xl:text-[42px] font-black tracking-tight leading-[1.18] pb-1 bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                End-to-End IT Services
+                <br />
+                <span className="whitespace-nowrap">in Kochi</span>
               </h2>
 
               {/* Paragraph */}
