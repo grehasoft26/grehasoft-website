@@ -236,7 +236,7 @@ export default function ServicesHero({ categories, serviceCount, directoryId }: 
 
               <h1
                 id="services-hero-title"
-                className={`${styles.slide} mt-5 inline-flex self-start items-center gap-3 rounded-full border border-white/12 bg-white/[0.06] py-2 pr-4 pl-3 text-[12px] font-semibold uppercase tracking-[0.1em] text-white/85 sm:mt-6 sm:text-[13px] sm:tracking-[0.16em] lg:mt-7 xl:mt-8`}
+                className={`${styles.slide} mt-5 inline-flex self-start items-center gap-2.5 whitespace-nowrap rounded-full border border-white/12 bg-white/[0.06] py-2 pr-3 pl-2.5 text-[11px] font-semibold uppercase tracking-[0.07em] text-white/85 max-[349px]:gap-2 max-[349px]:pr-2.5 max-[349px]:pl-2 max-[349px]:text-[10.5px] max-[349px]:tracking-[0.05em] sm:mt-6 sm:gap-3 sm:whitespace-normal sm:pr-4 sm:pl-3 sm:text-[13px] sm:tracking-[0.16em] lg:mt-7 xl:mt-8`}
                 style={{ '--d': '0.05s' } as CSSProperties}
               >
                 <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
