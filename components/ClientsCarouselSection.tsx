@@ -137,7 +137,7 @@ export default function ClientsCarouselSection({ initialClients = [] }: Props) {
           >
             <span className={styles.gradientText}>Clients</span>
           </h2>
-          <p className="mt-4 sm:mt-5 text-base sm:text-lg md:text-xl lg:text-2xl font-normal leading-relaxed text-text-gray max-w-2xl text-center mx-auto">
+          <p className="mt-4 sm:mt-5 text-base md:text-lg font-normal leading-relaxed text-text-gray max-w-2xl text-center mx-auto">
             Our clients are everything to us; so are we to them.
           </p>
         </div>
