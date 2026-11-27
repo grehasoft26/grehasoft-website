@@ -124,26 +124,22 @@ export default function ClientsCarouselSection({ initialClients = [] }: Props) {
   const duration = `${Math.max(withLogos.length, 1) * SECONDS_PER_CARD}s`;
 
   return (
-    <section aria-labelledby="clients-carousel-title" className="relative bg-white py-16 md:py-20 border-b border-gray-100">
+    <section aria-labelledby="clients-carousel-title" className="relative bg-white py-12 md:py-16 border-b border-gray-100">
       <div className="container-custom">
-        <div className="mb-10 md:mb-12 flex flex-col items-center text-center">
-          <div className="mb-4 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1">
+        <div className="mb-8 md:mb-9 flex flex-col items-center text-center">
+          <p className="mb-4 sm:mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1">
             <Sparkles aria-hidden="true" className="h-4 w-4 text-primary" />
-            <span className="text-xs font-bold uppercase tracking-widest text-accent">Trusted By Industry Leaders</span>
-          </div>
-          {/* The section heading is the visually hidden H2; the 70px display word below is its visual form,
-              hidden from assistive technology so "Clients" is announced once. */}
-          <h2 id="clients-carousel-title" className="sr-only">
-            Clients
-          </h2>
-          <p
-            aria-hidden="true"
-            className="text-5xl font-black leading-none tracking-[-2px] sm:text-6xl lg:text-[70px] lg:tracking-[-4px] text-center"
-          >
-            <span className={styles.gradientText}>Clients</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-accent">Our Clients</span>
           </p>
-          <p className="mt-4 sm:mt-5 text-base md:text-lg font-normal leading-relaxed text-text-gray max-w-2xl text-center mx-auto">
-            Our clients are everything to us; so are we to them.
+          {/* Section heading on the homepage H2 scale (28 / 36 / 40px) with the brand gradient. */}
+          <h2
+            id="clients-carousel-title"
+            className="text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-extrabold leading-[1.15] tracking-tight text-balance text-center"
+          >
+            <span className={styles.gradientText}>Businesses We&apos;ve Worked With</span>
+          </h2>
+          <p className="mt-3 sm:mt-3.5 text-base md:text-lg font-normal leading-relaxed text-balance text-text-gray max-w-3xl lg:max-w-[52rem] text-center mx-auto">
+            Businesses across different industries have worked with Grehasoft for websites, <span className="whitespace-nowrap">e-commerce</span>, software, SEO, digital marketing, branding and other digital requirements.
           </p>
         </div>
 
@@ -173,7 +169,7 @@ export default function ClientsCarouselSection({ initialClients = [] }: Props) {
           )}
         </div>
 
-        <div className="mt-10 flex justify-center md:mt-12">
+        <div className="mt-8 flex justify-center md:mt-9">
           <Link href="/portfolio#clients" className="btn-primary group inline-flex items-center gap-2">
             View All Clients
             <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
