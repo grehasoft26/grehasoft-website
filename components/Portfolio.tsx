@@ -40,6 +40,7 @@ export default function Portfolio({
   const [activeCategory, setActiveCategory] =
     useState("All");
 
+  const isHome = headingSize === 'home';
   const [loading, setLoading] = useState(initialProjects.length === 0);
   const [prevEl, setPrevEl] = useState<HTMLButtonElement | null>(null);
   const [nextEl, setNextEl] = useState<HTMLButtonElement | null>(null);
@@ -133,32 +134,79 @@ export default function Portfolio({
     <section className="section-padding bg-gray-50">
       <div className="container-custom">
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
-          <div className="max-w-2xl">
-             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
-              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-xs font-bold text-accent uppercase tracking-widest">
-               our portfolio
-              </span>
+        {/* Homepage instance: a two-row grid. Row 1 holds the eyebrow + H2 on the left and the controls on the right,
+            bottom-aligned with the H2 (from lg); row 2 is the description spanning the full width so it can sit on two
+            balanced lines. DOM order (heading, description, controls) keeps the natural stacking on smaller screens,
+            with the controls right-aligned as before. Other pages keep the original header. */}
+        <div
+          className={
+            isHome
+              ? "grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-x-10 mb-9 md:mb-10"
+              : "flex flex-col md:flex-row items-end justify-between mb-16 gap-8"
+          }
+        >
+          {isHome ? (
+            <>
+            <div className="min-w-0">
+              <p className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4 sm:mb-5">
+                <Sparkles aria-hidden="true" className="w-4 h-4 text-primary animate-pulse" />
+                <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                  Our Portfolio
+                </span>
+              </p>
+
+              {/* Homepage H2 scale (28 / 36 / 40px) with the brand gradient. */}
+              <h2
+                className="w-fit max-w-full text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-extrabold tracking-tight leading-[1.15] pb-1 text-balance bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Featured Case Studies
+              </h2>
             </div>
 
-            <h2
-              className={`w-fit max-w-full ${headingSize === 'home' ? 'text-[1.75rem] md:text-4xl lg:text-[2.5rem]' : 'text-4xl md:text-5xl'} font-bold leading-[1.15] pb-1.5 bg-clip-text text-transparent`}
-              style={{
-                backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Case Studies of Our
-              <br className="hidden lg:block" />{" "}
-              Successful Projects
-            </h2>
-          </div>
+            <p className="lg:col-span-2 mt-2.5 sm:mt-3 max-w-[44rem] lg:max-w-[64rem] text-base md:text-lg leading-relaxed text-text-gray text-pretty lg:text-balance">
+              Explore selected projects across SEO, CRM, LMS, mobile applications, website development and <span className="whitespace-nowrap">e-commerce</span>. Each case study highlights the business requirement, solution and digital work delivered by the Grehasoft team.
+            </p>
+            </>
+          ) : (
+            <div className="max-w-2xl">
+               <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
+                <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+                <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                 our portfolio
+                </span>
+              </div>
 
-          <div className="flex items-center gap-4">
+              <h2
+                className="w-fit max-w-full text-4xl md:text-5xl font-bold leading-[1.15] pb-1.5 bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                Case Studies of Our
+                <br className="hidden lg:block" />{" "}
+                Successful Projects
+              </h2>
+            </div>
+          )}
+
+          <div
+            className={
+              isHome
+                ? "flex items-center gap-4 justify-self-end mt-6 lg:mt-0 lg:col-start-2 lg:row-start-1 lg:self-end"
+                : "flex items-center gap-4"
+            }
+          >
             {!isFullPage && (
               <Link
                 href="/portfolio"
