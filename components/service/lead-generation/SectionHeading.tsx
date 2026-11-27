@@ -43,7 +43,7 @@ export default function SectionHeading({
 
       <h2
         id={id}
-        className={`text-3xl font-black leading-tight md:text-4xl lg:text-[2.75rem] ${TITLE_TONE[tone]}`}
+        className={`text-[1.75rem] font-black leading-tight md:text-4xl lg:text-[2.5rem] ${TITLE_TONE[tone]}`}
       >
         {title}
       </h2>

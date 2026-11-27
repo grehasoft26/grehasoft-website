@@ -14,7 +14,7 @@ export default function FaqSection({ faq, cta }: Props) {
           <div className="lg:sticky lg:top-28">
             <h2
               id="lead-faq-title"
-              className="text-3xl font-black leading-tight text-dark md:text-4xl"
+              className="text-[1.75rem] font-black leading-tight text-dark md:text-4xl lg:text-[2.5rem]"
             >
               {faq.title}
             </h2>

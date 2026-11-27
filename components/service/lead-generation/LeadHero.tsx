@@ -39,7 +39,7 @@ export default function LeadHero({ hero, breadcrumbLabel }: Props) {
           </ol>
         </nav>
 
-        <h1 className="mb-6 text-balance text-4xl font-bold leading-tight text-white md:text-5xl lg:text-[3.5rem]">
+        <h1 className="mb-6 text-balance text-4xl font-bold leading-tight text-white md:text-5xl lg:text-[3.25rem]">
           {keepDashWithPreviousWord(hero.title)}
         </h1>
 
