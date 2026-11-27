@@ -125,7 +125,7 @@ export default function ServiceExplorer({ id, categories }: ServiceExplorerProps
               </span>
               <h2
                 id={`${baseId}-title`}
-                className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.85rem] font-bold leading-[1.12] tracking-[-0.02em] text-transparent sm:text-4xl lg:whitespace-nowrap lg:text-[clamp(2.25rem,3.6vw,3rem)]"
+                className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.75rem] font-bold leading-[1.12] tracking-[-0.02em] text-transparent md:text-4xl lg:text-[2.5rem] xl:whitespace-nowrap"
                 style={{
                   backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
                   backgroundClip: 'text',

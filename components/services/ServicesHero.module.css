@@ -55,25 +55,8 @@
   margin-bottom: -0.08em;
 }
 
-@media (min-width: 768px) {
-  .line {
-    white-space: nowrap;
-  }
-}
-
 .lineInner {
   display: block;
-}
-
-.outline {
-  color: rgba(255, 255, 255, 0.04);
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.72);
-}
-
-@supports not (-webkit-text-stroke: 1px) {
-  .outline {
-    color: #9db9ff;
-  }
 }
 
 /* ------------------------------ glass ------------------------------ */
@@ -113,10 +96,10 @@
   width: calc(var(--w) * 1%);
 }
 
-/* Phones: category cards collapse to small icon orbs. */
+/* Phones: a taller stage gives the nine labelled services more vertical room. */
 @media (max-width: 639px) {
-  .categoryPlace {
-    width: 12%;
+  .stage {
+    aspect-ratio: 4 / 5;
   }
 }
 
@@ -124,20 +107,102 @@
   transform: perspective(1200px) rotateY(var(--ry, -9deg)) rotateX(var(--rx, 5deg));
 }
 
-.cardName {
-  font-size: clamp(10px, 2cqw, 13px);
-  line-height: 1.25;
+/* Diagonal light sweep across glass surfaces (reflection). */
+.sheen {
+  position: relative;
+  isolation: isolate;
 }
 
-.micro {
-  font-size: clamp(7px, 1.45cqw, 10px);
-  line-height: 1.2;
+.sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 32%, transparent 48%, transparent 78%, rgba(255, 255, 255, 0.06) 100%);
+}
+
+/* ------------------------------ service nodes ------------------------------ */
+
+/* A service: object tile centred on (--x, --y) in stage percent, heading underneath. */
+.node {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: 0;
+  height: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.node > div {
+  /* Centre the tile (not the tile + label) on the anchor point. */
+  margin-top: -7.5cqw;
+  flex-shrink: 0;
+}
+
+.tile {
+  width: 15cqw;
+  aspect-ratio: 1;
+  padding: 2cqw;
+  border-radius: 3.4cqw;
+  background:
+    radial-gradient(120% 90% at 30% 15%, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(155deg, rgba(20, 26, 110, 0.92), rgba(5, 4, 60, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  /* Depth shadow, coloured glow and a tinted reflection pooling under the tile. */
+  box-shadow:
+    0 18px 30px -16px rgba(0, 0, 20, 0.95),
+    0 0 26px -6px var(--glow),
+    0 16px 18px -12px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.35);
+  transform: perspective(600px) rotateX(8deg);
+}
+
+.toneBlue {
+  --glow: rgba(7, 83, 246, 0.75);
+}
+
+.toneGreen {
+  --glow: rgba(26, 183, 40, 0.65);
+}
+
+.toneBrand {
+  --glow: rgba(64, 140, 200, 0.7);
+  box-shadow:
+    0 18px 30px -16px rgba(0, 0, 20, 0.95),
+    -8px 6px 22px -10px rgba(7, 83, 246, 0.9),
+    8px 6px 22px -10px rgba(26, 183, 40, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.label {
+  margin-top: 1.8cqw;
+  width: 28cqw;
+  text-align: center;
+  font-size: clamp(10px, 2.75cqw, 13px);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.94);
+  text-wrap: balance;
+  text-shadow:
+    0 1px 2px rgba(1, 0, 30, 0.9),
+    0 0 12px rgba(1, 0, 30, 0.75);
 }
 
 .gaugeValue {
-  font-size: clamp(18px, 5.4cqw, 34px);
+  font-size: clamp(16px, 5cqw, 30px);
   line-height: 1;
   font-variant-numeric: tabular-nums;
+}
+
+.gaugeCaption {
+  font-size: clamp(9px, 2.1cqw, 12px);
+  line-height: 1.2;
 }
 
 /* ------------------------------ entrance ------------------------------ */
@@ -203,6 +268,31 @@
   .pulse {
     animation: pulse 2.4s ease-in-out infinite;
   }
+
+  /* Small object-level motion inside the service tiles. */
+  .gear {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spin 14s linear infinite;
+  }
+
+  .sway {
+    transform-box: fill-box;
+    transform-origin: 30% 30%;
+    animation: sway 4.8s ease-in-out infinite alternate;
+  }
+
+  .beat {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: beat 2.6s ease-in-out infinite;
+  }
+
+  .ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ripple 2.4s ease-out infinite;
+  }
 }
 
 /*
@@ -223,7 +313,11 @@
 .hero[data-offscreen] .spin,
 .hero[data-offscreen] .spinReverse,
 .hero[data-offscreen] .flow,
-.hero[data-offscreen] .pulse {
+.hero[data-offscreen] .pulse,
+.hero[data-offscreen] .gear,
+.hero[data-offscreen] .sway,
+.hero[data-offscreen] .beat,
+.hero[data-offscreen] .ripple {
   animation-play-state: paused;
 }
 
@@ -316,6 +410,37 @@
   }
   to {
     transform: none;
+  }
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-6deg) translate(-1px, 0);
+  }
+  to {
+    transform: rotate(4deg) translate(1px, -1px);
+  }
+}
+
+@keyframes beat {
+  0%,
+  70%,
+  100% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1.14);
+  }
+}
+
+@keyframes ripple {
+  from {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
   }
 }
 

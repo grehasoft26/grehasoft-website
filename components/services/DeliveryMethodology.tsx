@@ -81,7 +81,7 @@ export default function DeliveryMethodology() {
           </span>
           <h2
             id="delivery-methodology-title"
-            className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.85rem] font-bold leading-[1.12] tracking-[-0.02em] text-transparent sm:text-4xl lg:whitespace-nowrap lg:text-[clamp(2.25rem,3.6vw,3rem)]"
+            className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.75rem] font-bold leading-[1.12] tracking-[-0.02em] text-transparent md:text-4xl lg:whitespace-nowrap lg:text-[2.5rem]"
             style={{
               backgroundImage: 'linear-gradient(90deg, #5B9BFF 0%, #0753F6 45%, #1AB728 100%)',
               backgroundClip: 'text',

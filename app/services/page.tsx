@@ -253,7 +253,7 @@ export default function ServicesPage() {
           <div className="text-center mx-auto mb-8 lg:mb-10">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-2.5 block font-mono">Interactive Recommendation Tool</span>
             <h2
-              className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.85rem] font-black leading-[1.12] tracking-[-0.02em] text-transparent sm:text-4xl lg:whitespace-nowrap lg:text-[clamp(2.25rem,3.6vw,3rem)]"
+              className="mx-auto w-fit max-w-full bg-clip-text pb-1 text-[1.75rem] font-black leading-[1.12] tracking-[-0.02em] text-transparent md:text-4xl lg:whitespace-nowrap lg:text-[2.5rem]"
               style={{
                 backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
                 backgroundClip: 'text',
@@ -285,7 +285,7 @@ export default function ServicesPage() {
                   }`}
                 >
                   <div className="min-w-0">
-                    <h4 className={`font-extrabold text-sm md:text-base leading-tight ${selectedQuizGoal === opt.id ? 'text-[#127A1C]' : 'text-dark'}`}>{opt.label}</h4>
+                    <h3 className={`font-extrabold text-sm md:text-base leading-tight ${selectedQuizGoal === opt.id ? 'text-[#127A1C]' : 'text-dark'}`}>{opt.label}</h3>
                     <p className={`text-[14px] mt-1 line-clamp-1 leading-snug ${
                       selectedQuizGoal === opt.id ? 'text-[#4b5076]' : 'text-[#626783]'
                     }`}>
@@ -326,9 +326,9 @@ export default function ServicesPage() {
                       <Zap className="text-primary w-5 h-5 animate-pulse" />
                       <div>
                         <span className="text-accent text-[9px] font-black tracking-widest uppercase block font-mono">Expert Recommended Strategy Bundle</span>
-                        <h4 className="text-xl font-bold text-dark font-sans">
+                        <h3 className="text-xl font-bold text-dark font-sans">
                           Grehasoft Solution Package
-                        </h4>
+                        </h3>
                       </div>
                     </div>
 
@@ -379,7 +379,7 @@ export default function ServicesPage() {
           
           <div className="text-center max-w-3xl mx-auto mb-8 lg:mb-10">
             <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-2.5 block font-mono">Focused Sectors</span>
-            <h2 className="text-4xl font-black mb-3 max-sm:text-[32px] max-sm:leading-[1.15]">
+            <h2 className="text-[1.75rem] font-black mb-3 max-sm:leading-[1.15] md:text-4xl lg:text-[2.5rem]">
               <span className={styles.gradientText}>Industries We Drive Innovation In</span>
             </h2>
             <p className="text-gray-600">
@@ -393,9 +393,9 @@ export default function ServicesPage() {
                 key={i}
                 className="bg-white px-4 py-5 min-h-[76px] sm:min-h-[84px] rounded-box-lg border border-gray-100 shadow-sm flex items-center justify-center text-center hover:border-primary/30 hover:shadow-md transition-all group"
               >
-                <h4 className="font-extrabold text-dark text-xs sm:text-sm leading-snug text-balance">
+                <h3 className="font-extrabold text-dark text-xs sm:text-sm leading-snug text-balance">
                   {ind.name}
-                </h4>
+                </h3>
               </div>
             ))}
           </div>
@@ -410,7 +410,7 @@ export default function ServicesPage() {
             
             <div className="lg:col-span-1 text-center md:text-left">
               <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block font-mono">Faq Desk</span>
-              <h2 className="text-4xl font-black text-dark mb-6 leading-tight"><span className={styles.gradientText}>Frequently Asked Questions</span></h2>
+              <h2 className="text-[1.75rem] font-black text-dark mb-6 leading-tight md:text-4xl lg:text-[2.5rem]"><span className={styles.gradientText}>Frequently Asked Questions</span></h2>
               <p className="text-gray-500 mb-8 text-sm">
                 Get answers regarding platform staging, support packages, SEO timelines, and visual asset delivery workflows.
               </p>
