@@ -373,7 +373,7 @@ export default function FAQ() {
               Knowledge Base Hub
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-dark tracking-tight leading-[1.15] mb-3">
+          <h2 className="text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-extrabold text-dark tracking-tight leading-[1.15] mb-3">
             Frequently Asked{" "}
             <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
               Questions

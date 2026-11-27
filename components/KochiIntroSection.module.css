@@ -36,20 +36,25 @@
   }
 }
 
-/* Headline: large, tight and light enough to read as one confident line of thought. */
+/* Homepage H1 on the site heading scale: 36px, 48px from 768px, 52px from 1024px. It spans the full
+   content width, so it sits on one line where it fits (1280px and up) and `balance` splits it into two
+   even lines where it does not (1024px and below); the size is never reduced to force one line. */
 .title {
-  font-size: clamp(2.25rem, 1.2rem + 3.1vw, 3.75rem);
+  font-size: 2.25rem;
   line-height: 1.08;
   letter-spacing: -0.032em;
   text-wrap: balance;
 }
 
-/* Desktop: the heading spans both columns on one line. It measures ~21.5em in Poppins semibold, so it
-   is sized to the container's content width (viewport minus the 2rem gutters, capped at 54px) with a
-   margin for the scrollbar; if a font fallback ever runs wider, `balance` splits it into two even lines. */
+@media (min-width: 768px) {
+  .title {
+    font-size: 3rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .title {
-    font-size: min(3.375rem, calc((100vw - 4rem) / 22.6));
+    font-size: 3.25rem;
     line-height: 1.1;
   }
 }

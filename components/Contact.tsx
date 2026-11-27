@@ -28,7 +28,14 @@ const DEFAULT_CONTACT = {
   button_text: "Send Message",
 };
 
-export default function Contact({ initialData }: { initialData?: any }) {
+export default function Contact({
+  initialData,
+  headingSize = 'default',
+}: {
+  initialData?: any;
+  /** 'home': the homepage section heading scale (28 / 36 / 40px). /contact-us keeps the default. */
+  headingSize?: 'default' | 'home';
+}) {
   const [fetchedData, setFetchedData] = useState<any>(initialData || null);
   const [error, setError] = useState(false);
 
@@ -215,7 +222,7 @@ export default function Contact({ initialData }: { initialData?: any }) {
               </div>
 
               <h2
-                className="w-fit max-w-full text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-[1.15] pb-1.5 mb-4 tracking-tight text-balance bg-clip-text text-transparent"
+                className={`w-fit max-w-full ${headingSize === 'home' ? 'text-[1.75rem] md:text-4xl lg:text-[2.5rem]' : 'text-3xl sm:text-4xl lg:text-[42px]'} font-extrabold leading-[1.15] pb-1.5 mb-4 tracking-tight text-balance bg-clip-text text-transparent`}
                 style={{
                   backgroundImage:
                     "linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)",

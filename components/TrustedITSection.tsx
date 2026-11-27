@@ -64,7 +64,7 @@ export default function TrustedITSection() {
                 </span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold mb-5 leading-[1.2] tracking-tight">
+              <h2 className="text-[1.75rem] md:text-[2rem] font-extrabold mb-5 leading-[1.2] tracking-tight">
                 <span className={styles.gradientText}>
                   Trusted IT Company in Kochi - Offering Smart IT Solutions
                 </span>
@@ -132,7 +132,7 @@ export default function TrustedITSection() {
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-white mb-5 leading-[1.2] tracking-tight">
+              <h3 className="text-[1.75rem] md:text-[2rem] font-extrabold text-white mb-5 leading-[1.2] tracking-tight">
                 IT Services Provider in India &amp; the Middle East
               </h3>
 

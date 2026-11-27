@@ -140,6 +140,7 @@ export default async function Home() {
      <div className="relative">
   <Portfolio
     showFilters={false}
+    headingSize="home"
     initialProjects={trimPortfolioProjects(homeData.portfolioProjects)}
     initialCategories={trimPortfolioCategories(homeData.portfolioCategories)}
   />
@@ -152,7 +153,7 @@ export default async function Home() {
 />
 </div>
       <div className="relative">
-  <Products data={trimProducts(homeData.products)} />
+  <Products data={trimProducts(homeData.products)} headingSize="home" />
 
   {/* Divider 8: Products / PMS → FAQ */}
   <SectionDivider
@@ -175,7 +176,7 @@ export default async function Home() {
   <Testimonials />
 </div>
       <CTABottomSection data={trimCta(homeData.cta)} />
-      <Contact initialData={homeData.contact} />
+      <Contact initialData={homeData.contact} headingSize="home" />
       {/* <Footer is provided by RootLayout */}
     </main>
   );

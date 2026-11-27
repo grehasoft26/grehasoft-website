@@ -34,7 +34,7 @@ const getImage = (service: any) =>
 
 function ServiceTitle({ title }: { title?: string }) {
   return (
-    <h3 className="mb-3 break-words text-[26px] font-bold leading-[1.1] sm:mb-4 sm:text-[34px] lg:text-[36px] xl:text-[44px]">
+    <h3 className="mb-3 break-words text-2xl font-bold leading-[1.1] sm:mb-4 sm:text-[1.75rem] lg:text-[2rem]">
       <span className={styles.gradientText}>{title}</span>
     </h3>
   );

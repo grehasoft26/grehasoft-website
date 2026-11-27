@@ -40,7 +40,7 @@ export default function KochiIntroSection() {
             Kochi&apos;s Premier IT Leader
           </p>
 
-          <h1 id="kochi-it-leader-title" className={`${styles.title} mt-5 font-semibold text-dark lg:mt-6`}>
+          <h1 id="kochi-it-leader-title" className={`${styles.title} mt-5 font-bold text-dark lg:mt-6`}>
             <span className={styles.gradientText}>One of the Best IT Companies in Kochi, Kerala</span>
           </h1>
 

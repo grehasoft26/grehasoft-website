@@ -26,7 +26,10 @@ export default function Portfolio({
   showFilters = true,
   initialProjects = [],
   initialCategories = [],
+  headingSize = 'default',
 }: {
+  /** 'home': the homepage section heading scale (28 / 36 / 40px). Other pages keep the default. */
+  headingSize?: 'default' | 'home';
   isFullPage?: boolean;
   showFilters?: boolean;
   initialProjects?: any[];
@@ -140,7 +143,7 @@ export default function Portfolio({
             </div>
 
             <h2
-              className="w-fit max-w-full text-4xl md:text-5xl font-bold leading-[1.15] pb-1.5 bg-clip-text text-transparent"
+              className={`w-fit max-w-full ${headingSize === 'home' ? 'text-[1.75rem] md:text-4xl lg:text-[2.5rem]' : 'text-4xl md:text-5xl'} font-bold leading-[1.15] pb-1.5 bg-clip-text text-transparent`}
               style={{
                 backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
                 backgroundClip: 'text',

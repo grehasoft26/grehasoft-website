@@ -62,7 +62,7 @@ export default function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="w-fit max-w-full mx-auto text-3xl sm:text-4xl lg:text-[44px] font-black mb-3.5 tracking-tight leading-[1.15] text-balance bg-clip-text text-transparent"
+            className="w-fit max-w-full mx-auto text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-black mb-3.5 tracking-tight leading-[1.15] text-balance bg-clip-text text-transparent"
             style={{
               backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
               backgroundClip: 'text',

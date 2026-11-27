@@ -19,9 +19,11 @@ import { ProductsData } from '@/types/wordpress';
 
 interface ProductsProps {
   data?: ProductsData | null;
+  /** 'home': the homepage section heading scale (28 / 36 / 40px). Other pages keep the default. */
+  headingSize?: 'default' | 'home';
 }
 
-export default function Products({ data }: ProductsProps) {
+export default function Products({ data, headingSize = 'default' }: ProductsProps) {
   const pms = data;
 
   if (!pms) return null;
@@ -107,7 +109,7 @@ export default function Products({ data }: ProductsProps) {
 
             {/* TITLE */}
    <div className="w-full">      
-<h2 className="text-4xl md:text-5xl font-bold mb-8 text-white leading-tight">
+<h2 className={`${headingSize === 'home' ? 'text-[1.75rem] md:text-4xl lg:text-[2.5rem]' : 'text-4xl md:text-5xl'} font-bold mb-8 text-white leading-tight`}>
   {`${pms.pms_title_part1 || ''} ${pms.pms_title_highlight || ''} ${pms.pms_title_part2 || ''}`}
 </h2>
 

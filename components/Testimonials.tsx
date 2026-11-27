@@ -160,7 +160,7 @@ export default function Testimonials() {
           </div>
 
           <h2
-            className="w-fit max-w-full mx-auto text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight leading-[1.15] pb-1.5 mb-3 text-balance bg-clip-text text-transparent"
+            className="w-fit max-w-full mx-auto text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-extrabold tracking-tight leading-[1.15] pb-1.5 mb-3 text-balance bg-clip-text text-transparent"
             style={{
               backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
               backgroundClip: 'text',

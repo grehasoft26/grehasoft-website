@@ -131,12 +131,17 @@ export default function ClientsCarouselSection({ initialClients = [] }: Props) {
             <Sparkles aria-hidden="true" className="h-4 w-4 text-primary" />
             <span className="text-xs font-bold uppercase tracking-widest text-accent">Trusted By Industry Leaders</span>
           </div>
-          <h2
-            id="clients-carousel-title"
+          {/* The section heading is the visually hidden H2; the 70px display word below is its visual form,
+              hidden from assistive technology so "Clients" is announced once. */}
+          <h2 id="clients-carousel-title" className="sr-only">
+            Clients
+          </h2>
+          <p
+            aria-hidden="true"
             className="text-5xl font-black leading-none tracking-[-2px] sm:text-6xl lg:text-[70px] lg:tracking-[-4px] text-center"
           >
             <span className={styles.gradientText}>Clients</span>
-          </h2>
+          </p>
           <p className="mt-4 sm:mt-5 text-base md:text-lg font-normal leading-relaxed text-text-gray max-w-2xl text-center mx-auto">
             Our clients are everything to us; so are we to them.
           </p>

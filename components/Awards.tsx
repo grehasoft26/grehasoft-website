@@ -98,7 +98,7 @@ export default function Awards({
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="w-full text-center text-4xl md:text-5xl font-semibold tracking-[-0.032em] leading-tight text-balance text-dark"
+                className="w-full text-center text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-semibold tracking-[-0.032em] leading-tight text-balance text-dark"
               >
                 <span className={styles.gradientText}>
                   {[data.section_title, data.highlight_text].filter(Boolean).join(' ')}

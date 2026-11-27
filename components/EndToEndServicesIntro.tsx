@@ -66,7 +66,7 @@ export default function EndToEndServicesIntro() {
 
               {/* Heading */}
               <h2
-                className="w-fit max-w-full text-3xl sm:text-4xl lg:text-[38px] xl:text-[42px] font-black tracking-tight leading-[1.18] pb-1 bg-clip-text text-transparent"
+                className="w-fit max-w-full text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-black tracking-tight leading-[1.18] pb-1 bg-clip-text text-transparent"
                 style={{
                   backgroundImage:
                     'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
