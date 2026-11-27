@@ -39,14 +39,15 @@
   will-change: opacity;
 }
 
-/* The core's hit area, under the card layer so open cards receive hover. */
+/* The core's hit area, under the card layer so open cards receive hover. Vertical values are in the
+   cropped frame (artboard y 150–920, see ART_TOP / ART_BOTTOM): artboard 280–800 → 16.9%–84.4%. */
 .coreButton {
   position: absolute;
   z-index: 1;
   left: 19%;
-  top: 28%;
+  top: 16.9%;
   width: 62%;
-  height: 52%;
+  height: 67.5%;
   border-radius: 3rem;
   background: transparent;
   cursor: pointer;
@@ -135,32 +136,6 @@
   color: var(--c);
 }
 
-.cloudServer {
-  position: relative;
-  display: block;
-  width: 3.4cqw;
-  height: 3.4cqw;
-  color: var(--c);
-}
-
-.cloudPart {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 80%;
-  height: 80%;
-  transform: translateX(-50%);
-}
-
-.serverPart {
-  position: absolute;
-  left: 50%;
-  bottom: -10%;
-  width: 52%;
-  height: 52%;
-  transform: translateX(-50%);
-}
-
 .cardLabel {
   min-width: 0;
   font-size: clamp(9px, 2.15cqw, 12.5px);
@@ -238,8 +213,7 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
-.mobileIcon .icon,
-.mobileIcon .cloudServer {
+.mobileIcon .icon {
   width: 18px;
   height: 18px;
 }
@@ -258,7 +232,8 @@
   position: absolute;
   z-index: 3;
   left: 50%;
-  top: 84.5%;
+  /* Artboard y 805 (just below the resting base plate, ~772) in the cropped frame (150–920). */
+  top: 85%;
   margin: 0;
   display: flex;
   align-items: center;
@@ -308,7 +283,8 @@
   position: absolute;
   z-index: 3;
   left: 50%;
-  bottom: 3.2%;
+  /* 30 artboard units above the bottom edge of the 770-unit frame. */
+  bottom: 3.9%;
   transform: translateX(-50%);
   display: inline-flex;
   align-items: center;

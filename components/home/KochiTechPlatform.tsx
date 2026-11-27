@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react';
 import { animate, motion, useMotionValue, useSpring, useTransform, type AnimationPlaybackControls } from 'motion/react';
-import { Box, ChartNoAxesCombined, Cloud, Laptop, MousePointer2, Palette, Rocket, Server, Smartphone, type LucideIcon } from 'lucide-react';
+import { ChartNoAxesCombined, Code2, Laptop, Megaphone, MousePointer2, Rocket, ShoppingCart, Smartphone, type LucideIcon } from 'lucide-react';
 import styles from './KochiTechPlatform.module.css';
 
 /*
@@ -51,6 +51,19 @@ const HUB: Slab = { half: 70, r: 16, z0: 88, z1: 116 };
 
 type Pt = { a: number; x: number; y: number };
 type XY = [number, number];
+
+/**
+ * Visible part of the 1000-unit artboard: everything is drawn in the full 1000 × 1000 space, but the frame
+ * shows y = ART_TOP to ART_BOTTOM. Nothing sits above 150 in either pose (the open deck's back corner is at
+ * ~193), and below the stack only the orbits (to ~834), the hint and the caption remain, so the empty bands
+ * are cropped: the composition is unchanged and the visual is short enough to sit beside the intro copy.
+ */
+const ART_TOP = 150;
+const ART_BOTTOM = 920;
+const ART_H = ART_BOTTOM - ART_TOP;
+const VIEW_BOX = `0 ${ART_TOP} 1000 ${ART_H}`;
+/** Artboard y as a percentage of the visual's height (for HTML layers placed over the SVG). */
+const yPct = (y: number) => ((y - ART_TOP) / ART_H) * 100;
 
 const project = (x: number, y: number, z: number): XY => [CX + (x - y) * ISO_X, REST_DECK_Y + (x + y) * ISO_Y + (DECK.z1 - z)];
 const topY = (z: number) => REST_DECK_Y + (DECK.z1 - z);
@@ -149,20 +162,21 @@ type Side = 'left' | 'right';
 interface Service {
   id: string;
   label: [string, string];
-  icon: LucideIcon | 'cloud-server';
+  icon: LucideIcon;
   tone: Tone;
   plate: number;
   side: Side;
 }
 
-// Two services per plate, top to bottom in the existing order (left, then right).
+// Two services per plate, top to bottom (left, then right): the capabilities named in the intro copy.
+// Build capabilities are blue, growth (marketing and advertising) green.
 const SERVICES: Service[] = [
-  { id: 'web', label: ['Web Design &', 'Development'], icon: Laptop, tone: 'blue', plate: 2, side: 'left' },
+  { id: 'web', label: ['Website', 'Development'], icon: Laptop, tone: 'blue', plate: 2, side: 'left' },
   { id: 'seo', label: ['SEO & Digital', 'Marketing'], icon: ChartNoAxesCombined, tone: 'green', plate: 2, side: 'right' },
-  { id: 'brand', label: ['Branding &', 'Graphic Design'], icon: Palette, tone: 'blue', plate: 1, side: 'left' },
-  { id: 'mobile', label: ['Mobile App', 'Development'], icon: Smartphone, tone: 'green', plate: 1, side: 'right' },
-  { id: 'software', label: ['Software & Web', 'Applications'], icon: Box, tone: 'blue', plate: 0, side: 'left' },
-  { id: 'tech', label: ['Technology', 'Services'], icon: 'cloud-server', tone: 'green', plate: 0, side: 'right' },
+  { id: 'ecommerce', label: ['E-Commerce', 'Solutions'], icon: ShoppingCart, tone: 'blue', plate: 1, side: 'left' },
+  { id: 'ads', label: ['Online', 'Advertising'], icon: Megaphone, tone: 'green', plate: 1, side: 'right' },
+  { id: 'software', label: ['Custom', 'Software'], icon: Code2, tone: 'blue', plate: 0, side: 'left' },
+  { id: 'mobile', label: ['Mobile', 'Applications'], icon: Smartphone, tone: 'blue', plate: 0, side: 'right' },
 ];
 
 /** Cards in percent of the visual's width: they start at the edge and take this width. */
@@ -329,14 +343,6 @@ function PlateLogo({ index, refCb, opacity }: { index: number; refCb: (el: SVGGE
 }
 
 function TileIcon({ icon }: { icon: Service['icon'] }) {
-  if (icon === 'cloud-server') {
-    return (
-      <span className={styles.cloudServer} aria-hidden="true">
-        <Cloud className={styles.cloudPart} strokeWidth={2} />
-        <Server className={styles.serverPart} strokeWidth={2.2} />
-      </span>
-    );
-  }
   const Icon = icon;
   return <Icon className={styles.icon} strokeWidth={1.9} aria-hidden="true" />;
 }
@@ -362,7 +368,7 @@ function Backdrop({ uid }: { uid: string }) {
     [360, 900],
   ];
   return (
-    <svg viewBox="0 0 1000 1000" className={styles.layer} aria-hidden="true">
+    <svg viewBox={VIEW_BOX} className={styles.layer} aria-hidden="true">
       <defs>
         <radialGradient id={id('blue')} cx="0.5" cy="0.5" r="0.5">
           <stop offset="0" stopColor="#0753F6" stopOpacity="0.16" />
@@ -407,7 +413,7 @@ function Orbits({ uid }: { uid: string }) {
     { ring: 2, color: '#0753F6', dur: 26, begin: -15, primary: false },
   ];
   return (
-    <svg viewBox="0 0 1000 1000" className={styles.layer} aria-hidden="true" data-smil="orbits">
+    <svg viewBox={VIEW_BOX} className={styles.layer} aria-hidden="true" data-smil="orbits">
       <defs>
         {RINGS.map((rx, i) => (
           <path key={rx} id={id(`${i}`)} d={ellipsePath(rx, rx * RING_FLATTEN, i % 2 === 1)} />
@@ -781,7 +787,8 @@ export default function KochiTechPlatform({ label }: { label: string }) {
       onPointerMove={onPointerMove}
       onPointerEnter={onPointerEnter}
       onPointerLeave={onPointerLeave}
-      className={`${styles.root} relative aspect-square`}
+      className={`${styles.root} relative`}
+      style={{ aspectRatio: `1000 / ${ART_H}` }}
     >
       <div className={styles.stage}>
         {/* Background and orbits: slide against the pointer; orbits step back while open */}
@@ -796,7 +803,7 @@ export default function KochiTechPlatform({ label }: { label: string }) {
         <motion.div className={`${styles.layer} ${styles.core}`} style={{ x: platX, y: platY, rotateX: tiltX, rotateY: tiltY }}>
           <div className={`${styles.layer} ${styles.enterStack}`}>
             <div className={`${styles.layer} ${styles.float}`}>
-              <svg viewBox="0 0 1000 1000" className={styles.layer} aria-hidden="true">
+              <svg viewBox={VIEW_BOX} className={styles.layer} aria-hidden="true">
                 <defs>
                   <linearGradient id={id('brand')} x1="0" x2="1" y1="0" y2="0">
                     <stop offset="0" stopColor="#0753F6" />
@@ -897,7 +904,7 @@ export default function KochiTechPlatform({ label }: { label: string }) {
               </svg>
 
               {/* Connectors: from each plate's moving corner to its card's moving node */}
-              <svg viewBox="0 0 1000 1000" className={`${styles.layer} ${styles.connectors}`} aria-hidden="true" data-smil="beads">
+              <svg viewBox={VIEW_BOX} className={`${styles.layer} ${styles.connectors}`} aria-hidden="true" data-smil="beads">
                 {SERVICES.map((s, i) => {
                   const r = REST.services[i];
                   const finalY = openCornerY(s.plate);
@@ -924,7 +931,7 @@ export default function KochiTechPlatform({ label }: { label: string }) {
                   <li
                     key={s.id}
                     className={styles.cardSlot}
-                    style={{ top: `${openCornerY(s.plate) / 10}%`, left: `${s.side === 'left' ? CARD.edge : 100 - CARD.edge - CARD.width}%`, width: `${CARD.width}%` }}
+                    style={{ top: `${fmt(yPct(openCornerY(s.plate)))}%`, left: `${s.side === 'left' ? CARD.edge : 100 - CARD.edge - CARD.width}%`, width: `${CARD.width}%` }}
                   >
                     <div
                       ref={setAt(cardRefs, i)}
@@ -972,7 +979,7 @@ export default function KochiTechPlatform({ label }: { label: string }) {
 
         <p className={styles.caption}>
           <Rocket className={styles.captionIcon} strokeWidth={1.8} aria-hidden="true" />
-          Powering Businesses with Smart Technology Solutions
+          Strategy, Design, Engineering &amp; Ongoing Support
         </p>
       </div>
     </div>

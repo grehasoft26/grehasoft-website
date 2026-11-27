@@ -59,6 +59,16 @@
   }
 }
 
+/* Wide screens: the heading group is 100vw − 4rem wide (max 1640px), and the H1 measures ~29.5em on one
+   line, so dividing that width by 30 fits it on one line with a small margin: 52px at 1920px (capped),
+   ~51px at 1600px, ~48px at 1500px. Narrower screens keep 52px on two balanced lines rather than
+   shrinking further. */
+@media (min-width: 1500px) {
+  .title {
+    font-size: min(3.25rem, calc((100vw - 4rem) / 30));
+  }
+}
+
 .gradientText {
   /* One brand gradient over the whole heading: navy → blue → green. The text is an inline span, and
      box-decoration-break: clone gives every wrapped line the full gradient (not a slice of one long strip). */
