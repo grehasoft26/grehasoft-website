@@ -92,6 +92,7 @@ MousePointerClick,
  
 
 } from 'lucide-react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -246,7 +247,7 @@ if (!data?.services_section_title) return null;
           )}
 
           {data?.services_section_title && (
-            <h2 className="text-4xl font-black text-dark mb-6">
+            <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
               {data.services_section_title}
             </h2>
           )}

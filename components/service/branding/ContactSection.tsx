@@ -11,6 +11,7 @@ import {
   Layers,
   ArrowRight,
 } from 'lucide-react';
+import { SERVICE_NARROW_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -52,7 +53,7 @@ export default function ContactSection({ acf }: Props) {
 
             )}
 
-            <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
+            <h2 className={`${SERVICE_NARROW_H2_CLASS} font-black text-white leading-tight`}>
 
               {contact.contact_title}
 

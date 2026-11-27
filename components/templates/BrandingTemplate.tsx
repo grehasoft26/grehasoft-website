@@ -35,6 +35,7 @@ export default function BrandingTemplate({
       <PageHeader
         title={acf.page_title || service.title?.rendered}
         description={acf.page_desc}
+        titleSize="service"
         breadcrumb={[
           {
             name: service.title?.rendered,

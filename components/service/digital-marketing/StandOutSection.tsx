@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { CheckCircle2 } from 'lucide-react';
+import { SERVICE_NARROW_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -29,7 +30,7 @@ if (!data?.expert_left_title) return null;
           >
 
             {data?.expert_left_title && (
-               <h2 className="text-3xl md:text-4xl font-black text-white mb-8 leading-tight">
+               <h2 className={`${SERVICE_NARROW_H2_CLASS} font-black text-white mb-8 leading-tight`}>
                 {data.expert_left_title}
               </h2>
             )}

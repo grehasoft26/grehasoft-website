@@ -1,6 +1,7 @@
 import { getLogoGallery } from "@/lib/api";
 import { Sparkles } from "lucide-react";
 import LogoSliderClient from "./LogoSliderClient";
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 export default async function LogoGallery() {
   const logos = await getLogoGallery();
@@ -21,7 +22,7 @@ export default async function LogoGallery() {
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-dark mb-4">
+          <h2 className={`${SERVICE_H2_CLASS} font-bold text-dark mb-4 leading-tight`}>
             Logos We've Designed for <span className="text-primary">Growing Brands</span>
           </h2>
           <p className="text-gray-600 text-base md:text-lg">

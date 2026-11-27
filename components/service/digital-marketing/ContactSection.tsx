@@ -13,6 +13,7 @@ import {
   CheckCircle,
   Camera,
 } from 'lucide-react';
+import { SERVICE_NARROW_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -68,7 +69,7 @@ if (!contact.contact_title) return null;
                 </span>
               )}
 
-              <h2 className="text-4xl md:text-5xl font-black text-white mb-8 leading-tight">
+              <h2 className={`${SERVICE_NARROW_H2_CLASS} font-black text-white mb-8 leading-tight`}>
 
                 {contact?.contact_title}
 

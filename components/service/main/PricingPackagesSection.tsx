@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { toInternalHref } from '@/lib/internal-href';
 import { Check } from 'lucide-react';
 import { motion } from 'motion/react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
 acf: any;
@@ -107,7 +108,7 @@ return ( <section
         </span>
       )}
 
-      <h2 className="text-4xl font-black text-dark mb-6">
+      <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
         {data.section_title}
       </h2>
 

@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import { Sparkles, Layers } from 'lucide-react';
 import Image from 'next/image';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -32,7 +33,7 @@ export default function IntroSection({
             )}
 
             {/* h2: the page's h1 is the PageHeader title above this section. */}
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-dark mb-8 leading-tight">
+            <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-8 leading-tight`}>
 
               {intro.hero_title}
 

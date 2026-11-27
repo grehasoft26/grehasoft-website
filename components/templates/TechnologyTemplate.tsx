@@ -40,6 +40,7 @@ export default function DigitalMarketingTemplate({
      <PageHeader
   title={acf.page_title || service.title?.rendered}
   description={acf.page_desc}
+  titleSize="service"
   breadcrumb={[
   
     {

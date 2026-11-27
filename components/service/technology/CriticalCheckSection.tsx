@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -66,7 +67,7 @@ export default function CriticalCheckSection({ acf }: Props) {
           )}
 
           {data?.signs_title && (
-            <h2 className="text-4xl font-black text-dark mb-6">
+            <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
               {data.signs_title}
             </h2>
           )}

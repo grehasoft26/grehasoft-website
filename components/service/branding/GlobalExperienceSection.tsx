@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -58,7 +59,7 @@ export default function GlobalExperienceSection({ acf }: Props) {
 
             )}
 
-            <h2 className="text-3xl md:text-4xl font-extrabold text-dark mt-4 mb-6">
+            <h2 className={`${SERVICE_H2_CLASS} font-extrabold text-dark mt-4 mb-6 leading-tight`}>
               {data.section_title}
             </h2>
 

@@ -46,6 +46,7 @@ import {
   Building2,
   Wrench,
 } from 'lucide-react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -167,7 +168,7 @@ export default function ServicesSection({ acf }: Props) {
             </span>
           )}
 
-          <h2 className="text-4xl font-bold text-dark mb-6">
+          <h2 className={`${SERVICE_H2_CLASS} font-bold text-dark mb-6 leading-tight`}>
             {data.section_title}{' '}
 
             {data?.highlight_title && (

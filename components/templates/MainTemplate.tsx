@@ -44,6 +44,7 @@ export default function MainTemplate({
      <PageHeader
   title={acf.page_title || service.title?.rendered}
   description={acf.page_desc}
+  titleSize="service"
   breadcrumb={[
   
     {

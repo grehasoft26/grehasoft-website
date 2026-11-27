@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -53,7 +54,7 @@ if (!localData?.local_title) return null;
             )}
 
             {localData?.local_title && (
-              <h2 className="text-4xl font-black text-dark mb-6 leading-tight">
+              <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
                 {localData.local_title}
               </h2>
             )}
@@ -107,7 +108,7 @@ if (!localData?.local_title) return null;
 
             {localData?.local_right_title
  && (
-              <h2 className="text-4xl font-black text-dark mb-6 leading-tight">
+              <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
                 {localData.local_right_title}
               </h2>
             )}

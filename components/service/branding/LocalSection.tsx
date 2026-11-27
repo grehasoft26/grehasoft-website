@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -66,7 +67,7 @@ export default function LocalSection({ acf }: Props) {
               </span>
             )}
 
-            <h2 className="text-4xl font-black text-dark mb-6 leading-tight">
+            <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
               {localData.local_title}
             </h2>
 
@@ -127,7 +128,7 @@ export default function LocalSection({ acf }: Props) {
               </span>
             )}
 
-            <h2 className="text-4xl font-black text-dark mb-6 leading-tight">
+            <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
               {localData.strategy_title}
             </h2>
 

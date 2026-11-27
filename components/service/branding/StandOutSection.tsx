@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import { CheckCircle2 } from 'lucide-react';
+import { SERVICE_NARROW_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -71,7 +72,7 @@ export default function StandOutSection({ acf }: Props) {
             className="bg-dark rounded-box-lg p-10 md:p-16 text-white"
           >
 
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-8 leading-tight">
+            <h2 className={`${SERVICE_NARROW_H2_CLASS} font-black text-white mb-8 leading-tight`}>
               {data.left_title}
             </h2>
 

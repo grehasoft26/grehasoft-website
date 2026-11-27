@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import { toInternalHref } from '@/lib/internal-href';
 import { MessageSquare, Rocket } from 'lucide-react';
+import { SERVICE_NARROW_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -48,7 +49,7 @@ export default function CtaSection({ acf }: Props) {
                 </div>
               )}
 
-              <h2 className="text-3xl md:text-5xl text-white leading-tight tracking-tight mb-8">
+              <h2 className={`${SERVICE_NARROW_H2_CLASS} text-white leading-tight tracking-tight mb-8`}>
                 {cta.heading}
 
                 {cta?.highlight_heading && (

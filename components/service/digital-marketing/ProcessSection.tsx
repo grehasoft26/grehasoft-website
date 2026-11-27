@@ -67,6 +67,7 @@ import {
 } from 'lucide-react';
 
 import { motion } from 'motion/react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -195,7 +196,7 @@ if (!processData?.process_title) return null;
           )}
 
           {processData?.process_title && (
-            <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
+            <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
               {processData.process_title}
             </h2>
           )}

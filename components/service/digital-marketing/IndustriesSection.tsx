@@ -60,6 +60,7 @@ import {
  
 
 } from 'lucide-react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -169,7 +170,7 @@ if (!industry?.industry_title) return null;
           )}
 
           {industry?.industry_title && (
-            <h2 className="text-4xl font-black text-dark mb-6">
+            <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
               {industry.industry_title}
             </h2>
           )}

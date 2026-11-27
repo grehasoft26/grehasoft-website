@@ -1,6 +1,7 @@
 'use client';
 
 import { ChevronDown } from 'lucide-react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -79,7 +80,7 @@ if (!faq?.faq_title) return null;
             )}
 
             {faq?.faq_title && (
-              <h2 className="text-4xl font-black text-dark mb-6 leading-tight">
+              <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
                 {faq.faq_title}
               </h2>
             )}

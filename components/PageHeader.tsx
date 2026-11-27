@@ -15,7 +15,17 @@ interface PageHeaderProps {
   titleTag?: 'h1' | 'p';
   /** BreadcrumbList JSON-LD for the visible breadcrumb; off when the names are not final in server HTML. */
   breadcrumbSchema?: boolean;
+  /**
+   * 'service': the service detail page scale (36px mobile, 48px from 768px, 52px from 1024px), used by
+   * the WordPress service templates. Omitted, the title keeps the default site-wide size.
+   */
+  titleSize?: 'default' | 'service';
 }
+
+const TITLE_SIZE = {
+  default: 'text-5xl md:text-6xl lg:text-[3.5rem]',
+  service: 'text-4xl md:text-5xl lg:text-[3.25rem]',
+} as const;
 
 export default function PageHeader({
   title,
@@ -23,6 +33,7 @@ export default function PageHeader({
   breadcrumb,
   titleTag: TitleTag = 'h1',
   breadcrumbSchema = true,
+  titleSize = 'default',
 }: PageHeaderProps) {
   const pathname = usePathname();
 
@@ -68,7 +79,7 @@ export default function PageHeader({
             ))}
           </nav>
 
-          <TitleTag className="text-5xl md:text-6xl lg:text-[3.5rem] font-bold text-white mb-6 leading-tight text-balance">
+          <TitleTag className={`${TITLE_SIZE[titleSize]} font-bold text-white mb-6 leading-tight text-balance`}>
             {title}
           </TitleTag>
           <p className="max-w-3xl text-xl text-white/70 leading-relaxed">

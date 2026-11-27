@@ -102,6 +102,7 @@ MousePointerClick,
  
   
 } from 'lucide-react';
+import { SERVICE_H2_CLASS } from '@/components/service/headingStyles';
 
 interface Props {
   acf: any;
@@ -247,7 +248,7 @@ export default function ServicesGrid({ acf }: Props) {
             </span>
           )}
 
-          <h2 className="text-4xl md:text-5xl font-black text-dark mb-6 leading-tight">
+          <h2 className={`${SERVICE_H2_CLASS} font-black text-dark mb-6 leading-tight`}>
             {data.services_section_title}
           </h2>
 
