@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Play,
@@ -74,24 +75,28 @@ export default function Awards({
   if (variant === 'home') {
     return (
       <>
-        <section className="section-padding bg-gray-50">
-          <div className="container-custom">
+        {/* Own padding instead of the shared .section-padding: a shorter top (48px desktop, 40px phones), same bottom.
+            From 1440px the content column widens to 1376px (64px from the edges at 1440) so the cards use more of
+            the screen; narrower screens keep the standard container. */}
+        <section className="bg-gray-50 pt-10 pb-12 md:pt-12 md:pb-16">
+          <div className="container-custom min-[1440px]:max-w-[1376px]">
 
-            {/* HEADER */}
-            <div className="mb-16 text-center">
+            {/* HEADER: homepage copy. The Home ACF section_tag / section_title / highlight_text fields keep
+                driving the /awards-and-recognitions page; the award cards below stay data-driven. */}
+            <div className="mb-10 text-center md:mb-12">
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="mb-4 flex justify-center"
               >
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
-                  <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+                <p className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full">
+                  <Sparkles className="w-4 h-4 text-primary animate-pulse" aria-hidden="true" />
 
                   <span className="text-xs font-bold text-accent uppercase tracking-widest">
-                    {data.section_tag}
+                    Recognition
                   </span>
-                </div>
+                </p>
               </motion.div>
 
               <motion.h2
@@ -100,10 +105,18 @@ export default function Awards({
                 viewport={{ once: true }}
                 className="w-full text-center text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-semibold tracking-[-0.032em] leading-tight text-balance text-dark"
               >
-                <span className={styles.gradientText}>
-                  {[data.section_title, data.highlight_text].filter(Boolean).join(' ')}
-                </span>
+                <span className={styles.gradientText}>Awards &amp; Recognition</span>
               </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-balance text-text-gray md:text-[17px]"
+              >
+                Grehasoft&apos;s work and business journey have received recognition through awards and industry features. Explore selected recognitions and achievements below
+              </motion.p>
             </div>
 
             {/* CARDS */}
@@ -162,6 +175,14 @@ export default function Awards({
                   </motion.div>
                 );
               })}
+            </div>
+
+            {/* CTA to the dedicated Awards & Recognition page */}
+            <div className="mt-10 flex justify-center md:mt-12">
+              <Link href="/awards-and-recognitions" className="btn-primary gap-2">
+                View Recognition
+                <ArrowRight className="w-[18px] h-[18px]" aria-hidden="true" />
+              </Link>
             </div>
           </div>
         </section>
