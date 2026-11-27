@@ -1,0 +1,46 @@
+/* Motion for the Google Business Profile hero illustration only. Everything stops for reduced motion. */
+
+/* Gentle drift on the floating cards. Desktop only: on tablet the cards sit in the normal flow. */
+@media (min-width: 1024px) {
+  .float {
+    animation: gbp-float 8s ease-in-out infinite;
+  }
+
+  .floatDelayed {
+    animation: gbp-float 9s ease-in-out -3.5s infinite;
+  }
+}
+
+@keyframes gbp-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Slow ring that expands from the map pin. */
+.pulse {
+  animation: gbp-pulse 3.2s ease-out infinite;
+}
+
+@keyframes gbp-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float,
+  .floatDelayed,
+  .pulse {
+    animation: none;
+  }
+}

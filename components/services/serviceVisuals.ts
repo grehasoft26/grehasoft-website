@@ -23,6 +23,7 @@ import {
   LayoutDashboard,
   LayoutTemplate,
   Magnet,
+  MapPin,
   Megaphone,
   MessageCircle,
   MonitorSmartphone,
@@ -80,6 +81,7 @@ const SERVICE_ICONS: Record<string, LucideIcon> = {
   '/twitter': MessageCircle,
   '/lead-generation-services': Magnet,
   '/ai-marketing-service-agency': Sparkles,
+  '/google-business-profile': MapPin,
   // Branding & Visual Design
   '/graphic-design': Shapes,
   '/logo-design': Gem,

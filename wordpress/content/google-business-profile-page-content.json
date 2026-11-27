@@ -1,0 +1,354 @@
+{
+  "acf": {
+    "hero": {
+      "title": "Google Business Profile Optimization in Kochi, Kerala",
+      "title_accent": "Kochi, Kerala",
+      "lead": "Help local customers discover your business, understand your services and find accurate business information on Google Search and Maps.",
+      "primary_cta": {
+        "label": "Get a Google Business Profile Audit",
+        "href": "#enquiry-form"
+      },
+      "secondary_cta": {
+        "label": "Explore Our Services",
+        "href": "/services"
+      },
+      "phone": {
+        "label": "Contact now",
+        "href": "tel:+918921540183"
+      },
+      "whatsapp": {
+        "label": "Chat on WhatsApp",
+        "href": "https://wa.me/918921540183?text=Hi!%20I%20would%20like%20a%20Google%20Business%20Profile%20audit%20for%20my%20business."
+      },
+      "visual_labels": "Calls\nWebsite clicks\nDirection requests"
+    },
+    "visibility": {
+      "eyebrow": "LOCAL VISIBILITY SOLUTIONS",
+      "title": "Google Business Profile Management Services in Kochi",
+      "paragraph_1": "Grehasoft provides Google Business Profile optimization in Kochi for eligible businesses that want accurate profile information and a clearer presence in relevant Google Search and Maps results. Our services include profile audits, business category and service optimization, business information updates, photo and post planning, customer review response guidance and performance monitoring.",
+      "paragraph_2": "Based in Kochi, Kerala, Grehasoft supports businesses throughout Kerala, across India and in international markets. We tailor our work to the business's actual locations, services, customers and objectives, focusing on accurate information, useful profile content and policy-compliant management.",
+      "paragraph_3": "A well-maintained Google Business Profile helps potential customers understand what a business offers and how to contact or visit it. Our approach focuses on appropriate profile improvements and meaningful performance measurements, rather than promises of a specific ranking or number of leads."
+    },
+    "services": {
+      "eyebrow": "PROFILE OPTIMIZATION SERVICES",
+      "title": "What's Included in Our Google Business Profile Optimization Service?",
+      "intro": "Our Google Business Profile management service focuses on the information and features that help customers understand and interact with a business. We first assess the existing profile, then prioritize improvements based on its condition, the business's operating model and its objectives.",
+      "item_1": {
+        "icon": "clipboard-check",
+        "title": "Google Business Profile Audit",
+        "description": "We review your existing profile to identify incomplete information, inaccurate details, category mismatches, duplicate-listing concerns and opportunities to improve the customer experience. The findings help establish a baseline and prioritize appropriate next steps."
+      },
+      "item_2": {
+        "icon": "shield-check",
+        "title": "Profile Setup and Verification Guidance",
+        "description": "For eligible businesses, we provide guidance on profile setup, required business information and Google's verification process. Verification and reinstatement decisions remain with Google, so these outcomes cannot be guaranteed."
+      },
+      "item_3": {
+        "icon": "tags",
+        "title": "Business Categories and Service Optimization",
+        "description": "We review your primary and relevant additional categories, along with the services or products represented on the profile. Recommendations reflect what the business genuinely offers instead of unrelated categories or repetitive keywords."
+      },
+      "item_4": {
+        "icon": "map-pin",
+        "title": "Business Information and Location Accuracy",
+        "description": "We help maintain accurate contact details, opening hours, website links, addresses or service areas, and relevant profile attributes. Changes should reflect the business's real-world identity and current operating arrangements."
+      },
+      "item_5": {
+        "icon": "images",
+        "title": "Business Description, Photos and Profile Updates",
+        "description": "We help present your services, experience and business information through clear descriptions, suitable photos and available profile updates. The aim is to communicate useful information to customers rather than repeat keywords unnecessarily."
+      },
+      "item_6": {
+        "icon": "message-text",
+        "title": "Customer Review Response Guidance",
+        "description": "We help businesses develop a consistent, professional approach to responding to customer reviews. Responses should be relevant and genuine, and review-management activities must comply with Google's policies. We do not promote fake reviews or offer incentives in exchange for reviews."
+      },
+      "item_7": {
+        "icon": "chart-line",
+        "title": "Profile Performance Monitoring",
+        "description": "Where available, we review profile performance data such as calls, website clicks, direction requests and other reported interactions. These indicators help businesses understand customer engagement and identify possible improvements."
+      },
+      "item_8": {
+        "icon": "building",
+        "title": "Multi-Location Profile Management",
+        "description": "For eligible businesses with multiple genuine locations, we help maintain accurate information and consistent management processes across their profiles. Each location must independently satisfy Google's applicable eligibility requirements."
+      },
+      "item_9": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "item_10": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "item_11": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "item_12": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      }
+    },
+    "process": {
+      "eyebrow": "OUR OPTIMIZATION PROCESS",
+      "title": "Our Google Business Profile Optimization Process",
+      "intro": "Every business has different customers, locations and profile requirements. Grehasoft follows a structured process to identify useful improvements, implement agreed changes and review performance over time.",
+      "step_1": {
+        "title": "Step 1 — Review Your Existing Profile",
+        "description": "We assess your current profile, business information, categories, status and available performance data to understand its starting condition."
+      },
+      "step_2": {
+        "title": "Step 2 — Identify Priority Improvements",
+        "description": "We prepare an optimization plan based on your services, eligible locations, target customers, existing profile condition and business objectives."
+      },
+      "step_3": {
+        "title": "Step 3 — Implement the Agreed Changes",
+        "description": "We work on approved profile details, categories, services, photos and other relevant features available to your business."
+      },
+      "step_4": {
+        "title": "Step 4 — Monitor and Refine",
+        "description": "We review available performance data and recommend relevant next steps. Reporting is based on the agreed scope of work and the data available, rather than rankings alone."
+      },
+      "step_5": {
+        "title": "",
+        "description": ""
+      },
+      "step_6": {
+        "title": "",
+        "description": ""
+      },
+      "step_7": {
+        "title": "",
+        "description": ""
+      },
+      "step_8": {
+        "title": "",
+        "description": ""
+      }
+    },
+    "eligible": {
+      "eyebrow": "SUPPORT FOR ELIGIBLE LOCAL BUSINESSES",
+      "title": "Who Can Benefit from Google Business Profile Management?",
+      "intro": "Google Business Profile management can help eligible businesses maintain useful information for people searching for their services locally. The right approach depends on the business category, operating location and customer service model.",
+      "item_1": {
+        "icon": "store",
+        "title": "Retail Shops and Local Stores",
+        "description": "Maintain accurate store information, opening hours, photographs and relevant profile details so customers can understand what the business offers."
+      },
+      "item_2": {
+        "icon": "stethoscope",
+        "title": "Healthcare and Professional Services",
+        "description": "Present accurate information about services, opening hours, contact details and other relevant business information."
+      },
+      "item_3": {
+        "icon": "utensils",
+        "title": "Restaurants and Hospitality Businesses",
+        "description": "Keep available customer-facing information up to date and use relevant profile features to communicate the business offering."
+      },
+      "item_4": {
+        "icon": "house",
+        "title": "Home Services and Real Estate Businesses",
+        "description": "Improve profile accuracy and service information for eligible businesses operating at a qualifying location or through an eligible service-area model."
+      },
+      "item_5": {
+        "icon": "graduation-cap",
+        "title": "Educational Institutions and Other Local Businesses",
+        "description": "Help prospective customers find relevant information, understand available services and take the next step."
+      },
+      "item_6": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "item_7": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "item_8": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "item_9": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "item_10": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      }
+    },
+    "why_choose": {
+      "eyebrow": "EXPERIENCE-LED DIGITAL SERVICES",
+      "title": "Why Choose Grehasoft for Google Business Profile Optimization in Kerala?",
+      "intro": "Grehasoft brings experience across IT and digital services to help businesses improve how they present their information online. Our approach combines careful profile review, practical implementation and performance monitoring, with recommendations tailored to each business.",
+      "point_1": {
+        "icon": "award",
+        "title": "10+ Years of Industry Experience",
+        "description": "Grehasoft has more than 10 years of experience across IT and digital services. This broader industry experience informs our approach to your digital presence."
+      },
+      "point_2": {
+        "icon": "route",
+        "title": "A Strategy Based on Your Business",
+        "description": "We assess your profile, services, eligible locations and business objectives before recommending improvements. The goal is to prioritize work that is appropriate to your circumstances."
+      },
+      "point_3": {
+        "icon": "eye",
+        "title": "Transparent Implementation and Reporting",
+        "description": "We explain the agreed work, communicate relevant changes and use available performance data to guide further recommendations."
+      },
+      "point_4": {
+        "icon": "handshake",
+        "title": "Responsible Profile Management",
+        "description": "We focus on accurate business information, relevant categories and authentic customer feedback. Your business should retain ownership of its profile and grant the appropriate access required for management."
+      },
+      "point_5": {
+        "icon": "globe",
+        "title": "Connected Website and Local Search Experience",
+        "description": "Our broader digital services experience enables us to consider how your profile, website and customer contact routes work together. Where broader organic search improvements are needed, we can recommend complementary SEO services."
+      },
+      "point_6": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "point_7": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      },
+      "point_8": {
+        "icon": null,
+        "title": "",
+        "description": ""
+      }
+    },
+    "seo_strategy": {
+      "eyebrow": "CONNECTED DIGITAL STRATEGY",
+      "title": "Combine Profile Optimization with a Broader SEO Strategy",
+      "paragraph_1": "Google Business Profile optimization and website SEO serve related but distinct purposes. Profile optimization focuses on the accuracy and usefulness of the business listing, while website SEO covers technical improvements, page content, internal linking and wider organic search visibility.",
+      "paragraph_2": "If your business needs support with both, Grehasoft can help you understand how the services complement one another.",
+      "paragraph_3": "Explore our [SEO services in Kochi](/seo) for broader organic search support, or [contact Grehasoft](#enquiry-form) to discuss your Google Business Profile requirements.",
+      "paragraph_4": ""
+    },
+    "faq": {
+      "title": "Frequently Asked Questions About Google Business Profile Optimization",
+      "item_1": {
+        "question": "What is Google Business Profile optimization?",
+        "answer": "Google Business Profile optimization involves improving the accuracy, completeness and usefulness of a business's listing on Google. It can include business information, categories, services, photos, updates, review response guidance and performance monitoring."
+      },
+      "item_2": {
+        "question": "Is Google My Business the same as Google Business Profile?",
+        "answer": "Yes. Google My Business was the previous name for Google Business Profile. Some business owners still use “Google My Business” or “GMB” when searching for profile optimization and management services, although Google Business Profile is the current name."
+      },
+      "item_3": {
+        "question": "Does Google Business Profile optimization improve local rankings?",
+        "answer": "It can help Google and potential customers understand a business and its relevance to a search. Local results are also influenced by distance and prominence, so profile optimization cannot guarantee a particular position on Google Maps."
+      },
+      "item_4": {
+        "question": "Can Grehasoft manage Google Business Profiles outside Kochi?",
+        "answer": "Yes. Grehasoft is based in Kochi and can work remotely with eligible businesses across Kerala, India and international markets, subject to Google's applicable profile requirements."
+      },
+      "item_5": {
+        "question": "Can Grehasoft guarantee the first position on Google Maps?",
+        "answer": "No. Google does not provide a way to request or pay for a better organic local ranking. Results depend on factors including relevance, distance, prominence and competition. Our focus is on appropriate profile improvements and performance monitoring."
+      },
+      "item_6": {
+        "question": "How long does Google Business Profile optimization take to show results?",
+        "answer": "There is no guaranteed timeline. The time needed to see meaningful changes depends on the initial profile condition, the work undertaken, competition and Google's processing of updates. We recommend establishing a baseline and reviewing available performance data over time."
+      },
+      "item_7": {
+        "question": "Is Google Business Profile optimization different from Local SEO?",
+        "answer": "Yes. Business Profile optimization focuses on the Google listing itself. Local SEO is broader and may include website content, technical SEO, internal linking, local relevance and other organic search activities. Profile optimization can be one part of a wider Local SEO strategy."
+      },
+      "item_8": {
+        "question": "Can Grehasoft help with verification or profile suspension issues?",
+        "answer": "We can review the available information, identify possible issues and guide you through relevant official procedures where appropriate. Google makes the final decisions on verification, reinstatement and policy enforcement, so no outcome can be guaranteed."
+      },
+      "item_9": {
+        "question": "",
+        "answer": ""
+      },
+      "item_10": {
+        "question": "",
+        "answer": ""
+      },
+      "item_11": {
+        "question": "",
+        "answer": ""
+      },
+      "item_12": {
+        "question": "",
+        "answer": ""
+      },
+      "item_13": {
+        "question": "",
+        "answer": ""
+      },
+      "item_14": {
+        "question": "",
+        "answer": ""
+      },
+      "item_15": {
+        "question": "",
+        "answer": ""
+      }
+    },
+    "enquiry": {
+      "eyebrow": "TAKE THE NEXT STEP",
+      "title": "Let's Review Your Google Business Profile",
+      "paragraph_1": "Want customers to find accurate information about your business when they search locally? Grehasoft can review your current profile, identify relevant opportunities and recommend an optimization plan based on your services, locations and objectives.",
+      "paragraph_2": "From Kochi to businesses across Kerala, India and eligible international markets, our approach starts with understanding your business and the customers you want to reach.",
+      "primary_cta": {
+        "label": "Get a Google Business Profile Audit",
+        "href": "#enquiry-form"
+      },
+      "secondary_cta": {
+        "label": "Explore Our Services",
+        "href": "/services"
+      }
+    },
+    "seo": {
+      "title": "Google Business Profile Optimization Services in Kochi | Grehasoft",
+      "description": "Need Google Business Profile optimization in Kochi? Grehasoft manages profile details and services and guides review responses to support local visibility across Kerala, India and beyond.",
+      "breadcrumb_label": "Google Business Profile",
+      "service": {
+        "name": "Google Business Profile Optimization in Kochi",
+        "service_type": "Google Business Profile Optimization and Management",
+        "description": "Grehasoft provides Google Business Profile optimization and management for eligible businesses, including profile audits, business information updates, category and service optimization, profile updates, review response guidance and performance monitoring.",
+        "area_1": {
+          "type": "City",
+          "name": "Kochi"
+        },
+        "area_2": {
+          "type": "AdministrativeArea",
+          "name": "Kerala"
+        },
+        "area_3": {
+          "type": "Country",
+          "name": "India"
+        },
+        "area_4": {
+          "type": "Text",
+          "name": "International markets"
+        },
+        "area_5": {
+          "type": null,
+          "name": ""
+        },
+        "area_6": {
+          "type": null,
+          "name": ""
+        }
+      }
+    }
+  }
+}

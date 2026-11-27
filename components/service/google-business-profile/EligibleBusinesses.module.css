@@ -1,0 +1,77 @@
+/*
+ * Motion for the "Who Can Benefit" roadmap section only.
+ * Content is visible by default: the hidden starting state applies only after JavaScript marks the
+ * section as animatable ([data-reveal="pending"]), so without JavaScript nothing is ever hidden.
+ */
+
+/* Entrance: heading block, roadmap and cards fade up; cards are staggered by --i. */
+.reveal {
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+[data-reveal='pending'] .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+/* The roadmap draws in from the start pin to the end pin. */
+.road {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+[data-reveal='pending'] .road {
+  stroke-dashoffset: 1;
+}
+
+/* Slow flow along the dashed centre line of the road. */
+.flow {
+  animation: gbp-road-flow 3s linear infinite;
+}
+
+@keyframes gbp-road-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+/* Gentle pulse on the start and end pins. */
+.pinPulse {
+  animation: gbp-pin-pulse 2.8s ease-out infinite;
+}
+
+@keyframes gbp-pin-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .road {
+    transition: none;
+  }
+
+  [data-reveal='pending'] .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal='pending'] .road {
+    stroke-dashoffset: 0;
+  }
+
+  .flow,
+  .pinPulse {
+    animation: none;
+  }
+}

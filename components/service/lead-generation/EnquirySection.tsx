@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import type { LeadGenerationContent } from '@/types/lead-generation';
+import type { FlexibleEnquiryContent } from '@/types/lead-generation';
 import EnquiryForm from './EnquiryForm';
 import SectionHeading from './SectionHeading';
 
 interface Props {
-  enquiry: LeadGenerationContent['enquiry'];
+  enquiry: FlexibleEnquiryContent;
 }
 
 export default function EnquirySection({ enquiry }: Props) {

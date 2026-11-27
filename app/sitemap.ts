@@ -21,6 +21,7 @@ const STATIC_PATHS = [
   '/services',
   '/lead-generation-services',
   '/ai-marketing-service-agency',
+  '/google-business-profile',
   '/portfolio',
   '/products',
   '/products/pms',

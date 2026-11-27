@@ -114,6 +114,7 @@ const sitemapData = [
       { name: 'Comprehensive SEO Services', href: '/seo' },
       { name: 'Lead Generation Services', href: '/lead-generation-services' },
       { name: 'AI Marketing Services', href: '/ai-marketing-service-agency' },
+      { name: 'Google Business Profile Optimization', href: '/google-business-profile' },
       { name: 'SEM & High-ROI Google Ads', href: '/search-engine-marketing' },
       { name: 'Digital Marketing Hub', href: '/digital-marketing' },
       { name: 'Social Media Management', href: '/social-media-marketing' },

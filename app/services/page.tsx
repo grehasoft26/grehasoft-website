@@ -75,6 +75,7 @@ const serviceCategories = [
       { name: "Twitter (X) Marketing", desc: "Real-time industry comments, viral threads, and interactive brand conversations designed to engage power users.", href: "/twitter" },
       { name: "Lead Generation Services", desc: "Attract and convert qualified prospects with targeted campaigns, optimized landing funnels, and lead nurturing that fills your sales pipeline.", href: "/lead-generation-services" },
       { name: "AI Marketing Services", desc: "Harness AI-driven audience insights, predictive targeting, and automated campaign optimization to scale results with less guesswork.", href: "/ai-marketing-service-agency" },
+      { name: "Google Business Profile Optimization", desc: "Keep your business information accurate and useful on Google Search and Maps with profile audits, category and service optimization, review response guidance and performance monitoring.", href: "/google-business-profile" },
     ]
   },
   {

@@ -107,6 +107,27 @@ export interface EnquiryFormContent {
   sourceLabel: string;
 }
 
+/**
+ * The enquiry form's content when Market and Goal are not asked (e.g. the Google Business Profile
+ * page). EnquiryFormContent is assignable to it, so existing pages are unaffected.
+ */
+export type FlexibleEnquiryFormContent = Omit<EnquiryFormContent, 'market' | 'goal'> & {
+  market?: SelectField;
+  goal?: SelectField;
+};
+
+/** The enquiry section's content with the flexible form (LeadGenerationContent['enquiry'] is assignable). */
+export interface FlexibleEnquiryContent {
+  id: string;
+  formId: string;
+  eyebrow: string;
+  title: string;
+  paragraphs: string[];
+  primaryCta: CtaLink;
+  secondaryCta: CtaLink;
+  form: FlexibleEnquiryFormContent;
+}
+
 export interface LeadGenerationContent {
   seo: {
     title: string;

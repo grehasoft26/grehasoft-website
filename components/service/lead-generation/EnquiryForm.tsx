@@ -3,7 +3,7 @@
 import { useId, useRef, useState, type FormEvent } from 'react';
 import { CircleCheck, LoaderCircle } from 'lucide-react';
 import { submitContactForm } from '@/lib/backend-api';
-import type { EnquiryFormContent } from '@/types/lead-generation';
+import type { FlexibleEnquiryFormContent } from '@/types/lead-generation';
 import RichText from './RichText';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
@@ -40,7 +40,7 @@ const LABEL_CLASS = 'mb-2 block self-end text-sm font-semibold text-dark';
 // its neighbour, so controls line up even when one label wraps onto two lines.
 const FIELD_CLASS = 'row-span-3 grid grid-rows-subgrid gap-y-0';
 
-function validate(values: Values, messages: EnquiryFormContent['validation']): Errors {
+function validate(values: Values, messages: FlexibleEnquiryFormContent['validation']): Errors {
   const errors: Errors = {};
 
   if (!values.name.trim()) errors.name = messages.nameRequired;
@@ -56,7 +56,7 @@ function validate(values: Values, messages: EnquiryFormContent['validation']): E
 }
 
 interface Props {
-  content: EnquiryFormContent;
+  content: FlexibleEnquiryFormContent;
 }
 
 export default function EnquiryForm({ content }: Props) {
@@ -68,6 +68,8 @@ export default function EnquiryForm({ content }: Props) {
   const successRef = useRef<HTMLDivElement>(null);
 
   const fieldId = (name: keyof Values) => `${id}-${name}`;
+  const marketContent = content.market;
+  const goalContent = content.goal;
 
   function update(name: keyof Values, value: string) {
     setValues((current) => ({ ...current, [name]: value }));
@@ -100,8 +102,8 @@ export default function EnquiryForm({ content }: Props) {
     const notProvided = 'Not provided';
     const message = [
       `${content.company.label}: ${values.company.trim() || notProvided}`,
-      `${content.market.label}: ${values.market || notProvided}`,
-      `${content.goal.label}: ${values.goal || notProvided}`,
+      ...(content.market ? [`${content.market.label}: ${values.market || notProvided}`] : []),
+      ...(content.goal ? [`${content.goal.label}: ${values.goal || notProvided}`] : []),
       '',
       `${content.details.label}:`,
       values.details.trim() || notProvided,
@@ -116,7 +118,7 @@ export default function EnquiryForm({ content }: Props) {
         name: values.name.trim(),
         email: values.email.trim(),
         phone: values.phone.trim(),
-        subject: values.goal ? `${content.subjectPrefix}: ${values.goal}` : content.subjectPrefix,
+        subject: content.goal && values.goal ? `${content.subjectPrefix}: ${values.goal}` : content.subjectPrefix,
         message,
       });
       setStatus('success');
@@ -236,9 +238,10 @@ export default function EnquiryForm({ content }: Props) {
           {fieldError('email')}
         </div>
 
+        {marketContent ? (
         <div className={FIELD_CLASS}>
           <label htmlFor={fieldId('market')} className={LABEL_CLASS}>
-            {content.market.label}
+            {marketContent.label}
             {optional}
           </label>
           <select
@@ -248,18 +251,20 @@ export default function EnquiryForm({ content }: Props) {
             onChange={(e) => update('market', e.target.value)}
             className={INPUT_CLASS}
           >
-            <option value="">{content.market.placeholder}</option>
-            {content.market.options.map((option) => (
+            <option value="">{marketContent.placeholder}</option>
+            {marketContent.options.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))}
           </select>
         </div>
+        ) : null}
 
+        {goalContent ? (
         <div className={FIELD_CLASS}>
           <label htmlFor={fieldId('goal')} className={LABEL_CLASS}>
-            {content.goal.label}
+            {goalContent.label}
             {optional}
           </label>
           <select
@@ -269,14 +274,15 @@ export default function EnquiryForm({ content }: Props) {
             onChange={(e) => update('goal', e.target.value)}
             className={INPUT_CLASS}
           >
-            <option value="">{content.goal.placeholder}</option>
-            {content.goal.options.map((option) => (
+            <option value="">{goalContent.placeholder}</option>
+            {goalContent.options.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
             ))}
           </select>
         </div>
+        ) : null}
       </div>
 
       <div>

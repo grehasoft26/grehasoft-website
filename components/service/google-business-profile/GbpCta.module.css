@@ -1,0 +1,45 @@
+/*
+ * Motion for the GBP final CTA only: a one-time fade-up reveal, no continuous animation.
+ * Content is visible by default: the hidden starting state applies only while RevealOnView marks the
+ * section [data-reveal="pending"] (JavaScript running, section still below the fold, motion allowed).
+ * Only opacity and transform change, so nothing shifts the layout.
+ */
+
+/* Fade up, staggered by --i (eyebrow, heading, paragraphs, divider). */
+.fadeUp {
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 100ms);
+}
+
+[data-reveal='pending'] .fadeUp {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* Buttons: fade in with a slight scale-up. */
+.scaleIn {
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 100ms);
+}
+
+[data-reveal='pending'] .scaleIn {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeUp,
+  .scaleIn {
+    transition: none;
+  }
+
+  [data-reveal='pending'] .fadeUp,
+  [data-reveal='pending'] .scaleIn {
+    opacity: 1;
+    transform: none;
+  }
+}
