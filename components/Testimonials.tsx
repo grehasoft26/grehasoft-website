@@ -102,8 +102,8 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Complete Unclipped Review Text */}
-          <blockquote className="text-dark/90 text-base lg:text-lg leading-[1.55]">
+          {/* Complete Unclipped Review Text, on the homepage card body scale (15 / 16px) */}
+          <blockquote className="text-dark/90 text-[15px] sm:text-base leading-relaxed">
             &ldquo;{test.content}&rdquo;
           </blockquote>
         </div>
@@ -152,12 +152,12 @@ export default function Testimonials() {
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <div className="max-w-4xl mx-auto text-center mb-8 lg:mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
+          <p className="inline-flex items-center gap-2 px-3.5 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4">
+            <Sparkles aria-hidden="true" className="w-3.5 h-3.5 text-primary animate-pulse" />
             <span className="text-xs font-bold text-accent uppercase tracking-widest">
-              Empowering Partners Worldwide
+              Client Success Stories
             </span>
-          </div>
+          </p>
 
           <h2
             className="w-fit max-w-full mx-auto text-[1.75rem] md:text-4xl lg:text-[2.5rem] font-extrabold tracking-tight leading-[1.15] pb-1.5 mb-3 text-balance bg-clip-text text-transparent"
@@ -169,13 +169,11 @@ export default function Testimonials() {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            Client success stories that{' '}
-            <br className="hidden sm:block" />
-            inspire our growth
+            What Our Clients Say
           </h2>
 
           <p className="text-text-gray text-base md:text-[17px] max-w-3xl mx-auto leading-relaxed">
-            Discover how modern organizations scale operations, streamline workflows, and secure digital advantages leveraging Grehasoft&apos;s expert solutions.
+            Hear directly from businesses that have worked with Grehasoft across website development, <span className="whitespace-nowrap">e-commerce</span>, SEO, social media marketing and digital solutions.
           </p>
         </div>
 
