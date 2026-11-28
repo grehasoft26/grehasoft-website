@@ -69,16 +69,18 @@ function ServiceText({ acf }: { acf: any }) {
           text-sm sm:text-base
           font-medium
 
-          bg-primary
+          bg-gradient-to-r from-[#3B82F6] to-[#0753F6]
+          shadow-[0_10px_24px_-12px_rgba(7,83,246,0.6)]
 
           transition-all duration-300
 
-          hover:bg-green-600
+          hover:from-[#2563EB] hover:to-[#0644D0]
           hover:scale-105
-          hover:shadow-lg hover:shadow-blue-200
+          hover:shadow-[0_14px_28px_-12px_rgba(7,83,246,0.7)]
         "
       >
-        {acf?.button_text || "Get Started"} →
+        {/* Horizontal blue gradient (light #3B82F6 to deep #0753F6), deepening slightly on hover. */}
+        {acf?.button_text || "Get Started"}
       </a>
     </>
   );
