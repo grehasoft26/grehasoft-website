@@ -280,65 +280,54 @@ export default function Clients({
   }, [initialClients]);
 
   return (
-    <section className="py-24 md:py-32 bg-[#02025c] relative overflow-hidden">
+    <section className={`${variant === 'grid' ? 'py-12 md:py-16' : 'py-24 md:py-32'} bg-[#02025c] relative overflow-hidden`}>
       {/* Background Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/10 blur-[180px] rounded-full" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-green-500/10 blur-[180px] rounded-full" />
       </div>
 
-      <div className="container-custom relative z-10">
+      {/* Grid layout (/portfolio): a wider container (up to 1536px, same 16/24/32px side padding as container-custom)
+          so the logo panel uses more of the viewport; the carousel layout keeps container-custom. */}
+      <div className={`${variant === 'grid' ? 'mx-auto w-full max-w-[1536px] px-4 sm:px-6 lg:px-8' : 'container-custom'} relative z-10`}>
         {/* Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10 mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex-1"
-          >
-            {/* <div className="flex items-center gap-4 mb-5">
-              <div className="w-12 h-[1px] bg-accent" />
-
-              <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold">
-                Trusted By Industry Leaders
-              </span>
-            </div> */}
-             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
-              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-8 md:mb-10 flex flex-col items-center text-center"
+        >
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4 sm:mb-5">
+            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+            <span className="text-xs font-bold text-accent uppercase tracking-widest">
               Trusted By Industry Leaders
-              </span>
-            </div>
+            </span>
+          </div>
 
-           <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-[70px] font-black text-white leading-none tracking-[-4px]">
-  Clients
-</h2>
-          </motion.div>
+          {/* Heading */}
+          {/* Solid white heading (the brand gradient starts in navy, which disappears on this navy background). */}
+          <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-[70px] font-black leading-none tracking-[-4px] text-center text-white">
+            Clients
+          </h2>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-xl"
-          >
-            <p className="text-white/40 text-2xl md:text-3xl font-semibold leading-tight">
-              Our clients are everything to us; so are we to them.
-            </p>
+          {/* Supporting Text */}
+          <p className="mt-4 sm:mt-5 text-base sm:text-lg md:text-xl lg:text-2xl text-white/50 font-normal leading-relaxed max-w-2xl text-center mx-auto">
+            Our clients are everything to us; so are we to them.
+          </p>
 
-            <div className="flex gap-2 mt-5">
-              <div className="w-2 h-2 rounded-full bg-blue-500" />
-              <div className="w-2 h-2 rounded-full bg-green-400" />
-            </div>
-          </motion.div>
-        </div>
+          <div className="flex justify-center gap-2 mt-4 sm:mt-5">
+            <div className="w-2 h-2 rounded-full bg-blue-500" />
+            <div className="w-2 h-2 rounded-full bg-green-400" />
+          </div>
+        </motion.div>
 
         {variant === 'grid' ? (
           clients.length > 0 && (
           <>
             {/* LOGO GRID */}
-            <div className="bg-white rounded-box-lg p-4 sm:p-6 lg:p-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+            <div className="bg-white rounded-box-lg p-4 sm:p-6 lg:p-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 min-[90rem]:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
               {clients.slice(0, visibleCount).map((client, index) => {
                 const url = client.acf?.website_url;
                 const logo = (
