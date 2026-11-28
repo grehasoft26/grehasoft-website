@@ -158,29 +158,42 @@ export default async function ProductsPage() {
 
 
 {/* Business Software Grid */}
-<section className="section-padding bg-gray-50">
-  <div className="container-custom">
+{/* Section-specific spacing (48 / 56px instead of section-padding) and a wider container (up to 1536px, same
+    side padding as container-custom) so the cards get more horizontal space. */}
+<section className="py-12 md:py-14 bg-gray-50">
+  <div className="mx-auto w-full max-w-[1536px] px-4 sm:px-6 lg:px-8">
 
-    {/* TOP CONTENT */}
-    <div className="text-center max-w-3xl mx-auto mb-20">
+    {/* TOP CONTENT: no max-width on the wrapper so the heading can sit on one line on desktop; only the
+        description keeps a comfortable reading width. */}
+    <div className="text-center mx-auto mb-10 md:mb-12">
 
       <span className="text-accent font-bold uppercase tracking-[0.2em] text-xs mb-4 block">
         {software?.small_title}
       </span>
 
-      <h2 className="text-4xl md:text-5xl font-black mb-6 text-dark leading-tight">
-        {software?.title}{" "}
-        <span className="text-primary">{software?.highlight_text}</span>
+      {/* Brand gradient (navy -> blue -> green) across the whole heading. w-fit + mx-auto sizes the gradient to the
+          text itself so all three colours show while centred; it wraps naturally on narrow screens. */}
+      <h2
+        className="w-fit max-w-full mx-auto text-4xl md:text-5xl font-black mb-5 leading-tight text-balance bg-clip-text text-transparent"
+        style={{
+          backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+          WebkitTextFillColor: 'transparent',
+        }}
+      >
+        {software?.title}{" "}{software?.highlight_text}
       </h2>
 
-      <p className="text-gray-600">
+      <p className="text-gray-600 max-w-3xl mx-auto">
         {software?.description}
       </p>
 
     </div>
 
     {/* GRID */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 lg:gap-6">
 
       {[
         { title: software?.product1_title, desc: software?.product1_desc, icon: Briefcase },
