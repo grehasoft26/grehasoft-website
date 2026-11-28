@@ -296,30 +296,34 @@ export default function Clients({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-8 md:mb-10 flex flex-col items-center text-center"
+          className="mb-8 md:mb-10 flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
         >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4 sm:mb-5">
-            <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-xs font-bold text-accent uppercase tracking-widest">
-              Trusted By Industry Leaders
-            </span>
+          {/* Left: badge + heading */}
+          <div className="shrink-0">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4 sm:mb-5">
+              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                Trusted By Industry Leaders
+              </span>
+            </div>
+
+            {/* Solid white heading (the brand gradient starts in navy, which disappears on this navy background). */}
+            <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-[70px] font-black leading-none tracking-[-4px] text-white">
+              Clients
+            </h2>
           </div>
 
-          {/* Heading */}
-          {/* Solid white heading (the brand gradient starts in navy, which disappears on this navy background). */}
-          <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-[70px] font-black leading-none tracking-[-4px] text-center text-white">
-            Clients
-          </h2>
+          {/* Right: description (one line from lg) with the two decorative dots beneath it; vertically centred on
+              the badge + heading block. */}
+          <div className="min-w-0">
+            <p className="text-base sm:text-lg md:text-xl xl:text-2xl text-white/50 font-normal leading-relaxed text-balance lg:whitespace-nowrap">
+              Our clients are everything to us; so are we to them.
+            </p>
 
-          {/* Supporting Text */}
-          <p className="mt-4 sm:mt-5 text-base sm:text-lg md:text-xl lg:text-2xl text-white/50 font-normal leading-relaxed max-w-2xl text-center mx-auto">
-            Our clients are everything to us; so are we to them.
-          </p>
-
-          <div className="flex justify-center gap-2 mt-4 sm:mt-5">
-            <div className="w-2 h-2 rounded-full bg-blue-500" />
-            <div className="w-2 h-2 rounded-full bg-green-400" />
+            <div aria-hidden="true" className="flex gap-2 mt-3">
+              <div className="w-2 h-2 rounded-full bg-blue-500" />
+              <div className="w-2 h-2 rounded-full bg-green-400" />
+            </div>
           </div>
         </motion.div>
 
