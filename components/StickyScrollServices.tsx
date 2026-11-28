@@ -13,7 +13,7 @@ import styles from "./KochiIntroSection.module.css";
  * Home "Our Services" showcase.
  *  - Natural-height responsive slider shared across desktop, tablet, and mobile.
  *  - Desktop (lg+): centered horizontal thumbnail navigation at the top, followed by a two-column
- *    layout (image left, service content right).
+ *    layout (layered service image cards left, service content right).
  *  - Tablet (md): centered horizontal thumbnail navigation at the top, followed by image and text.
  *  - Mobile (< md): compact single-service slider (image → heading → description → CTA
  *    → horizontal circular thumbnail navigation) with left/right touch swipe support.
@@ -24,8 +24,24 @@ import styles from "./KochiIntroSection.module.css";
 const AUTOPLAY_INTERVAL_MS = 4000;
 const SWIPE_THRESHOLD_PX = 40;
 const textTransition = { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const };
-const imageTransition = { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const };
 const offsetY = 16;
+const cardTransition = { duration: 0.75, ease: [0.22, 1, 0.36, 1] as const };
+
+/*
+ * Layered card stage (adapted from the 21st.dev Circular Testimonials layout): the active service image is
+ * the front card; the previous and next services sit behind it, shifted out to each side and up, scaled to
+ * 85% with a slight 3D turn. Every other card is hidden behind the front one. Offsets are percentages of the
+ * card itself, so the stack scales with the stage at every breakpoint. Reduced motion (MotionConfig "user")
+ * drops the movement and keeps the opacity change.
+ */
+type CardPose = { x: string; y: string; scale: number; rotateY: number; opacity: number; zIndex: number };
+function cardPose(index: number, active: number, count: number): CardPose {
+  const offset = (index - active + count) % count;
+  if (offset === 0) return { x: "0%", y: "0%", scale: 1, rotateY: 0, opacity: 1, zIndex: 3 };
+  if (offset === 1) return { x: "16%", y: "-13%", scale: 0.85, rotateY: -14, opacity: 1, zIndex: 2 };
+  if (offset === count - 1) return { x: "-16%", y: "-13%", scale: 0.85, rotateY: 14, opacity: 1, zIndex: 2 };
+  return { x: "0%", y: "-6%", scale: 0.78, rotateY: 0, opacity: 0, zIndex: 1 };
+}
 
 const getImage = (service: any) =>
   service?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
@@ -42,7 +58,7 @@ function ServiceTitle({ title }: { title?: string }) {
 
 function ServiceText({ acf }: { acf: any }) {
   return (
-    <>
+    <div className="flex h-full flex-col">
       {/* The tag badge only shows once a tag is set in WordPress (all are empty today). */}
       {acf?.service_tag && (
         <span className="mb-3 inline-block rounded-full bg-blue-100 px-4 py-1.5 text-xs text-accent sm:mb-4 sm:py-2 sm:text-sm">
@@ -52,10 +68,12 @@ function ServiceText({ acf }: { acf: any }) {
 
       <ServiceTitle title={acf?.hero_title} />
 
-      <p className="mb-5 text-[15px] leading-relaxed text-[#444444] sm:mb-6 sm:text-base xl:mb-7 xl:text-[17px]">
+      <p className="max-w-[36rem] text-[15px] leading-relaxed text-[#444444] sm:text-base">
         {acf?.description}
       </p>
 
+      {/* At least 24px below the description; from lg pinned to the bottom of the shared text cell. */}
+      <div className="pt-5 sm:pt-6 lg:mt-auto">
       <a
         href={toInternalHref(acf?.button_link || "#")}
         className="
@@ -82,7 +100,8 @@ function ServiceText({ acf }: { acf: any }) {
         {/* Horizontal blue gradient (light #3B82F6 to deep #0753F6), deepening slightly on hover. */}
         {acf?.button_text || "Get Started"}
       </a>
-    </>
+      </div>
+    </div>
   );
 }
 
@@ -245,7 +264,7 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
               onTouchEnd={handleTouchEnd}
               onTouchCancel={handleTouchCancel}
             >
-              <div className="grid grid-cols-1 gap-6 sm:gap-7 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center lg:gap-x-12 lg:gap-y-7 xl:gap-x-16 xl:gap-y-8">
+              <div className="grid grid-cols-1 gap-6 sm:gap-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:items-center lg:gap-x-12 lg:gap-y-7 xl:gap-x-16 xl:gap-y-8">
                 {/* Horizontal thumbnail navigation: top on tablet/desktop (md+), bottom on mobile (< md) */}
                 <div className="order-3 px-2 py-3 md:order-1 lg:col-span-2 lg:mb-1">
                   <div
@@ -271,40 +290,54 @@ export default function StickyScrollServices({ initialServices = [] }: { initial
                   </div>
                 </div>
 
-                {/* Image stage: every image stays mounted and crossfades (no reload flashes). */}
-                <div className="order-1 relative aspect-[3/2] w-full overflow-hidden rounded-[22px] bg-[#EEF1F8] shadow-[0_24px_48px_-30px_rgba(5,4,74,0.45)] ring-1 ring-[#05044A]/[0.06] sm:aspect-[16/10] sm:rounded-[28px] md:order-2 lg:aspect-auto lg:h-[clamp(320px,70vh,660px)] lg:shadow-[0_30px_60px_-36px_rgba(5,4,74,0.45)]">
+                {/* Image stage: layered service cards (see cardPose). Every image stays mounted, so changing service
+                    never reloads an image. The stage keeps the previous aspect ratios; the cards sit inside it with
+                    room above and to the sides for the background cards, so nothing overflows. */}
+                <div className="order-1 relative aspect-[3/2] w-full [perspective:1000px] sm:aspect-[16/10] md:order-2 lg:aspect-[4/3]">
+                  {/* Soft brand glow behind the stack */}
+                  <div aria-hidden="true" className="pointer-events-none absolute inset-x-[12%] top-[18%] bottom-[4%] rounded-full bg-[radial-gradient(closest-side,rgba(7,83,246,0.16),rgba(26,183,40,0.08),transparent)] blur-2xl" />
                   {services.map((item, i) => {
                     const isActive = i === activeIndex;
+                    const pose = cardPose(i, activeIndex, services.length);
                     return (
                       <motion.div
                         key={item?.id ?? i}
-                        className="absolute inset-0"
+                        className="absolute inset-x-[9%] top-[13%] bottom-0 overflow-hidden rounded-[18px] sm:inset-x-[11%] lg:inset-x-[9%] bg-[#EEF1F8] ring-1 ring-[#05044A]/[0.08] shadow-[0_24px_48px_-28px_rgba(5,4,74,0.55)] [backface-visibility:hidden] [transform-style:preserve-3d] sm:rounded-[24px]"
                         initial={false}
-                        animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 1.04 }}
-                        transition={imageTransition}
-                        style={{ zIndex: isActive ? 2 : 1 }}
+                        animate={{ x: pose.x, y: pose.y, scale: pose.scale, rotateY: pose.rotateY, opacity: pose.opacity }}
+                        transition={cardTransition}
+                        style={{ zIndex: pose.zIndex }}
                         aria-hidden={!isActive}
                       >
                         <Image
                           src={getImage(item) || "/images/fallback.jpg"}
                           alt={item?.acf?.hero_title || "Service"}
                           fill
-                          sizes="(max-width: 1023px) 92vw, 50vw"
+                          sizes="(max-width: 1023px) 80vw, 40vw"
                           className="object-cover"
+                        />
+                        {/* Background cards are slightly dimmed so the front card reads first */}
+                        <motion.div
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-[#05044A]"
+                          initial={false}
+                          animate={{ opacity: isActive ? 0 : 0.18 }}
+                          transition={cardTransition}
                         />
                       </motion.div>
                     );
                   })}
                 </div>
 
-                {/* Text: all blocks share one grid cell so height never jumps between services */}
+                {/* Text: all blocks share one grid cell (as tall as the longest), so neither the section height nor the
+                    heading/CTA positions jump between services; the cell is vertically centred on the image. */}
                 <div className="order-2 relative z-10 grid min-h-0 md:order-3">
                   {services.map((item, i) => {
                     const isActive = i === activeIndex;
                     return (
                       <motion.div
                         key={item?.id ?? i}
-                        className="[grid-area:1/1] self-start lg:self-center"
+                        className="[grid-area:1/1] h-full"
                         initial={false}
                         animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : offsetY }}
                         transition={textTransition}
