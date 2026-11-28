@@ -58,6 +58,8 @@ export interface ProductsData {
   pms_title_highlight?: string;
   pms_title_part2?: string;
   pms_description?: string;
+  /** The home ACF group currently delivers the description under this key (trailing underscores in the field name). */
+  pms_description___?: string;
   pms_image_url?: string;
   pms_feature1_title?: string;
   pms_feature1_desc?: string;
