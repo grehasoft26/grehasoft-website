@@ -132,10 +132,10 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
   }
 
   return (
-    <section className="section-padding bg-white border-t border-b border-gray-100 overflow-hidden">
+    <section className="py-10 md:py-12 bg-white border-t border-b border-gray-100 overflow-hidden">
       <div className="container-custom relative">
         {/* HEADER */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-8 md:mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
             <Sparkles className="w-4 h-4 text-primary animate-pulse" />
             <span className="text-xs font-bold text-accent uppercase tracking-widest">
@@ -143,7 +143,7 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-dark mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-dark mb-3">
             Our Custom <span className="text-primary">Client Solutions</span>
           </h2>
           <p className="text-gray-600 text-base md:text-lg">
@@ -193,14 +193,17 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
               return (
                 <SwiperSlide key={`${project.id}-${index}`} className="!h-auto flex">
                   <div className="group bg-white border border-gray-100 rounded-box-lg overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full w-full">
-                    {/* IMAGE CONTAINER */}
-                    <div className="relative w-full h-56 sm:h-64 overflow-hidden bg-gray-50">
+                    {/* IMAGE CONTAINER: a consistent 2:1 frame filled with object-cover. Almost all gallery images are
+                        wide 2.0-2.27:1 website screenshots (header at the top), so cover only trims a few percent at the
+                        sides; the few narrower images (e.g. 1.5:1 device mockups) are centred, trimming top and bottom
+                        equally. The previous fixed-height frame with object-contain letterboxed the wide images in grey. */}
+                    <div className="relative w-full aspect-[2/1] overflow-hidden bg-gray-50">
                       <Image
                         src={imageSrc}
                         alt={titleText}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-contain transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
 
