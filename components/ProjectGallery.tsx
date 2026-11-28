@@ -143,8 +143,19 @@ export default function ProjectGallery({ projects = [] }: ProjectGalleryProps) {
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-dark mb-3">
-            Our Custom <span className="text-primary">Client Solutions</span>
+          {/* Brand gradient (navy -> blue -> green) across the whole heading. w-fit + mx-auto sizes the gradient to the
+              text itself, so all three colours show even though the heading is centred. */}
+          <h2
+            className="w-fit max-w-full mx-auto text-4xl md:text-5xl font-bold mb-3 bg-clip-text text-transparent"
+            style={{
+              backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Our Custom Client Solutions
           </h2>
           <p className="text-gray-600 text-base md:text-lg">
             Explore the diversity of projects we have successfully designed, built, and launched.
