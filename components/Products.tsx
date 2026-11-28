@@ -3,9 +3,9 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Layers, Zap, Shield, BarChart, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { toInternalHref } from '@/lib/internal-href';
 import PmsShowcaseSlider from '@/components/home/PmsShowcaseSlider';
+import PmsProductShowcase from '@/components/products/PmsProductShowcase';
 import { useEffect, useState } from 'react';
 
 // ICON MAP (important)
@@ -178,30 +178,10 @@ export default function Products({ data, headingSize = 'default' }: ProductsProp
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative rounded-box-lg overflow-hidden shadow-2xl aspect-[16/10] group">
-             {pms.pms_image_url && (
-              <Image
-                src={pms.pms_image_url}
-                alt="Grehasoft PMS"
-                fill
-                sizes="(max-width: 1023px) 100vw, 600px"
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-              />
-             )}
-
-              {/* BADGE */}
-              <div className="absolute top-8 left-8 p-4 bg-accent rounded-box-sm shadow-xl animate-bounce">
-                <p className="text-xs font-bold uppercase tracking-widest text-white mb-1">
-                  {pms.pms_badge || 'New Version'}
-                </p>
-                <p className="text-xl font-bold text-white">
-                  PMS 2.0
-                </p>
-              </div>
-            </div>
-
-            <div className="absolute -top-20 -left-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl -z-10" />
-            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl -z-10" />
+            {/* Laptop mockup with the real PMS Financial Dashboard plus floating Projects / Clients / Live Monitor
+                panels (local screenshot crops). Replaces the WordPress composite image (pms_image_url) on this page
+                only; the homepage branch above is unchanged. */}
+            <PmsProductShowcase />
           </motion.div>
 
           {/* TEXT */}
@@ -212,31 +192,24 @@ export default function Products({ data, headingSize = 'default' }: ProductsProp
             transition={{ duration: 0.8 }}
           >
 
-            {/* BADGE */}
-           
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
-              <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-xs font-bold text-accent uppercase tracking-widest">
-                {pms.pms_badge}
-              </span>
+            {/* Right-side hierarchy: centred badge + two-line heading, the four features in a 2 x 2 grid, then both
+                CTAs centred underneath. No description paragraph on this page. */}
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-4">
+                <Sparkles className="w-4 h-4 text-primary animate-pulse" />
+                <span className="text-xs font-bold text-accent uppercase tracking-widest">
+                  {pms.pms_badge}
+                </span>
+              </div>
+
+              {/* Sized per breakpoint so the title wraps to exactly two balanced lines in the desktop column. */}
+              <h2 className="mx-auto max-w-[36rem] text-[1.625rem] min-[380px]:text-[1.75rem] sm:text-4xl lg:text-[2rem] xl:text-[2.5rem] font-bold mb-8 lg:mb-9 text-white leading-tight text-balance">
+                {title}
+              </h2>
             </div>
 
-            {/* TITLE */}
-   <div className="w-full">      
-<h2 className="text-4xl md:text-5xl font-bold mb-8 text-white leading-tight">
-  {title}
-</h2>
-
-</div>
-            {/* DESCRIPTION */}
-            {description && (
-              <p className="text-lg text-white/70 mb-10 leading-relaxed">
-                {description}
-              </p>
-            )}
-
-            {/* FEATURES */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
+            {/* FEATURES: 2 x 2 from sm, single column on phones */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 xl:gap-x-8 gap-y-7 mb-9 lg:mb-10">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
@@ -244,8 +217,8 @@ export default function Products({ data, headingSize = 'default' }: ProductsProp
                     <div className="w-12 h-12 rounded-box-sm bg-white/10 flex items-center justify-center text-accent flex-shrink-0">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white mb-2">
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-bold text-white mb-1.5 leading-snug">
                         {feature.title}
                       </h3>
                       <p className="text-sm text-white/60 leading-relaxed">
@@ -257,16 +230,20 @@ export default function Products({ data, headingSize = 'default' }: ProductsProp
               })}
             </div>
 
-            {/* BUTTONS */}
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <Link href={toInternalHref(pms.pms_btn1_link || '#')} className="btn-accent w-full sm:w-auto">
-                {pms.pms_btn1_text}
+            {/* BUTTONS: centred side by side; they wrap onto two lines only when the row is too narrow. The secondary
+                CTA uses the same outlined pill as the homepage PMS section so both buttons share one height. */}
+            <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4">
+              <Link href={toInternalHref(pms.pms_btn1_link || '#')} className="btn-accent whitespace-nowrap">
+                {pms.pms_btn1_text?.trim()}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
 
-              <Link href={toInternalHref(pms.pms_btn2_link || '/contact-us')} className="text-white font-semibold hover:text-accent transition-colors flex items-center gap-2">
-                {pms.pms_btn2_text}
-                <ArrowRight className="w-4 h-4" />
+              <Link
+                href={toInternalHref(pms.pms_btn2_link || '/contact-us')}
+                className="group inline-flex whitespace-nowrap items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-8 py-[11px] font-medium text-white transition-all duration-300 hover:border-white/55 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {pms.pms_btn2_text?.trim()}
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
             </div>
 
