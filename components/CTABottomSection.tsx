@@ -11,13 +11,26 @@ interface CTABottomSectionProps {
   data?: CTAData | null;
 }
 
+// Site-wide CTA copy, set here so every page shows the same text. The WordPress cta_badge, cta_title_* and
+// cta_description fields are no longer read; WordPress still supplies the two buttons (labels and links).
+const CTA_COPY = {
+  badge: 'Ready to Transform?',
+  // Two lines of similar length on desktop: "Build Your Next Digital" / "Solution With Grehasoft".
+  titleLine1: 'Build Your Next Digital',
+  titleLine2: 'Solution With',
+  titleHighlight: 'Grehasoft',
+  // "e-commerce" is kept on one line: browsers otherwise break it at its hyphen.
+  description: (
+    <>
+      Whether you need a business website, <span className="whitespace-nowrap">e-commerce</span> platform, custom
+      software, mobile application, SEO strategy or digital marketing campaign, Grehasoft can help you plan and develop
+      the right digital solution around your business objectives.
+    </>
+  ),
+};
+
+// Button fallbacks, used when the WordPress button fields are empty.
 const DEFAULT_CTA: CTAData = {
-  cta_badge: 'Ready to Transform?',
-  cta_title_part1: "Let's Build Your",
-  cta_title_highlight: 'Digital Future',
-  cta_title_part2: 'Together',
-  cta_description:
-    'Whether you have a specific project in mind or just want to explore the possibilities, our team is ready to help you innovate and grow.',
   cta_btn_link: '/contact-us',
   cta_btn_text: 'Get Started Now',
   cta_btn2_link: '/portfolio',
@@ -66,15 +79,10 @@ function CTAActions({ primary, secondary, className = '' }: ActionsProps) {
 }
 
 export default function CTABottomSection({ data }: CTABottomSectionProps) {
-  // Page-supplied data wins; otherwise use the CTA the root layout loaded server-side.
+  // Buttons: page-supplied data wins; otherwise the CTA the root layout loaded server-side.
   const sharedCta = useCtaData();
   const source = data || sharedCta || {};
   const cta = {
-    badge: pick(source.cta_badge, DEFAULT_CTA.cta_badge),
-    titlePart1: pick(source.cta_title_part1, DEFAULT_CTA.cta_title_part1),
-    titleHighlight: pick(source.cta_title_highlight, DEFAULT_CTA.cta_title_highlight),
-    titlePart2: pick(source.cta_title_part2, DEFAULT_CTA.cta_title_part2),
-    description: pick(source.cta_description, DEFAULT_CTA.cta_description),
     btnText: pick(source.cta_btn_text, DEFAULT_CTA.cta_btn_text),
     btnLink: toInternalHref(pick(source.cta_btn_link, DEFAULT_CTA.cta_btn_link)),
     btn2Text: pick(source.cta_btn2_text, DEFAULT_CTA.cta_btn2_text),
@@ -115,15 +123,15 @@ export default function CTABottomSection({ data }: CTABottomSectionProps) {
           <motion.div
             variants={{ hidden: { opacity: 0, y: 24 }, shown: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.7, ease: EASE }}
-            className="pt-16 pb-12 md:pt-20 lg:col-span-6 lg:py-24"
+            className="pt-12 pb-10 md:pt-14 lg:col-span-6 lg:py-16 xl:py-[4.5rem]"
           >
-            <p className="mb-6 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+            <p className="mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary">
               <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />
-              {cta.badge}
+              {CTA_COPY.badge}
             </p>
 
             <h2
-              className="relative isolate w-fit max-w-full mb-6 pb-1.5 text-[2.125rem] font-bold leading-[1.1] tracking-tight sm:text-[2.75rem] lg:text-[2.25rem] xl:text-[2.75rem] lg:leading-[1.12] bg-clip-text text-transparent"
+              className="relative isolate w-fit max-w-full mb-4 pb-1.5 text-[2rem] font-bold leading-[1.12] tracking-tight sm:text-[2.5rem] lg:text-[2.125rem] xl:text-[2.75rem] text-balance bg-clip-text text-transparent"
               style={{
                 backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
                 backgroundClip: 'text',
@@ -132,8 +140,11 @@ export default function CTABottomSection({ data }: CTABottomSectionProps) {
                 WebkitTextFillColor: 'transparent',
               }}
             >
-              <span className="block">{cta.titlePart1}</span>
-              <span className="block sm:whitespace-nowrap">
+              {/* From lg exactly two lines (each kept on one line); below lg the heading wraps naturally. The
+                  underlined brand name stays on the second line. */}
+              <span className="lg:block lg:whitespace-nowrap">{CTA_COPY.titleLine1}</span>{' '}
+              <span className="lg:block lg:whitespace-nowrap">
+                {CTA_COPY.titleLine2}{' '}
                 <span className="relative inline whitespace-nowrap">
                   <motion.span
                     aria-hidden="true"
@@ -141,14 +152,13 @@ export default function CTABottomSection({ data }: CTABottomSectionProps) {
                     transition={{ duration: 0.8, delay: 0.45, ease: EASE }}
                     className="absolute inset-x-[-0.06em] bottom-[0.08em] -z-10 h-[0.32em] origin-left rounded-sm bg-accent/30"
                   />
-                  {cta.titleHighlight}
-                </span>{' '}
-                {cta.titlePart2}
+                  {CTA_COPY.titleHighlight}
+                </span>
               </span>
             </h2>
 
-            <p className="max-w-[34rem] text-base leading-relaxed text-text-gray md:text-lg">
-              {cta.description}
+            <p className="max-w-[36rem] text-base leading-relaxed text-text-gray md:text-lg text-pretty">
+              {CTA_COPY.description}
             </p>
           </motion.div>
 
@@ -165,7 +175,7 @@ export default function CTABottomSection({ data }: CTABottomSectionProps) {
         {/* Tablet & mobile: the blue plane becomes a band under the text, cut along its top edge */}
         <div className="relative bg-[linear-gradient(135deg,#0753F6_0%,#0644D0_100%)] [clip-path:polygon(0_2.5rem,100%_0,100%_100%,0_100%)] lg:hidden">
           <div aria-hidden="true" className="absolute inset-0" style={gridLines('rgba(255,255,255,0.08)')} />
-          <div className="container-custom relative pt-20 pb-14">
+          <div className="container-custom relative pt-16 pb-12">
             <CTAActions {...actions} className="sm:flex-row sm:justify-center" />
           </div>
         </div>
