@@ -131,7 +131,8 @@ export default function Portfolio({
         );
 
   return (
-    <section className="section-padding bg-gray-50">
+    <section className={isFullPage ? "py-10 md:py-12 bg-gray-50" : "section-padding bg-gray-50"}>
+      {/* The full portfolio page uses tighter vertical padding (40 / 48px); the homepage keeps section-padding. */}
       <div className="container-custom">
         {/* HEADER */}
         {/* Homepage instance: a two-row grid. Row 1 holds the eyebrow + H2 on the left and the controls on the right,
@@ -142,7 +143,7 @@ export default function Portfolio({
           className={
             isHome
               ? "grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-x-10 mb-9 md:mb-10"
-              : "flex flex-col md:flex-row items-end justify-between mb-16 gap-8"
+              : "flex flex-col md:flex-row items-end justify-between mb-8 md:mb-10 gap-8"
           }
         >
           {isHome ? (
@@ -175,7 +176,8 @@ export default function Portfolio({
             </p>
             </>
           ) : (
-            <div className="max-w-2xl">
+            <div className="max-w-2xl xl:max-w-none">
+              {/* Full portfolio page: from xl the heading may use the width beside the arrows (one line at 48px). */}
                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full mb-5">
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
                 <span className="text-xs font-bold text-accent uppercase tracking-widest">
@@ -184,7 +186,7 @@ export default function Portfolio({
               </div>
 
               <h2
-                className="w-fit max-w-full text-4xl md:text-5xl font-bold leading-[1.15] pb-1.5 bg-clip-text text-transparent"
+                className="w-fit max-w-full text-4xl md:text-5xl font-bold leading-[1.15] pb-1.5 text-balance bg-clip-text text-transparent"
                 style={{
                   backgroundImage: 'linear-gradient(90deg, #05044A 0%, #0753F6 50%, #1AB728 100%)',
                   backgroundClip: 'text',
@@ -193,9 +195,7 @@ export default function Portfolio({
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                Case Studies of Our
-                <br className="hidden lg:block" />{" "}
-                Successful Projects
+                Case Studies of Our Successful Projects
               </h2>
             </div>
           )}
@@ -260,7 +260,7 @@ export default function Portfolio({
 
         {/* CATEGORY FILTERS */}
         {showFilters && (
-          <div className="flex flex-wrap gap-4 mb-14">
+          <div className="flex flex-wrap gap-4 mb-8 md:mb-10">
             <button
               onClick={() =>
                 setActiveCategory("All")
